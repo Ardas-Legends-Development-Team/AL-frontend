@@ -11,23 +11,24 @@ module.exports = {
         logs: true,
         rtl: false,
         themes: [
+          "luxury",
           {
-            mytheme: {
-              primary: "#6419E6",
+            lotr: {
+              primary: "#9b6311",
 
-              secondary: "#c084fc",
+              secondary: "#e7b039",
 
-              accent: "#6b21a8",
+              accent: "#136014",
 
-              neutral: "#191D24",
+              neutral: "#20272d",
 
-              "base-100": "#2A303C",
+              "base-100": "#181b21",
 
-              info: "#881337",
+              info: "#136988",
 
               success: "#84cc16",
 
-              warning: "#f97316",
+              warning: "#f96d16",
 
               error: "#dc2626",
             },

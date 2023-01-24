@@ -17,7 +17,7 @@ module.exports = {
         "no-undef": "off",
         "no-duplicate-imports": "error",
         "no-unreachable": "error",
-        "no-unused-vars": "error",
+        "no-unused-vars": "warn",
         "camelcase": "warn",
         "default-case": "error",
         "default-param-last": "warn",
