@@ -18,7 +18,7 @@
         </div>
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <img src="https://placeimg.com/80/80/people" alt="avatar" />
+            <img src="https://placeimg.com/80/80/people/sepia" alt="avatar" />
           </label>
           <ul
             tabindex="0"
