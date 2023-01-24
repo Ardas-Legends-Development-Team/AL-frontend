@@ -1,7 +1,3 @@
-/* eslint-env node */
 module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: [require("tailwindcss"), require("autoprefixer")],
 };

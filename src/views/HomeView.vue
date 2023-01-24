@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import TestNavbar from "@/components/TestNavbar.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 </script>
 
 <template>
   <main>
-    <!-- <HelloWorld msg="Hello from HomeView.vue" /> -->
-    <TestNavbar />
+    <HelloWorld msg="Hello from HomeView.vue" />
   </main>
 </template>

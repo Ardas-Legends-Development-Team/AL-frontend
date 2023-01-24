@@ -1,9 +1,14 @@
-<script setup lang="ts"></script>
+<script>
+import { defineComponent } from "vue";
+import TestNavbar from "@/components/TestNavbar.vue";
+
+export default defineComponent({
+  components: { TestNavbar },
+});
+</script>
 
 <template>
-  <p>
-    <router-link to="/">Go to Home</router-link>
-  </p>
+  <TestNavbar />
 
   <router-view />
 </template>
