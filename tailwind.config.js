@@ -23,9 +23,9 @@ module.exports = {
           ...require("daisyui/src/colors/themes")["[data-theme=luxury]"],
           primary: "#9b6311",
 
-          secondary: "#e7b039",
+          secondary: "#dad5c8",
 
-          accent: "#136014",
+          accent: "#e0a82e",
 
           neutral: "#20272d",
 
@@ -40,7 +40,6 @@ module.exports = {
           error: "#dc2626",
         },
       },
-      "luxury",
     ],
   },
 };
