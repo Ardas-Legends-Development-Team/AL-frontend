@@ -1,7 +1,7 @@
 import "node-fetch";
 import "form-data";
 
-module.exports.Client = class Client {
+export default class Client {
   private readonly clientId: string;
   private readonly clientSecret: string;
   private redirectUri: string;
@@ -99,4 +99,4 @@ module.exports.Client = class Client {
 
     return await res.json();
   };
-};
+}
