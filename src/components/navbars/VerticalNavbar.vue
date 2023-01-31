@@ -29,13 +29,7 @@
         <div class="flex items-center justify-between">
           <div class="w-32">
             <router-link to="/">
-              <a>
-                <img
-                  class="w-full"
-                  src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=1193&height=671"
-                  alt="quicklist logo"
-                />
-              </a>
+              <a class="btn normal-case text-primary">Arda's Legends</a>
             </router-link>
           </div>
           <div
@@ -83,7 +77,9 @@
                   <rect x="4" y="8" width="6" height="12" rx="2"></rect>
                   <rect x="14" y="8" width="6" height="6" rx="2"></rect>
                 </svg>
-                <p class="mt-1 uppercase font-semibold text-xs">Lists</p>
+                <p class="mt-1 uppercase font-semibold text-xs text-primary">
+                  Lists
+                </p>
               </a>
             </router-link>
           </li>
