@@ -14,7 +14,7 @@ export default defineComponent({
     <VerticalNavbar />
   </header>
   <body>
-    <div class="relative z-0 mx-64 bg-base-300">
+    <div class="relative z-0 mx-60 bg-base-300">
       <router-view />
     </div>
   </body>
