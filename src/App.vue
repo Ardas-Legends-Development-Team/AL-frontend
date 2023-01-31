@@ -9,6 +9,8 @@ export default defineComponent({
 
 <template>
   <header>
+  <div v-if="isLoggedIn === true">
+  <header>
     <TestNavbar />
     <VerticalNavbar />
   </header>
@@ -17,6 +19,14 @@ export default defineComponent({
       <router-view />
     </main>
     <FooterBar />
+    <VerticalNavbar />
+  </header>
+  <body>
+    <div class="relative z-0 mx-64 bg-base-300">
+      <router-view />
+    </div>
+  </body>
+  <footer></footer>
   </div>
 </template>
 
