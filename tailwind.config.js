@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "horizontal-navbar-background":
-          "url('https://media.discordapp.net/attachments/1069933973448441928/1070023420630269962/M1UyKQ2rvQdZ5TsNxnaS--3--nbmzv_6x.jpg?width=1440&height=291')",
+          "url('https://media.discordapp.net/attachments/1069933973448441928/1070026186941530274/M1UyKQ2rvQdZ5TsNxnaS-3-nbmzv-transformed.jpeg?width=1440&height=352')",
       },
     },
   },
