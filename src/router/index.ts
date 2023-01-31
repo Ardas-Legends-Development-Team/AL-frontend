@@ -5,6 +5,10 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      redirect: "/lists",
+    },
+    {
+      path: "/home",
       name: "Home",
       component: () => import("@/views/Homeview.vue"),
     },
@@ -12,6 +16,11 @@ const router = createRouter({
       path: "/lists",
       name: "Lists",
       component: () => import("@/views/ListsView.vue"),
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: () => import("@/views/NotFoundView.vue"),
     },
   ],
 });

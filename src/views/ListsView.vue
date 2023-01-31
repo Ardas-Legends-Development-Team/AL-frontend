@@ -1,5 +1,9 @@
 <template>
-  <p>lorem</p>
+  <div>
+    <RoleplayDataCard />
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RoleplayDataCard from "@/components/lists/RoleplayDataCard.vue";
+</script>

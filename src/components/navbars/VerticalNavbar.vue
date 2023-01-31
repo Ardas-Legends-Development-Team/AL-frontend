@@ -28,7 +28,7 @@
       <div class="px-8">
         <div class="flex items-center justify-between">
           <div class="w-32">
-            <router-link to="/">
+            <router-link to="/home">
               <a class="btn normal-case text-primary">Arda's Legends</a>
             </router-link>
           </div>
