@@ -12,8 +12,8 @@ This web app is going to be the main access point into the Arda's Legend's rolep
 
 ## Tools Used
 
--Languages: Typescript, HTML
--Frameworks: Vite for Vue 3, TailwindCSS, Node.js
--Libraries: Vitest, DaisyUI
--Plugins: Vue router, Vuex
+- Languages: Typescript, HTML
+- Frameworks: Vite for Vue 3, TailwindCSS, Node.js
+- Libraries: Vitest, DaisyUI
+- Plugins: Vue router, Vuex
 
