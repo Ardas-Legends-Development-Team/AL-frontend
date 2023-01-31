@@ -12,6 +12,7 @@ module.exports = {
     themes: [
       {
         lotr: {
+          ...require("daisyui/src/colors/themes")["[data-theme=luxury]"],
           primary: "#9b6311",
 
           secondary: "#e7b039",

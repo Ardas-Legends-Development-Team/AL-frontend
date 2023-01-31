@@ -1,14 +1,22 @@
 <script>
 import { defineComponent } from "vue";
-import TestNavbar from "@/components/TestNavbar.vue";
+import TestNavbar from "@/components/navbars/HorizontalNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 
 export default defineComponent({
-  components: { TestNavbar },
+  components: { VerticalNavbar, TestNavbar },
 });
 </script>
 
 <template>
-  <TestNavbar />
-
-  <router-view />
+  <header>
+    <TestNavbar />
+    <VerticalNavbar />
+  </header>
+  <body>
+    <div class="relative z-0 mx-64 bg-base-300">
+      <router-view />
+    </div>
+  </body>
+  <footer></footer>
 </template>
