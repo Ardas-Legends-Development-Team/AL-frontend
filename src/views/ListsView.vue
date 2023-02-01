@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-height-full">
     <RoleplayDataCard />
   </div>
 </template>
