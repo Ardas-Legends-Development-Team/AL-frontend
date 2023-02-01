@@ -1,9 +1,10 @@
 <script>
 import { defineComponent } from "vue";
-import TestNavbar from "@/components/TestNavbar.vue";
+import TestNavbar from "@/components/navbars/HorizontalNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 
 export default defineComponent({
-  components: { TestNavbar },
+  components: { VerticalNavbar, TestNavbar },
 });
 </script>
 
