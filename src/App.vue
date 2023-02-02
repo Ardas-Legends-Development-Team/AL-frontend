@@ -9,8 +9,10 @@ import FooterBar from "@/components/navbars/FooterBar.vue";
     <TestNavbar />
     <VerticalNavbar />
   </header>
-  <main class="relative min-h-screen py-12 z-0 mx-60 bg-base-300">
-    <router-view />
-  </main>
-  <FooterBar />
+  <div class="relative min-h-screen flex flex-col">
+    <main class="py-12 min-h-full z-0 mx-60 bg-base-300 flex-grow">
+      <router-view />
+    </main>
+    <FooterBar />
+  </div>
 </template>
