@@ -34,6 +34,11 @@ export default class AuthenticationClient {
   };
 
   getToken = async (code: string) => {
+    console.log(this.scopes[0]);
+    console.log(this.redirectUri);
+    console.log(code);
+    console.log(this.clientId);
+    console.log(this.clientSecret);
     if (
       this.scopes[0] &&
       this.redirectUri &&
@@ -41,19 +46,24 @@ export default class AuthenticationClient {
       this.clientId &&
       this.clientSecret
     ) {
-      const formData = new FormData();
-      formData.append("client_id", this.clientId);
-      formData.append("client_secret", this.clientSecret);
-      formData.append("grant_type", "authorization_code");
-      formData.append("code", code);
-      formData.append("redirect_uri", this.redirectUri);
-      formData.append("scope", this.scopes.join(" "));
       const res = await fetch(`https://discord.com/api/oauth2/token`, {
         method: "POST",
-        body: formData,
+        body: new URLSearchParams({
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+          code,
+          grant_type: `authorization_code`,
+          redirect_uri: this.redirectUri,
+          scope: this.scopes.join(" "),
+        }).toString(),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
 
-      return await res.json();
+      const authData = await res.json();
+      console.log("AUTH DATA: ", authData);
+      return authData;
     } else {
       throw new Error("Required values weren't specified.");
     }
