@@ -34,11 +34,6 @@ export default class AuthenticationClient {
   };
 
   getToken = async (code: string) => {
-    console.log(this.scopes[0]);
-    console.log(this.redirectUri);
-    console.log(code);
-    console.log(this.clientId);
-    console.log(this.clientSecret);
     if (
       this.scopes[0] &&
       this.redirectUri &&
@@ -61,9 +56,7 @@ export default class AuthenticationClient {
         },
       });
 
-      const authData = await res.json();
-      console.log("AUTH DATA: ", authData);
-      return authData;
+      return await res.json();
     } else {
       throw new Error("Required values weren't specified.");
     }
