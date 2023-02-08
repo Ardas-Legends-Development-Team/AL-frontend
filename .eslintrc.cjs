@@ -24,8 +24,8 @@ module.exports = {
         "eqeqeq": "error",
         "new-cap": "error",
         "no-floating-decimal": "error",
-        "no-invalid-this": "error",
-        "no-multi-spaces": "error",
+        "no-invalid-this": "warn",
+        "no-multi-spaces": "warn",
         "prefer-const": "error",
 
 
