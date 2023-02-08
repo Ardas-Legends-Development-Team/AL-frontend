@@ -62,7 +62,13 @@ export default class AuthenticationClient {
     }
   };
 
-  getUser = async (token: any) => {
+  getUser = async (token: {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    refresh_token: string;
+    scope: string;
+  }) => {
     const tokenType = token.token_type;
     const accessToken = token.access_token;
     const res = await fetch("https://discord.com/api/users/@me", {
@@ -74,7 +80,13 @@ export default class AuthenticationClient {
     return await res.json();
   };
 
-  getUserConnections = async (token: any) => {
+  getUserConnections = async (token: {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    refresh_token: string;
+    scope: string;
+  }) => {
     const tokenType = token.token_type;
     const accessToken = token.access_token;
 
@@ -87,7 +99,13 @@ export default class AuthenticationClient {
     return await res.json();
   };
 
-  getUserGuilds = async (token: any) => {
+  getUserGuilds = async (token: {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    refresh_token: string;
+    scope: string;
+  }) => {
     const tokenType = token.token_type;
     const accessToken = token.access_token;
 
