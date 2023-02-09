@@ -1,6 +1,6 @@
 <template>
   <div class="card w-96 bg-base-100 shadow-xl mx-10 my-10">
-    <router-link to="/home">
+    <router-link to="/lists/roleplay_characters">
       <div class="card-body">
         <h2 class="card-title">Roleplay Characters</h2>
         <p>Heroes, monsters and legends of all sorts can be found here</p>

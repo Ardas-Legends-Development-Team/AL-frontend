@@ -10,7 +10,7 @@ import FooterBar from "@/components/navbars/FooterBar.vue";
     <VerticalNavbar />
   </header>
   <div class="relative min-h-screen flex flex-col">
-    <main class="py-12 min-h-full z-0 mx-60 bg-base-300 flex-grow">
+    <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
       <router-view />
     </main>
     <FooterBar />

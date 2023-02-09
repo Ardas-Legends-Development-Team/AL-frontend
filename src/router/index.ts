@@ -4,8 +4,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: () => import("@/views/NotFoundView.vue"),
+    },
+    {
       path: "/",
-      redirect: "/lists",
+      redirect: "/home",
     },
     {
       path: "/home",
@@ -18,9 +23,9 @@ const router = createRouter({
       component: () => import("@/views/ListsView.vue"),
     },
     {
-      path: "/:pathMatch(.*)*",
-      name: "NotFound",
-      component: () => import("@/views/NotFoundView.vue"),
+      path: "/lists/roleplay_characters",
+      name: "RoleplayCharactersList",
+      component: () => import("@/views/RoleplayCharactersListView.vue"),
     },
   ],
 });
