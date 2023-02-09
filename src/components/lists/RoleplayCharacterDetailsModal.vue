@@ -27,6 +27,16 @@
           </p>
         </div>
         <div
+          v-if="props.selectedCharacter.rpChar.injured"
+          class="divider"
+        ></div>
+        <div
+          v-if="props.selectedCharacter.rpChar.injured"
+          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+        >
+          <p class="font-medium">Character is injured</p>
+        </div>
+        <div
           v-if="props.selectedCharacter.rpChar.isHealing"
           class="divider"
         ></div>
@@ -52,12 +62,10 @@
 import { defineProps } from "vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 
-console.log("RoleplayCharacterDetailsModal loaded");
 const props = defineProps({
   selectedCharacter: {
     type: Object as () => RoleplayCharacter,
     required: true,
   },
 });
-console.log(props.selectedCharacter);
 </script>
