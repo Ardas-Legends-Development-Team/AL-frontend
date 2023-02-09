@@ -1,107 +1,91 @@
 <template>
-  <div class="overflow-x-auto">
-    <table
-      class="table table-zebra min-w-full divide-y divide-gray-200 relative"
-    >
-      <!-- head -->
-      <thead>
-        <tr>
-          <th>IGN & Faction</th>
-          <th>Name & Title</th>
-          <th>Gear</th>
-          <th>Current Region</th>
-          <th>Injured</th>
-          <th>Is Healing</th>
-          <th>Started Heal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          class="hover"
-          v-for="roleplayCharacter in roleplayCharacters"
-          :key="roleplayCharacter.ign"
-        >
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="mask mask-squircle w-12 h-12">
-                  <img
-                    :src="`https://mc-heads.net/avatar/${roleplayCharacter.ign}/36`"
-                    alt="Avatar"
-                  />
-                </div>
-              </div>
-              <div>
-                <div class="font-bold">IGN {{ roleplayCharacter.ign }}</div>
-                <div class="text-sm opacity-70">
-                  Faction {{ roleplayCharacter.faction }}
-                </div>
+  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th class="sticky top-0">IGN & Faction</th>
+        <th class="sticky top-0">Name & Title</th>
+        <th class="sticky top-0">Current Region</th>
+        <th class="sticky top-0"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="hover"
+        v-for="roleplayCharacter in roleplayCharacters"
+        :key="roleplayCharacter.ign"
+      >
+        <td>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img
+                  :src="`https://mc-heads.net/avatar/${roleplayCharacter.ign}/36`"
+                  alt="Avatar"
+                />
               </div>
             </div>
-          </td>
-          <td>
-            RPNAME {{ roleplayCharacter.rpChar.name }}
-            <br />
-            <span class="badge badge-ghost badge-sm"
-              >TITLE {{ roleplayCharacter.rpChar.title }}</span
-            >
-          </td>
-          <td>
-            GEAR {{ roleplayCharacter.rpChar.gear }}
-            <br />
-            <span class="badge badge-ghost badge-sm"
-              >PVP {{ roleplayCharacter.rpChar.pvp }}</span
-            >
-          </td>
-          <th>
-            <p class="font-medium">
-              CURRENT REGION {{ roleplayCharacter.rpChar.currentRegion }}
-            </p>
-            <span class="badge badge-ghost badge-sm"
-              >Bound To {{ roleplayCharacter.rpChar.boundTo }}</span
-            >
-          </th>
-          <th>
-            <p class="font-normal">
-              Injured: {{ roleplayCharacter.rpChar.injured }}
-            </p>
-          </th>
-          <th>
-            <p class="font-normal">
-              Is Healing: {{ roleplayCharacter.rpChar.isHealing }}
-            </p>
-          </th>
-          <th>
-            Started Heal: {{ roleplayCharacter.rpChar.startedHeal }}
-            <br />
-            <span class="badge badge-ghost badge-sm"
-              >Heal Ends: {{ roleplayCharacter.rpChar.healEnds }}</span
-            >
-          </th>
-        </tr>
-      </tbody>
-      <!-- foot -->
-      <tfoot>
-        <tr>
-          <th>IGN & Faction</th>
-          <th>Name & Title</th>
-          <th>Gear</th>
-          <th>Current Region</th>
-          <th>Injured</th>
-          <th>Is Healing</th>
-          <th>Started Heal</th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+            <div>
+              <div class="font-bold">IGN {{ roleplayCharacter.ign }}</div>
+              <div class="text-sm opacity-70">
+                Faction {{ roleplayCharacter.faction }}
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          RPNAME {{ roleplayCharacter.rpChar.name }}
+          <br />
+          <span class="badge badge-ghost badge-sm"
+            >TITLE {{ roleplayCharacter.rpChar.title }}</span
+          >
+        </td>
+        <th>
+          <p class="font-medium">
+            CURRENT REGION {{ roleplayCharacter.rpChar.currentRegion }}
+          </p>
+        </th>
+        <th>
+          <a
+            href="#roleplayCharacterDetails"
+            class="btn"
+            @click="sendInfoToModal(roleplayCharacter)"
+            >Details</a
+          >
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <RoleplayCharacterDetailsModal
+    id="roleplayCharacterDetails"
+    :selectedCharacter="selectedCharacter"
+  />
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
+import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
 
 const roleplayCharacters = ref<RoleplayCharacter[]>([]);
+const selectedCharacter = ref<RoleplayCharacter>({
+  discordId: "",
+  ign: "",
+  faction: "",
+  rpChar: {
+    name: "",
+    title: "",
+    gear: "",
+    pvp: false,
+    currentRegion: "",
+    boundTo: "",
+    injured: false,
+    isHealing: false,
+    startedHeal: "",
+    healEnds: "",
+  },
+});
 
 async function getMockData(): Promise<RoleplayCharacter[]> {
   const params = {
@@ -118,6 +102,10 @@ async function getMockData(): Promise<RoleplayCharacter[]> {
         reject(error);
       });
   });
+}
+
+function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
+  selectedCharacter.value = roleplayCharacter;
 }
 
 getMockData().then((data: any) => {
