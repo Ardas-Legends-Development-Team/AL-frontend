@@ -1,7 +1,11 @@
 <template>
   <div class="modal">
     <div class="modal-box">
-      <a href="#" class="btn btn-sm btn-circle absolute right-2 top-2">✕</a>
+      <a
+        href="#"
+        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        >✕</a
+      >
       <h3 class="font-bold text-lg">{{ props.selectedCharacter.ign }}</h3>
       <div class="flex flex-col w-full mt-4">
         <div
@@ -59,7 +63,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 
 const props = defineProps({

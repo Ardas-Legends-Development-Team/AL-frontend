@@ -1,40 +1,24 @@
-<script>
-import { defineComponent } from "vue";
-import TestNavbar from "@/components/navbars/HorizontalNavbar.vue";
-import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
-
-export default defineComponent({
-  components: { VerticalNavbar, TestNavbar },
-});
-</script>
-
 <template>
-  <header>
   <div v-if="isLoggedIn === true">
-  <header>
-    <TestNavbar />
-    <VerticalNavbar />
-  </header>
-  <div class="relative min-h-screen flex flex-col">
-    <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
-      <router-view />
-    </main>
-    <FooterBar />
-    <VerticalNavbar />
-  </header>
-  <body>
-    <div class="relative z-0 mx-64 bg-base-300">
-      <router-view />
+    <header>
+      <HorizontalNavbar />
+      <VerticalNavbar />
+    </header>
+    <div class="relative min-h-screen flex flex-col">
+      <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
+        <router-view />
+      </main>
+      <FooterBar />
     </div>
-  </body>
-  <footer></footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import AuthenticationClient from "@/ts/authenticationClient";
+import FooterBar from "@/components/navbars/FooterBar.vue";
+import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
-import TestNavbar from "@/components/TestNavbar.vue";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
