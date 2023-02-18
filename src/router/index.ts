@@ -27,6 +27,11 @@ const router = createRouter({
       name: "RoleplayCharactersList",
       component: () => import("@/views/RoleplayCharactersListView.vue"),
     },
+    {
+      path: "/lists/regions",
+      name: "RegionsList",
+      component: () => import("@/views/RegionListView.vue"),
+    },
   ],
 });
 
