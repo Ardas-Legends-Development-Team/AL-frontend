@@ -1,13 +1,31 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: () => import("@/views/NotFoundView.vue"),
+    },
+    {
       path: "/",
+      redirect: "/home",
+    },
+    {
+      path: "/home",
       name: "Home",
-      component: HomeView,
+      component: () => import("@/views/Homeview.vue"),
+    },
+    {
+      path: "/lists",
+      name: "Lists",
+      component: () => import("@/views/ListsView.vue"),
+    },
+    {
+      path: "/lists/roleplay_characters",
+      name: "RoleplayCharactersList",
+      component: () => import("@/views/RoleplayCharactersListView.vue"),
     },
   ],
 });

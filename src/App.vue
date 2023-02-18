@@ -1,17 +1,24 @@
 <template>
   <div v-if="isLoggedIn === true">
-    <TestNavbar />
-  </div>
-
-  <div v-if="isLoggedIn === true">
-    <router-view />
+    <header>
+      <HorizontalNavbar />
+      <VerticalNavbar />
+    </header>
+    <div class="relative min-h-screen flex flex-col">
+      <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
+        <router-view />
+      </main>
+      <FooterBar />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import AuthenticationClient from "@/ts/authenticationClient";
+import FooterBar from "@/components/navbars/FooterBar.vue";
+import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
-import TestNavbar from "@/components/TestNavbar.vue";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);

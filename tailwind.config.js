@@ -3,6 +3,14 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   plugins: [require("daisyui")],
+  theme: {
+    extend: {
+      backgroundImage: {
+        "horizontal-navbar-background":
+          "url('https://media.discordapp.net/attachments/1069933973448441928/1070026186941530274/M1UyKQ2rvQdZ5TsNxnaS-3-nbmzv-transformed.jpeg?width=1440&height=352')",
+      },
+    },
+  },
   daisyui: {
     styled: true,
     base: false,
