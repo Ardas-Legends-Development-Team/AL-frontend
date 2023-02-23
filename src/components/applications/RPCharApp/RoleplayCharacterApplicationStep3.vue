@@ -35,19 +35,28 @@
     <button class="btn btn-outline" @click="previousStep()">
       Previous page
     </button>
-    <button class="btn btn-outline" @click="nextStep()">
+    <button
+      :disabled="isFormFilled"
+      class="btn btn-outline"
+      @click="nextStep()"
+    >
       Submit Application
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 
 const gear = ref<string>("");
 const summary = ref<string>("");
+
+const isFormFilled = computed(() => {
+  console.log(gear.value, summary.value);
+  return gear.value && !summary.value;
+});
 
 function nextStep() {
   emit("nextStep", {

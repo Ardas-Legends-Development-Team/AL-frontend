@@ -36,19 +36,34 @@
     <button class="btn btn-outline" @click="previousStep()">
       Previous page
     </button>
-    <button class="btn btn-outline" @click="nextStep()">Next</button>
+    <button
+      :disabled="isFormFilled"
+      class="btn btn-outline"
+      @click="nextStep()"
+    >
+      Next
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const factions = ref<String[]>([]);
 const title = ref<string>("");
 const reason = ref<string>("");
 const faction = ref<string>("Your faction");
+
+const isFormFilled = computed(() => {
+  return (
+    factions.value &&
+    title.value &&
+    reason.value &&
+    faction.value === "Your faction"
+  );
+});
 
 function loadFactions() {
   axios

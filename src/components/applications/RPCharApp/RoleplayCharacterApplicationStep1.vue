@@ -4,6 +4,7 @@
 
     <div class="relative">
       <input
+        required
         type="text"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
         placeholder="In-game name"
@@ -29,16 +30,30 @@
       <option>PvE</option>
     </select>
   </div>
-  <button class="btn btn-outline w-full" @click="nextStep()">Next</button>
+  <button
+    :disabled="!isFormFilled"
+    class="btn btn-outline w-full"
+    @click="nextStep()"
+  >
+    Next
+  </button>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const ign = ref<string>("");
 const charName = ref<string>("");
 const preference = ref<string>("Your in-game preference");
+
+const isFormFilled = computed(() => {
+  return (
+    ign.value &&
+    charName.value &&
+    preference.value !== "Your in-game preference"
+  );
+});
 
 function nextStep() {
   emit("nextStep", {
