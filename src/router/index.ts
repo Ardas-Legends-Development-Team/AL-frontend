@@ -37,6 +37,12 @@ const router = createRouter({
       name: "RoleplayCharacterApplication",
       component: () => import("@/views/RoleplayCharacterApplicationView.vue"),
     },
+    {
+      path: "/applications/roleplay_character/end",
+      name: "RoleplayCharacterApplicationEnd",
+      component: () =>
+        import("@/views/RoleplayCharacterApplicationEndView.vue"),
+    },
   ],
 });
 

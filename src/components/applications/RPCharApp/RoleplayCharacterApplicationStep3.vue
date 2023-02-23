@@ -35,7 +35,9 @@
     <button class="btn btn-outline" @click="previousStep()">
       Previous page
     </button>
-    <button class="btn btn-outline" @click="nextStep()">Next</button>
+    <button class="btn btn-outline" @click="nextStep()">
+      Submit Application
+    </button>
   </div>
 </template>
 
