@@ -12,18 +12,18 @@
         </p>
       </div>
 
-      <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
-        <RoleplayCharacterApplicationStep3 />
-        <div class="btn-group grid grid-cols-2">
-          <button class="btn btn-outline">Previous page</button>
-          <button class="btn btn-outline">Next</button>
-        </div>
+      <div class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+        <component
+          :is="steps[currentStep]"
+          @nextStep="nextStep"
+          @previousStep="previousStep"
+        ></component>
         <progress
           class="progress progress-primary w-full"
           value="100"
           max="100"
         ></progress>
-      </form>
+      </div>
     </div>
 
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
 import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
@@ -46,4 +47,29 @@ const steps = [
   RoleplayCharacterApplicationStep2,
   RoleplayCharacterApplicationStep3,
 ];
+
+const currentStep = ref(0);
+
+function nextStep(formData: any) {
+  currentStep.value++;
+  console.log(formData);
+  switch (formData.step) {
+    case 1:
+      // do something
+      break;
+    case 2:
+      // do something
+      break;
+    case 3:
+      // do something
+      break;
+    default:
+      // do something
+      break;
+  }
+}
+
+function previousStep() {
+  currentStep.value--;
+}
 </script>
