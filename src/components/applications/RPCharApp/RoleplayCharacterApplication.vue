@@ -13,7 +13,7 @@
       </div>
 
       <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
-        <RoleplayCharacterApplicationStep1 />
+        <RoleplayCharacterApplicationStep3 />
         <div class="btn-group grid grid-cols-2">
           <button class="btn btn-outline">Previous page</button>
           <button class="btn btn-outline">Next</button>
@@ -37,5 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import RoleplayCharacterApplicationStep1 from "@/components/applications/RoleplayCharacterApplicationStep1.vue";
+import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
+import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
+import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
+
+const steps = [
+  RoleplayCharacterApplicationStep1,
+  RoleplayCharacterApplicationStep2,
+  RoleplayCharacterApplicationStep3,
+];
 </script>
