@@ -46,11 +46,11 @@
           </p>
         </th>
         <th>
-          <a
-            href="#roleplayCharacterDetails"
+          <label
+            for="rpCharDetailsModal"
             class="btn"
             @click="sendInfoToModal(roleplayCharacter)"
-            >Details</a
+            >open modal</label
           >
         </th>
       </tr>

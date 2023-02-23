@@ -21,7 +21,7 @@ import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
 
 const serverId = "668590304487800832";
-const isLoggedIn = ref(false);
+const isLoggedIn = ref(true);
 const client = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
@@ -67,8 +67,8 @@ function getUsername(token: any) {
   });
 }
 
-loginUser(getCodeFromUrl()).then((token) => {
+/*loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
-});
+});*/
 </script>
