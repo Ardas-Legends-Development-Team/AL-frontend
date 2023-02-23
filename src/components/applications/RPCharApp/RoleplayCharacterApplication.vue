@@ -20,7 +20,7 @@
         ></component>
         <progress
           class="progress progress-primary w-full"
-          value="100"
+          :value="formProgress"
           max="100"
         ></progress>
       </div>
@@ -56,6 +56,7 @@ const stepsImages = ref<String[]>([
   "https://cdn.discordapp.com/attachments/1068863871772790865/1070856213241282560/RBOYLE_male_dark_color_hard_rim_light_ray_tracing_side_profile__3ac5305c-2db5-477d-bb0e-c2d9b63357cb.png",
 ]);
 
+const formProgress = ref(0);
 const currentStep = ref(0);
 const formData = {
   ign: "",
@@ -70,6 +71,7 @@ const formData = {
 
 function nextStep(formInput: any) {
   currentStep.value++;
+  formProgress.value += 33;
   console.log(formInput);
   switch (formInput.step) {
     case 1:
@@ -99,5 +101,6 @@ function nextStep(formInput: any) {
 
 function previousStep() {
   currentStep.value--;
+  formProgress.value -= 33;
 }
 </script>
