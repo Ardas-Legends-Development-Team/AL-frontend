@@ -12,7 +12,7 @@
     </div>
   </div>
   <RegistrationForm
-    v-else-if="isRegistered === false"
+    v-else-if="isRegistered === false && displayRegistrationForm === true"
     :discord-id="userToken"
   />
 </template>
@@ -29,6 +29,7 @@ import RegistrationForm from "@/components/RegistrationForm.vue";
 const serverId = "668590304487800832";
 const isLoggedIn = ref(true);
 const isRegistered = ref(true);
+const displayRegistrationForm = ref(false);
 const userToken = ref("");
 const client = new AuthenticationClient(
   "1066660773520212000",
@@ -80,6 +81,7 @@ function verifyIfUserRegistered(token: any) {
           resolve(true);
         })
         .catch((err) => {
+          displayRegistrationForm.value = true;
           reject(false);
         });
     });
