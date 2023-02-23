@@ -49,12 +49,14 @@
 <script setup lang="ts">
 import axios from "axios";
 import { computed, ref } from "vue";
+import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
+const formData = useRoleplayCharacterFormStore();
 const factions = ref<String[]>([]);
-const title = ref<string>("");
-const reason = ref<string>("");
-const faction = ref<string>("Your faction");
+const title = ref<string>(formData.title);
+const reason = ref<string>(formData.reason);
+const faction = ref<string>(formData.faction);
 
 const isFormFilled = computed(() => {
   return (

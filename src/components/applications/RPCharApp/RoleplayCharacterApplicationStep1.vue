@@ -41,11 +41,13 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
-const ign = ref<string>("");
-const charName = ref<string>("");
-const preference = ref<string>("Your in-game preference");
+const formData = useRoleplayCharacterFormStore();
+const ign = ref<string>(formData.ign);
+const charName = ref<string>(formData.charName);
+const preference = ref<string>(formData.preference);
 
 const isFormFilled = computed(() => {
   return (

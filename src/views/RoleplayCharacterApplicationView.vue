@@ -42,6 +42,7 @@ import { useRouter } from "vue-router";
 import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
 import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
+import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const router = useRouter();
 const steps = [
@@ -56,18 +57,9 @@ const stepsImages = ref<String[]>([
   "https://cdn.discordapp.com/attachments/1068863871772790865/1070856213241282560/RBOYLE_male_dark_color_hard_rim_light_ray_tracing_side_profile__3ac5305c-2db5-477d-bb0e-c2d9b63357cb.png",
 ]);
 
-const formProgress = ref(0);
+const formProgress = ref(15);
 const currentStep = ref(0);
-const formData = {
-  ign: "",
-  charName: "",
-  pvp: false,
-  title: "",
-  reason: "",
-  faction: "",
-  gear: "",
-  summary: "",
-};
+const formData = useRoleplayCharacterFormStore();
 
 function nextStep(formInput: any) {
   currentStep.value++;
@@ -77,7 +69,7 @@ function nextStep(formInput: any) {
     case 1:
       formData.ign = formInput.ign;
       formData.charName = formInput.charName;
-      formData.pvp = formInput.preference === "PvP";
+      formData.preference = formInput.preference;
       break;
     case 2:
       formData.title = formInput.title;

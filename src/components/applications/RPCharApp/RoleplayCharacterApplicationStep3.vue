@@ -47,14 +47,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
-
-const gear = ref<string>("");
-const summary = ref<string>("");
+const formData = useRoleplayCharacterFormStore();
+const gear = ref<string>(formData.gear);
+const summary = ref<string>(formData.summary);
 
 const isFormFilled = computed(() => {
-  console.log(gear.value, summary.value);
   return gear.value && !summary.value;
 });
 
