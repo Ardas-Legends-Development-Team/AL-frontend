@@ -36,7 +36,7 @@
       Previous page
     </button>
     <button
-      :disabled="isFormFilled"
+      :disabled="!isFormFilled"
       class="btn btn-outline"
       @click="nextStep()"
     >
@@ -55,7 +55,7 @@ const gear = ref<string>(formData.gear);
 const summary = ref<string>(formData.summary);
 
 const isFormFilled = computed(() => {
-  return gear.value && !summary.value;
+  return gear.value && summary.value;
 });
 
 function nextStep() {

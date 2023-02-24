@@ -37,7 +37,7 @@
       Previous page
     </button>
     <button
-      :disabled="isFormFilled"
+      :disabled="!isFormFilled"
       class="btn btn-outline"
       @click="nextStep()"
     >
@@ -63,7 +63,7 @@ const isFormFilled = computed(() => {
     factions.value &&
     title.value &&
     reason.value &&
-    faction.value === "Your faction"
+    faction.value !== "Your faction"
   );
 });
 
