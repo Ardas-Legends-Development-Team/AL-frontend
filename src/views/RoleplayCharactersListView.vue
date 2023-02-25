@@ -46,20 +46,17 @@
           </p>
         </th>
         <th>
-          <a
-            href="#roleplayCharacterDetails"
+          <label
+            for="rpCharDetailsModal"
             class="btn"
             @click="sendInfoToModal(roleplayCharacter)"
-            >Details</a
+            >Details</label
           >
         </th>
       </tr>
     </tbody>
   </table>
-  <RoleplayCharacterDetailsModal
-    id="roleplayCharacterDetails"
-    :selectedCharacter="selectedCharacter"
-  />
+  <RoleplayCharacterDetailsModal :selectedCharacter="selectedCharacter" />
 </template>
 
 <script setup lang="ts">
