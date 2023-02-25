@@ -84,28 +84,32 @@
             </router-link>
           </li>
           <li class="w-1/2 flex justify-end mb-6">
-            <a
-              href="javascript:void(0)"
-              class="bg-transparent rounded-md text-gray-600 flex flex-col justify-center items-center w-20 h-20 p-4"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-inbox"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            <router-link to="/applications">
+              <a
+                href="javascript:void(0)"
+                class="bg-gray-700 rounded-md text-gray-300 flex flex-col justify-center items-center w-20 h-20 p-4"
               >
-                <path stroke="none" d="M0 0h24v24H0z"></path>
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                <path d="M4 13h3l3 3h4l3 -3h3"></path>
-              </svg>
-              <p class="mt-1 uppercase font-semibold text-xs">Coming soon</p>
-            </a>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-inbox"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z"></path>
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <path d="M4 13h3l3 3h4l3 -3h3"></path>
+                </svg>
+                <p class="mt-1 uppercase font-semibold text-xs text-primary">
+                  Apps
+                </p>
+              </a>
+            </router-link>
           </li>
           <li class="w-1/2 flex justify-start mb-6">
             <a
