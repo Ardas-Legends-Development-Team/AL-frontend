@@ -1,18 +1,18 @@
 <template>
   <div class="modal">
     <div class="modal-box">
-      <a
-        href="#"
+      <label
+        for="charactersInRegionModal"
         class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
-        >✕</a
+        >✕</label
       >
-      <h3 class="font-bold text-lg">{{ title }}</h3>
+      <h3 class="font-bold text-lg">Characters in region</h3>
       <div class="flex flex-col items-stretch w-full mt-4">
         <div
           class="grid basis-2 flex-grow h-full card bg-base-300 rounded-box place-items-center"
         >
           <p class="font-medium">
-            {{ information }}
+            {{ characters }}
           </p>
         </div>
       </div>
@@ -22,11 +22,7 @@
 
 <script setup lang="ts">
 defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  information: {
+  characters: {
     type: String,
     required: true,
   },
