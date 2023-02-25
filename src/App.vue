@@ -28,7 +28,7 @@ import RegistrationForm from "@/components/RegistrationForm.vue";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
-const isRegistered = ref(true);
+const isRegistered = ref(false);
 const userToken = ref("");
 const client = new AuthenticationClient(
   "1066660773520212000",

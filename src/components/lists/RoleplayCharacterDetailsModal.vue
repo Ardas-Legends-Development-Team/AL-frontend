@@ -1,10 +1,11 @@
 <template>
+  <input type="checkbox" id="rpCharDetailsModal" class="modal-toggle" />
   <div class="modal">
     <div class="modal-box">
-      <a
-        href="#"
+      <label
+        for="rpCharDetailsModal"
         class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
-        >✕</a
+        >✕</label
       >
       <h3 class="font-bold text-lg">{{ props.selectedCharacter.ign }}</h3>
       <div class="flex flex-col w-full mt-4">
