@@ -11,6 +11,10 @@
       <FooterBar />
     </div>
   </div>
+  <RegistrationForm
+    v-else-if="isRegistered === false"
+    :discord-id="userToken"
+  />
 </template>
 
 <script setup lang="ts">
@@ -19,9 +23,13 @@ import FooterBar from "@/components/navbars/FooterBar.vue";
 import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
+import axios from "axios";
+import RegistrationForm from "@/components/RegistrationForm.vue";
 
 const serverId = "668590304487800832";
-const isLoggedIn = ref(true);
+const isLoggedIn = ref(false);
+const isRegistered = ref(false);
+const userToken = ref("");
 const client = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
@@ -46,6 +54,7 @@ function loginUser(code: string) {
   return new Promise((resolve) => {
     if (!code) redirectToAuthUrl();
     client.getToken(code).then((token) => {
+      userToken.value = token.access_token;
       resolve(token);
     });
   });
@@ -54,10 +63,32 @@ function loginUser(code: string) {
 function verifyIfUserInServer(token: any) {
   client.getUserGuilds(token).then((guilds) => {
     if (guilds.find((guild: any) => guild.id === serverId)) {
-      isLoggedIn.value = true;
       return;
     }
     window.location.href = serverInviteUrl;
+  });
+}
+
+function verifyIfUserRegistered(token: any) {
+  return new Promise((resolve, reject) => {
+    client.getUser(token).then((user) => {
+      axios
+        .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
+        .then((res) => {
+          isRegistered.value = true;
+          isLoggedIn.value = true;
+          resolve(true);
+        })
+        .catch((err) => {
+          reject(false);
+        });
+    });
+  });
+}
+
+function getUserId(token: any) {
+  client.getUser(token).then((user) => {
+    return user.id;
   });
 }
 
@@ -67,8 +98,9 @@ function getUsername(token: any) {
   });
 }
 
-/*loginUser(getCodeFromUrl()).then((token) => {
+loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
-});*/
+  verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
+});
 </script>
