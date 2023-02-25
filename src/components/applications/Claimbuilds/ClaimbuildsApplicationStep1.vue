@@ -14,21 +14,25 @@
   </div>
 
   <div class="input-group">
-    <select class="select select-bordered w-full" v-model="buildFaction">
+    <select class="select select-bordered w-full" v-model="faction">
       <option disabled selected>Your faction</option>
       <option v-for="faction in factions" :key="faction">
         {{ faction }}
       </option>
     </select>
   </div>
-
-  <button
-    :disabled="!isFormFilled"
-    class="btn btn-outline w-full"
-    @click="nextStep()"
-  >
-    Next
-  </button>
+  <div class="btn-group grid grid-cols-2">
+    <button class="btn btn-outline" @click="previousStep()">
+      Previous page
+    </button>
+    <button
+      :disabled="!isFormFilled"
+      class="btn btn-outline w-full"
+      @click="nextStep()"
+    >
+      Next
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -40,11 +44,9 @@ const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const ign = ref<string>(formData.ign);
-const buildFaction = ref<string>(formData.buildFaction);
+const faction = ref<string>(formData.faction);
 const isFormFilled = computed(() => {
-  return (
-    buildFaction.value && ign.value && buildFaction.value !== "Your faction"
-  );
+  return faction.value && ign.value && faction.value !== "Your faction";
 });
 
 function loadFactions() {
@@ -65,8 +67,12 @@ function nextStep() {
   emit("nextStep", {
     step: 1,
     ign: ign.value,
-    buildFaction: buildFaction.value,
+    faction: faction.value,
   });
+}
+
+function previousStep() {
+  emit("previousStep");
 }
 
 loadFactions();

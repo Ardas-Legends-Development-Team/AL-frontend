@@ -29,7 +29,7 @@ export const useClaimbuildsFormStore = defineStore(
   "ClaimbuildsFormStore",
   () => {
     const ign = ref("");
-    const buildFaction = ref("Your faction");
+    const faction = ref("Your faction");
     const region = ref("");
     const buildType = ref("Type of build");
     const buildName = ref("");
@@ -39,12 +39,9 @@ export const useClaimbuildsFormStore = defineStore(
     const shops = ref("");
     const extraInfo = ref("");
 
-    const buildGear = ref("");
-    const buildSummary = ref("");
-
     return {
       ign,
-      buildFaction,
+      faction,
       region,
       buildType,
       buildName,
@@ -53,8 +50,6 @@ export const useClaimbuildsFormStore = defineStore(
       buildCoordinatesZ,
       shops,
       extraInfo,
-      buildGear,
-      buildSummary,
     };
   }
 );

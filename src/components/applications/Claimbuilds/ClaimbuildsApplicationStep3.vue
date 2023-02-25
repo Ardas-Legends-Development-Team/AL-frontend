@@ -1,34 +1,37 @@
 <template>
   <div>
-    <label for="ign" class="sr-only"
-      >What gear do you wish to use for this character?</label
+    <label for="shops" class="sr-only"
+      >What Shops or Production Sites are Present?</label
     >
 
     <div class="relative">
+      <label class="label">
+        <span class="label-text text-secondary">
+          Please list all productions sites or shops in the build. Remember each
+          site requires 4 houses to activate it.
+        </span>
+      </label>
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
-        placeholder="What gear do you wish to use for this character?"
-        v-model="gear"
+        placeholder="What Shops or Production Sites are Present?"
+        v-model="shops"
       ></textarea>
     </div>
   </div>
   <p></p>
   <div>
-    <label for="charname" class="sr-only"
-      >A brief summary of the character</label
-    >
+    <label for="extraInfo" class="sr-only">Extra Information</label>
     <div class="relative">
-      <textarea
-        class="textarea textarea-bordered textarea-lg w-full max-w-xs"
-        placeholder="A brief summary of the character"
-        v-model="summary"
-      ></textarea>
       <label class="label">
         <span class="label-text text-secondary">
-          If you are planning on writing a good amount of lore, please share a
-          link above
+          Not required, can be lore or locations of things admins might miss.
         </span>
       </label>
+      <textarea
+        class="textarea textarea-bordered textarea-lg w-full max-w-xs"
+        placeholder="Extra Information"
+        v-model="extraInfo"
+      ></textarea>
     </div>
   </div>
   <div class="btn-group grid grid-cols-2">
@@ -47,21 +50,21 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useRoleplayCharacterFormStore } from "@/stores/formStores";
+import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
-const formData = useRoleplayCharacterFormStore();
-const gear = ref<string>(formData.gear);
-const summary = ref<string>(formData.summary);
+const formData = useClaimbuildsFormStore();
+const shops = ref<string>(formData.shops);
+const extraInfo = ref<string>(formData.extraInfo);
 const isFormFilled = computed(() => {
-  return gear.value && summary.value;
+  return shops.value;
 });
 
 function nextStep() {
   emit("nextStep", {
     step: 3,
-    gear: gear.value,
-    summary: summary.value,
+    shops: shops.value,
+    extraInfo: extraInfo.value,
   });
 }
 

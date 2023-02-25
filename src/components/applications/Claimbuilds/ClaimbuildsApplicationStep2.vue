@@ -90,7 +90,6 @@ const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const region = ref<string>(formData.region);
 const buildName = ref<string>(formData.buildName);
-const faction = ref<string>(formData.buildFaction);
 const buildType = ref<string>(formData.buildType);
 const buildCoordinatesX = ref<number>(formData.buildCoordinatesX);
 const buildCoordinatesY = ref<number>(formData.buildCoordinatesY);
@@ -100,7 +99,6 @@ const isFormFilled = computed(() => {
     region.value &&
     buildName.value &&
     buildType.value !== "Type of build" &&
-    faction.value !== "Your faction" &&
     buildCoordinatesX.value &&
     buildCoordinatesY.value &&
     buildCoordinatesZ.value
@@ -126,11 +124,10 @@ function nextStep() {
     step: 2,
     region: region.value,
     buildName: buildName.value,
-    buildType: buildType.value !== "Type of build",
+    buildType: buildType.value,
     buildCoordinatesX: buildCoordinatesX.value,
     buildCoordinatesY: buildCoordinatesY.value,
     buildCoordinatesZ: buildCoordinatesZ.value,
-    faction: faction.value,
   });
 }
 

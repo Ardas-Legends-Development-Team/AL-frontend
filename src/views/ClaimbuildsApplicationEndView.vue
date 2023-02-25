@@ -7,12 +7,11 @@
         class="max-w-sm rounded-lg shadow-2xl"
       />
       <div>
-        <h1 class="text-5xl font-bold">Character Submitted!</h1>
+        <h1 class="text-5xl font-bold">Claimbuild Submitted!</h1>
         <p class="py-6">
-          We will now evaluate your roleplay character's application. Please
-          hang on tight while we review it. This can take multiple days, so
-          please be patient. We will let you know if anything needs to be
-          modified.
+          We will now evaluate your claimbuild's application. Please hang on
+          tight while we review it. This can take multiple days, so please be
+          patient. We will let you know if anything needs to be modified.
         </p>
         <router-link to="/home">
           <button class="btn btn">Back to Home</button>

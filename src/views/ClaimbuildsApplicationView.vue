@@ -36,13 +36,22 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue";
 import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
 import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep2.vue";
+import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const router = useRouter();
-const steps = [ClaimbuildsApplicationStep1, ClaimbuildsApplicationStep2];
+const steps = [
+  ClaimbuildsApplicationStep0,
+  ClaimbuildsApplicationStep1,
+  ClaimbuildsApplicationStep2,
+  ClaimbuildsApplicationStep3,
+];
 const stepsImages = ref<String[]>([
+  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
+  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
   "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
   "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
 ]);
@@ -57,13 +66,23 @@ function nextStep(formInput: any) {
   switch (formInput.step) {
     case 1:
       formData.ign = formInput.ign;
-      formData.region = formInput.charName;
-      formData.buildFaction = formInput.preference;
+      formData.faction = formInput.faction;
       break;
     case 2:
-      formData.title = formInput.title;
-      formData.reason = formInput.reason;
-      formData.faction = formInput.faction;
+      formData.region = formInput.region;
+      formData.buildName = formInput.buildName;
+      formData.buildType = formInput.buildType;
+      formData.buildCoordinatesX = formInput.buildCoordinatesX;
+      formData.buildCoordinatesY = formInput.buildCoordinatesY;
+      formData.buildCoordinatesZ = formInput.buildCoordinatesZ;
+      break;
+    case 3:
+      formData.shops = formInput.shops;
+      formData.extraInfo = formInput.extraInfo;
+      console.log(formData);
+      router.push({
+        name: "ClaimBuildsApplicationEnd",
+      });
       break;
     default:
       // do something
