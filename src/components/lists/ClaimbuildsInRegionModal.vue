@@ -11,9 +11,17 @@
         <div
           class="grid basis-2 flex-grow h-full card bg-base-300 rounded-box place-items-center"
         >
-          <p class="font-medium">
-            {{ claimbuilds }}
-          </p>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <p>banner here</p>
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">{{ claimbuilds }}</div>
+              <div class="text-sm opacity-50">Type of claimbuild</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
