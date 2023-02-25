@@ -1,18 +1,5 @@
 <template>
   <div>
-    <label for="ign" class="sr-only">Character Title</label>
-
-    <div class="relative">
-      <input
-        type="text"
-        maxlength="25"
-        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Character Title"
-        v-model="title"
-      />
-    </div>
-  </div>
-  <div>
     <label for="charname" class="sr-only"
       >Why do you want to be this character?</label
     >
@@ -22,6 +9,25 @@
         placeholder="Why do you want to be this character?"
         v-model="reason"
       ></textarea>
+    </div>
+  </div>
+  <div>
+    <label for="ign" class="sr-only">Character Title</label>
+
+    <div class="relative">
+      <label class="label">
+        <span class="label-text text-secondary">
+          Optional, must contain either the faction name OR be incredibly clear
+          as to what faction you are in.
+        </span>
+      </label>
+      <input
+        type="text"
+        maxlength="25"
+        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+        placeholder="Character Title"
+        v-model="title"
+      />
     </div>
   </div>
   <div class="input-group">

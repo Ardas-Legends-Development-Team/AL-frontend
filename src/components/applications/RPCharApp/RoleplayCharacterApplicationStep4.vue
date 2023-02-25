@@ -4,17 +4,17 @@
       >A brief summary of the character</label
     >
     <div class="relative">
+      <label class="label">
+        <span class="label-text text-secondary">
+          If you are planning on writing a good amount of lore, please share a
+          link below
+        </span>
+      </label>
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
         placeholder="A brief summary of the character"
         v-model="summary"
       ></textarea>
-      <label class="label">
-        <span class="label-text text-secondary">
-          If you are planning on writing a good amount of lore, please share a
-          link above
-        </span>
-      </label>
     </div>
   </div>
   <div class="btn-group grid grid-cols-2">
