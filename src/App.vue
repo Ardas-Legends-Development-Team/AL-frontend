@@ -98,9 +98,9 @@ function getUsername(token: any) {
   });
 }
 
-loginUser(getCodeFromUrl()).then((token) => {
+/*loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
   verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
-});
+});*/
 </script>
