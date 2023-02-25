@@ -6,7 +6,7 @@
         <th class="sticky top-0">IGN & Faction</th>
         <th class="sticky top-0">Name & Title</th>
         <th class="sticky top-0">Current Region</th>
-        <th class="sticky top-0"></th>
+        <th class="sticky top-0">Character Details</th>
       </tr>
     </thead>
     <tbody>
@@ -50,7 +50,7 @@
             for="rpCharDetailsModal"
             class="btn"
             @click="sendInfoToModal(roleplayCharacter)"
-            >open modal</label
+            >Details</label
           >
         </th>
       </tr>
