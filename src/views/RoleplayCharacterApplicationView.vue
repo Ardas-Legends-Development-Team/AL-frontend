@@ -84,6 +84,10 @@ function nextStep(formInput: any) {
       break;
     case 4:
       formData.summary = formInput.summary;
+      // Verify if title is empty, to set it to faction
+      if (formData.title === "") {
+        formData.title = formData.faction;
+      }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
       console.log(formData);
       router.push({

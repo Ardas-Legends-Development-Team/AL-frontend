@@ -65,12 +65,7 @@ const reason = ref<string>(formData.reason);
 const faction = ref<string>(formData.faction);
 
 const isFormFilled = computed(() => {
-  return (
-    factions.value &&
-    title.value &&
-    reason.value &&
-    faction.value !== "Your faction"
-  );
+  return factions.value && reason.value && faction.value !== "Your faction";
 });
 
 function loadFactions() {
