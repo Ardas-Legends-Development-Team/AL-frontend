@@ -5,8 +5,8 @@
       <tr>
         <th class="sticky top-0">Region ID</th>
         <th class="sticky top-0">Terrain type</th>
-        <th class="sticky top-0">Faction with claim</th>
-        <th class="sticky top-0">Neighboring regions</th>
+        <th class="sticky top-0">Factions with claim</th>
+        <th class="sticky top-0">Neighbouring regions</th>
         <th class="sticky top-0">Claimbuilds in region</th>
         <th class="sticky top-0">Characters in region</th>
       </tr>
