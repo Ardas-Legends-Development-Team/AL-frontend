@@ -37,6 +37,11 @@ const router = createRouter({
       name: "RoleplayCharacterApplication",
       component: () => import("@/views/RoleplayCharacterApplicationView.vue"),
     },
+    {
+      path: "/applications/claimbuilds",
+      name: "ClaimBuildsApplication",
+      component: () => import("@/views/ClaimbuildsApplicationView.vue"),
+    },
   ],
 });
 
