@@ -9,7 +9,6 @@
         <th class="sticky top-0">Neighboring regions</th>
         <th class="sticky top-0">Claimbuilds in region</th>
         <th class="sticky top-0">Characters in region</th>
-        <th class="sticky top-0"></th>
       </tr>
     </thead>
     <tbody>
