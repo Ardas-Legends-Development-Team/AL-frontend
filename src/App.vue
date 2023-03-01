@@ -12,7 +12,7 @@
     </div>
   </div>
   <RegistrationForm
-    v-else-if="isRegistered === false"
+    v-else-if="shouldShowRegistrationForm === true"
     :discord-id="userToken"
   />
 </template>
@@ -29,7 +29,7 @@ import { useCookie } from "vue-cookie-next";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
-const isRegistered = ref(false);
+const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
 const client = new AuthenticationClient(
   "1066660773520212000",
@@ -100,8 +100,8 @@ function verifyIfUserRegistered(token: any) {
       axios
         .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
         .then(() => {
-          isRegistered.value = true;
           isLoggedIn.value = true;
+          shouldShowRegistrationForm.value = false;
           resolve(true);
         })
         .catch(() => {
@@ -120,6 +120,8 @@ function getUsername(token: any) {
 loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
-  verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
+  verifyIfUserRegistered(token).catch(() => {
+    shouldShowRegistrationForm.value = true;
+  });
 });
 </script>
