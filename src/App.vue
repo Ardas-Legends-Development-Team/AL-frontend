@@ -27,7 +27,7 @@ import axios from "axios";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 
 const serverId = "668590304487800832";
-const isLoggedIn = ref(false);
+const isLoggedIn = ref(true);
 const isRegistered = ref(true);
 const userToken = ref("");
 const client = new AuthenticationClient(
@@ -98,9 +98,9 @@ function getUsername(token: any) {
   });
 }
 
-loginUser(getCodeFromUrl()).then((token) => {
+/*loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
   verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
-});
+});*/
 </script>
