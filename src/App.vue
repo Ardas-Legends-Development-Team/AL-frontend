@@ -13,7 +13,7 @@
   </div>
   <RegistrationForm
     v-else-if="shouldShowRegistrationForm === true"
-    :discord-id="userToken"
+    :discord-id="discordId"
   />
 </template>
 
@@ -33,6 +33,7 @@ const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
+const discordId = ref("");
 const authenticationClient = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
@@ -99,8 +100,9 @@ function verifyIfUserInServer(token: any) {
 function verifyIfUserRegistered(token: any) {
   return new Promise<string>((resolve, reject) => {
     authenticationClient.getUser(token).then((user) => {
+      discordId.value = user.id;
       axios
-        .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
+        .get(`http://localhost:8080/api/player/discordid/${user.id}`)
         .then(() => {
           isLoggedIn.value = true;
           shouldShowRegistrationForm.value = false;
