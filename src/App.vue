@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import AuthenticationClient from "@/ts/authenticationClient";
+import AuthenticationClient from "@/ts/AuthenticationClient";
 import FooterBar from "@/components/navbars/FooterBar.vue";
 import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
@@ -26,20 +26,22 @@ import { ref } from "vue";
 import axios from "axios";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCookie } from "vue-cookie-next";
+import ApiClient from "@/ts/ApiClient";
+import { usePlayerStore } from "@/stores/generalInfoStores";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
-const client = new AuthenticationClient(
+const authenticationClient = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
 );
 
 const cookies = useCookie();
 
-client.setScopes(["identify", "guilds"]);
-client.setRedirect("http://localhost:6942");
+authenticationClient.setScopes(["identify", "guilds"]);
+authenticationClient.setRedirect("http://localhost:6942");
 const authUrl =
   "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A6942&response_type=code&scope=identify%20guilds";
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
@@ -76,7 +78,7 @@ function loginUser(code: string) {
       return;
     }
     if (!code) redirectToAuthUrl();
-    client.getToken(code).then((token) => {
+    authenticationClient.getToken(code).then((token) => {
       setAccessTokenCookie(token);
       userToken.value = token.access_token;
       console.log("Token:", token);
@@ -86,7 +88,7 @@ function loginUser(code: string) {
 }
 
 function verifyIfUserInServer(token: any) {
-  client.getUserGuilds(token).then((guilds) => {
+  authenticationClient.getUserGuilds(token).then((guilds) => {
     if (guilds.find((guild: any) => guild.id === serverId)) {
       return;
     }
@@ -95,33 +97,37 @@ function verifyIfUserInServer(token: any) {
 }
 
 function verifyIfUserRegistered(token: any) {
-  return new Promise((resolve, reject) => {
-    client.getUser(token).then(() => {
+  return new Promise<string>((resolve, reject) => {
+    authenticationClient.getUser(token).then((user) => {
       axios
         .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
         .then(() => {
           isLoggedIn.value = true;
           shouldShowRegistrationForm.value = false;
-          resolve(true);
+          resolve(user.id);
         })
         .catch(() => {
-          reject(false);
+          reject("User not registered");
         });
     });
   });
 }
 
-function getUsername(token: any) {
-  client.getUser(token).then((user) => {
-    console.log("Username:" + user.username);
-  });
-}
-
 loginUser(getCodeFromUrl()).then((token) => {
-  getUsername(token);
+  const apiClient = new ApiClient();
   verifyIfUserInServer(token);
-  verifyIfUserRegistered(token).catch(() => {
-    shouldShowRegistrationForm.value = true;
-  });
+  verifyIfUserRegistered(token)
+    .then((discordId) => {
+      apiClient.loadPlayerInfo(discordId);
+      console.log(
+        "Player Info: ",
+        usePlayerStore().discordId,
+        usePlayerStore().ign,
+        usePlayerStore().faction
+      );
+    })
+    .catch(() => {
+      shouldShowRegistrationForm.value = true;
+    });
 });
 </script>

@@ -81,11 +81,13 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
+import ApiClient from "@/ts/ApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
+const apiClient = new ApiClient();
 const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const region = ref<string>(formData.region);
@@ -105,20 +107,6 @@ const isFormFilled = computed(() => {
   );
 });
 
-function loadFactions() {
-  axios
-    .get("http://localhost:8080/api/faction", {
-      params: {
-        size: 100,
-      },
-    })
-    .then((response) => {
-      response.data.content.forEach((faction: any) => {
-        factions.value.push(faction.nameOfFaction);
-      });
-    });
-}
-
 function nextStep() {
   emit("nextStep", {
     step: 2,
@@ -135,5 +123,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-loadFactions();
+apiClient.loadFactions();
+factions.value = useFactionsStore().factions;
 </script>

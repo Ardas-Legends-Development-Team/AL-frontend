@@ -56,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
+import ApiClient from "@/ts/ApiClient";
 
 const props = defineProps({
   discordId: {
@@ -65,16 +65,13 @@ const props = defineProps({
     required: true,
   },
 });
+const apiClient = new ApiClient();
 
 const ign = ref("");
 const faction = ref("");
 
 function register() {
   console.log("Registering...");
-  axios.post("http://localhost:8080/api/player", {
-    discordID: props.discordId,
-    ign: ign.value,
-    faction: faction.value,
-  });
+  apiClient.registerPlayer(props.discordId, ign.value, faction.value);
 }
 </script>

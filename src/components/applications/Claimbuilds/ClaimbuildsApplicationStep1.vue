@@ -38,9 +38,11 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import axios from "axios";
+import ApiClient from "@/ts/ApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 // previousStep event is not used in this component, but in the next 2 steps
 const emit = defineEmits(["nextStep", "previousStep"]);
+const apiClient = new ApiClient();
 const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const ign = ref<string>(formData.ign);
@@ -48,20 +50,6 @@ const faction = ref<string>(formData.faction);
 const isFormFilled = computed(() => {
   return faction.value && ign.value && faction.value !== "Your faction";
 });
-
-function loadFactions() {
-  axios
-    .get("http://localhost:8080/api/faction", {
-      params: {
-        size: 100,
-      },
-    })
-    .then((response) => {
-      response.data.content.forEach((faction: any) => {
-        factions.value.push(faction.nameOfFaction);
-      });
-    });
-}
 
 function nextStep() {
   emit("nextStep", {
@@ -75,5 +63,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-loadFactions();
+apiClient.loadFactions();
+factions.value = useFactionsStore().factions;
 </script>
