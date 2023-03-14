@@ -1,15 +1,15 @@
 <template>
-  <div class="card w-96 bg-base-100 shadow-xl mx-10 my-10">
-    <router-link :to="router">
-      <div class="card-body">
+  <router-link :to="router">
+    <div class="card w-96 bg-base-100 shadow-xl mx-10 my-10">
+      <div class="card-body h-36">
         <h2 class="card-title">{{ title }}</h2>
         <p>{{ description }}</p>
       </div>
       <figure>
         <img :src="source" :alt="alt" />
       </figure>
-    </router-link>
-  </div>
+    </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">

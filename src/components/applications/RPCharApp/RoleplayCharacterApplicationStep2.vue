@@ -53,6 +53,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from "vue";
+import { useRoleplayCharacterFormStore } from "@/stores/formStores";
+import ApiClient from "@/ts/ApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 import axios from "axios";
 import { computed, ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
@@ -63,24 +67,14 @@ const factions = ref<String[]>([]);
 const title = ref<string>(formData.title);
 const reason = ref<string>(formData.reason);
 const faction = ref<string>(formData.faction);
-
 const isFormFilled = computed(() => {
-  return factions.value && reason.value && faction.value !== "Your faction";
+  return (
+    factions.value &&
+    title.value &&
+    reason.value &&
+    faction.value !== "Your faction"
+  );
 });
-
-function loadFactions() {
-  axios
-    .get("http://localhost:8080/api/faction", {
-      params: {
-        size: 100,
-      },
-    })
-    .then((response) => {
-      response.data.content.forEach((faction: any) => {
-        factions.value.push(faction.nameOfFaction);
-      });
-    });
-}
 
 function nextStep() {
   emit("nextStep", {
@@ -95,5 +89,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-loadFactions();
+ApiClient.loadFactions();
+factions.value = useFactionsStore().factions;
 </script>

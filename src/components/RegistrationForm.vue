@@ -45,7 +45,7 @@
 
         <button
           @click="register()"
-          type="submit"
+          type="button"
           class="btn btn-primary w-full px-5 py-3"
         >
           Register
@@ -56,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
+import ApiClient from "@/ts/ApiClient";
 
 const props = defineProps({
   discordId: {
@@ -71,10 +71,8 @@ const faction = ref("");
 
 function register() {
   console.log("Registering...");
-  axios.post("http://localhost:8080/api/player", {
-    discordID: props.discordId,
-    ign: ign.value,
-    faction: faction.value,
-  });
+  ApiClient.registerPlayer(props.discordId, ign.value, faction.value).then(() =>
+    window.location.reload()
+  );
 }
 </script>
