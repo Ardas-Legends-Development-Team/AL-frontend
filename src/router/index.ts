@@ -42,6 +42,22 @@ const router = createRouter({
       name: "RoleplayCharacterApplication",
       component: () => import("@/views/RoleplayCharacterApplicationView.vue"),
     },
+    {
+      path: "/applications/roleplay_character/end",
+      name: "RoleplayCharacterApplicationEnd",
+      component: () =>
+        import("@/views/RoleplayCharacterApplicationEndView.vue"),
+    },
+    {
+      path: "/applications/claimbuilds",
+      name: "ClaimBuildsApplication",
+      component: () => import("@/views/ClaimbuildsApplicationView.vue"),
+    },
+    {
+      path: "/applications/claimbuilds/end",
+      name: "ClaimBuildsApplicationEnd",
+      component: () => import("@/views/ClaimBuildsApplicationEndView.vue"),
+    },
   ],
 });
 
