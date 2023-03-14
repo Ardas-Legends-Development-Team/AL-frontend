@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFactionsStore, usePlayerStore } from "@/stores/generalInfoStores";
 
 export default class ApiClient {
-  registerPlayer(discordId: string, ign: string, faction: string): void {
+  static registerPlayer(discordId: string, ign: string, faction: string): void {
     console.log(
       "Registering player " + ign,
       " with faction " + faction,
@@ -14,13 +14,13 @@ export default class ApiClient {
         ign: ign,
         faction: faction,
       })
-      .then((r) => console.log("Registered player" + ign))
+      .then(() => console.log("Registered player" + ign))
       .catch((reason) => {
         console.log(reason);
       });
   }
 
-  loadFactions(): void {
+  static loadFactions(): void {
     const factionsStore = useFactionsStore();
     if (factionsStore.factions.length > 0) return;
     axios
@@ -36,7 +36,7 @@ export default class ApiClient {
       });
   }
 
-  async loadPlayerInfo(discordId: string): Promise<void> {
+  static async loadPlayerInfo(discordId: string): Promise<void> {
     console.log("Loading player info for " + discordId);
     const playerStore = usePlayerStore();
     if (playerStore.discordId !== "") return;

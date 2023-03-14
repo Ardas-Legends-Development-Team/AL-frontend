@@ -65,13 +65,12 @@ const props = defineProps({
     required: true,
   },
 });
-const apiClient = new ApiClient();
 
 const ign = ref("");
 const faction = ref("");
 
 function register() {
   console.log("Registering...");
-  apiClient.registerPlayer(props.discordId, ign.value, faction.value);
+  ApiClient.registerPlayer(props.discordId, ign.value, faction.value);
 }
 </script>

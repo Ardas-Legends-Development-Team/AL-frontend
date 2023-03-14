@@ -116,11 +116,10 @@ function verifyIfUserRegistered(token: any) {
 }
 
 loginUser(getCodeFromUrl()).then((token) => {
-  const apiClient = new ApiClient();
   verifyIfUserInServer(token);
   verifyIfUserRegistered(token)
     .then((discordId) => {
-      apiClient.loadPlayerInfo(discordId);
+      ApiClient.loadPlayerInfo(discordId);
       console.log(
         "Player Info: ",
         usePlayerStore().discordId,

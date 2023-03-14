@@ -87,7 +87,6 @@ import ApiClient from "@/ts/ApiClient";
 import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
-const apiClient = new ApiClient();
 const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const region = ref<string>(formData.region);
@@ -123,6 +122,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-apiClient.loadFactions();
+ApiClient.loadFactions();
 factions.value = useFactionsStore().factions;
 </script>

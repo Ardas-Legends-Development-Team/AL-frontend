@@ -42,7 +42,6 @@ import ApiClient from "@/ts/ApiClient";
 import { useFactionsStore } from "@/stores/generalInfoStores";
 // previousStep event is not used in this component, but in the next 2 steps
 const emit = defineEmits(["nextStep", "previousStep"]);
-const apiClient = new ApiClient();
 const formData = useClaimbuildsFormStore();
 const factions = ref<String[]>([]);
 const ign = ref<string>(formData.ign);
@@ -63,6 +62,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-apiClient.loadFactions();
+ApiClient.loadFactions();
 factions.value = useFactionsStore().factions;
 </script>

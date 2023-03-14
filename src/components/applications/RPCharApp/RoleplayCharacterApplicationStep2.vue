@@ -53,7 +53,6 @@ import ApiClient from "@/ts/ApiClient";
 import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
-const apiClient = new ApiClient();
 const formData = useRoleplayCharacterFormStore();
 const factions = ref<String[]>([]);
 const title = ref<string>(formData.title);
@@ -81,6 +80,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-apiClient.loadFactions();
+ApiClient.loadFactions();
 factions.value = useFactionsStore().factions;
 </script>
