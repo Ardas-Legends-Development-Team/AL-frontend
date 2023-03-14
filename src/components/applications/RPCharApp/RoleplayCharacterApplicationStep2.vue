@@ -56,10 +56,6 @@
 import { computed, ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
-import { useFactionsStore } from "@/stores/generalInfoStores";
-import axios from "axios";
-import { computed, ref } from "vue";
-import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();
@@ -68,12 +64,7 @@ const title = ref<string>(formData.title);
 const reason = ref<string>(formData.reason);
 const faction = ref<string>(formData.faction);
 const isFormFilled = computed(() => {
-  return (
-    factions.value &&
-    title.value &&
-    reason.value &&
-    faction.value !== "Your faction"
-  );
+  return factions.value && reason.value && faction.value !== "Your faction";
 });
 
 function nextStep() {
@@ -89,6 +80,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadFactions();
-factions.value = useFactionsStore().factions;
+ApiClient.loadFactions().then((factionList) => {
+  factions.value = factionList;
+});
 </script>
