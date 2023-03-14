@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useFactionsStore, usePlayerStore } from "@/stores/generalInfoStores";
+import { PlayerInfo } from "@/ts/types/PlayerInfo";
 
 export default class ApiClient {
   static registerPlayer(
@@ -27,36 +28,55 @@ export default class ApiClient {
     });
   }
 
-  static loadFactions(): void {
+  static async loadFactions(): Promise<string[]> {
     const factionsStore = useFactionsStore();
-    if (factionsStore.factions.length > 0) return;
-    axios
-      .get("http://localhost:8080/api/faction", {
-        params: {
-          size: 100,
-        },
-      })
-      .then((response) => {
-        response.data.content.forEach((faction: any) => {
-          factionsStore.factions.push(faction.nameOfFaction);
+    return new Promise((resolve) => {
+      if (factionsStore.factions.length > 0) resolve(factionsStore.factions);
+      axios
+        .get("http://localhost:8080/api/faction", {
+          params: {
+            size: 100,
+          },
+        })
+        .then((response) => {
+          response.data.content.forEach((faction: any) => {
+            factionsStore.factions.push(faction.nameOfFaction);
+          });
+          resolve(factionsStore.factions);
         });
-      });
+    });
   }
 
-  static async loadPlayerInfo(discordId: string): Promise<void> {
+  static async loadPlayerInfo(discordId: string): Promise<PlayerInfo> {
     console.log("Loading player info for " + discordId);
     const playerStore = usePlayerStore();
-    if (playerStore.discordId !== "") return;
-    await axios
-      .get("http://localhost:8080/api/player", {
-        params: {
-          discordID: discordId,
-        },
-      })
-      .then((response) => {
-        playerStore.ign = response.data.ign;
-        playerStore.faction = response.data.faction;
-        playerStore.discordId = response.data.discordID;
-      });
+    return new Promise((resolve) => {
+      if (playerStore.discordId !== "") resolve(playerStore);
+      console.log("Loading player info from server");
+      axios
+        .get("http://localhost:8080/api/player/discordid/", {
+          params: {
+            discId: discordId,
+          },
+        })
+        .then((response) => {
+          const data = response.data.content[0];
+          playerStore.ign = data.ign;
+          playerStore.faction = data.nameOfFaction;
+          playerStore.discordId = data.discordID;
+          console.log("response:", data);
+          console.log(
+            playerStore.discordId,
+            playerStore.faction,
+            playerStore.ign
+          );
+          console.log("Loaded player info from server", playerStore);
+          resolve(playerStore);
+        });
+    });
+  }
+
+  static async loadClaimbuildTypes(): Promise<string[]> {
+    return ["Something here"];
   }
 }

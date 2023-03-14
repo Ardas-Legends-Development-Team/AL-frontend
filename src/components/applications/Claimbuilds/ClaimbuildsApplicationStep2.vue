@@ -14,8 +14,8 @@
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="buildType">
       <option disabled selected>Type of build</option>
-      <option v-for="faction in factions" :key="faction">
-        {{ faction }}
+      <option v-for="claimbuildType in claimbuildTypes" :key="claimbuildType">
+        {{ claimbuildType }}
       </option>
     </select>
   </div>
@@ -84,11 +84,11 @@
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
-import { useFactionsStore } from "@/stores/generalInfoStores";
+import { useClaimbuildTypesStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const factions = ref<String[]>([]);
+const claimbuildTypes = ref<String[]>([]);
 const region = ref<string>(formData.region);
 const buildName = ref<string>(formData.buildName);
 const buildType = ref<string>(formData.buildType);
@@ -122,6 +122,6 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadFactions();
-factions.value = useFactionsStore().factions;
+ApiClient.loadClaimbuildTypes();
+claimbuildTypes.value = useClaimbuildTypesStore().claimbuildTypes;
 </script>

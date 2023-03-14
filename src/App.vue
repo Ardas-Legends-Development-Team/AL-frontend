@@ -27,7 +27,6 @@ import axios from "axios";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCookie } from "vue-cookie-next";
 import ApiClient from "@/ts/ApiClient";
-import { usePlayerStore } from "@/stores/generalInfoStores";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
@@ -119,13 +118,14 @@ loginUser(getCodeFromUrl()).then((token) => {
   verifyIfUserInServer(token);
   verifyIfUserRegistered(token)
     .then((discordId) => {
-      ApiClient.loadPlayerInfo(discordId);
-      console.log(
-        "Player Info: ",
-        usePlayerStore().discordId,
-        usePlayerStore().ign,
-        usePlayerStore().faction
-      );
+      ApiClient.loadPlayerInfo(discordId).then((playerInfo) => {
+        console.log(
+          "Player Info: ",
+          playerInfo.discordId,
+          playerInfo.ign,
+          playerInfo.faction
+        );
+      });
     })
     .catch(() => {
       shouldShowRegistrationForm.value = true;

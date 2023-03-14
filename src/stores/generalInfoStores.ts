@@ -19,3 +19,14 @@ export const usePlayerStore = defineStore("PlayerStore", () => {
     discordId,
   };
 });
+
+export const useClaimbuildTypesStore = defineStore(
+  "ClaimbuildTypesStore",
+  () => {
+    const claimbuildTypes = ref<string[]>([]);
+
+    return {
+      claimbuildTypes: claimbuildTypes,
+    };
+  }
+);

@@ -39,7 +39,6 @@
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
-import { useFactionsStore } from "@/stores/generalInfoStores";
 // previousStep event is not used in this component, but in the next 2 steps
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
@@ -62,6 +61,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadFactions();
-factions.value = useFactionsStore().factions;
+ApiClient.loadFactions().then((factionsList) => {
+  factions.value = factionsList;
+});
 </script>
