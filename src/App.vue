@@ -12,7 +12,7 @@
     </div>
   </div>
   <RegistrationForm
-    v-else-if="isRegistered === false && displayRegistrationForm === true"
+    v-else-if="shouldShowRegistrationForm === true"
     :discord-id="userToken"
   />
 </template>
@@ -25,16 +25,19 @@ import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
 import axios from "axios";
 import RegistrationForm from "@/components/RegistrationForm.vue";
+import { useCookie } from "vue-cookie-next";
 
 const serverId = "668590304487800832";
-const isLoggedIn = ref(true);
-const isRegistered = ref(true);
-const displayRegistrationForm = ref(false);
+const isLoggedIn = ref(false);
+const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
 const client = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
 );
+
+const cookies = useCookie();
+
 client.setScopes(["identify", "guilds"]);
 client.setRedirect("http://localhost:6942");
 const authUrl =
@@ -51,11 +54,32 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
+function setAccessTokenCookie(token: any) {
+  cookies.setCookie("access_token", token);
+  console.log("Set cookie:" + cookies.getCookie("access_token"));
+}
+
+function getAccessTokenCookie() {
+  if (cookies.isCookieAvailable("access_token")) {
+    return cookies.getCookie("access_token");
+  }
+  return undefined;
+}
+
 function loginUser(code: string) {
   return new Promise((resolve) => {
+    if (getAccessTokenCookie()) {
+      userToken.value = getAccessTokenCookie().access_token;
+      console.log("Access token:");
+      console.log(getAccessTokenCookie());
+      resolve(getAccessTokenCookie());
+      return;
+    }
     if (!code) redirectToAuthUrl();
     client.getToken(code).then((token) => {
+      setAccessTokenCookie(token);
       userToken.value = token.access_token;
+      console.log("Token:", token);
       resolve(token);
     });
   });
@@ -72,37 +96,32 @@ function verifyIfUserInServer(token: any) {
 
 function verifyIfUserRegistered(token: any) {
   return new Promise((resolve, reject) => {
-    client.getUser(token).then((user) => {
+    client.getUser(token).then(() => {
       axios
         .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
-        .then((res) => {
-          isRegistered.value = true;
+        .then(() => {
           isLoggedIn.value = true;
+          shouldShowRegistrationForm.value = false;
           resolve(true);
         })
-        .catch((err) => {
-          displayRegistrationForm.value = true;
+        .catch(() => {
           reject(false);
         });
     });
   });
 }
 
-function getUserId(token: any) {
-  client.getUser(token).then((user) => {
-    return user.id;
-  });
-}
-
 function getUsername(token: any) {
   client.getUser(token).then((user) => {
-    console.log(user.username);
+    console.log("Username:" + user.username);
   });
 }
 
-/*loginUser(getCodeFromUrl()).then((token) => {
+loginUser(getCodeFromUrl()).then((token) => {
   getUsername(token);
   verifyIfUserInServer(token);
-  verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
-});*/
+  verifyIfUserRegistered(token).catch(() => {
+    shouldShowRegistrationForm.value = true;
+  });
+});
 </script>
