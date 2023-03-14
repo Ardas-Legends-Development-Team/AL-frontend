@@ -2,22 +2,29 @@ import axios from "axios";
 import { useFactionsStore, usePlayerStore } from "@/stores/generalInfoStores";
 
 export default class ApiClient {
-  static registerPlayer(discordId: string, ign: string, faction: string): void {
+  static registerPlayer(
+    discordId: string,
+    ign: string,
+    faction: string
+  ): Promise<boolean> {
     console.log(
       "Registering player " + ign,
       " with faction " + faction,
       " and discord id " + discordId
     );
-    axios
-      .post("http://localhost:8080/api/player", {
-        discordID: discordId,
-        ign: ign,
-        faction: faction,
-      })
-      .then(() => console.log("Registered player" + ign))
-      .catch((reason) => {
-        console.log(reason);
-      });
+    return new Promise((resolve, reject) => {
+      axios
+        .post("http://localhost:8080/api/player", {
+          discordID: discordId,
+          ign: ign,
+          faction: faction,
+        })
+        .then(() => resolve(true))
+        .catch((reason) => {
+          console.error(reason);
+          reject(false);
+        });
+    });
   }
 
   static loadFactions(): void {

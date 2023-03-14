@@ -45,7 +45,7 @@
 
         <button
           @click="register()"
-          type="submit"
+          type="button"
           class="btn btn-primary w-full px-5 py-3"
         >
           Register
@@ -71,6 +71,8 @@ const faction = ref("");
 
 function register() {
   console.log("Registering...");
-  ApiClient.registerPlayer(props.discordId, ign.value, faction.value);
+  ApiClient.registerPlayer(props.discordId, ign.value, faction.value).then(() =>
+    window.location.reload()
+  );
 }
 </script>
