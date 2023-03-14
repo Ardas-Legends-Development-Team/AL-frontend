@@ -54,22 +54,12 @@ export default class ApiClient {
       if (playerStore.discordId !== "") resolve(playerStore);
       console.log("Loading player info from server");
       axios
-        .get("http://localhost:8080/api/player/discordid/", {
-          params: {
-            discId: discordId,
-          },
-        })
+        .get("http://localhost:8080/api/player/discordid/" + discordId)
         .then((response) => {
-          const data = response.data.content[0];
+          const data = response.data;
           playerStore.ign = data.ign;
-          playerStore.faction = data.nameOfFaction;
-          playerStore.discordId = data.discordID;
-          console.log("response:", data);
-          console.log(
-            playerStore.discordId,
-            playerStore.faction,
-            playerStore.ign
-          );
+          playerStore.faction = data.faction;
+          playerStore.discordId = data.discordId;
           console.log("Loaded player info from server", playerStore);
           resolve(playerStore);
         });
