@@ -1,10 +1,14 @@
 <template>
-  <div class="flex items-center justify-between text-gray-400 mt-20">
-    <h4 class="uppercase font-semibold">Staff Area</h4>
-  </div>
+  <router-link to="/staff_area">
+    <div
+      class="flex items-center justify-between text-gray-400 mt-20 btn bt-ghost"
+    >
+      <h4 class="uppercase font-semibold">Staff Area</h4>
+    </div>
+  </router-link>
   <ul class="my-10 flex flex-wrap">
     <li class="w-1/2 flex justify-start mb-6">
-      <router-link to="/lists">
+      <router-link to="/staff_area/applications_review">
         <a
           class="bg-gray-700 rounded-md text-gray-300 flex flex-col justify-center items-center w-20 h-20 p-4"
         >
