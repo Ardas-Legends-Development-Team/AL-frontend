@@ -70,7 +70,7 @@ export default class ApiClient {
           playerStore.discordId = data.discordId;
           // TODO: Replace with proper staff check
           //playerStore.isStaff = data.isStaff;
-          playerStore.isStaff = true;
+          playerStore.isStaff = false;
           console.log("Loaded player info from server", playerStore);
           resolve(playerStore);
           return;

@@ -54,7 +54,7 @@
           </div>
         </div>
         <UserButtonList />
-        <StaffButtonList v-if="isStaff" />
+        <StaffButtonList />
       </div>
     </div>
   </div>
@@ -62,10 +62,6 @@
 <script setup lang="ts">
 import UserButtonList from "@/components/navbars/UserButtonList.vue";
 import StaffButtonList from "@/components/navbars/StaffButtonList.vue";
-import { ref } from "vue";
-import ApiClient from "@/ts/ApiClient";
-
-const isStaff = ref(false);
 
 function openSidebar(flag: boolean) {
   const sidebar = document.getElementById("sidebar");
@@ -75,8 +71,4 @@ function openSidebar(flag: boolean) {
     ? sidebarToggle!.classList.remove("hidden")
     : sidebarToggle!.classList.add("hidden");
 }
-
-ApiClient.loadPlayerInfo().then((player) => {
-  isStaff.value = player.isStaff;
-});
 </script>
