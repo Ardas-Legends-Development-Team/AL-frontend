@@ -12,11 +12,13 @@ export const usePlayerStore = defineStore("PlayerStore", () => {
   const ign = ref("");
   const faction = ref("");
   const discordId = ref("");
+  const isStaff = ref(false);
 
   return {
     ign,
     faction,
     discordId,
+    isStaff,
   };
 });
 

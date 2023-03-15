@@ -2,11 +2,11 @@
   <div v-if="isLoggedIn === true">
     <header>
       <HorizontalNavbar />
-      <VerticalNavbar />
+      <VerticalNavbar v-if="loadedUser" />
     </header>
     <div class="relative min-h-screen flex flex-col">
       <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
-        <router-view />
+        <router-view v-if="loadedUser" />
       </main>
       <FooterBar />
     </div>
@@ -46,6 +46,8 @@ authenticationClient.setRedirect("http://localhost:6942");
 const authUrl =
   "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A6942&response_type=code&scope=identify%20guilds";
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
+
+const loadedUser = ref(false);
 
 function redirectToAuthUrl() {
   window.location.href = authUrl;
@@ -124,8 +126,10 @@ loginUser(getCodeFromUrl()).then((token) => {
           "Player Info: ",
           playerInfo.discordId,
           playerInfo.ign,
-          playerInfo.faction
+          playerInfo.faction,
+          playerInfo.isStaff
         );
+        loadedUser.value = true;
       });
     })
     .catch(() => {
