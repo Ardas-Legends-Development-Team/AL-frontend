@@ -60,6 +60,9 @@ export default class ApiClient {
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
+          // TODO: Replace with proper staff check
+          //playerStore.isStaff = data.isStaff;
+          playerStore.isStaff = true;
           console.log("Loaded player info from server", playerStore);
           resolve(playerStore);
         });

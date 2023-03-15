@@ -216,25 +216,40 @@
             </a>
           </li>
         </ul>
-        <div class="flex items-center justify-between text-gray-600 my-20">
-          <h4 class="uppercase font-semibold">Coming soon</h4>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="cursor-pointer icon icon-tabler icon-tabler-plus"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z"></path>
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
+        <div class="flex items-center justify-between text-gray-400 mt-20">
+          <h4 class="uppercase font-semibold">Staff Area</h4>
         </div>
+        <ul class="my-10 flex flex-wrap">
+          <li class="w-1/2 flex justify-start mb-6">
+            <router-link to="/lists">
+              <a
+                class="bg-gray-700 rounded-md text-gray-300 flex flex-col justify-center items-center w-20 h-20 p-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-layout-kanban"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z"></path>
+                  <line x1="4" y1="4" x2="10" y2="4"></line>
+                  <line x1="14" y1="4" x2="20" y2="4"></line>
+                  <rect x="4" y="8" width="6" height="12" rx="2"></rect>
+                  <rect x="14" y="8" width="6" height="6" rx="2"></rect>
+                </svg>
+                <p class="mt-1 uppercase font-semibold text-xs text-primary">
+                  Apps
+                </p>
+              </a>
+            </router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

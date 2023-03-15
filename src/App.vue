@@ -124,7 +124,8 @@ loginUser(getCodeFromUrl()).then((token) => {
           "Player Info: ",
           playerInfo.discordId,
           playerInfo.ign,
-          playerInfo.faction
+          playerInfo.faction,
+          playerInfo.isStaff
         );
       });
     })
