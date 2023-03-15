@@ -2,58 +2,58 @@
   <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
     <!-- head -->
     <thead>
-    <tr>
-      <th class="sticky top-0">IGN & Faction</th>
-      <th class="sticky top-0">Name & Title</th>
-      <th class="sticky top-0">Current Region</th>
-      <th class="sticky top-0"></th>
-    </tr>
+      <tr>
+        <th class="sticky top-0">IGN & Faction</th>
+        <th class="sticky top-0">Name & Title</th>
+        <th class="sticky top-0">Current Region</th>
+        <th class="sticky top-0"></th>
+      </tr>
     </thead>
     <tbody>
-    <tr
+      <tr
         class="hover"
         v-for="roleplayCharacter in roleplayCharacters"
         :key="roleplayCharacter.ign"
-    >
-      <td>
-        <div class="flex items-center space-x-3">
-          <div class="avatar">
-            <div class="mask mask-squircle w-12 h-12">
-              <img
+      >
+        <td>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img
                   :src="`https://mc-heads.net/avatar/${roleplayCharacter.ign}/36`"
                   alt="Avatar"
-              />
+                />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">IGN {{ roleplayCharacter.ign }}</div>
+              <div class="text-sm opacity-70">
+                Faction {{ roleplayCharacter.faction }}
+              </div>
             </div>
           </div>
-          <div>
-            <div class="font-bold">IGN {{ roleplayCharacter.ign }}</div>
-            <div class="text-sm opacity-70">
-              Faction {{ roleplayCharacter.faction }}
-            </div>
-          </div>
-        </div>
-      </td>
-      <td>
-        RPNAME {{ roleplayCharacter.rpChar.name }}
-        <br />
-        <span class="badge badge-ghost badge-sm"
-        >TITLE {{ roleplayCharacter.rpChar.title }}</span
-        >
-      </td>
-      <th>
-        <p class="font-medium">
-          CURRENT REGION {{ roleplayCharacter.rpChar.currentRegion }}
-        </p>
-      </th>
-      <th>
-        <label
+        </td>
+        <td>
+          RPNAME {{ roleplayCharacter.rpChar.name }}
+          <br />
+          <span class="badge badge-ghost badge-sm"
+            >TITLE {{ roleplayCharacter.rpChar.title }}</span
+          >
+        </td>
+        <th>
+          <p class="font-medium">
+            CURRENT REGION {{ roleplayCharacter.rpChar.currentRegion }}
+          </p>
+        </th>
+        <th>
+          <label
             for="rpCharDetailsModal"
             class="btn"
             @click="sendInfoToModal(roleplayCharacter)"
-        >Details</label
-        >
-      </th>
-    </tr>
+            >Details</label
+          >
+        </th>
+      </tr>
     </tbody>
   </table>
   <RoleplayCharacterDetailsModal :selectedCharacter="selectedCharacter" />
@@ -91,13 +91,13 @@ async function getMockData(): Promise<RoleplayCharacter[]> {
   };
   return new Promise((resolve, reject) => {
     axios
-        .get("https://api.mockaroo.com/api/e6750ad0", { params })
-        .then((response) => {
-          resolve(response.data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      .get("https://api.mockaroo.com/api/e6750ad0", { params })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 

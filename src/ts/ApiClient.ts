@@ -31,7 +31,11 @@ export default class ApiClient {
   static async loadFactions(): Promise<string[]> {
     const factionsStore = useFactionsStore();
     return new Promise((resolve) => {
-      if (factionsStore.factions.length > 0) resolve(factionsStore.factions);
+      if (factionsStore.factions.length > 0) {
+        console.log("Factions already loaded");
+        resolve(factionsStore.factions);
+        return;
+      }
       axios
         .get("http://localhost:8080/api/faction", {
           params: {
@@ -47,11 +51,15 @@ export default class ApiClient {
     });
   }
 
-  static async loadPlayerInfo(discordId: string): Promise<PlayerInfo> {
+  static async loadPlayerInfo(discordId?: string): Promise<PlayerInfo> {
     console.log("Loading player info for " + discordId);
     const playerStore = usePlayerStore();
     return new Promise((resolve) => {
-      if (playerStore.discordId !== "") resolve(playerStore);
+      if (playerStore.discordId !== "") {
+        console.log("Player info already loaded");
+        resolve(playerStore);
+        return;
+      }
       console.log("Loading player info from server");
       axios
         .get("http://localhost:8080/api/player/discordid/" + discordId)
@@ -65,6 +73,7 @@ export default class ApiClient {
           playerStore.isStaff = true;
           console.log("Loaded player info from server", playerStore);
           resolve(playerStore);
+          return;
         });
     });
   }
