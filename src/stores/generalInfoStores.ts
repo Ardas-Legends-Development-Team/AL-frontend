@@ -8,19 +8,6 @@ export const useFactionsStore = defineStore("FactionsStore", () => {
     factions,
   };
 });
-export const usePlayerStore = defineStore("PlayerStore", () => {
-  const ign = ref("");
-  const faction = ref("");
-  const discordId = ref("");
-  const isStaff = ref(false);
-
-  return {
-    ign,
-    faction,
-    discordId,
-    isStaff,
-  };
-});
 
 export const useClaimbuildTypesStore = defineStore(
   "ClaimbuildTypesStore",

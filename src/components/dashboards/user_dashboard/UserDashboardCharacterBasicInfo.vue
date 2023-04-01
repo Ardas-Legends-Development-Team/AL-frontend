@@ -15,10 +15,10 @@
       />
     </div>
     <div
-      class="text-center text-neutral-content bg-base-100 justify-center h-16 w-1/2"
+      class="text-center text-neutral-content bg-base-100 justify-center h-20 w-1/2"
     >
+      <h1 class="mb-1 text-3xl text-secondary">{{ title }}</h1>
       <div class="badge badge-outline badge-primary">{{ faction }}</div>
-      <h1 class="mb-1 text-3xl text-secondary">Title Here</h1>
     </div>
     <div class="mt-5 w-32">
       <img
@@ -40,5 +40,12 @@ const title = ref<string>("");
 ApiClient.loadPlayerInfo().then((data) => {
   faction.value = data.faction;
   ign.value = data.ign;
+  ApiClient.loadCharacterInfo().then((data) => {
+    title.value = data.title;
+    // TODO: remove that when we have correct characters
+    if (title.value === "") {
+      title.value = "No Title";
+    }
+  });
 });
 </script>
