@@ -26,14 +26,14 @@ const cardsData = {
     description: "some gear here",
     source:
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080521864792780810/Crippler22_the_luxury_golden_life_auf_Sauron_2177b208-737c-4fd5-a534-670288a038d0.png",
-    alt: "umbar numenoreans",
+    alt: "gold helmet",
   },
   description: {
     title: "Description",
     description: "character description here",
     source:
       "https://cdn.discordapp.com/attachments/1068863871772790865/1068869767559131136/VernonRoche__CA9.io_lord_of_the_rings_stone_mural_in_the_style__a1f1d601-e177-437e-99ea-2ac0400346a2.png",
-    alt: "gondor lake tower",
+    alt: "stone carving",
   },
 };
 </script>
