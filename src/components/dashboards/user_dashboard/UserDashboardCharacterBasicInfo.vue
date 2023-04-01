@@ -1,20 +1,22 @@
 <template>
-  <div class="flex flex-row justify-between">
-    <div>
+  <div class="flex flex-row justify-evenly">
+    <div class="shrink">
       <img
-        class="mask mask-circle h-16"
-        src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=1193&height=671"
+        class="mask mask-circle w-32"
+        src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=150&height=150"
+        alt="avatar"
       />
     </div>
-    <div class="bg-opacity-60 bg-base-100">
-      <div class="text-center text-neutral-content">
-        <div class="max-w-md">
-          <h1 class="mb-1 text-3xl">Username Here</h1>
-        </div>
-      </div>
+    <div
+      class="text-center text-neutral-content bg-base-100 justify-center h-16 w-1/2"
+    >
+      <h1 class="mb-1 text-3xl text-secondary">Title Here</h1>
     </div>
-    <div>
-      <h1>H1</h1>
+    <div class="w-32">
+      <img
+        src="https://cdn.discordapp.com/attachments/1021694169846140959/1021694225689100288/Angmar_Banner.PNG.png"
+        alt="faction banner"
+      />
     </div>
   </div>
 </template>
