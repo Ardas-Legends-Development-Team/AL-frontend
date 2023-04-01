@@ -15,7 +15,9 @@
       </a>
     </div>
     <div class="navbar-end">
-      <button class="btn btn-outline">Coming soon</button>
+      <router-link to="/user_dashboard">
+        <button class="btn btn-outline">User Dashboard</button>
+      </router-link>
     </div>
   </div>
 </template>

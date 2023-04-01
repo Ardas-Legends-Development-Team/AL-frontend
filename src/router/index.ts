@@ -11,12 +11,17 @@ const routes = [
   },
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/user_dashboard",
   },
   {
     path: "/home",
     name: "Home",
     component: () => import("@/views/Homeview.vue"),
+  },
+  {
+    path: "/user_dashboard",
+    name: "UserDashboard",
+    component: () => import("@/views/Dashboards/UserDashboardView.vue"),
   },
 ];
 

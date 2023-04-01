@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import FooterBar from "@/components/navbars/FooterBar.vue";
-import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
+import HorizontalNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import { ref } from "vue";
 import axios from "axios";
