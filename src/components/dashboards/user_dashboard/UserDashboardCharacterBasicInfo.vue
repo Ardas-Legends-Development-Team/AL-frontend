@@ -10,6 +10,7 @@
     <div
       class="text-center text-neutral-content bg-base-100 justify-center h-16 w-1/2"
     >
+      <div class="badge badge-outline badge-primary">Faction</div>
       <h1 class="mb-1 text-3xl text-secondary">Title Here</h1>
     </div>
     <div class="mt-5 w-32">
