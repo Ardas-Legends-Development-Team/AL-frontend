@@ -1,4 +1,11 @@
 <template>
+  <div class="bg-base-100 w-full h-16 flex justify-center">
+    <div class="text-center text-neutral-content">
+      <div class="max-w-md">
+        <h1 class="mt-2 text-4xl">{{ ign }}</h1>
+      </div>
+    </div>
+  </div>
   <div class="flex flex-row justify-evenly">
     <div class="mt-5 shrink">
       <img
@@ -10,7 +17,7 @@
     <div
       class="text-center text-neutral-content bg-base-100 justify-center h-16 w-1/2"
     >
-      <div class="badge badge-outline badge-primary">Faction</div>
+      <div class="badge badge-outline badge-primary">{{ faction }}</div>
       <h1 class="mb-1 text-3xl text-secondary">Title Here</h1>
     </div>
     <div class="mt-5 w-32">
@@ -22,4 +29,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ApiClient from "@/ts/ApiClient";
+import { ref } from "vue";
+
+const faction = ref<string>("");
+const ign = ref<string>("");
+const title = ref<string>("");
+
+ApiClient.loadPlayerInfo().then((data) => {
+  faction.value = data.faction;
+  ign.value = data.ign;
+});
+</script>
