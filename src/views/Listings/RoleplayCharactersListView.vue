@@ -12,17 +12,14 @@
     <tbody>
       <tr
         class="hover"
-        v-for="roleplayCharacter in roleplayCharacters"
+        v-for="(roleplayCharacter, index) in roleplayCharacters"
         :key="roleplayCharacter.ign"
       >
         <td>
           <div class="flex items-center space-x-3">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
-                <img
-                  :src="`https://mc-heads.net/avatar/${roleplayCharacter.ign}/36`"
-                  alt="Avatar"
-                />
+                <img :src="avatars[index]" alt="Avatar" />
               </div>
             </div>
             <div>
@@ -83,6 +80,7 @@ const selectedCharacter = ref<RoleplayCharacter>({
     healEnds: "",
   },
 });
+const avatars = ref<string[]>([]);
 
 async function getMockData(): Promise<RoleplayCharacter[]> {
   const params = {
@@ -107,5 +105,11 @@ function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
 
 getMockData().then((data: any) => {
   roleplayCharacters.value = data;
+  for (let i = 0; i < data.length; i++) {
+    avatars.value.push(`https://mc-heads.net/avatar/${data[i].ign}/36`);
+  }
+  // TODO: Remove those when we have test data
+  avatars.value[2] = `https://mc-heads.net/avatar/VernonRoche/36`;
+  avatars.value[5] = `https://mc-heads.net/avatar/VernonRoche/36`;
 });
 </script>

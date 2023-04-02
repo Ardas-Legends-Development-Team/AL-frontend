@@ -8,11 +8,7 @@
   </div>
   <div class="flex flex-row justify-evenly">
     <div class="mt-5 shrink">
-      <img
-        class="mask mask-circle w-32"
-        src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=150&height=150"
-        alt="avatar"
-      />
+      <img class="mask mask-circle w-32" :src="avatar" alt="avatar" />
     </div>
     <div
       class="text-center text-neutral-content bg-base-100 justify-center h-20 w-1/2"
@@ -35,11 +31,13 @@ const factionBanner = ref<string>("");
 const faction = ref<string>("");
 const ign = ref<string>("");
 const title = ref<string>("");
+const avatar = ref<string>(``);
 
 ApiClient.loadPlayerInfo().then((data) => {
   faction.value = data.faction;
   factionBanner.value = factionNameToBanner(data.faction);
   ign.value = data.ign;
+  avatar.value = `https://mc-heads.net/avatar/${ign.value}/100`;
   ApiClient.loadCharacterInfo().then((data) => {
     title.value = data.title;
     // TODO: remove that when we have correct characters
