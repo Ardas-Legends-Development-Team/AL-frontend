@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col content-center basis-2/3 m-4">
-    <h3 class="text-2xl my-3">King: Sspoefaspeofasefssess</h3>
+    <h3 class="text-2xl text-accent my-3">King: Sspoefaspeofasefssess</h3>
     <h3 class="text-2xl my-3">Starting Region: 128</h3>
     <h3 class="text-2xl my-3">Claimed Regions: 500</h3>
     <h3 class="text-2xl my-3">Claimbuilds: 153</h3>
