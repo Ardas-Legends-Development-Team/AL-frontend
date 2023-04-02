@@ -1,10 +1,12 @@
 <template>
   <div class="bg-base-100 w-full h-20 flex justify-center">
-    <div class="text-center text-neutral-content text-3xl">{{ faction }}</div>
+    <div class="text-center text-neutral-content text-4xl font-bold mt-4">
+      {{ faction }}
+    </div>
   </div>
   <div class="flex flex-row justify-evenly bg-base-100">
     <div
-      class="btn text-center bg-base-100 justify-center h-20 w-1/3"
+      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
       :class="{
         [`btn-primary btn-active`]: currentTab === 0,
       }"
@@ -13,7 +15,7 @@
       <h1 class="mb-1 text-2xl text-secondary">Regions & Claimbuilds</h1>
     </div>
     <div
-      class="btn text-center bg-base-100 justify-center h-20 w-1/3"
+      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
       :class="{
         [`btn-primary btn-active`]: currentTab === 1,
       }"
@@ -22,7 +24,7 @@
       <h1 class="mb-1 text-2xl text-secondary">Summary</h1>
     </div>
     <div
-      class="btn text-center bg-base-100 justify-center h-20 w-1/3"
+      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
       :class="{
         [`btn-primary btn-active`]: currentTab === 2,
       }"
@@ -41,7 +43,7 @@ import FactionDashboardSummary from "@/components/dashboards/factionDashboard/Fa
 import FactionDashboardRegions from "@/components/dashboards/factionDashboard/FactionDashboardRegions.vue";
 import FactionDashboardArmies from "@/components/dashboards/factionDashboard/FactionDashboardArmies.vue";
 
-const currentTab = ref(0);
+const currentTab = ref(1);
 const faction = useRoute().params.factionName;
 const tabs: any = [
   FactionDashboardRegions,
