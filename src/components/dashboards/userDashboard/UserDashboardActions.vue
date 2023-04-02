@@ -28,14 +28,6 @@ function populateShownCards(rank: string): void {
   console.log(shownCards);
 }
 
-function testMove() {
-  console.log("testMove");
-}
-
-function testKingMove() {
-  console.log("testKingMove");
-}
-
 ApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
   // TODO: Remove this line when we get correctly ranks from the server
   data.rank = "member";
