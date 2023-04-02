@@ -1,10 +1,8 @@
 <template>
-  <div class="flex flex-wrap">
-    <div v-for="(data, index) in cardsData" :key="index">
-      <CardItem
+  <div class="grid grid-cols-8 gap-4 m-6">
+    <div v-for="data in cardsData" :key="data">
+      <FactionListCard
         :title="data.title"
-        :router="data.router"
-        :description="data.description"
         :alt="data.alt"
         :source="data.source"
       />
@@ -13,16 +11,21 @@
 </template>
 
 <script setup lang="ts">
-import CardItem from "@/components/CardItem.vue";
+import ApiClient from "@/ts/ApiClient";
+import { ref } from "vue";
+import { factionNameToBanner } from "@/ts/factionBannersEnum";
+import FactionListCard from "@/components/dashboards/factionDashboard/FactionListCard.vue";
 
-const cardsData = [
-  {
-    title: "Test",
-    source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1068869734365409322/VernonRoche__CA9.io_lord_of_the_rings_painting_of_durins_folk_d_c674282e-c208-4509-9760-a5e1fe77e6ab.png?width=671&height=671",
-    alt: "dwarven lords",
-    router: "/lists/roleplay_characters",
-    description: "Heroes, monsters and legends of all sorts can be found here",
-  },
-];
+const cardsData = ref<any[]>([]);
+
+ApiClient.loadFactions().then((factions) => {
+  console.log(factions);
+  factions.forEach((faction) => {
+    cardsData.value.push({
+      title: faction,
+      source: factionNameToBanner(faction),
+      alt: faction + " banner",
+    });
+  });
+});
 </script>

@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import CardItem from "@/components/CardItem.vue";
+import CardItem from "@/components/lists/ListCard.vue";
 
 const cardsData = [
   {
@@ -27,8 +27,8 @@ const cardsData = [
   {
     title: "Regions",
     source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1070856116394786837/EleventyFive_fantasy_theme_dungeon_and_dragon_destroyed_wooden__2eae6ee5-ef49-456b-b537-5f86d41ed14c.png",
-    alt: "cart in mountains",
+      "https://cdn.discordapp.com/attachments/1080521696479547502/1080521863278645298/BlueOrigin_flying_ancient_Castle_above_an_army_of_Orcs__Gothic__9da9b1c3-af31-4d3c-a368-ec13cd347031.png",
+    alt: "castle with ravens",
     router: "/lists/regions",
     description:
       "From the peaks of the Misty Mountains to the desserts of Harad, find all regions here",
@@ -36,8 +36,8 @@ const cardsData = [
   {
     title: "Factions",
     source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1070856116394786837/EleventyFive_fantasy_theme_dungeon_and_dragon_destroyed_wooden__2eae6ee5-ef49-456b-b537-5f86d41ed14c.png",
-    alt: "cart in mountains",
+      "https://cdn.discordapp.com/attachments/1080521696479547502/1080521882945728512/Dark_1988_The_Dark_Lord_Sauron_sits_on_the_throne_in_the_fortre_c8af9024-051f-4eef-81fd-24f3d2ece103.png",
+    alt: "black numenorean on throne",
     router: "/lists/factions",
     description:
       "Here lie the great factions of Arda, from the black legions of Mordor to the blacksmiths of Ered Luin",
