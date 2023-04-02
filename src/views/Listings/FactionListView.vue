@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-8 gap-4 m-6">
+  <div class="grid grid-cols-7 gap-4 m-6">
     <div v-for="data in cardsData" :key="data">
       <FactionListCard
         :title="data.title"
