@@ -20,7 +20,7 @@
       <h1 class="mb-1 text-3xl text-secondary">{{ title }}</h1>
       <div class="badge badge-outline badge-primary">{{ faction }}</div>
     </div>
-    <div class="mt-5 w-32">
+    <div class="mt-5 w-32 h-64">
       <img :src="factionBanner" alt="faction banner" />
     </div>
   </div>
@@ -37,6 +37,7 @@ const ign = ref<string>("");
 const title = ref<string>("");
 
 ApiClient.loadPlayerInfo().then((data) => {
+  data.faction = "rangers of the north";
   faction.value = data.faction;
   factionBanner.value = factionNameToBanner(data.faction);
   ign.value = data.ign;
