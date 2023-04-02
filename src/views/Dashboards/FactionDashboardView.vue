@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-100 w-full h-20 flex justify-center">
-    <div class="text-center text-neutral-content"></div>
+    <div class="text-center text-neutral-content text-3xl">{{ faction }}</div>
   </div>
   <div class="flex flex-row justify-evenly bg-base-100">
     <div
