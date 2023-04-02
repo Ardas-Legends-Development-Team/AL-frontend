@@ -37,7 +37,6 @@ const ign = ref<string>("");
 const title = ref<string>("");
 
 ApiClient.loadPlayerInfo().then((data) => {
-  data.faction = "rangers of the north";
   faction.value = data.faction;
   factionBanner.value = factionNameToBanner(data.faction);
   ign.value = data.ign;
