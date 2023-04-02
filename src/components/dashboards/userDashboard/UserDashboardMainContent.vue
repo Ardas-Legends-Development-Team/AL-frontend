@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardActions from "@/components/dashboards/user_dashboard/UserDashboardActions.vue";
-import UserDashboardCard from "@/components/dashboards/user_dashboard/UserDashboardCard.vue";
+import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
+import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
 
 const cardsData = {
   gear: {

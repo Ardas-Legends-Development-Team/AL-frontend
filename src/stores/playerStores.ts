@@ -16,20 +16,22 @@ export const usePlayerStore = defineStore("PlayerStore", () => {
 });
 
 export const useCharacterStore = defineStore("CharacterStore", () => {
-  const name = ref("");
-  const title = ref("");
-  const gear = ref("");
+  const name = ref("No character name");
+  const title = ref("No title");
+  const rank = ref("Member");
+  const gear = ref("No gear");
   const pvp = ref(false);
-  const currentRegion = ref("");
-  const boundTo = ref("");
+  const currentRegion = ref("0");
+  const boundTo = ref("Not bound to entity");
   const injured = ref(false);
   const isHealing = ref(false);
-  const startedHeal = ref("");
-  const healEnds = ref("");
+  const startedHeal = ref("Some date");
+  const healEnds = ref("Some another date");
 
   return {
     name,
     title,
+    rank,
     gear,
     pvp,
     currentRegion,

@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardCard from "@/components/dashboards/user_dashboard/UserDashboardCard.vue";
+import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
 
 const cardsData = {
   boundTo: {
@@ -44,8 +44,8 @@ const cardsData = {
     title: "Current Region",
     description: "region here",
     source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1070856198821257216/maxBen_lothlorien_lord_of_the_rings_d172e7a3-1c36-425c-9004-7e0910a898c1.png?width=671&height=671",
-    alt: "gondor lake tower",
+      "https://media.discordapp.net/attachments/1080521946397147166/1080522043533033502/cajur_Medieval_landscape_background_mountains_Lord_of_the_Rings_c4ae9763-78ce-406a-ac6b-11939e7a5e2d.png?width=671&height=671",
+    alt: "valley road",
   },
   pvpStatus: {
     title: "PvP",

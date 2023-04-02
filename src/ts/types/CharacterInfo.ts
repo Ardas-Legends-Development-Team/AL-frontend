@@ -1,6 +1,7 @@
 export type CharacterInfo = {
   name: string;
   title: string;
+  rank: string;
   gear: string;
   pvp: boolean;
   currentRegion: string;
