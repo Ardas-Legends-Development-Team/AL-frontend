@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useFactionsStore, usePlayerStore } from "@/stores/generalInfoStores";
+import { useFactionsStore } from "@/stores/generalInfoStores";
+import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
+import { CharacterInfo } from "@/ts/types/CharacterInfo";
 
 export default class ApiClient {
   static registerPlayer(
@@ -52,12 +54,45 @@ export default class ApiClient {
   }
 
   static async loadPlayerInfo(discordId?: string): Promise<PlayerInfo> {
+    if (discordId !== undefined) {
+      return new Promise((resolve) => {
+        this.loadPlayerCharacterInfoFromAPI(discordId).then(() => {
+          resolve(usePlayerStore());
+        });
+      });
+    }
+    return usePlayerStore();
+  }
+
+  static async loadCharacterInfo(discordId?: string): Promise<CharacterInfo> {
+    if (discordId !== undefined) {
+      return new Promise((resolve) => {
+        this.loadPlayerCharacterInfoFromAPI(discordId).then(() => {
+          resolve(useCharacterStore());
+        });
+      });
+    }
+    return useCharacterStore();
+  }
+
+  static async loadClaimbuildTypes(): Promise<string[]> {
+    return ["Something here"];
+  }
+
+  /**
+   * Loads player and then character info from the API and stores it in the player store and
+   * character store. If the player info is already loaded, it will not load it again.
+   * @param discordId
+   */
+  private static async loadPlayerCharacterInfoFromAPI(
+    discordId: string
+  ): Promise<boolean> {
     console.log("Loading player info for " + discordId);
     const playerStore = usePlayerStore();
     return new Promise((resolve) => {
       if (playerStore.discordId !== "") {
         console.log("Player info already loaded");
-        resolve(playerStore);
+        resolve(true);
         return;
       }
       console.log("Loading player info from server");
@@ -71,14 +106,24 @@ export default class ApiClient {
           // TODO: Replace with proper staff check
           //playerStore.isStaff = data.isStaff;
           playerStore.isStaff = false;
+          // Load character info
+          if (data.rpChar !== null) {
+            const characterStore = useCharacterStore();
+            characterStore.name = data.rpChar.name;
+            characterStore.title = data.rpChar.title;
+            characterStore.gear = data.rpChar.gear;
+            characterStore.pvp = data.rpChar.pvp;
+            characterStore.currentRegion = data.rpChar.currentRegion;
+            characterStore.boundTo = data.rpChar.boundTo;
+            characterStore.injured = data.rpChar.injured;
+            characterStore.isHealing = data.rpChar.isHealing;
+            characterStore.startedHeal = data.rpChar.startedHeal;
+            characterStore.healEnds = data.rpChar.healEnds;
+          }
           console.log("Loaded player info from server", playerStore);
-          resolve(playerStore);
+          resolve(true);
           return;
         });
     });
-  }
-
-  static async loadClaimbuildTypes(): Promise<string[]> {
-    return ["Something here"];
   }
 }
