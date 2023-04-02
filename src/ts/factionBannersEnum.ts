@@ -38,6 +38,5 @@ export function factionNameToBanner(faction: string): string {
     .replace(new RegExp(/[ùúûü]/g), "u");
   // Replace spaces, dashes and apostrophes with underscores
   faction = faction.toUpperCase().replace(/[-| ]/g, "_").replace(/['"`]/g, "");
-  console.log(faction);
   return FactionBannersEnum[faction as keyof typeof FactionBannersEnum];
 }

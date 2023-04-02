@@ -23,6 +23,11 @@ const routes = [
     name: "UserDashboard",
     component: () => import("@/views/Dashboards/UserDashboardView.vue"),
   },
+  {
+    path: "/faction/:factionName",
+    name: "FactionDashboard",
+    component: () => import("@/views/Dashboards/FactionDashboardView.vue"),
+  },
 ];
 
 routes.push(...applicationRoutes);
