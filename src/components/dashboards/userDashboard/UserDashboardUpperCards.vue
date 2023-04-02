@@ -7,18 +7,11 @@
       :alt="cardsData.boundTo.alt"
     />
     <UserDashboardCard
-      class="-translate-y-40"
+      class="-translate-y-48"
       :title="cardsData.currentRegion.title"
       :description="cardsData.currentRegion.description"
       :source="cardsData.currentRegion.source"
       :alt="cardsData.currentRegion.alt"
-    />
-    <UserDashboardCard
-      class="-translate-y-40"
-      :title="cardsData.pvpStatus.title"
-      :description="cardsData.pvpStatus.description"
-      :source="cardsData.pvpStatus.source"
-      :alt="cardsData.pvpStatus.alt"
     />
     <UserDashboardCard
       :title="cardsData.injuredStatus.title"
@@ -48,13 +41,6 @@ const cardsData = {
       "https://media.discordapp.net/attachments/1080521946397147166/1080522043533033502/cajur_Medieval_landscape_background_mountains_Lord_of_the_Rings_c4ae9763-78ce-406a-ac6b-11939e7a5e2d.png?width=671&height=671",
     alt: "valley road",
   },
-  pvpStatus: {
-    title: "PvP",
-    description: "Disabled",
-    source:
-      "https://cdn.discordapp.com/attachments/1080521946397147166/1080522147501457518/Mister_Lonely_art_by_keith_parkinson_dark_lord_morgoth_holds_al_1aebfbeb-b0bd-4705-89ff-c88197520a53.png",
-    alt: "morgoth and sauron",
-  },
   injuredStatus: {
     title: "Injured",
     description: "You are not injured",
@@ -68,9 +54,6 @@ ApiClient.loadCharacterInfo().then((data) => {
   cardsData.currentRegion.description = data.currentRegion;
   if (data.boundTo !== "") {
     cardsData.boundTo.description = data.boundTo;
-  }
-  if (data.pvp) {
-    cardsData.pvpStatus.description = "Enabled";
   }
   if (data.injured) {
     cardsData.injuredStatus.description = "You are injured!";
