@@ -21,10 +21,7 @@
       <div class="badge badge-outline badge-primary">{{ faction }}</div>
     </div>
     <div class="mt-5 w-32">
-      <img
-        src="https://cdn.discordapp.com/attachments/1021694169846140959/1021694225689100288/Angmar_Banner.PNG.png"
-        alt="faction banner"
-      />
+      <img :src="factionBanner" alt="faction banner" />
     </div>
   </div>
 </template>
@@ -32,13 +29,16 @@
 <script setup lang="ts">
 import ApiClient from "@/ts/ApiClient";
 import { ref } from "vue";
+import { factionNameToBanner } from "@/ts/factionBannersEnum";
 
+const factionBanner = ref<string>("");
 const faction = ref<string>("");
 const ign = ref<string>("");
 const title = ref<string>("");
 
 ApiClient.loadPlayerInfo().then((data) => {
   faction.value = data.faction;
+  factionBanner.value = factionNameToBanner(data.faction);
   ign.value = data.ign;
   ApiClient.loadCharacterInfo().then((data) => {
     title.value = data.title;
