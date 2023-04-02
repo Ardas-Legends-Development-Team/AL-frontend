@@ -18,7 +18,7 @@ export enum FactionBannersEnum {
   HOBBITS = "https://cdn.discordapp.com/attachments/1021694169846140959/1021700944385277972/Hobbit_Banner.PNG.png",
   MORDOR = "https://cdn.discordapp.com/attachments/1021694169846140959/1021700959694508142/Mordor_Banner.PNG.png",
   MORWAITH = "https://cdn.discordapp.com/attachments/1021694169846140959/1021701061452513350/Moredain_Banner.PNG.png",
-  HARNNENOR = "https://cdn.discordapp.com/attachments/1021694169846140959/1021701068893196338/Near_Harad_Banner.PNG.png",
+  HARNENNOR = "https://cdn.discordapp.com/attachments/1021694169846140959/1021701068893196338/Near_Harad_Banner.PNG.png",
   RANGERS_OF_THE_NORTH = "https://cdn.discordapp.com/attachments/1021694169846140959/1021701100476309544/Ranger_Banner.PNG.png",
   RIVENDELL = "https://media.discordapp.net/attachments/1021694169846140959/1092095438158577835/Rivendell_Banner.webp",
   ROHAN = "https://cdn.discordapp.com/attachments/1021694169846140959/1021701256814809130/Rohan_Banner.PNG.png",
@@ -37,6 +37,7 @@ export function factionNameToBanner(faction: string): string {
     .replace(new RegExp(/[òóôõö]/g), "o")
     .replace(new RegExp(/[ùúûü]/g), "u");
   // Replace spaces, dashes and apostrophes with underscores
-  faction = faction.toUpperCase().replace(/ /g, "_").replace(/-'/g, "_");
+  faction = faction.toUpperCase().replace(/[-| ]/g, "_").replace(/['"`]/g, "");
+  console.log(faction);
   return FactionBannersEnum[faction as keyof typeof FactionBannersEnum];
 }
