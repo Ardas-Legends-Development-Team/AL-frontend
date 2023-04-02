@@ -54,31 +54,33 @@
       </router-link>
     </li>
     <li class="w-1/2 flex justify-start mb-6">
-      <a
-        href="javascript:void(0)"
-        class="rounded-md bg-transparent text-gray-600 flex flex-col justify-center items-center w-20 h-20 p-4"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-notebook"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      <router-link to="/lists/factions">
+        <a
+          href="javascript:void(0)"
+          class="bg-gray-700 rounded-md text-gray-300 flex flex-col justify-center items-center w-20 h-20 p-4"
         >
-          <path stroke="none" d="M0 0h24v24H0z"></path>
-          <path
-            d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"
-          ></path>
-          <line x1="13" y1="8" x2="15" y2="8"></line>
-          <line x1="13" y1="12" x2="15" y2="12"></line>
-        </svg>
-        <p class="mt-1 uppercase font-semibold text-xs">Coming soon</p>
-      </a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-star"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z"></path>
+            <path
+              d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"
+            ></path>
+          </svg>
+          <p class="mt-1 uppercase font-semibold text-xs text-primary">
+            Factions
+          </p>
+        </a>
+      </router-link>
     </li>
     <li class="w-1/2 flex justify-end mb-6">
       <a
@@ -114,7 +116,7 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-star"
+          class="icon icon-tabler icon-tabler-notebook"
           width="20"
           height="20"
           viewBox="0 0 24 24"
@@ -126,8 +128,10 @@
         >
           <path stroke="none" d="M0 0h24v24H0z"></path>
           <path
-            d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"
+            d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"
           ></path>
+          <line x1="13" y1="8" x2="15" y2="8"></line>
+          <line x1="13" y1="12" x2="15" y2="12"></line>
         </svg>
         <p class="mt-1 uppercase font-semibold text-xs">Coming soon</p>
       </a>

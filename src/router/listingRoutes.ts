@@ -14,6 +14,11 @@ const listingRoutes = [
     name: "RegionsList",
     component: () => import("@/views/Listings/RegionListView.vue"),
   },
+  {
+    path: "/lists/factions",
+    name: "FactionsList",
+    component: () => import("@/views/Listings/FactionListView.vue"),
+  },
 ];
 
 export default listingRoutes;

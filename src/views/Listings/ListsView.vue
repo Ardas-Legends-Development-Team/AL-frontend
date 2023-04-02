@@ -33,5 +33,14 @@ const cardsData = [
     description:
       "From the peaks of the Misty Mountains to the desserts of Harad, find all regions here",
   },
+  {
+    title: "Factions",
+    source:
+      "https://media.discordapp.net/attachments/1068863871772790865/1070856116394786837/EleventyFive_fantasy_theme_dungeon_and_dragon_destroyed_wooden__2eae6ee5-ef49-456b-b537-5f86d41ed14c.png",
+    alt: "cart in mountains",
+    router: "/lists/factions",
+    description:
+      "Here lie the great factions of Arda, from the black legions of Mordor to the blacksmiths of Ered Luin",
+  },
 ];
 </script>
