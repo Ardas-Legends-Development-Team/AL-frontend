@@ -9,7 +9,7 @@
         alt="faction banner"
       />
     </div>
-    <h3 class="basis-1/3 text-xl text-primary font-bold text-center my-10 mx-2">
+    <h3 class="basis-1/3 text-xl text-accent font-bold text-center my-10 mx-2">
       {{ war.faction }} VS {{ war.mainEnemy }}
     </h3>
     <div class="flex flex-row basis-1/3 flex-wrap">

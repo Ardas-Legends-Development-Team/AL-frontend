@@ -11,6 +11,22 @@
       <FactionDashboardSummaryWar :war="war" />
     </div>
   </div>
+  <div class="flex flex-row justify-center my-4" v-if="pastWars.length > 0">
+    <h2 class="text-3xl text-secondary font-bold">Past Wars</h2>
+  </div>
+  <div class="flex flex-col justify-center">
+    <div
+      v-for="war in pastWars"
+      :key="war"
+      class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
+      :class="{
+        [`bg-green-900`]: war.outcome === 'win',
+        [`bg-red-950`]: war.outcome === 'loss',
+      }"
+    >
+      <FactionDashboardSummaryWar :war="war" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +47,40 @@ const currentWars = ref([
     faction: "Gondor",
     mainEnemy: "Mordor",
     outcome: "",
+  },
+]);
+
+const pastWars = ref([
+  {
+    allies: ["Gondor", "Gondor", "Mordor", "Angmar", "Angmar"],
+    enemies: ["Mordor", "Angmar", "Angmar", "Durin's Folk", "Gondor", "Gondor"],
+    faction: "Gondor",
+    mainEnemy: "Mordor",
+    outcome: "win",
+  },
+  {
+    allies: ["Gondor", "Angmar", "Angmar"],
+    enemies: ["Mordor", "Angmar", "Angmar", "Durin's Folk", "Gondor", "Gondor"],
+    faction: "Gondor",
+    mainEnemy: "Mordor",
+    outcome: "loss",
+  },
+  {
+    allies: ["Gondor", "Angmar", "Angmar", "Dunland", "Rohan"],
+    enemies: [
+      "Mordor",
+      "Angmar",
+      "Angmar",
+      "Durin's Folk",
+      "Gondor",
+      "Gondor",
+      "Dunland",
+      "Rohan",
+      "Woodland Realm",
+    ],
+    faction: "Gondor",
+    mainEnemy: "Mordor",
+    outcome: "loss",
   },
 ]);
 defineProps({
