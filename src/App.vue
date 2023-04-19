@@ -37,9 +37,9 @@ const authenticationClient = new AuthenticationClient(
 const cookies = useCookie();
 
 authenticationClient.setScopes(["identify", "guilds"]);
-authenticationClient.setRedirect("http://localhost:6942");
+authenticationClient.setRedirect("http://localhost:3333");
 const authUrl =
-  "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A6942&response_type=code&scope=identify%20guilds";
+  "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A3333&response_type=code&scope=identify%20guilds";
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);
