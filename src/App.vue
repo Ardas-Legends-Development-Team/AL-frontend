@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoggedIn === true">
     <header>
-      <HorizontalNavbar />
+      <TopNavbar v-if="loadedUser" />
       <VerticalNavbar v-if="loadedUser" />
     </header>
     <div class="relative min-h-screen flex flex-col">
@@ -19,12 +19,7 @@
 
 <script setup lang="ts">
 import AuthenticationClient from "@/ts/AuthenticationClient";
-import FooterBar from "@/components/navbars/FooterBar.vue";
-import HorizontalNavbar from "@/components/navbars/TopNavbar.vue";
-import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
-import { ref } from "vue";
 import axios from "axios";
-import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCookie } from "vue-cookie-next";
 import ApiClient from "@/ts/ApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";

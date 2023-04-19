@@ -37,8 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
 import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";

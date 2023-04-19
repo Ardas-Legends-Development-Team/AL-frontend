@@ -60,9 +60,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import UserButtonList from "@/components/navbars/UserButtonList.vue";
-import StaffButtonList from "@/components/navbars/StaffButtonList.vue";
-
 function openSidebar(flag: boolean) {
   const sidebar = document.getElementById("sidebar");
   const sidebarToggle = document.getElementById("sidebar-toggle");

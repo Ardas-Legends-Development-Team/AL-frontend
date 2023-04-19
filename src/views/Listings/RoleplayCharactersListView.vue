@@ -58,9 +58,7 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from "vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
-import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
 
 const roleplayCharacters = ref<RoleplayCharacter[]>([]);
 const selectedCharacter = ref<RoleplayCharacter>({

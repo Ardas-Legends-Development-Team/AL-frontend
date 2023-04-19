@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import ApiClient from "@/ts/ApiClient";
-import { ref } from "vue";
 
 const isStaff = ref(false);
 
