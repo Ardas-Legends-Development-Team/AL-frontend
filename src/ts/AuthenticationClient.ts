@@ -44,10 +44,14 @@ export default class AuthenticationClient {
       const res = await fetch(`https://discord.com/api/oauth2/token`, {
         method: "POST",
         body: new URLSearchParams({
+          // eslint-disable-next-line camelcase
           client_id: this.clientId,
+          // eslint-disable-next-line camelcase
           client_secret: this.clientSecret,
           code,
+          // eslint-disable-next-line camelcase
           grant_type: `authorization_code`,
+          // eslint-disable-next-line camelcase
           redirect_uri: this.redirectUri,
           scope: this.scopes.join(" "),
         }).toString(),
