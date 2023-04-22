@@ -26,7 +26,7 @@
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
       <img
         alt="roleplay image"
-        :src="stepsImages[currentStep]"
+        :src="stepsImages[currentStep].toString()"
         class="absolute inset-0 h-full w-full object-cover"
       />
     </div>

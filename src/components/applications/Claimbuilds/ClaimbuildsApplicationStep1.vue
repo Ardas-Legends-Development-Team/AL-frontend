@@ -16,7 +16,7 @@
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="faction">
       <option disabled selected>Your faction</option>
-      <option v-for="faction in factions" :key="faction">
+      <option v-for="(faction, index) in factions" :key="index">
         {{ faction }}
       </option>
     </select>
