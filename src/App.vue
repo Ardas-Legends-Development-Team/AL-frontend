@@ -23,11 +23,8 @@ import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import ApiClient from "@/ts/ApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
-import { discordRedirectUrl } from "@/config.json";
+import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
 
-//Change this depending on if it's production or dev server
-//const redirectUrl = discordRedirectUrl.dev;
-const redirectUrl = discordRedirectUrl.production;
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(false);
@@ -40,10 +37,15 @@ const authenticationClient = new AuthenticationClient(
 
 const cookies = useCookie();
 
+//Change this depending on if it's production or dev server
+//const redirectUrl = discordRedirectUrl.dev;
+const redirectUrl = discordRedirectUrl.dev;
+// const authUrl = discordAuthUrl.dev;
+const authUrl = discordAuthUrl.dev;
+
 authenticationClient.setScopes(["identify", "guilds"]);
 authenticationClient.setRedirect(redirectUrl);
-const authUrl =
-  "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A3333&response_type=code&scope=identify%20guilds";
+
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);
