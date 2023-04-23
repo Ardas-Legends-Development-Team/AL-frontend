@@ -7,6 +7,7 @@ import Components from "unplugin-vue-components/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/AL-frontend/",
   plugins: [
     vue(),
     // eslint-disable-next-line new-cap
