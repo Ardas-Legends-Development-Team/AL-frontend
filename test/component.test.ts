@@ -1,4 +1,10 @@
-export {};
+import { describe, expect, it } from "vitest";
+
+describe("tests", () => {
+  it("should works", () => {
+    expect(1 + 1).toEqual(2);
+  });
+});
 /* Exemple test
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
