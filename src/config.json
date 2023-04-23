@@ -1,0 +1,6 @@
+{
+  "discordRedirectUrl": {
+    "dev": "http://localhost:3333",
+    "production": "https://ardas-legends-development-team.github.io/AL-frontend/"
+  }
+}
