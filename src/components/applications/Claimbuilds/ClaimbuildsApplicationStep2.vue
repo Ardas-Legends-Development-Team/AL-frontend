@@ -14,7 +14,7 @@
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="buildType">
       <option disabled selected>Type of build</option>
-      <option v-for="claimbuildType in claimbuildTypes" :key="claimbuildType">
+      <option v-for="(claimbuildType, index) in claimbuildTypes" :key="index">
         {{ claimbuildType }}
       </option>
     </select>
@@ -81,7 +81,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
 import { useClaimbuildTypesStore } from "@/stores/generalInfoStores";

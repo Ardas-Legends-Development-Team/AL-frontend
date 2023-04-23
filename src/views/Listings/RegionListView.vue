@@ -57,10 +57,7 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
-import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
-import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 
 const regions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({

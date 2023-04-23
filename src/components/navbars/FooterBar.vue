@@ -50,7 +50,4 @@
   </footer>
 </template>
 
-<script setup lang="ts">
-import DiscordIcon from "@/components/icons/DiscordIcon.vue";
-import InstagramIcon from "@/components/icons/InstagramIcon.vue";
-</script>
+<script setup lang="ts"></script>

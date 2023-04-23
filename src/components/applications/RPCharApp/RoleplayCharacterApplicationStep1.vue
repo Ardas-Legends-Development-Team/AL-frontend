@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 // previousStep event is not used in this component, but in the next 2 steps

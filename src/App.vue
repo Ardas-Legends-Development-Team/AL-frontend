@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoggedIn === true">
     <header>
-      <HorizontalNavbar />
+      <TopNavbar v-if="loadedUser" />
       <VerticalNavbar v-if="loadedUser" />
     </header>
     <div class="relative min-h-screen flex flex-col">
@@ -19,15 +19,11 @@
 
 <script setup lang="ts">
 import AuthenticationClient from "@/ts/AuthenticationClient";
-import FooterBar from "@/components/navbars/FooterBar.vue";
-import HorizontalNavbar from "@/components/navbars/TopNavbar.vue";
-import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
-import { ref } from "vue";
 import axios from "axios";
-import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCookie } from "vue-cookie-next";
 import ApiClient from "@/ts/ApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
+import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
@@ -41,10 +37,15 @@ const authenticationClient = new AuthenticationClient(
 
 const cookies = useCookie();
 
+//Change this depending on if it's production or dev server
+//const redirectUrl = discordRedirectUrl.dev;
+const redirectUrl = discordRedirectUrl.dev;
+// const authUrl = discordAuthUrl.dev;
+const authUrl = discordAuthUrl.dev;
+
 authenticationClient.setScopes(["identify", "guilds"]);
-authenticationClient.setRedirect("http://localhost:6942");
-const authUrl =
-  "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A6942&response_type=code&scope=identify%20guilds";
+authenticationClient.setRedirect(redirectUrl);
+
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);

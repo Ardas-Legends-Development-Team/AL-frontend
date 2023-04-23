@@ -26,7 +26,7 @@
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
       <img
         alt="roleplay image"
-        :src="stepsImages[currentStep]"
+        :src="stepsImages[currentStep].toString()"
         class="absolute inset-0 h-full w-full object-cover"
       />
     </div>
@@ -34,8 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue";
 import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
 import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep2.vue";

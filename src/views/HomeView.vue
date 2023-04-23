@@ -3,9 +3,10 @@
   <div
     id="home-hero"
     class="hero min-h-screen"
-    style="
-      background-image: url(https://media.discordapp.net/attachments/1068863871772790865/1068869765587816548/VernonRoche__CA9.io_lord_of_the_rings_painting_of_huge_dwarven__487c0555-83b6-471a-a82d-1c79b7a23853.png?width=671&height=671);
-    "
+    :style="{
+      'background-image':
+        'url(https://media.discordapp.net/attachments/1068863871772790865/1068869765587816548/VernonRoche__CA9.io_lord_of_the_rings_painting_of_huge_dwarven__487c0555-83b6-471a-a82d-1c79b7a23853.png?width=671&height=671)',
+    }"
   >
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content">

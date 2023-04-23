@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import CardItem from "@/components/lists/ListCard.vue";
-
 const cardsData = [
   {
     title: "Roleplay Character Application",

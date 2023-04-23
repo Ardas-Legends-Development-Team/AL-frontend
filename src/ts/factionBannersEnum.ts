@@ -1,3 +1,4 @@
+/*eslint-disable*/
 export enum FactionBannersEnum {
   ANGMAR = "https://cdn.discordapp.com/attachments/1021694169846140959/1021694225689100288/Angmar_Banner.PNG.png",
   ERED_LUIN = "https://cdn.discordapp.com/attachments/1021694169846140959/1021694308799229973/Blue_Mountains_Banner.PNG.png",
