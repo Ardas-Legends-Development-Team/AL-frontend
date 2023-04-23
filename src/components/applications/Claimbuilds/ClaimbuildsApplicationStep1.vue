@@ -16,7 +16,7 @@
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="faction">
       <option disabled selected>Your faction</option>
-      <option v-for="faction in factions" :key="faction">
+      <option v-for="(faction, index) in factions" :key="index">
         {{ faction }}
       </option>
     </select>
@@ -36,7 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
 // previousStep event is not used in this component, but in the next 2 steps
