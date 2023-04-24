@@ -9,7 +9,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    CardItem: typeof import('./components/CardItem.vue')['default']
     CharactersInRegionModal: typeof import('./components/lists/CharactersInRegionModal.vue')['default']
     ClaimbuildsApplicationStep0: typeof import('./components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue')['default']
     ClaimbuildsApplicationStep1: typeof import('./components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue')['default']
@@ -17,8 +16,17 @@ declare module '@vue/runtime-core' {
     ClaimbuildsApplicationStep3: typeof import('./components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue')['default']
     ClaimbuildsInRegionModal: typeof import('./components/lists/ClaimbuildsInRegionModal.vue')['default']
     DiscordIcon: typeof import('./components/icons/DiscordIcon.vue')['default']
+    FactionDashboardActionCard: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue')['default']
+    FactionDashboardArmies: typeof import('./components/dashboards/factionDashboard/FactionDashboardArmies.vue')['default']
+    FactionDashboardRegions: typeof import('./components/dashboards/factionDashboard/FactionDashboardRegions.vue')['default']
+    FactionDashboardSummary: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummary.vue')['default']
+    FactionDashboardSummaryInformation: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryInformation.vue')['default']
+    FactionDashboardSummaryWar: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWar.vue')['default']
+    FactionDashboardSummaryWars: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWars.vue')['default']
+    FactionListCard: typeof import('./components/dashboards/factionDashboard/FactionListCard.vue')['default']
     FooterBar: typeof import('./components/navbars/FooterBar.vue')['default']
     InstagramIcon: typeof import('./components/icons/InstagramIcon.vue')['default']
+    ListCard: typeof import('./components/lists/ListCard.vue')['default']
     RegistrationForm: typeof import('./components/RegistrationForm.vue')['default']
     RoleplayCharacterApplicationStep1: typeof import('./components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue')['default']
     RoleplayCharacterApplicationStep2: typeof import('./components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue')['default']

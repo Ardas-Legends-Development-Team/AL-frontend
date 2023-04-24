@@ -7,8 +7,8 @@
   </div>
   <div class="flex flex-col justify-center">
     <div
-      v-for="war in currentWarsMockData"
-      :key="war"
+      v-for="(war, index) in currentWarsMockData"
+      :key="index"
       class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
     >
       <FactionDashboardSummaryWar :war="war" />
@@ -19,8 +19,8 @@
   </div>
   <div class="flex flex-col justify-center">
     <div
-      v-for="war in pastWars"
-      :key="war"
+      v-for="(war, index) in pastWars"
+      :key="index"
       class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
       :class="{
         [`bg-green-900`]: war.outcome === 'win',
@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import FactionDashboardSummaryWar from "@/components/dashboards/factionDashboard/FactionDashboardSummaryWar.vue";
 import { War } from "@/ts/types/War";
 
 const pastWarsPage = ref(0);

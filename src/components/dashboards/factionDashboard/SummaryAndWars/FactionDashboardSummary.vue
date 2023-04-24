@@ -7,19 +7,35 @@
       <div class="flex flex-row bg-base-200 rounded-lg">
         <FactionDashboardSummaryInformation :faction="faction" />
       </div>
-      <div>Action cards</div>
+      <div v-for="(card, index) in cardData" :key="index">
+        <FactionDashboardActionCard
+          :title="card.title"
+          :source="card.source"
+          :alt="card.alt"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import FactionDashboardSummaryWars from "@/components/dashboards/factionDashboard/FactionDashboardSummaryWars.vue";
-import FactionDashboardSummaryInformation from "@/components/dashboards/factionDashboard/FactionDashboardSummaryInformation.vue";
-
 defineProps({
   faction: {
     type: String,
     required: true,
   },
 });
+
+const cardData = ref([
+  {
+    title: "Declare War",
+    source: "https://i.imgur.com/1ZQ3Z9C.png",
+    alt: "faction banner",
+  },
+  {
+    title: "Start Alliance",
+    source: "https://i.imgur.com/1ZQ3Z9C.png",
+    alt: "faction banner",
+  },
+]);
 </script>

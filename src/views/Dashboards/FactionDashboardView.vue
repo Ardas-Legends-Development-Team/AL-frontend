@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { ref } from "vue";
-import FactionDashboardSummary from "@/components/dashboards/factionDashboard/FactionDashboardSummary.vue";
+import FactionDashboardSummary from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummary.vue";
 import FactionDashboardRegions from "@/components/dashboards/factionDashboard/FactionDashboardRegions.vue";
 import FactionDashboardArmies from "@/components/dashboards/factionDashboard/FactionDashboardArmies.vue";
 
