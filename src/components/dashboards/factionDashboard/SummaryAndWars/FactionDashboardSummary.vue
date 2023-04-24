@@ -7,12 +7,14 @@
       <div class="flex flex-row bg-base-200 rounded-lg">
         <FactionDashboardSummaryInformation :faction="faction" />
       </div>
-      <div v-for="(card, index) in cardData" :key="index">
-        <FactionDashboardActionCard
-          :title="card.title"
-          :source="card.source"
-          :alt="card.alt"
-        />
+      <div class="flex flex-row">
+        <div v-for="(card, index) in cardData" :key="index">
+          <FactionDashboardActionCard
+            :title="card.title"
+            :source="card.source"
+            :alt="card.alt"
+          />
+        </div>
       </div>
     </div>
   </div>
