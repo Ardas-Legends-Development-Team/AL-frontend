@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     DiscordIcon: typeof import('./components/icons/DiscordIcon.vue')['default']
     FactionDashboardActionCard: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue')['default']
     FactionDashboardArmies: typeof import('./components/dashboards/factionDashboard/FactionDashboardArmies.vue')['default']
+    FactionDashboardRegionCollapseCard: typeof import('./components/dashboards/factionDashboard/FactionDashboardRegionCollapseCard.vue')['default']
     FactionDashboardRegions: typeof import('./components/dashboards/factionDashboard/FactionDashboardRegions.vue')['default']
     FactionDashboardSummary: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummary.vue')['default']
     FactionDashboardSummaryInformation: typeof import('./components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryInformation.vue')['default']

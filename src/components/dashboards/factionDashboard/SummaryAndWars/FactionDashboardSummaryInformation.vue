@@ -35,7 +35,11 @@
       >
         <img :src="enemyFactionBanner" alt="faction banner" />
       </div>
-      <img class="w-8 h-8 mt-4 mx-2" src="../../../../assets/swords.png" alt="swords" />
+      <img
+        class="w-8 h-8 mt-4 mx-2"
+        src="../../../../assets/swords.png"
+        alt="swords"
+      />
     </div>
   </div>
 </template>

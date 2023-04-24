@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
 import { useCookie } from "vue-cookie-next";

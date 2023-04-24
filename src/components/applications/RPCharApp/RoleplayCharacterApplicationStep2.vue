@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import ApiClient from "@/ts/ApiClient";
 

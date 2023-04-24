@@ -1,46 +1,16 @@
 <template>
-  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th class="sticky top-0">Region ID</th>
-        <th class="sticky top-0">Terrain type</th>
-        <th class="sticky top-0">Neighbouring regions</th>
-        <th class="sticky top-0">Claimbuilds in region</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="hover" v-for="region in regions" :key="region.rowId">
-        <td>
-          <div>
-            <div class="font-bold">{{ region.regionId }}</div>
-          </div>
-        </td>
-        <td>
-          <div class="font-bold">{{ region.terrainType }}</div>
-        </td>
-        <td>
-          <div class="font-bold">{{ region.neighbours }}</div>
-        </td>
-        <th>
-          <label
-            for="regionClaimbuildsModal"
-            class="btn"
-            @click="sendInfoToModal(region)"
-            >Claimbuilds</label
-          >
-        </th>
-      </tr>
-    </tbody>
-  </table>
-  <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
-  <ClaimbuildsInRegionModal
-    title="Claimbuilds in region"
-    :claimbuilds="selectedRegion.claimbuildsInRegion"
-  />
+  <div class="flex flex-row flex-wrap">
+    <FactionDashboardRegionCollapseCard
+      v-for="(region, index) in regions"
+      :key="index"
+      :region="region"
+      :claimbuilds="testClaimbuilds[index]"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import axios from "axios";
 import { Region } from "@/ts/types/Region";
 
@@ -51,16 +21,39 @@ defineProps({
   },
 });
 
+const testClaimbuilds = ref([
+  [
+    {
+      name: "test",
+      faction: "test",
+      type: "test",
+    },
+    {
+      name: "test2",
+      faction: "test2",
+      type: "test2",
+    },
+    {
+      name: "test5",
+      faction: "test",
+      type: "test",
+    },
+    {
+      name: "test6",
+      faction: "test2",
+      type: "test2",
+    },
+  ],
+  [
+    {
+      name: "test3",
+      faction: "test3",
+      type: "test3",
+    },
+  ],
+]);
+
 const regions = ref<Region[]>([]);
-const selectedRegion = ref<Region>({
-  rowId: 0,
-  regionId: "",
-  terrainType: "",
-  factionsWithClaim: "",
-  neighbours: "",
-  claimbuildsInRegion: "",
-  charactersInRegion: "",
-});
 
 async function getMockData(): Promise<Region[]> {
   const params = {
@@ -79,11 +72,6 @@ async function getMockData(): Promise<Region[]> {
         reject(error);
       });
   });
-}
-
-function sendInfoToModal(region: Region) {
-  selectedRegion.value = region;
-  console.log(selectedRegion.value);
 }
 
 getMockData().then((data: any) => {

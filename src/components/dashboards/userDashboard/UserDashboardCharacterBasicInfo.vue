@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import ApiClient from "@/ts/ApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 
