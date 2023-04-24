@@ -39,7 +39,9 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.json",
-    "vite.config.ts"
+    "vite.config.ts",
+    "cypress/**/*.ts",
+    "test/**/*.ts",
   ],
   "exclude": [
     "dist",
