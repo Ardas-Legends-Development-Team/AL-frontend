@@ -1,5 +1,7 @@
 # Description
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/414bf779c621451aa51484d59a211e8c)](https://app.codacy.com/gh/Ardas-Legends-Development-Team/AL-frontend?utm_source=github.com&utm_medium=referral&utm_content=Ardas-Legends-Development-Team/AL-frontend&utm_campaign=Badge_Grade)
+
 This web app is going to be the main access point into the Arda's Legend's roleplay system.
 
 ## Run the project
