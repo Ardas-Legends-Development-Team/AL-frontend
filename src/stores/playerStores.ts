@@ -29,8 +29,8 @@ export const useCharacterStore = defineStore("CharacterStore", () => {
   const title = ref("No title");
 
   return {
-    currentRegion,
     boundTo,
+    currentRegion,
     gear,
     healEnds,
     injured,
