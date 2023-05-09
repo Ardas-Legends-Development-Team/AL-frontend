@@ -1,14 +1,12 @@
-const staffRoutes = [
+export const staffRoutes = [
   {
-    path: "/staff_area",
-    name: "StaffArea",
     component: () => import("@/views/Staff/StaffAreaView.vue"),
+    name: "StaffArea",
+    path: "/staff_area",
   },
   {
-    path: "/staff_area/applications_review",
-    name: "ApplicationsReview",
     component: () => import("@/views/Staff/ApplicationsReviewView.vue"),
+    name: "ApplicationsReview",
+    path: "/staff_area/applications_review",
   },
 ];
-
-export default staffRoutes;

@@ -4,52 +4,52 @@ import { ref } from "vue";
 export const useRoleplayCharacterFormStore = defineStore(
   "roleplayCharacterFormStore",
   () => {
-    const ign = ref("");
     const charName = ref("");
-    const preference = ref("Your in-game preference");
-    const title = ref("");
-    const reason = ref("");
     const faction = ref("Your faction");
     const gear = ref("");
+    const ign = ref("");
+    const preference = ref("Your in-game preference");
+    const reason = ref("");
     const summary = ref("");
+    const title = ref("");
 
     return {
-      ign,
       charName,
-      preference,
-      title,
-      reason,
       faction,
       gear,
+      ign,
+      preference,
+      reason,
       summary,
+      title,
     };
   }
 );
 export const useClaimbuildsFormStore = defineStore(
   "ClaimbuildsFormStore",
   () => {
-    const ign = ref("");
-    const faction = ref("Your faction");
-    const region = ref("");
-    const buildType = ref("Type of build");
-    const buildName = ref("");
     const buildCoordinatesX = ref();
     const buildCoordinatesY = ref();
     const buildCoordinatesZ = ref();
-    const shops = ref("");
+    const buildName = ref("");
+    const buildType = ref("Type of build");
     const extraInfo = ref("");
+    const faction = ref("Your faction");
+    const ign = ref("");
+    const region = ref("");
+    const shops = ref("");
 
     return {
-      ign,
-      faction,
-      region,
-      buildType,
-      buildName,
       buildCoordinatesX,
       buildCoordinatesY,
       buildCoordinatesZ,
-      shops,
+      buildName,
+      buildType,
+      faction,
       extraInfo,
+      ign,
+      region,
+      shops,
     };
   }
 );

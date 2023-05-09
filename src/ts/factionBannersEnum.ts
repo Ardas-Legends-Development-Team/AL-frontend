@@ -34,10 +34,10 @@ export enum FactionBannersEnum {
 
 export function factionNameToBanner(faction: string): string {
   // Remove accents from letters
-  faction = faction
+  let factionFormatted = faction
     .replace(new RegExp(/[òóôõö]/g), "o")
     .replace(new RegExp(/[ùúûü]/g), "u");
   // Replace spaces, dashes and apostrophes with underscores
-  faction = faction.toUpperCase().replace(/[-| ]/g, "_").replace(/['"`]/g, "");
-  return FactionBannersEnum[faction as keyof typeof FactionBannersEnum];
+  factionFormatted = factionFormatted.toUpperCase().replace(/[-| ]/g, "_").replace(/['"`]/g, "");
+  return FactionBannersEnum[factionFormatted as keyof typeof FactionBannersEnum];
 }

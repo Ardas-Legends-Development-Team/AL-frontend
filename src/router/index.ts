@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import applicationRoutes from "@/router/applicationRoutes";
-import listingRoutes from "@/router/listingRoutes";
-import staffRoutes from "@/router/staffRoutes";
+import { applicationRoutes } from "@/router/applicationRoutes";
+import { listingRoutes } from "@/router/listingRoutes";
+import { staffRoutes } from "@/router/staffRoutes";
 
 const routes = [
   {
