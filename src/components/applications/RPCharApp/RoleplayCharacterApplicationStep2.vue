@@ -53,8 +53,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();

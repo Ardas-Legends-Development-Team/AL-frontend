@@ -11,7 +11,7 @@ export default class AuthenticationClient {
     this.scopes = [];
   }
 
-  setRedirect = (uri: string) => {
+  public setRedirect = (uri: string) => {
     if (uri.startsWith("http://") || uri.startsWith("https://")) {
       this.redirectUri = uri;
     } else {
@@ -19,11 +19,11 @@ export default class AuthenticationClient {
     }
   };
 
-  setScopes = (scopes: string[]) => {
+  public setScopes = (scopes: string[]) => {
     this.scopes = scopes;
   };
 
-  createAuthLink = () => {
+  public createAuthLink = () => {
     if (this.scopes[0] && this.redirectUri && this.clientId) {
       return `https://discord.com/oauth2/authorize?client_id=${
         this.clientId
@@ -33,7 +33,7 @@ export default class AuthenticationClient {
     }
   };
 
-  getToken = async (code: string) => {
+  public getToken = async (code: string) => {
     if (
       this.scopes[0] &&
       this.redirectUri &&
@@ -42,7 +42,6 @@ export default class AuthenticationClient {
       this.clientSecret
     ) {
       const res = await fetch(`https://discord.com/api/oauth2/token`, {
-        method: "POST",
         body: new URLSearchParams({
           // eslint-disable-next-line camelcase
           client_id: this.clientId,
@@ -58,15 +57,15 @@ export default class AuthenticationClient {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
+        method: "POST",
       });
 
-      return await res.json();
-    } else {
-      throw new Error("Required values weren't specified.");
+      return res.json();
     }
+    throw new Error("Required values weren't specified.");
   };
 
-  getUser = async (token: {
+  public getUser = async (token: {
     access_token: string;
     token_type: string;
     expires_in: number;
@@ -84,7 +83,7 @@ export default class AuthenticationClient {
     return await res.json();
   };
 
-  getUserConnections = async (token: {
+  public getUserConnections = async (token: {
     access_token: string;
     token_type: string;
     expires_in: number;
@@ -103,7 +102,7 @@ export default class AuthenticationClient {
     return await res.json();
   };
 
-  getUserGuilds = async (token: {
+  public getUserGuilds = async (token: {
     access_token: string;
     token_type: string;
     expires_in: number;

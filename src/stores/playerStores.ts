@@ -2,43 +2,43 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const usePlayerStore = defineStore("PlayerStore", () => {
-  const ign = ref("");
-  const faction = ref("");
   const discordId = ref("");
+  const faction = ref("");
+  const ign = ref("");
   const isStaff = ref(false);
 
   return {
-    ign,
-    faction,
     discordId,
+    faction,
+    ign,
     isStaff,
   };
 });
 
 export const useCharacterStore = defineStore("CharacterStore", () => {
-  const name = ref("No character name");
-  const title = ref("No title");
-  const rank = ref("Member");
-  const gear = ref("No gear");
-  const pvp = ref(false);
-  const currentRegion = ref("0");
   const boundTo = ref("Not bound to entity");
+  const currentRegion = ref("0");
+  const gear = ref("No gear");
+  const healEnds = ref("Some another date");
   const injured = ref(false);
   const isHealing = ref(false);
+  const name = ref("No character name");
+  const pvp = ref(false);
+  const rank = ref("Member");
   const startedHeal = ref("Some date");
-  const healEnds = ref("Some another date");
+  const title = ref("No title");
 
   return {
-    name,
-    title,
-    rank,
-    gear,
-    pvp,
-    currentRegion,
     boundTo,
+    currentRegion,
+    gear,
+    healEnds,
     injured,
     isHealing,
+    name,
+    pvp,
+    rank,
     startedHeal,
-    healEnds,
+    title,
   };
 });

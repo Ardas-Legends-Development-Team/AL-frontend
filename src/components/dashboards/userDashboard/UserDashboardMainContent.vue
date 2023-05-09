@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 
 const cardsData = {
   gear: {

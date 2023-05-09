@@ -57,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import axios from "axios";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 

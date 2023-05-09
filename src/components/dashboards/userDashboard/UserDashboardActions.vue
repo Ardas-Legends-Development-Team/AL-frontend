@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import UserDashboardActionCard from "@/components/dashboards/userDashboard/UserDashboardActionCard.vue";
-import ApiClient from "../../../ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { commonCardData, rankCardData } from "@/ts/userDashboardActionCardData";
 import { ref } from "vue";

@@ -1,19 +1,22 @@
-const listingRoutes = [
+export const listingRoutes = [
   {
-    path: "/lists",
-    name: "Lists",
     component: () => import("@/views/Listings/ListsView.vue"),
+    name: "Lists",
+    path: "/lists",
   },
   {
-    path: "/lists/roleplay_characters",
-    name: "RoleplayCharactersList",
     component: () => import("@/views/Listings/RoleplayCharactersListView.vue"),
+    name: "RoleplayCharactersList",
+    path: "/lists/roleplay_characters",
   },
   {
-    path: "/lists/regions",
-    name: "RegionsList",
     component: () => import("@/views/Listings/RegionListView.vue"),
+    name: "RegionsList",
+    path: "/lists/regions",
+  },
+  {
+    component: () => import("@/views/Listings/FactionListView.vue"),
+    name: "FactionsList",
+    path: "/lists/factions",
   },
 ];
-
-export default listingRoutes;

@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 
 const cardsData = {
   boundTo: {

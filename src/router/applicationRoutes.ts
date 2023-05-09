@@ -1,33 +1,31 @@
-const applicationRoutes = [
+export const applicationRoutes = [
   {
-    path: "/applications",
-    name: "Applications",
     component: () => import("@/views/Applications/ApplicationsView.vue"),
+    name: "Applications",
+    path: "/applications",
   },
   {
-    path: "/applications/roleplay_character",
-    name: "RoleplayCharacterApplication",
     component: () =>
       import("@/views/Applications/RoleplayCharacterApplicationView.vue"),
+    name: "RoleplayCharacterApplication",
+    path: "/applications/roleplay_character",
   },
   {
-    path: "/applications/roleplay_character/end",
-    name: "RoleplayCharacterApplicationEnd",
     component: () =>
       import("@/views/Applications/RoleplayCharacterApplicationEndView.vue"),
+    name: "RoleplayCharacterApplicationEnd",
+    path: "/applications/roleplay_character/end",
   },
   {
-    path: "/applications/claimbuilds",
-    name: "ClaimBuildsApplication",
     component: () =>
       import("@/views/Applications/ClaimbuildsApplicationView.vue"),
+    name: "ClaimBuildsApplication",
+    path: "/applications/claimbuilds",
   },
   {
-    path: "/applications/claimbuilds/end",
-    name: "ClaimBuildsApplicationEnd",
     component: () =>
       import("@/views/Applications/ClaimbuildsApplicationEndView.vue"),
+    name: "ClaimBuildsApplicationEnd",
+    path: "/applications/claimbuilds/end",
   },
 ];
-
-export default applicationRoutes;

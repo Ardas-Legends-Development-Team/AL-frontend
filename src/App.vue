@@ -18,10 +18,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
 import { useCookie } from "vue-cookie-next";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
 

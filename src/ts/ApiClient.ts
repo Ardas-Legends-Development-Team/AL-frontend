@@ -4,37 +4,30 @@ import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
 
-export default class ApiClient {
-  static registerPlayer(
+export class ApiClient {
+  public static registerPlayer(
     discordId: string,
     ign: string,
     faction: string
   ): Promise<boolean> {
-    console.log(
-      "Registering player " + ign,
-      " with faction " + faction,
-      " and discord id " + discordId
-    );
     return new Promise((resolve, reject) => {
       axios
         .post("http://localhost:8080/api/player", {
           discordID: discordId,
-          ign: ign,
           faction: faction,
+          ign: ign,
         })
         .then(() => resolve(true))
-        .catch((reason) => {
-          console.error(reason);
+        .catch(() => {
           reject(false);
         });
     });
   }
 
-  static async loadFactions(): Promise<string[]> {
+  public static async loadFactions(): Promise<string[]> {
     const factionsStore = useFactionsStore();
     return new Promise((resolve) => {
       if (factionsStore.factions.length > 0) {
-        console.log("Factions already loaded");
         resolve(factionsStore.factions);
         return;
       }
@@ -53,7 +46,7 @@ export default class ApiClient {
     });
   }
 
-  static async loadPlayerInfo(discordId?: string): Promise<PlayerInfo> {
+  public static async loadPlayerInfo(discordId?: string): Promise<PlayerInfo> {
     if (discordId !== undefined) {
       return new Promise((resolve) => {
         this.loadPlayerCharacterInfoFromAPI(discordId).then(() => {
@@ -64,7 +57,9 @@ export default class ApiClient {
     return usePlayerStore();
   }
 
-  static async loadCharacterInfo(discordId?: string): Promise<CharacterInfo> {
+  public static async loadCharacterInfo(
+    discordId?: string
+  ): Promise<CharacterInfo> {
     if (discordId !== undefined) {
       return new Promise((resolve) => {
         this.loadPlayerCharacterInfoFromAPI(discordId).then(() => {
@@ -75,7 +70,7 @@ export default class ApiClient {
     return useCharacterStore();
   }
 
-  static async loadClaimbuildTypes(): Promise<string[]> {
+  public static async loadClaimbuildTypes(): Promise<string[]> {
     return ["Something here"];
   }
 
@@ -87,15 +82,12 @@ export default class ApiClient {
   private static async loadPlayerCharacterInfoFromAPI(
     discordId: string
   ): Promise<boolean> {
-    console.log("Loading player info for " + discordId);
     const playerStore = usePlayerStore();
     return new Promise((resolve) => {
       if (playerStore.discordId !== "") {
-        console.log("Player info already loaded");
         resolve(true);
         return;
       }
-      console.log("Loading player info from server");
       axios
         .get("http://localhost:8080/api/player/discordid/" + discordId)
         .then((response) => {
@@ -104,7 +96,7 @@ export default class ApiClient {
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
           // TODO: Replace with proper staff check
-          //playerStore.isStaff = data.isStaff;
+          // playerStore.isStaff = data.isStaff;
           playerStore.isStaff = false;
           // Load character info
           if (data.rpChar !== null) {
@@ -120,7 +112,6 @@ export default class ApiClient {
             characterStore.startedHeal = data.rpChar.startedHeal;
             characterStore.healEnds = data.rpChar.healEnds;
           }
-          console.log("Loaded player info from server", playerStore);
           resolve(true);
           return;
         });
