@@ -35,6 +35,11 @@
 <script setup lang="ts">
 defineProps({
   claimbuilds: {
+    type: Array<{
+      name: String;
+      faction: String;
+      type: String;
+    }>,
     required: true,
   },
   region: {
