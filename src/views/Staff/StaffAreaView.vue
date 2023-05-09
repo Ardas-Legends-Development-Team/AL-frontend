@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {ApiClient} from "@/ts/ApiClient";
+import { ref } from "vue";
+import { ApiClient } from "@/ts/ApiClient";
 
 const isStaff = ref(false);
 

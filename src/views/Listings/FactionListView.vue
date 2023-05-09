@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import {ApiClient} from "@/ts/ApiClient";
-import {ref} from "vue";
-import {factionNameToBanner} from "@/ts/factionBannersEnum";
+import { ApiClient } from "@/ts/ApiClient";
+import { ref } from "vue";
+import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import FactionListCard from "@/components/dashboards/factionDashboard/FactionListCard.vue";
-import {RouterLink} from "vue-router";
+import { RouterLink } from "vue-router";
 
 const cardsData = ref<any[]>([]);
 

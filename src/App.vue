@@ -18,13 +18,13 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
-import {useCookie} from "vue-cookie-next";
-import {ApiClient} from "@/ts/ApiClient";
-import {PlayerInfo} from "@/ts/types/PlayerInfo";
-import {discordAuthUrl, discordRedirectUrl} from "@/config.json";
+import { useCookie } from "vue-cookie-next";
+import { ApiClient } from "@/ts/ApiClient";
+import { PlayerInfo } from "@/ts/types/PlayerInfo";
+import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
