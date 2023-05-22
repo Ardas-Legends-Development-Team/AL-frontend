@@ -37,10 +37,8 @@
           class="basis-1/3 bg-base-100/70 p-4 rounded-xl border-dotted border-2 border-primary h-28"
         >
           <p class="text-lg text-accent">Neighbouring Regions:</p>
-          <span
-            v-for="neighbour in selectedRegion.neighbours.split(' ')"
-            :key="neighbour"
-            >{{ neighbour }},
+          <span>
+            {{ selectedRegion.neighbours.replaceAll(" ", ", ") }}
           </span>
         </div>
       </div>
