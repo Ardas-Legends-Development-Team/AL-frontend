@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchBar: typeof import('./components/filteringSearchBar.vue')['default']
     StaffButtonList: typeof import('./components/navbars/StaffButtonList.vue')['default']
+    TableSearchBar: typeof import('./components/tableSearchBar.vue')['default']
     TopNavbar: typeof import('./components/navbars/TopNavbar.vue')['default']
     UserButtonList: typeof import('./components/navbars/UserButtonList.vue')['default']
     UserDashboardActionCard: typeof import('./components/dashboards/userDashboard/UserDashboardActionCard.vue')['default']

@@ -3,10 +3,10 @@
     <div class="items-center basis-1/5 bg-base-100 py-6">
       <h3 class="text-2xl font-bold text-accent text-center">Owned Regions</h3>
       <div class="divider"></div>
-      <filteringSearchBar
+      <regionSearchBar
         class="mb-4"
-        :data-list="regions"
-        @search="updateFilteredRegions"
+        :regions="regions"
+        @search="updateFilteredRegionsOnSearch"
       />
       <div class="grid grid-cols-3 max-h-screen overflow-y-scroll">
         <button
@@ -102,7 +102,6 @@ import { ref } from "vue";
 import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
-import FilteringSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
 
 defineProps({
   faction: {
@@ -140,7 +139,8 @@ function populateDiplomacyBanners() {
   }
 }
 
-function updateFilteredRegions(searchResults: Region[]) {
+// When we do a search, we want to filter the regions that are displayed
+function updateFilteredRegionsOnSearch(searchResults: Region[]) {
   if (searchResults.length === 0) {
     filteredRegions.value = regions.value;
     return;

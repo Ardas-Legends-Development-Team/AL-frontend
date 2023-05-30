@@ -32,7 +32,7 @@ import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 
 const props = defineProps({
-  dataList: {
+  regions: {
     type: Array<Region>,
     required: true,
   },
@@ -40,8 +40,9 @@ const props = defineProps({
 const emit = defineEmits(["search"]);
 const searchText = ref("");
 
+// Watch for changes to the search text and emit the search results
 watch(searchText, () => {
-  const searchResults: Region[] = props.dataList.filter((item) => {
+  const searchResults: Region[] = props.regions.filter((item) => {
     if (item.regionId.toLowerCase().includes(searchText.value.toLowerCase())) {
       return item;
     }
