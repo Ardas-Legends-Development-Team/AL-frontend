@@ -1,16 +1,18 @@
 <template>
   <div class="flex flex-row">
-    <div
-      class="flex flex-col items-center basis-1/5 bg-base-100 py-6 max-h-screen overflow-y-scroll"
-    >
-      <button
-        class="btn btn-square btn-outline btn-secondary px-12 my-1"
-        v-for="(region, index) in regions"
-        :key="index"
-        @click="showRegionDetails(region)"
-      >
-        {{ region.regionId }}
-      </button>
+    <div class="items-center basis-1/5 bg-base-100 py-6">
+      <h3 class="text-2xl font-bold text-accent text-center">Owned Regions</h3>
+      <div class="divider"></div>
+      <div class="grid grid-cols-3 max-h-screen overflow-y-scroll">
+        <button
+          class="btn btn-square btn-outline btn-secondary px-8 my-1 mx-3"
+          v-for="(region, index) in regions"
+          :key="index"
+          @click="showRegionDetails(region)"
+        >
+          {{ region.regionId }}
+        </button>
+      </div>
     </div>
     <div class="basis-4/5">
       <div class="flex flex-row my-4 mx-4">
@@ -26,17 +28,17 @@
           </div>
         </div>
         <div class="basis-1/3 flex flex-col">
-          <h3 class="text-2xl text-accent my-3">
+          <h3 class="text-2xl font-bold text-accent my-3">
             Region {{ selectedRegion.regionId }}
           </h3>
-          <p class="text-lg text-secondary">
+          <p class="text-lg font-semibold text-secondary">
             Terrain Type: {{ selectedRegion.terrainType }}
           </p>
         </div>
         <div
           class="basis-1/3 bg-base-100/70 p-4 rounded-xl border-dotted border-2 border-primary h-28"
         >
-          <p class="text-lg text-accent">Neighbouring Regions:</p>
+          <p class="text-lg font-semibold text-accent">Neighbouring Regions:</p>
           <span>
             {{ selectedRegion.neighbours.replaceAll(" ", ", ") }}
           </span>
