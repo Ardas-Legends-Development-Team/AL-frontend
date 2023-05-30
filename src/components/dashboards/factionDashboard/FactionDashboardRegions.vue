@@ -3,10 +3,15 @@
     <div class="items-center basis-1/5 bg-base-100 py-6">
       <h3 class="text-2xl font-bold text-accent text-center">Owned Regions</h3>
       <div class="divider"></div>
+      <filteringSearchBar
+        class="mb-4"
+        :data-list="regions"
+        @search="updateFilteredRegions"
+      />
       <div class="grid grid-cols-3 max-h-screen overflow-y-scroll">
         <button
           class="btn btn-square btn-outline btn-secondary px-8 my-1 mx-3"
-          v-for="(region, index) in regions"
+          v-for="(region, index) in filteredRegions"
           :key="index"
           @click="showRegionDetails(region)"
         >
@@ -97,6 +102,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
+import FilteringSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
 
 defineProps({
   faction: {
@@ -106,6 +112,7 @@ defineProps({
 });
 
 const regions = ref<Region[]>([]);
+const filteredRegions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
   rowId: 2,
   regionId: "string",
@@ -131,6 +138,16 @@ function populateDiplomacyBanners() {
   for (let i = 0; i < factions.length; i++) {
     factionsWithClaimBanners.value[i] = factionNameToBanner(factions[i]);
   }
+}
+
+function updateFilteredRegions(searchResults: Region[]) {
+  if (searchResults.length === 0) {
+    filteredRegions.value = regions.value;
+    return;
+  }
+  filteredRegions.value = regions.value.filter((region) =>
+    searchResults.includes(region)
+  );
 }
 
 populateDiplomacyBanners();
@@ -189,6 +206,7 @@ async function getMockData(): Promise<Region[]> {
 
 getMockData().then((data: any) => {
   regions.value = data;
+  filteredRegions.value = data;
   selectedRegion.value = data[0];
 });
 </script>
