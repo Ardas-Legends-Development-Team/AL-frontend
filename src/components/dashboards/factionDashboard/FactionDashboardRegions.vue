@@ -57,7 +57,12 @@
               <th class="sticky top-0">Type</th>
               <th class="sticky top-0">Owner</th>
               <th class="sticky top-0">Stationed Armies</th>
-              <th class="sticky top-0"></th>
+              <th class="sticky top-0">
+                <searchBar
+                  :input-list="testClaimbuilds"
+                  @search="filterClaimbuildTable"
+                />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -148,6 +153,10 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
   filteredRegions.value = regions.value.filter((region) =>
     searchResults.includes(region)
   );
+}
+
+function filterClaimbuildTable(searchResults: any) {
+  console.log(searchResults);
 }
 
 populateDiplomacyBanners();

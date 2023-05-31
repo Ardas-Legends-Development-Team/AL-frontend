@@ -39,7 +39,7 @@ declare module '@vue/runtime-core' {
     RoleplayDataCard: typeof import('./components/lists/RoleplayDataCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SearchBar: typeof import('./components/filteringSearchBar.vue')['default']
+    SearchBar: typeof import('./components/searchBar.vue')['default']
     StaffButtonList: typeof import('./components/navbars/StaffButtonList.vue')['default']
     TableSearchBar: typeof import('./components/tableSearchBar.vue')['default']
     TopNavbar: typeof import('./components/navbars/TopNavbar.vue')['default']
