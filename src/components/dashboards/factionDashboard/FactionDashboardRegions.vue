@@ -3,7 +3,7 @@
     <div class="items-center basis-1/5 bg-base-100 py-6">
       <h3 class="text-2xl font-bold text-accent text-center">Owned Regions</h3>
       <div class="divider"></div>
-      <regionSearchBar
+      <RegionSearchBar
         class="mb-4"
         :regions="regions"
         @search="updateFilteredRegionsOnSearch"
@@ -58,7 +58,7 @@
               <th class="sticky top-0">Owner</th>
               <th class="sticky top-0">Stationed Armies</th>
               <th class="sticky top-0">
-                <searchBar
+                <SearchBar
                   :input-list="testClaimbuilds"
                   @search="filterClaimbuildTable"
                 />
