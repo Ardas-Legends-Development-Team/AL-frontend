@@ -37,7 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { Component, ref } from "vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
 import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
@@ -45,7 +46,7 @@ import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharA
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 
 const router = useRouter();
-const steps: Component[] = [
+const steps = [
   RoleplayCharacterApplicationStep1,
   RoleplayCharacterApplicationStep2,
   RoleplayCharacterApplicationStep3,

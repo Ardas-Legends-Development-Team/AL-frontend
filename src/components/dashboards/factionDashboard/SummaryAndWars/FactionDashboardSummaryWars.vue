@@ -44,10 +44,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { War } from "@/ts/types/War";
+import FactionDashboardSummaryWar from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWar.vue";
 
 const pastWarsPage = ref(0);
 const pastWars = ref<War[]>([]);
 const hasMorePastWars = ref(true);
+
 function showMore() {
   for (const war of pastWarsMockData[pastWarsPage.value]) {
     pastWars.value.push(war);

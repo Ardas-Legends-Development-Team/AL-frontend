@@ -60,6 +60,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
+import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
 
 const roleplayCharacters = ref<RoleplayCharacter[]>([]);
 const selectedCharacter = ref<RoleplayCharacter>({
