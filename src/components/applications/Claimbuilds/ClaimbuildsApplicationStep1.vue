@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 // previousStep event is not used in this component, but in the next 2 steps
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();

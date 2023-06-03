@@ -83,7 +83,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import ApiClient from "@/ts/ApiClient";
+import { ApiClient } from "@/ts/ApiClient";
 import { useClaimbuildTypesStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
