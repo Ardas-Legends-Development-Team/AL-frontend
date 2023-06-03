@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-wrap">
     <div v-for="(data, index) in cardsData" :key="index">
-      <CardItem
+      <ListCard
         :title="data.title"
         :router="data.router"
         :description="data.description"
@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import ListCard from "@/components/lists/ListCard.vue";
+
 const cardsData = [
   {
     title: "Roleplay Character Application",
