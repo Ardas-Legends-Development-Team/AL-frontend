@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);

@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { Component, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue";
 import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
@@ -43,7 +43,7 @@ import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/C
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const router = useRouter();
-const steps: Component[] = [
+const steps = [
   ClaimbuildsApplicationStep0,
   ClaimbuildsApplicationStep1,
   ClaimbuildsApplicationStep2,
