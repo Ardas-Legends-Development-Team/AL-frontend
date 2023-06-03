@@ -28,12 +28,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
+import { ref, watch } from "vue";
 
 const props = defineProps({
   regions: {
-    type: Array<Region>,
+    type: Array as () => Region[],
     required: true,
   },
 });
