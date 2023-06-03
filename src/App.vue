@@ -25,6 +25,10 @@ import { useCookie } from "vue-cookie-next";
 import { ApiClient } from "@/ts/ApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
+import TopNavbar from "@/components/navbars/TopNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
+import FooterBar from "@/components/navbars/FooterBar.vue";
+import RegistrationForm from "@/components/RegistrationForm.vue";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);

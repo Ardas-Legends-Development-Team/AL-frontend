@@ -50,4 +50,12 @@
   </footer>
 </template>
 
-<script setup lang="ts"></script>
+<script>
+import { defineComponent } from "vue";
+import DiscordIcon from "@/components/icons/DiscordIcon.vue";
+import InstagramIcon from "@/components/icons/InstagramIcon.vue";
+
+export default defineComponent({
+  components: { InstagramIcon, DiscordIcon },
+});
+</script>

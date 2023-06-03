@@ -22,6 +22,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import FactionDashboardSummaryWars from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWars.vue";
+import FactionDashboardSummaryInformation from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryInformation.vue";
+import FactionDashboardActionCard from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue";
 
 defineProps({
   faction: {

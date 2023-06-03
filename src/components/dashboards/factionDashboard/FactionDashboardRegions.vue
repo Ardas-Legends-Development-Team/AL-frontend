@@ -107,6 +107,8 @@ import { ref } from "vue";
 import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
+import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
+import SearchBar from "@/components/searchBar.vue";
 
 defineProps({
   faction: {
