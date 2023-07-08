@@ -43,6 +43,8 @@
           </div>
         </div>
 
+        <div v-if="error" class="text-error">{{errMsg}}</div>
+
         <button
           @click="register()"
           type="button"
@@ -68,11 +70,17 @@ const props = defineProps({
 
 const ign = ref("");
 const faction = ref("");
+const error = ref(false)
+const errMsg = ref("")
 
 function register() {
   console.log("Registering...");
   ApiClient.registerPlayer(props.discordId, ign.value, faction.value).then(() =>
     window.location.reload()
-  );
+  ).catch((err) => {
+      console.log(err)
+      error.value = true
+      errMsg.value = err.response.data.message
+  });
 }
 </script>

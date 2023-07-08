@@ -18,8 +18,8 @@ export class ApiClient {
           ign: ign,
         })
         .then(() => resolve(true))
-        .catch(() => {
-          reject(false);
+        .catch((err) => {
+          reject(err);
         });
     });
   }

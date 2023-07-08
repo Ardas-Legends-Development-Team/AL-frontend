@@ -29,6 +29,7 @@ import TopNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
+import { useCharacterStore } from "./stores/playerStores";
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
@@ -128,12 +129,15 @@ loginUser(getCodeFromUrl()).then((token) => {
   verifyIfUserRegistered(token)
     .then((discordId) => {
       ApiClient.loadPlayerInfo(discordId).then((playerInfo: PlayerInfo) => {
+        const characterInfo = useCharacterStore()
         console.log(
           "Player Info: ",
           playerInfo.discordId,
           playerInfo.ign,
           playerInfo.faction,
-          playerInfo.isStaff
+          playerInfo.isStaff,
+          "Injured: ",
+          characterInfo.injured
         );
         loadedUser.value = true;
       });
