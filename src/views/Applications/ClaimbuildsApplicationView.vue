@@ -81,12 +81,12 @@ function nextStep(formInput: any) {
       formData.houses = formInput.houses;
       break;
     case 3:
-      formData.traders = formInput.traders;
-      formData.siege = formInput.siege;
-      break;
-    case 4:
       formData.productionSites = formInput.productionSites;
       formData.specialBuildings = formInput.specialBuildings;
+      break;
+    case 4:
+      formData.traders = formInput.traders;
+      formData.siege = formInput.siege;
       console.log(formData);
       router.push({
         name: "ClaimBuildsApplicationEnd",

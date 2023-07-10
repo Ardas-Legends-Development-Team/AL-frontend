@@ -6,6 +6,7 @@ import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { useRegionIdStore, useRegionStore } from "@/stores/regionStores";
 import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
+import { useSpecialBuildingStore } from "@/stores/buildStores";
 
 export class ApiClient {
   public static registerPlayer(
@@ -231,6 +232,28 @@ export class ApiClient {
         )
         .then(() => {
           resolve("Application created");
+        });
+    });
+  }
+
+  public static async loadProductionSiteTypes(): Promise<string[]> {
+    return ["Farm", "Mine"];
+  }
+
+  public static async loadSpecialBuildingTypes(): Promise<string[]> {
+    const specialBuildingStore = useSpecialBuildingStore();
+    return new Promise((resolve) => {
+      if (specialBuildingStore.specialBuildings.length > 0) {
+        resolve(specialBuildingStore.specialBuildings);
+        return;
+      }
+      axios
+        .get("http://localhost:8080/api/claimbuild/specialbuildings")
+        .then((response) => {
+          response.data.forEach((specialBuilding: string) => {
+            specialBuildingStore.specialBuildings.push(specialBuilding);
+          });
+          resolve(specialBuildingStore.specialBuildings);
         });
     });
   }
