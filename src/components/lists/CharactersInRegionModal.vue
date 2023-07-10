@@ -34,7 +34,7 @@
 <script setup lang="ts">
 defineProps({
   characters: {
-    type: String,
+    type: Array<String>,
     required: true,
   },
 });

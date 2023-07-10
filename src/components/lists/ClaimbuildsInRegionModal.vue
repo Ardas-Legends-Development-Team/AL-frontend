@@ -31,7 +31,7 @@
 <script setup lang="ts">
 defineProps({
   claimbuilds: {
-    type: String,
+    type: Array<String>,
     required: true,
   },
 });

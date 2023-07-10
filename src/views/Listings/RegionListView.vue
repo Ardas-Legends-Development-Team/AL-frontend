@@ -15,14 +15,14 @@
       <tr class="hover" v-for="region in regions" :key="region.rowId">
         <td>
           <div>
-            <div class="font-bold">{{ region.regionId }}</div>
+            <div class="font-bold">{{ region.id }}</div>
           </div>
         </td>
         <td>
-          <div class="font-bold">{{ region.terrainType }}</div>
+          <div class="font-bold">{{ region.regionType }}</div>
         </td>
         <td>
-          <div class="font-bold">{{ region.factionsWithClaim }}</div>
+          <div class="font-bold">{{ region.claimedBy }}</div>
         </td>
         <td>
           <div class="font-bold">{{ region.neighbours }}</div>
@@ -49,55 +49,39 @@
   <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
     title="Claimbuilds in region"
-    :claimbuilds="selectedRegion.claimbuildsInRegion"
+    :claimbuilds="selectedRegion.claimbuilds"
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
-  <CharactersInRegionModal :characters="selectedRegion.charactersInRegion" />
+  <CharactersInRegionModal :characters="selectedRegion.characters" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
 import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
+import { ApiClient } from "@/ts/ApiClient";
 
+// TODO: Build the strings to show because we got arrays instead of one string
+// TODO: Get missing info from API to complete the table
 const regions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
   rowId: 0,
-  regionId: "",
-  terrainType: "",
-  factionsWithClaim: "",
-  neighbours: "",
-  claimbuildsInRegion: "",
-  charactersInRegion: "",
+  id: "",
+  name: "",
+  regionType: "",
+  claimedBy: [""],
+  neighbours: [""],
+  claimbuilds: [""],
+  characters: [""],
 });
-
-async function getMockData(): Promise<Region[]> {
-  const params = {
-    count: 10,
-    key: "6100d750",
-  };
-  return new Promise((resolve, reject) => {
-    axios
-      .get("https://api.mockaroo.com/api/ce561150", {
-        params,
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
 
 function sendInfoToModal(region: Region) {
   selectedRegion.value = region;
   console.log(selectedRegion.value);
 }
 
-getMockData().then((data: any) => {
+ApiClient.loadRegions().then((data: any) => {
   regions.value = data;
 });
 </script>
