@@ -98,7 +98,7 @@ export class ApiClient {
   }
 
   public static async loadClaimbuildTypes(): Promise<string[]> {
-    return ["Something here"];
+    return ["Something here", "Hamlet"];
   }
 
   /**

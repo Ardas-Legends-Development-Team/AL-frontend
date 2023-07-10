@@ -40,6 +40,7 @@ import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/C
 import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
 import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep2.vue";
 import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
+import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const router = useRouter();
@@ -48,6 +49,7 @@ const steps = [
   ClaimbuildsApplicationStep1,
   ClaimbuildsApplicationStep2,
   ClaimbuildsApplicationStep3,
+  ClaimbuildsApplicationStep4,
 ];
 const stepsImages = ref<String[]>([
   "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
@@ -67,21 +69,22 @@ function nextStep(formInput: any) {
   console.log(formInput);
   switch (formInput.step) {
     case 1:
-      formData.builtBy = formInput.builtBy;
-      formData.factionNameOwnedBy = formInput.factionNameOwnedBy;
-      break;
-    case 2:
+      formData.builtBy = formInput.builtBy
+        .split(",")
+        .map((x: string) => x.trim());
       formData.regionId = formInput.regionId;
       formData.claimbuildName = formInput.claimbuildName;
-      formData.type = formInput.type;
       formData.coordinate = formInput.coordinate;
+      break;
+    case 2:
+      formData.type = formInput.type;
+      formData.houses = formInput.houses;
       break;
     case 3:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
       break;
     case 4:
-      formData.houses = formInput.houses;
       formData.productionSites = formInput.productionSites;
       formData.specialBuildings = formInput.specialBuildings;
       console.log(formData);
@@ -94,11 +97,11 @@ function nextStep(formInput: any) {
       break;
   }
   currentStep.value++;
-  formProgress.value += 33;
+  formProgress.value += 25;
 }
 
 function previousStep() {
   currentStep.value--;
-  formProgress.value -= 33;
+  formProgress.value -= 25;
 }
 </script>

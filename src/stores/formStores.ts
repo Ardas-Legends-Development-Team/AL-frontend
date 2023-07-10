@@ -37,7 +37,11 @@ export const useClaimbuildsFormStore = defineStore(
     const specialBuildings: Ref<string[]> = ref([]);
     const traders = ref("");
     const siege = ref("");
-    const houses = ref("");
+    const houses: Ref<{ small: number; medium: number; large: number }> = ref({
+      small: 0,
+      medium: 0,
+      large: 0,
+    });
     const builtBy: Ref<string[]> = ref([]);
 
     return {

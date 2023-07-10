@@ -1,35 +1,12 @@
 <template>
   <div>
-    <label for="region" class="sr-only">Region</label>
+    <label for="claimbuildType" class="sr-only">Claimbuild Type</label>
     <div class="relative">
       <input
         type="text"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Region"
-        v-model="region"
-      />
-    </div>
-  </div>
-
-  <div class="input-group">
-    <select class="select select-bordered w-full" v-model="buildType">
-      <option disabled selected>Type of build</option>
-      <option v-for="(claimbuildType, index) in claimbuildTypes" :key="index">
-        {{ claimbuildType }}
-      </option>
-    </select>
-  </div>
-
-  <div>
-    <label for="ign" class="sr-only">Name of build</label>
-
-    <div class="relative">
-      <input
-        type="text"
-        maxlength="25"
-        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Name of build"
-        v-model="buildName"
+        placeholder="Claimbuild Type"
+        v-model="type"
       />
     </div>
   </div>
@@ -40,8 +17,8 @@
         type="number"
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="X"
-        v-model="buildCoordinatesX"
+        placeholder="Small houses"
+        v-model="houses.small"
       />
     </div>
     <div class="divider divider-horizontal"></div>
@@ -50,8 +27,8 @@
         type="number"
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Y"
-        v-model="buildCoordinatesY"
+        placeholder="Medium houses"
+        v-model="houses.medium"
       />
     </div>
     <div class="divider divider-horizontal"></div>
@@ -60,8 +37,8 @@
         type="number"
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Z"
-        v-model="buildCoordinatesZ"
+        placeholder="Large houses"
+        v-model="houses.large"
       />
     </div>
   </div>
@@ -84,37 +61,23 @@
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApiClient } from "@/ts/ApiClient";
-import { useClaimbuildTypesStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
 const claimbuildTypes = ref<String[]>([]);
-const region = ref<string>(formData.region);
-const buildName = ref<string>(formData.buildName);
-const buildType = ref<string>(formData.buildType);
-const buildCoordinatesX = ref<number>(formData.buildCoordinatesX);
-const buildCoordinatesY = ref<number>(formData.buildCoordinatesY);
-const buildCoordinatesZ = ref<number>(formData.buildCoordinatesZ);
+const type = ref<string>(formData.type);
+const houses = ref<{ small: number; medium: number; large: number }>(
+  formData.houses
+);
 const isFormFilled = computed(() => {
-  return (
-    region.value &&
-    buildName.value &&
-    buildType.value !== "Type of build" &&
-    buildCoordinatesX.value &&
-    buildCoordinatesY.value &&
-    buildCoordinatesZ.value
-  );
+  return type.value;
 });
 
 function nextStep() {
   emit("nextStep", {
     step: 2,
-    region: region.value,
-    buildName: buildName.value,
-    buildType: buildType.value,
-    buildCoordinatesX: buildCoordinatesX.value,
-    buildCoordinatesY: buildCoordinatesY.value,
-    buildCoordinatesZ: buildCoordinatesZ.value,
+    type: type.value,
+    houses: houses.value,
   });
 }
 
@@ -122,6 +85,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadClaimbuildTypes();
-claimbuildTypes.value = useClaimbuildTypesStore().claimbuildTypes;
+ApiClient.loadClaimbuildTypes().then((types: string[]) => {
+  claimbuildTypes.value = types;
+});
 </script>
