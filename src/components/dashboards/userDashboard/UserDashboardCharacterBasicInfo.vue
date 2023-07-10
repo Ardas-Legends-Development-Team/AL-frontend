@@ -40,7 +40,6 @@ ApiClient.loadPlayerInfo().then((data) => {
   avatar.value = `https://mc-heads.net/avatar/${ign.value}/100`;
   ApiClient.loadCharacterInfo().then((data) => {
     title.value = data.title;
-    // TODO: remove that when we have correct characters
     if (title.value === "") {
       title.value = "No Title";
     }

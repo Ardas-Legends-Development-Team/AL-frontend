@@ -122,9 +122,7 @@ export class ApiClient {
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
-          // TODO: Replace with proper staff check
-          // playerStore.isStaff = data.isStaff;
-          playerStore.isStaff = false;
+          playerStore.isStaff = data.isStaff;
           // Load character info
           if (data.rpChar !== null) {
             const characterStore = useCharacterStore();
