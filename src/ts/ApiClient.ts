@@ -3,6 +3,8 @@ import { useFactionsStore } from "@/stores/generalInfoStores";
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
+import { useRegionIdStore, useRegionStore } from "@/stores/RegionStores";
+import { Region } from "@/ts/types/Region";
 
 export class ApiClient {
   public static registerPlayer(
@@ -114,6 +116,40 @@ export class ApiClient {
           }
           resolve(true);
           return;
+        });
+    });
+  }
+
+  public static async loadRegionIds(): Promise<string[]> {
+    const regionIdStore = useRegionIdStore();
+    return new Promise((resolve) => {
+      if (regionIdStore.regionIds.length > 0) {
+        resolve(regionIdStore.regionIds);
+        return;
+      }
+      axios.get("http://localhost:8080/api/region/all").then((response) => {
+        response.data.content.forEach((regionId: string) => {
+          regionIdStore.regionIds.push(regionId);
+        });
+        resolve(regionIdStore.regionIds);
+      });
+    });
+  }
+
+  public static async loadRegions(): Promise<Region[]> {
+    const regionStore = useRegionStore();
+    return new Promise((resolve) => {
+      if (regionStore.regions.length > 0) {
+        resolve(regionStore.regions);
+        return;
+      }
+      axios
+        .get("http://localhost:8080/api/region/all/detailed")
+        .then((response) => {
+          response.data.content.forEach((region: Region) => {
+            regionStore.regions.push(region);
+          });
+          resolve(regionStore.regions);
         });
     });
   }
