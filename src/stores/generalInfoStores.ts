@@ -1,11 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { Faction } from "@/ts/types/Faction";
 
 export const useFactionsStore = defineStore("FactionsStore", () => {
-  const factions = ref<string[]>([]);
+  const factions = ref<Faction[]>([]);
+  const factionNames = ref<string[]>([]);
 
   return {
     factions,
+    factionNames,
   };
 });
 

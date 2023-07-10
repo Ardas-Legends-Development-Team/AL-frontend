@@ -37,6 +37,7 @@ import { useCharacterStore } from "./stores/playerStores";
 // TODO: Connect rp application
 // TODO: Connect claimbuild application
 // TODO: Connect faction dashboard
+// TODO: Connect user dashboard
 // TODO: Deploy to production
 
 const serverId = "668590304487800832";

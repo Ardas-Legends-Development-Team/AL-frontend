@@ -3,8 +3,9 @@ import { useFactionsStore } from "@/stores/generalInfoStores";
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
-import { useRegionIdStore, useRegionStore } from "@/stores/RegionStores";
+import { useRegionIdStore, useRegionStore } from "@/stores/regionStores";
 import { Region } from "@/ts/types/Region";
+import { Faction } from "@/ts/types/Faction";
 
 export class ApiClient {
   public static registerPlayer(
@@ -26,7 +27,7 @@ export class ApiClient {
     });
   }
 
-  public static async loadFactions(): Promise<string[]> {
+  public static async loadFactions(): Promise<Faction[]> {
     const factionsStore = useFactionsStore();
     return new Promise((resolve) => {
       if (factionsStore.factions.length > 0) {
@@ -40,10 +41,34 @@ export class ApiClient {
           },
         })
         .then((response) => {
-          response.data.content.forEach((faction: any) => {
-            factionsStore.factions.push(faction.nameOfFaction);
+          response.data.content.forEach((faction: Faction) => {
+            factionsStore.factions.push(faction);
+            factionsStore.factionNames.push(faction.nameOfFaction);
           });
           resolve(factionsStore.factions);
+        });
+    });
+  }
+
+  public static async loadFactionNames(): Promise<string[]> {
+    const factionsStore = useFactionsStore();
+    return new Promise((resolve) => {
+      if (factionsStore.factionNames.length > 0) {
+        resolve(factionsStore.factionNames);
+        return;
+      }
+      axios
+        .get("http://localhost:8080/api/faction", {
+          params: {
+            size: 100,
+          },
+        })
+        .then((response) => {
+          response.data.content.forEach((faction: Faction) => {
+            factionsStore.factions.push(faction);
+            factionsStore.factionNames.push(faction.nameOfFaction);
+          });
+          resolve(factionsStore.factionNames);
         });
     });
   }

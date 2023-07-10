@@ -21,12 +21,12 @@ import { RouterLink } from "vue-router";
 
 const cardsData = ref<any[]>([]);
 
-ApiClient.loadFactions().then((factions) => {
-  factions.forEach((faction) => {
+ApiClient.loadFactionNames().then((factionNames) => {
+  factionNames.forEach((factionName) => {
     cardsData.value.push({
-      title: faction,
-      source: factionNameToBanner(faction),
-      alt: faction + " banner",
+      title: factionName,
+      source: factionNameToBanner(factionName),
+      alt: factionName + " banner",
     });
   });
 });

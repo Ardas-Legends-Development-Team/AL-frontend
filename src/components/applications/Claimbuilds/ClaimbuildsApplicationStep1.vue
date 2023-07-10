@@ -61,7 +61,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadFactions().then((factionsList) => {
-  factions.value = factionsList;
+ApiClient.loadFactionNames().then((factionNames: string[]) => {
+  factions.value = factionNames;
 });
 </script>
