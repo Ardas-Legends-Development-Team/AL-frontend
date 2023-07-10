@@ -1,36 +1,33 @@
 <template>
   <div>
-    <label for="shops" class="sr-only"
-      >What Shops or Production Sites are Present?</label
-    >
+    <label for="traders" class="sr-only">What traders are present?</label>
 
     <div class="relative">
       <label class="label">
         <span class="label-text text-secondary">
-          Please list all productions sites or shops in the build. Remember each
-          site requires 4 houses to activate it.
+          Please list all the traders if there are any
         </span>
       </label>
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
         placeholder="What Shops or Production Sites are Present?"
-        v-model="shops"
+        v-model="traders"
       ></textarea>
     </div>
   </div>
   <p></p>
-  <div>
-    <label for="extraInfo" class="sr-only">Extra Information</label>
+  <div v-if="formData.hasWorkshop()">
+    <label for="siege" class="sr-only">Siege Equipment</label>
     <div class="relative">
       <label class="label">
         <span class="label-text text-secondary">
-          Not required, can be lore or locations of things admins might miss.
+          Since you have a workshop, what siege equipment do you have?
         </span>
       </label>
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
-        placeholder="Extra Information"
-        v-model="extraInfo"
+        placeholder="Siege equipment"
+        v-model="siege"
       ></textarea>
     </div>
   </div>
@@ -54,17 +51,17 @@ import { useClaimbuildsFormStore } from "@/stores/formStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const shops = ref<string>(formData.shops);
-const extraInfo = ref<string>(formData.extraInfo);
+const traders = ref<string>(formData.traders);
+const siege = ref<string>(formData.siege);
 const isFormFilled = computed(() => {
-  return shops.value;
+  return traders.value;
 });
 
 function nextStep() {
   emit("nextStep", {
     step: 3,
-    shops: shops.value,
-    extraInfo: extraInfo.value,
+    traders: traders.value,
+    siege: siege.value,
   });
 }
 

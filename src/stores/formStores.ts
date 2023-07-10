@@ -24,9 +24,8 @@ export const useRoleplayCharacterFormStore = defineStore(
     };
   }
 );
-export const useClaimbuildsFormStore = defineStore(
-  "ClaimbuildsFormStore",
-  () => {
+export const useClaimbuildsFormStore = defineStore("ClaimbuildsFormStore", {
+  state: () => {
     const applicant = ref({ discordId: "" });
     const claimbuildName = ref("");
     const regionId = ref("");
@@ -58,5 +57,12 @@ export const useClaimbuildsFormStore = defineStore(
       houses,
       builtBy,
     };
-  }
-);
+  },
+  actions: {
+    hasWorkshop(): boolean {
+      return this.specialBuildings.some(
+        (building) => building.toLowerCase() === "workshop"
+      );
+    },
+  },
+});
