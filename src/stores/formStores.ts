@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
+import { ProductionSiteWithCount } from "@/ts/types/ProductionSite";
 
 export const useRoleplayCharacterFormStore = defineStore(
   "roleplayCharacterFormStore",
@@ -26,28 +27,32 @@ export const useRoleplayCharacterFormStore = defineStore(
 export const useClaimbuildsFormStore = defineStore(
   "ClaimbuildsFormStore",
   () => {
-    const buildCoordinatesX = ref();
-    const buildCoordinatesY = ref();
-    const buildCoordinatesZ = ref();
-    const buildName = ref("");
-    const buildType = ref("Type of build");
-    const extraInfo = ref("");
-    const faction = ref("Your faction");
-    const ign = ref("");
-    const region = ref("");
-    const shops = ref("");
+    const applicant = ref({ discordId: "" });
+    const claimbuildName = ref("");
+    const regionId = ref("");
+    const type = ref("Claimbuild type");
+    const factionNameOwnedBy = ref("Your faction");
+    const coordinate = ref({ x: 0, y: 0, z: 0 });
+    const productionSites: Ref<ProductionSiteWithCount[]> = ref([]);
+    const specialBuildings: Ref<string[]> = ref([]);
+    const traders = ref("");
+    const siege = ref("");
+    const houses = ref("");
+    const builtBy: Ref<string[]> = ref([]);
 
     return {
-      buildCoordinatesX,
-      buildCoordinatesY,
-      buildCoordinatesZ,
-      buildName,
-      buildType,
-      extraInfo,
-      faction,
-      ign,
-      region,
-      shops,
+      applicant,
+      claimbuildName,
+      regionId,
+      type,
+      factionNameOwnedBy,
+      coordinate,
+      productionSites,
+      specialBuildings,
+      traders,
+      siege,
+      houses,
+      builtBy,
     };
   }
 );
