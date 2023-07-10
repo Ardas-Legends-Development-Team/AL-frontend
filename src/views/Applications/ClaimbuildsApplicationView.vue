@@ -54,40 +54,47 @@ const stepsImages = ref<String[]>([
   "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
   "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
   "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
+  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
 ]);
 const formProgress = ref(15);
 const currentStep = ref(0);
 const formData = useClaimbuildsFormStore();
 
+// TODO: Add another application step to get houses, production sites and special buildings
+// TODO: Go through each step to get the correct data
+
 function nextStep(formInput: any) {
-  currentStep.value++;
-  formProgress.value += 33;
   console.log(formInput);
   switch (formInput.step) {
     case 1:
-      formData.ign = formInput.ign;
-      formData.faction = formInput.faction;
+      formData.builtBy = formInput.builtBy;
+      formData.factionNameOwnedBy = formInput.factionNameOwnedBy;
       break;
     case 2:
-      formData.region = formInput.region;
-      formData.buildName = formInput.buildName;
-      formData.buildType = formInput.buildType;
-      formData.buildCoordinatesX = formInput.buildCoordinatesX;
-      formData.buildCoordinatesY = formInput.buildCoordinatesY;
-      formData.buildCoordinatesZ = formInput.buildCoordinatesZ;
+      formData.regionId = formInput.regionId;
+      formData.claimbuildName = formInput.claimbuildName;
+      formData.type = formInput.type;
+      formData.coordinate = formInput.coordinate;
       break;
     case 3:
-      formData.shops = formInput.shops;
-      formData.extraInfo = formInput.extraInfo;
+      formData.traders = formInput.traders;
+      formData.siege = formInput.siege;
+      break;
+    case 4:
+      formData.houses = formInput.houses;
+      formData.productionSites = formInput.productionSites;
+      formData.specialBuildings = formInput.specialBuildings;
       console.log(formData);
       router.push({
         name: "ClaimBuildsApplicationEnd",
       });
-      break;
+      return;
     default:
       // do something
       break;
   }
+  currentStep.value++;
+  formProgress.value += 33;
 }
 
 function previousStep() {
