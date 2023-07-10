@@ -15,7 +15,7 @@
           :key="index"
           @click="showRegionDetails(region)"
         >
-          {{ region.regionId }}
+          {{ region.id }}
         </button>
       </div>
     </div>
@@ -34,10 +34,10 @@
         </div>
         <div class="basis-1/3 flex flex-col">
           <h3 class="text-2xl font-bold text-accent my-3">
-            Region {{ selectedRegion.regionId }}
+            Region {{ selectedRegion.id }}
           </h3>
           <p class="text-lg font-semibold text-secondary">
-            Terrain Type: {{ selectedRegion.terrainType }}
+            Terrain Type: {{ selectedRegion.regionType }}
           </p>
         </div>
         <div
@@ -45,7 +45,7 @@
         >
           <p class="text-lg font-semibold text-accent">Neighbouring Regions:</p>
           <span>
-            {{ selectedRegion.neighbours.replaceAll(" ", ", ") }}
+            {{ selectedRegion.neighbours }}
           </span>
         </div>
       </div>
@@ -120,7 +120,6 @@ defineProps({
 const regions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
-  rowId: 2,
   regionId: "string",
   terrainType: "string",
   factionsWithClaim: "string",

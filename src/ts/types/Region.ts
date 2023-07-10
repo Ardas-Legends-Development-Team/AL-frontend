@@ -1,5 +1,4 @@
 export type Region = {
-  rowId: number;
   id: string;
   name: string;
   regionType: string;

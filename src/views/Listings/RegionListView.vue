@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="hover" v-for="region in regions" :key="region.rowId">
+      <tr class="hover" v-for="region in regions" :key="region.id">
         <td>
           <div>
             <div class="font-bold">{{ region.id }}</div>
@@ -66,7 +66,6 @@ import { ApiClient } from "@/ts/ApiClient";
 // TODO: Get missing info from API to complete the table
 const regions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
-  rowId: 0,
   id: "",
   name: "",
   regionType: "",
