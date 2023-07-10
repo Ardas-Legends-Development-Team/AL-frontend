@@ -176,4 +176,31 @@ export class ApiClient {
         });
     });
   }
+
+  public static async createRoleplayApplication(
+    applicationData: any
+  ): Promise<string> {
+    return new Promise((resolve) => {
+      axios
+        .post(
+          "http://localhost:8080/api/applications/roleplay",
+          {
+            discordId: usePlayerStore().discordId,
+            factionName: applicationData.factionName,
+            characterName: applicationData.characterName,
+            characterTitle: applicationData.characterTitle,
+            characterReason: applicationData.characterReason,
+            gear: applicationData.gear,
+            pvpPreference: applicationData.pvpPreference,
+            linkToLore: applicationData.linkToLore,
+          },
+          {
+            headers: {},
+          }
+        )
+        .then(() => {
+          resolve("Application created");
+        });
+    });
+  }
 }

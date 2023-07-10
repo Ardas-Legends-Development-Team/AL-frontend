@@ -44,6 +44,7 @@ import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharA
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
 import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
+import { ApiClient } from "@/ts/ApiClient";
 
 const router = useRouter();
 const steps = [
@@ -64,40 +65,40 @@ const formProgress = ref(25);
 const currentStep = ref(0);
 const formData = useRoleplayCharacterFormStore();
 
-function nextStep(formInput: any) {
-  currentStep.value++;
-  formProgress.value += 25;
+async function nextStep(formInput: any) {
   console.log(formInput);
   switch (formInput.step) {
     case 1:
-      formData.ign = formInput.ign;
-      formData.charName = formInput.charName;
-      formData.preference = formInput.preference;
+      formData.characterName = formInput.characterName;
+      formData.pvpPreference = formInput.pvpPreference.toLowerCase() === "pvp";
       break;
     case 2:
-      formData.title = formInput.title;
-      formData.reason = formInput.reason;
-      formData.faction = formInput.faction;
+      formData.characterTitle = formInput.characterTitle;
+      formData.factionName = formInput.factionName;
+      formData.characterReason = formInput.characterReason;
       break;
     case 3:
       formData.gear = formInput.gear;
       break;
     case 4:
-      formData.summary = formInput.summary;
+      formData.linkToLore = formInput.linkToLore;
       // Verify if title is empty, to set it to faction
-      if (formData.title === "") {
-        formData.title = formData.faction;
+      if (formData.characterTitle === "") {
+        formData.characterTitle = formData.factionName;
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
       console.log(formData);
+      await ApiClient.createRoleplayApplication(formData);
       router.push({
         name: "RoleplayCharacterApplicationEnd",
       });
-      break;
+      return;
     default:
       // do something
       break;
   }
+  currentStep.value++;
+  formProgress.value += 25;
 }
 
 function previousStep() {

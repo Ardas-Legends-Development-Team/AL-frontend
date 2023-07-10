@@ -7,7 +7,7 @@
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
         placeholder="Why do you want to be this character?"
-        v-model="reason"
+        v-model="characterReason"
       ></textarea>
     </div>
   </div>
@@ -26,12 +26,12 @@
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
         placeholder="Character Title"
-        v-model="title"
+        v-model="characterTitle"
       />
     </div>
   </div>
   <div class="input-group">
-    <select class="select select-bordered w-full" v-model="faction">
+    <select class="select select-bordered w-full" v-model="factionName">
       <option disabled selected>Your faction</option>
       <option v-for="(faction, index) in factions" :key="index">
         {{ faction }}
@@ -60,19 +60,23 @@ import { ApiClient } from "@/ts/ApiClient";
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();
 const factions = ref<String[]>([]);
-const title = ref<string>(formData.title);
-const reason = ref<string>(formData.reason);
-const faction = ref<string>(formData.faction);
+const characterTitle = ref<string>(formData.characterTitle);
+const factionName = ref<string>(formData.factionName);
+const characterReason = ref<string>(formData.characterReason);
 const isFormFilled = computed(() => {
-  return factions.value && reason.value && faction.value !== "Your faction";
+  return (
+    factions.value &&
+    characterReason.value &&
+    factionName.value !== "Your faction"
+  );
 });
 
 function nextStep() {
   emit("nextStep", {
     step: 2,
-    title: title.value,
-    reason: reason.value,
-    faction: faction.value,
+    characterTitle: characterTitle.value,
+    factionName: factionName.value,
+    characterReason: characterReason.value,
   });
 }
 

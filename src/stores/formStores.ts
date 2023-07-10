@@ -4,24 +4,22 @@ import { ref } from "vue";
 export const useRoleplayCharacterFormStore = defineStore(
   "roleplayCharacterFormStore",
   () => {
-    const charName = ref("");
-    const faction = ref("Your faction");
+    const characterName = ref("");
+    const factionName = ref("Your faction");
     const gear = ref("");
-    const ign = ref("");
-    const preference = ref("Your in-game preference");
-    const reason = ref("");
-    const summary = ref("");
-    const title = ref("");
+    const pvpPreference = ref(false);
+    const linkToLore = ref("");
+    const characterTitle = ref("");
+    const characterReason = ref("");
 
     return {
-      charName,
-      faction,
+      characterName,
+      factionName,
       gear,
-      ign,
-      preference,
-      reason,
-      summary,
-      title,
+      pvpPreference,
+      linkToLore,
+      characterTitle,
+      characterReason,
     };
   }
 );

@@ -34,10 +34,11 @@ import { useCharacterStore } from "./stores/playerStores";
 // TODO: Connect character list
 // TODO: Connect region list
 // TODO: Connect faction list
+// TODO: Connect faction name list (Need validation)
 // TODO: Connect rp application
 // TODO: Connect claimbuild application
 // TODO: Connect faction dashboard
-// TODO: Connect user dashboard
+// TODO: Connect user dashboard (Need validation)
 // TODO: Deploy to production
 
 const serverId = "668590304487800832";
