@@ -35,7 +35,8 @@ import { useCharacterStore } from "./stores/playerStores";
 // TODO: Connect region list
 // TODO: Connect faction list
 // TODO: Connect faction name list (Need validation)
-// TODO: Connect rp application
+// TODO: Connect rp application (Need validation)
+// TODO: Add missing inputs for claimbuild application
 // TODO: Connect claimbuild application
 // TODO: Connect faction dashboard
 // TODO: Connect user dashboard (Need validation)
