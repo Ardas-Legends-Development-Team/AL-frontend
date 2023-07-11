@@ -22,10 +22,12 @@
           <div class="font-bold">{{ region.regionType }}</div>
         </td>
         <td>
-          <div class="font-bold">{{ region.claimedBy }}</div>
+          <div class="font-bold">
+            {{ region.claimedBy.length > 0 ? region.claimedBy : "" }}
+          </div>
         </td>
         <td>
-          <div class="font-bold">{{ region.neighbours }}</div>
+          <div class="font-bold">{{ region.neighbours.join(", ") }}</div>
         </td>
         <th>
           <label
@@ -69,10 +71,10 @@ const selectedRegion = ref<Region>({
   id: "",
   name: "",
   regionType: "",
-  claimedBy: [""],
-  neighbours: [""],
-  claimbuilds: [""],
-  characters: [""],
+  claimedBy: [],
+  neighbours: [],
+  claimbuilds: [],
+  characters: [],
 });
 
 function sendInfoToModal(region: Region) {
