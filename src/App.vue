@@ -34,13 +34,12 @@ import { useCharacterStore } from "./stores/playerStores";
 import { useErrorStore } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
 
-// TODO: Connect character list
-// TODO: Connect region list
-// TODO: Connect faction list
+// TODO: Connect character list (Need to get list of rp chars)
+// TODO: Connect region list (Need claimbuilds and characters)
 // TODO: Connect faction name list (Need validation)
 // TODO: Connect rp application (Need validation)
-// TODO: Add missing inputs for claimbuild application
-// TODO: Connect claimbuild application
+// TODO: Add missing inputs for claimbuild application (Need validation)
+// TODO: Connect claimbuild application (need more info from API)
 // TODO: Connect faction dashboard
 // TODO: Connect user dashboard (Need validation)
 // TODO: Deploy to production
