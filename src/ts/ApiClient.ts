@@ -7,6 +7,7 @@ import { useRegionIdStore, useRegionStore } from "@/stores/regionStores";
 import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
 import { useSpecialBuildingStore } from "@/stores/buildStores";
+import { ErrorHandler } from "@/ts/ErrorHandler";
 
 export class ApiClient {
   public static registerPlayer(
@@ -201,6 +202,9 @@ export class ApiClient {
         )
         .then(() => {
           resolve("Application created");
+        })
+        .catch(() => {
+          ErrorHandler.throwError("You did not correctly fill the form.");
         });
     });
   }
