@@ -10,9 +10,10 @@
       />
     </div>
   </div>
-
+  <p class="mt-4 text-gray-500">Houses in the claimbuild</p>
   <div class="flex w-full">
     <div class="relative">
+      <p class="text-gray-500">Small</p>
       <input
         type="number"
         maxlength="25"
@@ -23,6 +24,8 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
+      <p class="text-gray-500">Medium</p>
+
       <input
         type="number"
         maxlength="25"
@@ -33,6 +36,8 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
+      <p class="text-gray-500">Large</p>
+
       <input
         type="number"
         maxlength="25"
@@ -70,7 +75,12 @@ const houses = ref<{ small: number; medium: number; large: number }>(
   formData.houses
 );
 const isFormFilled = computed(() => {
-  return type.value;
+  return (
+    type.value &&
+    (houses.value.small > 0 ||
+      houses.value.medium > 0 ||
+      houses.value.large > 0)
+  );
 });
 
 function nextStep() {

@@ -1,63 +1,87 @@
 <template>
   <div>
-    <label for="shops" class="sr-only"
-      >What Production Sites are Present?</label
-    >
+    <p class="mt-4 text-gray-500">What Production Sites are Present?</p>
 
-    <div class="join">
-      <select class="select select-bordered join-item">
+    <div class="flex flex-row">
+      <select
+        class="select select-bordered join-item"
+        v-model="selectedProductionSite.type"
+      >
         <option disabled selected>Production Site</option>
         <option>Building 1</option>
         <option>Farm</option>
         <option>Mine</option>
       </select>
-      <div class="relative">
+      <select
+        class="select select-bordered join-item"
+        v-model="selectedProductionSite.resource"
+      >
+        <option disabled selected>Resource</option>
+        <option>Food</option>
+        <option>Stone</option>
+        <option>Wood</option>
+      </select>
+      <div class="form-control w-full max-w-xs">
         <input
-          required
           type="text"
-          class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-          placeholder="Resource (e.g. Wood)"
-          v-model="currentProductionSite.resource"
-        />
-      </div>
-      <div class="relative">
-        <input
-          type="number"
-          maxlength="25"
-          class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
           placeholder="Amount"
-          v-model="currentProductionSite.count"
+          class="input input-bordered w-full max-w-xs"
+          v-model="selectedProductionSite.count"
         />
       </div>
       <div class="indicator">
-        <button class="btn join-item">Add</button>
+        <button class="btn join-item" @click="addProductionSite">
+          Add
+          <span class="badge badge-primary badge-outline mx-1">+</span>
+        </button>
       </div>
     </div>
   </div>
-  <div>
-    <label for="shops" class="sr-only"
-      >What Special Buildings are Present?</label
-    >
+  <div class="flex flex-row flex-wrap">
+    <div v-for="(productionSite, index) in productionSites" :key="index">
+      <span class="badge badge-outline mx-1"
+        >{{ productionSite.count }} {{ productionSite.type }} producing
+        {{ productionSite.resource }}</span
+      >
 
-    <div class="join">
-      <div class="relative">
-        <input
-          type="number"
-          maxlength="25"
-          class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-          placeholder="Z"
-          v-model="coordinate.z"
-        />
-      </div>
-      <select class="select select-bordered join-item">
-        <option disabled selected>Production Site</option>
-        <option>Building 1</option>
-        <option>Farm</option>
-        <option>Mine</option>
+      <span
+        class="badge badge-primary badge-outline mr-2"
+        @click="removeProductionSite(index)"
+        >-</span
+      >
+    </div>
+  </div>
+
+  <p class="mt-4 text-gray-500">What Special Buildings are Present?</p>
+
+  <div>
+    <div class="flex flex-row">
+      <select
+        class="select select-bordered join-item"
+        v-model="selectedSpecialBuilding"
+      >
+        <option disabled selected>Special Building</option>
+        <option>Workshop</option>
+        <option>Bank</option>
+        <option>Harbor</option>
       </select>
       <div class="indicator">
-        <button class="btn join-item">Add</button>
+        <button class="btn join-item" @click="addSpecialBuilding">
+          Add
+          <span class="badge badge-primary badge-outline mx-1">+</span>
+        </button>
       </div>
+    </div>
+  </div>
+  <div class="flex flex-row flex-wrap">
+    <div v-for="(specialBuilding, index) in specialBuildings" :key="index">
+      <span class="badge badge-outline mx-1">{{ specialBuilding }}</span>
+
+      <span
+        class="badge badge-primary badge-outline mr-2"
+        @click="removeSpecialBuilding(index)"
+        >-</span
+      >
     </div>
   </div>
   <div class="btn-group grid grid-cols-2">
@@ -87,26 +111,37 @@ const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
   formData.productionSites
 );
-const currentProductionSite = ref<ProductionSiteWithCount>({
-  type: "",
+const selectedProductionSite = ref<ProductionSiteWithCount>({
+  type: "Production Site",
   count: 0,
-  resource: "",
+  resource: "Resource",
 });
 const specialBuildings = ref<string[]>(formData.specialBuildings);
+const selectedSpecialBuilding = ref<string>("Special Building");
 const isFormFilled = computed(() => {
   return productionSites.value.length > 0;
 });
 
-function addProductionSite(count: number, type: string, resource: string) {
-  productionSites.value.push({
-    type: type,
-    count: count,
-    resource: resource,
-  });
+function addProductionSite() {
+  productionSites.value.push(selectedProductionSite.value);
+  selectedProductionSite.value = {
+    type: "Production Site",
+    count: 0,
+    resource: "Resource",
+  };
 }
 
-function addSpecialBuilding(type: string) {
-  specialBuildings.value.push(type);
+function removeProductionSite(index: number) {
+  productionSites.value.splice(index, 1);
+}
+
+function addSpecialBuilding() {
+  specialBuildings.value.push(selectedSpecialBuilding.value);
+  selectedSpecialBuilding.value = "Special Building";
+}
+
+function removeSpecialBuilding(index: number) {
+  specialBuildings.value.splice(index, 1);
 }
 
 function nextStep() {

@@ -7,7 +7,7 @@
         required
         type="text"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="In-game name"
+        placeholder="The builder names"
         v-model="builtBy"
       />
     </div>
@@ -36,6 +36,7 @@
     </div>
   </div>
 
+  <p class="mt-4 text-gray-500">Coordinates (XYZ)</p>
   <div class="flex w-full">
     <div class="relative">
       <input
@@ -90,7 +91,7 @@ const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
 const regionIds = ref<{ id: string }[]>([]);
 const builtBy = ref<string>(formData.builtBy.join(", "));
-const regionId = ref<string>(formData.regionId);
+const regionId = ref<string>("Region ID");
 const coordinate = ref<{ x: number; y: number; z: number }>(
   formData.coordinate
 );
@@ -101,9 +102,9 @@ const isFormFilled = computed(() => {
     builtBy.value &&
     regionId.value !== "Region ID" &&
     builtBy.value !== "In-game name" &&
-    coordinate.value.x !== 0 &&
-    coordinate.value.y !== 0 &&
-    coordinate.value.z !== 0 &&
+    (coordinate.value.x !== 0 ||
+      coordinate.value.y !== 0 ||
+      coordinate.value.z !== 0) &&
     claimbuildName.value !== "Claimbuild name"
   );
 });
