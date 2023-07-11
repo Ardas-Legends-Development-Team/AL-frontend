@@ -236,6 +236,9 @@ export class ApiClient {
         )
         .then(() => {
           resolve("Application created");
+        })
+        .catch(() => {
+          ErrorHandler.throwError("You did not correctly fill the form.");
         });
     });
   }

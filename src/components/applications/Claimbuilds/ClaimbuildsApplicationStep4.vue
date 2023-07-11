@@ -10,7 +10,7 @@
       </label>
       <textarea
         class="textarea textarea-bordered textarea-lg w-full max-w-xs"
-        placeholder="What Shops or Production Sites are Present?"
+        placeholder="What traders are present?"
         v-model="traders"
       ></textarea>
     </div>

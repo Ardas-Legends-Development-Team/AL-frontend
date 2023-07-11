@@ -42,6 +42,7 @@ import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/C
 import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
 import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
+import { ApiClient } from "@/ts/ApiClient";
 
 const router = useRouter();
 const steps = [
@@ -88,6 +89,7 @@ function nextStep(formInput: any) {
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
       console.log(formData);
+      ApiClient.createClaimbuildApplication(formData);
       router.push({
         name: "ClaimBuildsApplicationEnd",
       });
