@@ -20,8 +20,9 @@
 import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
 import { ApiClient } from "@/ts/ApiClient";
+import { ref } from "vue";
 
-const cardsData = {
+const cardsData = ref({
   gear: {
     title: "Gear",
     description: "No character gear",
@@ -36,12 +37,12 @@ const cardsData = {
       "https://cdn.discordapp.com/attachments/1080521946397147166/1080522147501457518/Mister_Lonely_art_by_keith_parkinson_dark_lord_morgoth_holds_al_1aebfbeb-b0bd-4705-89ff-c88197520a53.png",
     alt: "morgoth and sauron",
   },
-};
+});
 
 ApiClient.loadCharacterInfo().then((data) => {
-  cardsData.gear.description = data.gear;
+  cardsData.value.gear.description = data.gear;
   if (data.pvp) {
-    cardsData.pvpStatus.description = "Enabled";
+    cardsData.value.pvpStatus.description = "Enabled";
   }
 });
 </script>

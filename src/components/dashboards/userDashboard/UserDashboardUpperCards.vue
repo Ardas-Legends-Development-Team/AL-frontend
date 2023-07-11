@@ -25,8 +25,9 @@
 <script setup lang="ts">
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
 import { ApiClient } from "@/ts/ApiClient";
+import { ref } from "vue";
 
-const cardsData = {
+const cardsData = ref({
   boundTo: {
     title: "Bound To",
     description: "Not bound to army or trading company",
@@ -48,19 +49,19 @@ const cardsData = {
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080522228191469730/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     alt: "health symbol",
   },
-};
+});
 
 ApiClient.loadCharacterInfo().then((data) => {
-  cardsData.currentRegion.description = data.currentRegion;
+  cardsData.value.currentRegion.description = data.currentRegion;
   if (data.boundTo !== "") {
-    cardsData.boundTo.description = data.boundTo;
+    cardsData.value.boundTo.description = data.boundTo;
   }
   if (data.injured) {
-    cardsData.injuredStatus.description = "You are injured!";
+    cardsData.value.injuredStatus.description = "You are injured!";
     if (data.startedHeal !== "") {
-      cardsData.injuredStatus.description +=
+      cardsData.value.injuredStatus.description +=
         "\nHealing started at " + data.startedHeal;
-      cardsData.injuredStatus.description +=
+      cardsData.value.injuredStatus.description +=
         "\nHealing ends at " + data.healEnds;
     }
   }
