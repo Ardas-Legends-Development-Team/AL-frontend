@@ -10,6 +10,7 @@
       </main>
       <FooterBar />
     </div>
+    <ErrorAlert v-if="hasError" @click="hasError = false" />
   </div>
   <RegistrationForm
     v-else-if="shouldShowRegistrationForm === true"
@@ -18,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
 import { useCookie } from "vue-cookie-next";
@@ -30,6 +31,8 @@ import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCharacterStore } from "./stores/playerStores";
+import { useErrorStore } from "@/stores/systemStores";
+import ErrorAlert from "@/components/ErrorAlert.vue";
 
 // TODO: Connect character list
 // TODO: Connect region list
@@ -41,6 +44,15 @@ import { useCharacterStore } from "./stores/playerStores";
 // TODO: Connect faction dashboard
 // TODO: Connect user dashboard (Need validation)
 // TODO: Deploy to production
+
+// Set a watcher on the store's error boolean. If it's true then show up the error message
+const hasError = ref(useErrorStore().hasError);
+watch(
+  () => useErrorStore().hasError,
+  (newValue) => {
+    hasError.value = newValue;
+  }
+);
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
