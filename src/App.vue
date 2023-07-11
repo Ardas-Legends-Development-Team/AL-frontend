@@ -40,7 +40,7 @@ import ErrorAlert from "@/components/ErrorAlert.vue";
 // TODO: Connect rp application (Need validation)
 // TODO: Add missing inputs for claimbuild application (Need validation)
 // TODO: Connect claimbuild application (need more info from API)
-// TODO: Connect faction dashboard
+// TODO: Connect faction dashboard (Need validation and verification with test region data)
 // TODO: Connect user dashboard (Need validation)
 // TODO: Deploy to production
 
