@@ -45,7 +45,7 @@
         >
           <p class="text-lg font-semibold text-accent">Neighbouring Regions:</p>
           <span>
-            {{ selectedRegion.neighbours }}
+            {{ selectedRegion.neighbours.join(", ") }}
           </span>
         </div>
       </div>
@@ -99,18 +99,17 @@
       </div>
     </div>
   </div>
-  <ClaimbuildDetailsModal :selectedClaimbuild="selectedClaimbuild" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
 import SearchBar from "@/components/searchBar.vue";
+import { ApiClient } from "@/ts/ApiClient";
 
-defineProps({
+const props = defineProps({
   faction: {
     type: String,
     required: true,
@@ -120,12 +119,13 @@ defineProps({
 const regions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
-  regionId: "string",
-  terrainType: "string",
-  factionsWithClaim: "string",
-  neighbours: "string",
-  claimbuildsInRegion: "string",
-  charactersInRegion: " string",
+  id: "",
+  name: "",
+  regionType: "",
+  claimedBy: [],
+  neighbours: [],
+  claimbuilds: [],
+  characters: [],
 });
 const selectedClaimbuild = ref<any>();
 const factionsWithClaimBanners = ref<string[]>([]);
@@ -139,7 +139,7 @@ function sendInfoToModal(claimbuild: any) {
 }
 
 function populateDiplomacyBanners() {
-  const factions = ["Angmar", "Mordor", "Gondor"];
+  const factions = [props.faction];
   for (let i = 0; i < factions.length; i++) {
     factionsWithClaimBanners.value[i] = factionNameToBanner(factions[i]);
   }
@@ -162,61 +162,15 @@ function filterClaimbuildTable(searchResults: any) {
 
 populateDiplomacyBanners();
 
-const testClaimbuilds = ref([
-  {
-    name: "test",
-    ownerFaction: "test",
-    claimbuildType: "test",
-    stationedArmies: 1,
-  },
-  {
-    name: "test2",
-    ownerFaction: "test2",
-    claimbuildType: "test2",
-    stationedArmies: 1,
-  },
-  {
-    name: "test5",
-    ownerFaction: "test",
-    claimbuildType: "test",
-    stationedArmies: 1,
-  },
-  {
-    name: "test6",
-    ownerFaction: "test2",
-    claimbuildType: "test2",
-    stationedArmies: 1,
-  },
-  {
-    name: "test3",
-    ownerFaction: "test3",
-    claimbuildType: "test3",
-    stationedArmies: 1,
-  },
-]);
+const testClaimbuilds = ref([]);
 
-async function getMockData(): Promise<Region[]> {
-  const params = {
-    count: 50,
-    key: "6100d750",
-  };
-  return new Promise((resolve, reject) => {
-    axios
-      .get("https://api.mockaroo.com/api/ce561150", {
-        params,
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-getMockData().then((data: any) => {
-  regions.value = data;
-  filteredRegions.value = data;
-  selectedRegion.value = data[0];
+ApiClient.loadRegions().then((regionList: Region[]) => {
+  // Get only the regions owned by the faction
+  regionList = regionList.filter((region) =>
+    region.claimedBy.includes(props.faction)
+  );
+  regions.value = regionList;
+  filteredRegions.value = regionList;
+  selectedRegion.value = regionList[0];
 });
 </script>
