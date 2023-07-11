@@ -1,11 +1,13 @@
 <template>
   <div class="flex flex-col content-center basis-2/3 m-4">
-    <h3 class="text-2xl text-accent my-3">King: Sspoefaspeofasefssess</h3>
-    <h3 class="text-2xl my-3">Starting Region: 128</h3>
-    <h3 class="text-2xl my-3">Claimed Regions: 500</h3>
-    <h3 class="text-2xl my-3">Claimbuilds: 153</h3>
-    <h3 class="text-2xl my-3">Armies: 255</h3>
-    <h3 class="text-2xl my-3">Players: 153</h3>
+    <h3 class="text-2xl text-accent my-3">King: {{ faction.leaderIgn }}</h3>
+    <h3 class="text-2xl my-3">Home Region: {{ faction.homeRegion }}</h3>
+    <h3 class="text-2xl my-3">
+      Claimed Regions: {{ faction.countOfClaimedRegions }}
+    </h3>
+    <h3 class="text-2xl my-3">Claimbuilds: {{ faction.countOfClaimbuilds }}</h3>
+    <h3 class="text-2xl my-3">Armies: {{ faction.countOfArmies }}</h3>
+    <h3 class="text-2xl my-3">Players: {{ faction.countOfPlayers }}</h3>
   </div>
   <div class="basis-1/3 my-3">
     <div class="w-24 h-48 mx-2">
@@ -47,29 +49,31 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
+import { ApiClient } from "@/ts/ApiClient";
+import { Faction } from "@/ts/types/Faction";
 
 const props = defineProps({
-  faction: {
+  factionName: {
     type: String,
     required: true,
   },
 });
 
-const factionBanner = ref<string>(factionNameToBanner(props.faction));
-const alliedFactions = ref<string[]>([
-  "Angmar",
-  "Angmar",
-  "Gondor",
-  "Mordor",
-  "Gondor",
-]);
+const faction = ref<Faction>({
+  id: 0,
+  nameOfFaction: "",
+  countOfArmies: "",
+  countOfClaimbuilds: [],
+  countOfClaimedRegions: [],
+  countOfPlayers: [],
+  homeRegion: "",
+  leaderIgn: "",
+});
+
+const factionBanner = ref<string>(factionNameToBanner(props.factionName));
+const alliedFactions = ref<string[]>([]);
 const alliedFactionBanners = ref<string[]>([]);
-const enemyFactions = ref<string[]>([
-  "Durin's Folk",
-  "Gondor",
-  "Mordor",
-  "Gondor",
-]);
+const enemyFactions = ref<string[]>([]);
 const enemyFactionBanners = ref<string[]>([]);
 
 function populateDiplomacyBanners() {
@@ -84,4 +88,11 @@ function populateDiplomacyBanners() {
 }
 
 populateDiplomacyBanners();
+ApiClient.loadFactions().then((factions: Faction[]) => {
+  // Get the faction corresponding to the factionName prop
+  faction.value = factions.find(
+    (faction) => faction.nameOfFaction === props.factionName
+  )!;
+  console.log(faction.value);
+});
 </script>

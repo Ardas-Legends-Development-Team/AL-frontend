@@ -5,7 +5,7 @@
     </div>
     <div class="basis-1/3 flex flex-col">
       <div class="flex flex-row bg-base-200 rounded-lg">
-        <FactionDashboardSummaryInformation :faction="faction" />
+        <FactionDashboardSummaryInformation :faction-name="faction" />
       </div>
       <div class="flex flex-row">
         <div v-for="(card, index) in cardData" :key="index">
@@ -34,15 +34,18 @@ defineProps({
 });
 
 const cardData = ref([
-  {
-    title: "Declare War",
-    source: "https://i.imgur.com/1ZQ3Z9C.png",
-    alt: "faction banner",
-  },
-  {
-    title: "Start Alliance",
-    source: "https://i.imgur.com/1ZQ3Z9C.png",
-    alt: "faction banner",
-  },
+  /*
+{
+  title: "Declare War",
+  source: "https://i.imgur.com/1ZQ3Z9C.png",
+  alt: "faction banner",
+},
+{
+  title: "Start Alliance",
+  source: "https://i.imgur.com/1ZQ3Z9C.png",
+  alt: "faction banner",
+},
+//
+   */
 ]);
 </script>

@@ -5,4 +5,6 @@ export type Faction = {
   countOfClaimbuilds: string[];
   countOfClaimedRegions: string[];
   countOfPlayers: string[];
+  homeRegion: string;
+  leaderIgn: string;
 };
