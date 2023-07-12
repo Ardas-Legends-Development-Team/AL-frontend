@@ -263,6 +263,7 @@ export class ApiClient {
         resolve(productionSiteTypeStore.productionSiteTypes);
         return;
       }
+      // TODO: Change this to the correct endpoint
       axios
         .get("http://localhost:8080/api/claimbuild/SOMETHING")
         .then((response) => {
