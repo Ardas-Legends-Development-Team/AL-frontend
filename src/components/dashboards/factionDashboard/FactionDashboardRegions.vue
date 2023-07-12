@@ -107,7 +107,7 @@ import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
 import SearchBar from "@/components/searchBar.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 
 const props = defineProps({
   faction: {
@@ -164,7 +164,7 @@ populateDiplomacyBanners();
 
 const testClaimbuilds = ref([]);
 
-ApiClient.loadRegions().then((regionList: Region[]) => {
+RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction
   regionList = regionList.filter((region) =>
     region.claimedBy.includes(props.faction)

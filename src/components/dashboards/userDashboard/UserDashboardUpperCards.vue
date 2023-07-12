@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 
 const cardsData = ref({
@@ -51,7 +51,7 @@ const cardsData = ref({
   },
 });
 
-ApiClient.loadCharacterInfo().then((data) => {
+PlayerApiClient.loadCharacterInfo().then((data) => {
   cardsData.value.currentRegion.description = data.currentRegion;
   if (data.boundTo !== "") {
     cardsData.value.boundTo.description = data.boundTo;

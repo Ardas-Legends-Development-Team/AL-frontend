@@ -85,7 +85,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 // previousStep event is not used in this component, but in the next steps
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
@@ -123,7 +123,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadRegionIds().then((ids: string[]) => {
+RegionApiClient.loadRegionIds().then((ids: string[]) => {
   regionIds.value = ids;
 });
 </script>

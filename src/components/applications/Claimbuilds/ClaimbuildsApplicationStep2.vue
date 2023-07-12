@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
@@ -92,7 +92,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadClaimbuildTypes().then((types: string[]) => {
+ClaimbuildApiClient.loadClaimbuildTypes().then((types: string[]) => {
   claimbuildTypes.value = types;
 });
 </script>

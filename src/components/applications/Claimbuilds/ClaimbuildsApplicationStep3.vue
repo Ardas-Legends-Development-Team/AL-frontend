@@ -114,7 +114,7 @@ import {
   ProductionSite,
   ProductionSiteWithCount,
 } from "@/ts/types/ProductionSite";
-import { ApiClient } from "@/ts/ApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
@@ -176,11 +176,13 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadProductionSiteTypes().then((sites: ProductionSite[]) => {
-  availableProductionSites.value = sites;
-});
+ClaimbuildApiClient.loadProductionSiteTypes().then(
+  (sites: ProductionSite[]) => {
+    availableProductionSites.value = sites;
+  }
+);
 
-ApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
+ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
   availableSpecialBuildings.value = buildings;
 });
 </script>

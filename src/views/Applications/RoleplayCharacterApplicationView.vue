@@ -44,7 +44,7 @@ import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharA
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
 import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 
 const router = useRouter();
 const steps = [
@@ -88,7 +88,7 @@ async function nextStep(formInput: any) {
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
       console.log(formData);
-      await ApiClient.createRoleplayApplication(formData);
+      await ApplicationApiClient.createRoleplayApplication(formData);
       router.push({
         name: "RoleplayCharacterApplicationEnd",
       });

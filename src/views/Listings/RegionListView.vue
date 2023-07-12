@@ -62,7 +62,7 @@ import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
 import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 
 // TODO: Build the strings to show because we got arrays instead of one string
 // TODO: Get missing info from API to complete the table
@@ -82,7 +82,7 @@ function sendInfoToModal(region: Region) {
   console.log(selectedRegion.value);
 }
 
-ApiClient.loadRegions().then((data: any) => {
+RegionApiClient.loadRegions().then((data: any) => {
   regions.value = data;
 });
 </script>

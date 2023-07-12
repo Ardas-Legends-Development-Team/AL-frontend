@@ -23,7 +23,7 @@ import { ref, watch } from "vue";
 import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
 import { useCookie } from "vue-cookie-next";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
@@ -150,19 +150,21 @@ loginUser(getCodeFromUrl()).then((token) => {
   verifyIfUserInServer(token);
   verifyIfUserRegistered(token)
     .then((discordId) => {
-      ApiClient.loadPlayerInfo(discordId).then((playerInfo: PlayerInfo) => {
-        const characterInfo = useCharacterStore();
-        console.log(
-          "Player Info: ",
-          playerInfo.discordId,
-          playerInfo.ign,
-          playerInfo.faction,
-          playerInfo.isStaff,
-          "Injured: ",
-          characterInfo.injured
-        );
-        loadedUser.value = true;
-      });
+      PlayerApiClient.loadPlayerInfo(discordId).then(
+        (playerInfo: PlayerInfo) => {
+          const characterInfo = useCharacterStore();
+          console.log(
+            "Player Info: ",
+            playerInfo.discordId,
+            playerInfo.ign,
+            playerInfo.faction,
+            playerInfo.isStaff,
+            "Injured: ",
+            characterInfo.injured
+          );
+          loadedUser.value = true;
+        }
+      );
     })
     .catch(() => {
       shouldShowRegistrationForm.value = true;

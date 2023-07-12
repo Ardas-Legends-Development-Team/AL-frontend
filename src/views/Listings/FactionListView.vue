@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ApiClient } from "@/ts/ApiClient";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { ref } from "vue";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import FactionListCard from "@/components/dashboards/factionDashboard/FactionListCard.vue";
@@ -21,7 +21,7 @@ import { RouterLink } from "vue-router";
 
 const cardsData = ref<any[]>([]);
 
-ApiClient.loadFactionNames().then((factionNames) => {
+FactionApiClient.loadFactionNames().then((factionNames) => {
   factionNames.forEach((factionName) => {
     cardsData.value.push({
       title: factionName,
