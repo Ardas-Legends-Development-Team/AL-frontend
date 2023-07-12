@@ -11,3 +11,11 @@ export const useSpecialBuildingStore = defineStore(
     };
   }
 );
+
+export const useClaimbuildTypeStore = defineStore("ClaimbuildTypeStore", () => {
+  const claimbuildTypes = ref<string[]>([]);
+
+  return {
+    claimbuildTypes,
+  };
+});

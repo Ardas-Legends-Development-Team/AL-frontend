@@ -6,7 +6,10 @@ import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { useRegionIdStore, useRegionStore } from "@/stores/regionStores";
 import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
-import { useSpecialBuildingStore } from "@/stores/buildStores";
+import {
+  useClaimbuildTypeStore,
+  useSpecialBuildingStore,
+} from "@/stores/buildStores";
 import { ErrorHandler } from "@/ts/ErrorHandler";
 
 export class ApiClient {
@@ -100,7 +103,17 @@ export class ApiClient {
   }
 
   public static async loadClaimbuildTypes(): Promise<string[]> {
-    return ["Something here", "Hamlet"];
+    const claimbuildTypesStore = useClaimbuildTypeStore();
+    return new Promise((resolve) => {
+      if (claimbuildTypesStore.claimbuildTypes.length > 0) {
+        resolve(claimbuildTypesStore.claimbuildTypes);
+        return;
+      }
+      axios.get("http://localhost:8080/api/faction").then((response) => {
+        claimbuildTypesStore.claimbuildTypes = response.data;
+        resolve(claimbuildTypesStore.claimbuildTypes);
+      });
+    });
   }
 
   /**
@@ -153,9 +166,7 @@ export class ApiClient {
         return;
       }
       axios.get("http://localhost:8080/api/region/all").then((response) => {
-        response.data.forEach((regionId: string) => {
-          regionIdStore.regionIds.push(regionId);
-        });
+        regionIdStore.regionIds = response.data;
         resolve(regionIdStore.regionIds);
       });
     });
@@ -171,9 +182,7 @@ export class ApiClient {
       axios
         .get("http://localhost:8080/api/region/all/detailed")
         .then((response) => {
-          response.data.forEach((region: Region) => {
-            regionStore.regions.push(region);
-          });
+          regionStore.regions = response.data;
           resolve(regionStore.regions);
         });
     });
@@ -257,9 +266,7 @@ export class ApiClient {
       axios
         .get("http://localhost:8080/api/claimbuild/specialbuildings")
         .then((response) => {
-          response.data.forEach((specialBuilding: string) => {
-            specialBuildingStore.specialBuildings.push(specialBuilding);
-          });
+          specialBuildingStore.specialBuildings = response.data;
           resolve(specialBuildingStore.specialBuildings);
         });
     });
