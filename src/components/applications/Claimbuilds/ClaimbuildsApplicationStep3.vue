@@ -4,22 +4,28 @@
 
     <div class="flex flex-row">
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered w-full"
         v-model="selectedProductionSite.type"
       >
         <option disabled selected>Production Site</option>
-        <option>Building 1</option>
-        <option>Farm</option>
-        <option>Mine</option>
+        <option
+          v-for="(building, index) in availableProductionSites"
+          :key="index"
+        >
+          {{ building.type }}
+        </option>
       </select>
       <select
         class="select select-bordered join-item"
         v-model="selectedProductionSite.resource"
       >
         <option disabled selected>Resource</option>
-        <option>Food</option>
-        <option>Stone</option>
-        <option>Wood</option>
+        <option
+          v-for="(resource, index) in selectedProductionSiteAvailableResources"
+          :key="index"
+        >
+          {{ resource }}
+        </option>
       </select>
       <div class="form-control w-full max-w-xs">
         <input
@@ -57,13 +63,16 @@
   <div>
     <div class="flex flex-row">
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered w-full"
         v-model="selectedSpecialBuilding"
       >
         <option disabled selected>Special Building</option>
-        <option>Workshop</option>
-        <option>Bank</option>
-        <option>Harbor</option>
+        <option
+          v-for="(building, index) in availableSpecialBuildings"
+          :key="index"
+        >
+          {{ building }}
+        </option>
       </select>
       <div class="indicator">
         <button class="btn join-item" @click="addSpecialBuilding">
@@ -101,12 +110,15 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ProductionSiteWithCount } from "@/ts/types/ProductionSite";
+import {
+  ProductionSite,
+  ProductionSiteWithCount,
+} from "@/ts/types/ProductionSite";
 import { ApiClient } from "@/ts/ApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const availableProductionSites = ref<string[]>([]);
+const availableProductionSites = ref<ProductionSite[]>([]);
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
   formData.productionSites
@@ -120,6 +132,14 @@ const specialBuildings = ref<string[]>(formData.specialBuildings);
 const selectedSpecialBuilding = ref<string>("Special Building");
 const isFormFilled = computed(() => {
   return productionSites.value.length > 0;
+});
+
+// Add a computed property to get the resources for the selected production site
+// This is used to filter the resources in the dropdown
+const selectedProductionSiteAvailableResources = computed(() => {
+  return availableProductionSites.value
+    .filter((building) => building.type === selectedProductionSite.value.type)
+    .map((building) => building.resource);
 });
 
 function addProductionSite() {
@@ -156,11 +176,11 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadProductionSiteTypes().then((sites: string[]) => {
+ApiClient.loadProductionSiteTypes().then((sites: ProductionSite[]) => {
   availableProductionSites.value = sites;
 });
 
-ApiClient.loadSpecialBuildingTypes().then((buildings) => {
+ApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
   availableSpecialBuildings.value = buildings;
 });
 </script>

@@ -8,9 +8,11 @@ import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
 import {
   useClaimbuildTypeStore,
+  useProductionSiteTypeStore,
   useSpecialBuildingStore,
 } from "@/stores/buildStores";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { ProductionSite } from "@/ts/types/ProductionSite";
 
 export class ApiClient {
   public static registerPlayer(
@@ -254,8 +256,20 @@ export class ApiClient {
     });
   }
 
-  public static async loadProductionSiteTypes(): Promise<string[]> {
-    return ["Farm", "Mine"];
+  public static async loadProductionSiteTypes(): Promise<ProductionSite[]> {
+    const productionSiteTypeStore = useProductionSiteTypeStore();
+    return new Promise((resolve) => {
+      if (productionSiteTypeStore.productionSiteTypes.length > 0) {
+        resolve(productionSiteTypeStore.productionSiteTypes);
+        return;
+      }
+      axios
+        .get("http://localhost:8080/api/claimbuild/SOMETHING")
+        .then((response) => {
+          productionSiteTypeStore.productionSiteTypes = response.data;
+          resolve(productionSiteTypeStore.productionSiteTypes);
+        });
+    });
   }
 
   public static async loadSpecialBuildingTypes(): Promise<string[]> {
