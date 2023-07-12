@@ -10,7 +10,7 @@ export class ApplicationApiClient extends ApiClient {
     return new Promise((resolve) => {
       axios
         .post(
-          "http://localhost:8080/api/applications/roleplay",
+          this.getBaseUrl() + "/applications/roleplay",
           {
             discordId: usePlayerStore().discordId,
             factionName: applicationData.factionName,
@@ -40,7 +40,7 @@ export class ApplicationApiClient extends ApiClient {
     return new Promise((resolve) => {
       axios
         .post(
-          "http://localhost:8080/api/applications/claimbuild",
+          this.getBaseUrl() + "/applications/claimbuild",
           {
             discordId: usePlayerStore().discordId,
             claimbuildName: applicationData.claimbuildName,

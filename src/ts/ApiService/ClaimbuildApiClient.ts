@@ -15,12 +15,10 @@ export class ClaimbuildApiClient extends ApiClient {
         resolve(claimbuildTypesStore.claimbuildTypes);
         return;
       }
-      axios
-        .get("http://localhost:8080/api/claimbuild/types")
-        .then((response) => {
-          claimbuildTypesStore.claimbuildTypes = response.data;
-          resolve(claimbuildTypesStore.claimbuildTypes);
-        });
+      axios.get(this.getBaseUrl() + "/claimbuild/types").then((response) => {
+        claimbuildTypesStore.claimbuildTypes = response.data;
+        resolve(claimbuildTypesStore.claimbuildTypes);
+      });
     });
   }
 
@@ -32,12 +30,10 @@ export class ClaimbuildApiClient extends ApiClient {
         return;
       }
       // TODO: Change this to the correct endpoint
-      axios
-        .get("http://localhost:8080/api/claimbuild/SOMETHING")
-        .then((response) => {
-          productionSiteTypeStore.productionSiteTypes = response.data;
-          resolve(productionSiteTypeStore.productionSiteTypes);
-        });
+      axios.get(this.getBaseUrl() + "/productionsite/all").then((response) => {
+        productionSiteTypeStore.productionSiteTypes = response.data;
+        resolve(productionSiteTypeStore.productionSiteTypes);
+      });
     });
   }
 
@@ -49,7 +45,7 @@ export class ClaimbuildApiClient extends ApiClient {
         return;
       }
       axios
-        .get("http://localhost:8080/api/claimbuild/specialbuildings")
+        .get(this.getBaseUrl() + "/claimbuild/specialbuildings")
         .then((response) => {
           specialBuildingStore.specialBuildings = response.data;
           resolve(specialBuildingStore.specialBuildings);

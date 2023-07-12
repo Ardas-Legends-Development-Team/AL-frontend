@@ -12,7 +12,7 @@ export class FactionApiClient extends ApiClient {
         return;
       }
       axios
-        .get("http://localhost:8080/api/faction", {
+        .get(this.getBaseUrl() + "/api/faction", {
           params: {
             size: 100,
           },
@@ -35,7 +35,7 @@ export class FactionApiClient extends ApiClient {
         return;
       }
       axios
-        .get("http://localhost:8080/api/faction", {
+        .get(this.getBaseUrl() + "/api/faction", {
           params: {
             size: 100,
           },

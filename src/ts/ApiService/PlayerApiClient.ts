@@ -12,7 +12,7 @@ export class PlayerApiClient extends ApiClient {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:8080/api/player", {
+        .post(this.getBaseUrl() + "/api/player", {
           discordID: discordId,
           faction: faction,
           ign: ign,
@@ -63,7 +63,7 @@ export class PlayerApiClient extends ApiClient {
         return;
       }
       axios
-        .get("http://localhost:8080/api/player/discordid/" + discordId)
+        .get(this.getBaseUrl() + "/api/player/discordid/" + discordId)
         .then((response) => {
           const data = response.data;
           playerStore.ign = data.ign;

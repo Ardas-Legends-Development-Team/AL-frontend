@@ -1,3 +1,7 @@
 export abstract class ApiClient {
-  baseUrl: string = "http://localhost:8080/api";
+  private static baseUrl: string = "http://localhost:8080/api";
+
+  public static getBaseUrl(): string {
+    return this.baseUrl;
+  }
 }
