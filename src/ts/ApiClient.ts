@@ -109,10 +109,12 @@ export class ApiClient {
         resolve(claimbuildTypesStore.claimbuildTypes);
         return;
       }
-      axios.get("http://localhost:8080/api/faction").then((response) => {
-        claimbuildTypesStore.claimbuildTypes = response.data;
-        resolve(claimbuildTypesStore.claimbuildTypes);
-      });
+      axios
+        .get("http://localhost:8080/api/claimbuild/types")
+        .then((response) => {
+          claimbuildTypesStore.claimbuildTypes = response.data;
+          resolve(claimbuildTypesStore.claimbuildTypes);
+        });
     });
   }
 

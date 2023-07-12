@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <label for="claimbuildType" class="sr-only">Claimbuild Type</label>
-    <div class="relative">
-      <input
-        type="text"
-        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Claimbuild Type"
-        v-model="type"
-      />
-    </div>
+  <div class="input-group">
+    <select class="select select-bordered w-full" v-model="type">
+      <option disabled selected>Claimbuild Type</option>
+      <option v-for="(type, index) in claimbuildTypes" :key="index">
+        {{ type }}
+      </option>
+    </select>
   </div>
   <p class="mt-4 text-gray-500">Houses in the claimbuild</p>
   <div class="flex w-full">
@@ -76,7 +73,7 @@ const houses = ref<{ small: number; medium: number; large: number }>(
 );
 const isFormFilled = computed(() => {
   return (
-    type.value &&
+    type.value !== "Claimbuild Type" &&
     (houses.value.small > 0 ||
       houses.value.medium > 0 ||
       houses.value.large > 0)
