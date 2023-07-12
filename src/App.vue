@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import AuthenticationClient from "@/ts/AuthenticationClient";
+import AuthenticationClient from "@/ts/ApiService/AuthenticationClient";
 import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
