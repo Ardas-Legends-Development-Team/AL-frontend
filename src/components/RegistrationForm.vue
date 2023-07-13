@@ -43,9 +43,11 @@
           </div>
         </div>
 
+        <div v-if="error" class="text-error">{{errMsg}}</div>
+
         <button
           @click="register()"
-          type="submit"
+          type="button"
           class="btn btn-primary w-full px-5 py-3"
         >
           Register
@@ -56,8 +58,8 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
+import { ApiClient } from "@/ts/ApiClient";
 
 const props = defineProps({
   discordId: {
@@ -68,13 +70,17 @@ const props = defineProps({
 
 const ign = ref("");
 const faction = ref("");
+const error = ref(false)
+const errMsg = ref("")
 
 function register() {
   console.log("Registering...");
-  axios.post("http://localhost:8080/api/player", {
-    discordID: props.discordId,
-    ign: ign.value,
-    faction: faction.value,
+  ApiClient.registerPlayer(props.discordId, ign.value, faction.value).then(() =>
+    window.location.reload()
+  ).catch((err) => {
+      console.log(err)
+      error.value = true
+      errMsg.value = err.response.data.message
   });
 }
 </script>

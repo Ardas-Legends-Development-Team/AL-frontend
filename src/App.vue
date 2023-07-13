@@ -1,44 +1,82 @@
 <template>
   <div v-if="isLoggedIn === true">
     <header>
-      <HorizontalNavbar />
-      <VerticalNavbar />
+      <TopNavbar v-if="loadedUser" />
+      <VerticalNavbar v-if="loadedUser" />
     </header>
     <div class="relative min-h-screen flex flex-col">
       <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
-        <router-view />
+        <router-view v-if="loadedUser" />
       </main>
       <FooterBar />
     </div>
+    <ErrorAlert v-if="hasError" @click="hasError = false" />
   </div>
   <RegistrationForm
-    v-else-if="isRegistered === false"
-    :discord-id="userToken"
+    v-else-if="shouldShowRegistrationForm === true"
+    :discord-id="discordId"
   />
 </template>
 
 <script setup lang="ts">
-import AuthenticationClient from "@/ts/authenticationClient";
-import FooterBar from "@/components/navbars/FooterBar.vue";
-import HorizontalNavbar from "@/components/navbars/HorizontalNavbar.vue";
-import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import AuthenticationClient from "@/ts/AuthenticationClient";
 import axios from "axios";
+import { useCookie } from "vue-cookie-next";
+import { ApiClient } from "@/ts/ApiClient";
+import { PlayerInfo } from "@/ts/types/PlayerInfo";
+import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
+import TopNavbar from "@/components/navbars/TopNavbar.vue";
+import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
+import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
+import { useCharacterStore } from "./stores/playerStores";
+import { useErrorStore } from "@/stores/systemStores";
+import ErrorAlert from "@/components/ErrorAlert.vue";
+
+// TODO: Connect character list (Need to get list of rp chars)
+// TODO: Connect region list (Need claimbuilds and characters)
+// TODO: Connect faction name list (Need validation)
+// TODO: Connect rp application (Need validation)
+// TODO: Add missing inputs for claimbuild application (Need validation)
+// TODO: Connect claimbuild application (need more info from API)
+// TODO: Connect faction dashboard (Need validation and verification with test region data)
+// TODO: Connect user dashboard (Need validation)
+// TODO: Deploy to production
+
+// Set a watcher on the store's error boolean. If it's true then show up the error message
+const hasError = ref(useErrorStore().hasError);
+watch(
+  () => useErrorStore().hasError,
+  (newValue) => {
+    hasError.value = newValue;
+  }
+);
 
 const serverId = "668590304487800832";
-const isLoggedIn = ref(true);
-const isRegistered = ref(true);
+const isLoggedIn = ref(false);
+const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
-const client = new AuthenticationClient(
+const discordId = ref("");
+const authenticationClient = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
 );
-client.setScopes(["identify", "guilds"]);
-client.setRedirect("http://localhost:6942");
-const authUrl =
-  "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A6942&response_type=code&scope=identify%20guilds";
+
+const cookies = useCookie();
+
+//Change this depending on if it's production or dev server
+//const redirectUrl = discordRedirectUrl.dev;
+const redirectUrl = discordRedirectUrl.dev;
+// const authUrl = discordAuthUrl.dev;
+const authUrl = discordAuthUrl.dev;
+
+authenticationClient.setScopes(["identify", "guilds"]);
+authenticationClient.setRedirect(redirectUrl);
+
 const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
+
+const loadedUser = ref(false);
 
 function redirectToAuthUrl() {
   window.location.href = authUrl;
@@ -50,18 +88,39 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
+function setAccessTokenCookie(token: any) {
+  cookies.setCookie("access_token", token);
+  console.log("Set cookie:" + cookies.getCookie("access_token"));
+}
+
+function getAccessTokenCookie() {
+  if (cookies.isCookieAvailable("access_token")) {
+    return cookies.getCookie("access_token");
+  }
+  return undefined;
+}
+
 function loginUser(code: string) {
   return new Promise((resolve) => {
+    if (getAccessTokenCookie()) {
+      userToken.value = getAccessTokenCookie().access_token;
+      console.log("Access token:");
+      console.log(getAccessTokenCookie());
+      resolve(getAccessTokenCookie());
+      return;
+    }
     if (!code) redirectToAuthUrl();
-    client.getToken(code).then((token) => {
+    authenticationClient.getToken(code).then((token) => {
+      setAccessTokenCookie(token);
       userToken.value = token.access_token;
+      console.log("Token:", token);
       resolve(token);
     });
   });
 }
 
 function verifyIfUserInServer(token: any) {
-  client.getUserGuilds(token).then((guilds) => {
+  authenticationClient.getUserGuilds(token).then((guilds) => {
     if (guilds.find((guild: any) => guild.id === serverId)) {
       return;
     }
@@ -70,37 +129,43 @@ function verifyIfUserInServer(token: any) {
 }
 
 function verifyIfUserRegistered(token: any) {
-  return new Promise((resolve, reject) => {
-    client.getUser(token).then((user) => {
+  return new Promise<string>((resolve, reject) => {
+    authenticationClient.getUser(token).then((user) => {
+      discordId.value = user.id;
       axios
-        .get(`http://localhost:8080/api/player/discordid/${userToken.value}`)
-        .then((res) => {
-          isRegistered.value = true;
+        .get(`http://localhost:8080/api/player/discordid/${user.id}`)
+        .then(() => {
           isLoggedIn.value = true;
-          resolve(true);
+          shouldShowRegistrationForm.value = false;
+          resolve(user.id);
         })
-        .catch((err) => {
-          reject(false);
+        .catch(() => {
+          reject("User not registered");
         });
     });
   });
 }
 
-function getUserId(token: any) {
-  client.getUser(token).then((user) => {
-    return user.id;
-  });
-}
-
-function getUsername(token: any) {
-  client.getUser(token).then((user) => {
-    console.log(user.username);
-  });
-}
-
-/*loginUser(getCodeFromUrl()).then((token) => {
-  getUsername(token);
+loginUser(getCodeFromUrl()).then((token) => {
   verifyIfUserInServer(token);
-  verifyIfUserRegistered(token).catch(() => (isRegistered.value = false));
-});*/
+  verifyIfUserRegistered(token)
+    .then((discordId) => {
+      ApiClient.loadPlayerInfo(discordId).then((playerInfo: PlayerInfo) => {
+        const characterInfo = useCharacterStore();
+        console.log(
+          "Player Info: ",
+          playerInfo.discordId,
+          playerInfo.ign,
+          playerInfo.faction,
+          playerInfo.isStaff,
+          "Injured: ",
+          characterInfo.injured
+        );
+        loadedUser.value = true;
+      });
+    })
+    .catch(() => {
+      shouldShowRegistrationForm.value = true;
+    });
+});
 </script>

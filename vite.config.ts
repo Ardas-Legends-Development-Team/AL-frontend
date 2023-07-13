@@ -5,10 +5,14 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/AL-frontend/",
   plugins: [vue()],
   test: {
-    globals: true,
+    include: ["test/**/*.test.ts"],
     environment: "jsdom",
+    deps: {
+      inline: ["@vue", "@vueuse"],
+    },
   },
   resolve: {
     alias: {
@@ -16,7 +20,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 6942,
+    port: 3333,
     strictPort: true,
   },
 });
