@@ -153,8 +153,8 @@ export class ApiClient {
         return;
       }
       axios.get("http://localhost:8080/api/region/all").then((response) => {
-        response.data.forEach((regionId: string) => {
-          regionIdStore.regionIds.push(regionId);
+        response.data.forEach((regionId: { id: string }) => {
+          regionIdStore.regionIds.push(regionId.id);
         });
         resolve(regionIdStore.regionIds);
       });
