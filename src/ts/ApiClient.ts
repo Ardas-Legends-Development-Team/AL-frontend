@@ -6,8 +6,10 @@ import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { useRegionIdStore, useRegionStore } from "@/stores/regionStores";
 import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
-import { useSpecialBuildingStore } from "@/stores/buildStores";
+import { useProductionSiteStore, useSpecialBuildingStore } from "@/stores/buildStores";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { log } from "console";
+import { ProductionSite, ProductionSiteWithCount } from "./types/ProductionSite";
 
 export class ApiClient {
   public static registerPlayer(
@@ -213,22 +215,40 @@ export class ApiClient {
   public static async createClaimbuildApplication(
     applicationData: any
   ): Promise<string> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+
+      const productionSites: ProductionSiteWithCount[] = [] 
+      applicationData.productionSites.forEach((prodSite: ProductionSiteWithCount) => {
+        prodSite.type = prodSite.type.toUpperCase()
+        productionSites.push(prodSite)
+      });
+
+      const specialBuildings: string[] = [];
+
+      applicationData.specialBuildings.forEach((specialBuilding: string) => {
+        specialBuilding = specialBuilding.toUpperCase();
+        specialBuildings.push(specialBuilding)
+      });
+
+      const houses = applicationData.houses.small + "x small, "
+      + applicationData.houses.medium + "x medium, "
+      + applicationData.houses.large + "x large";
+
       axios
         .post(
           "http://localhost:8080/api/applications/claimbuild",
           {
-            discordId: usePlayerStore().discordId,
+            applicant: {discordId: usePlayerStore().discordId},
             claimbuildName: applicationData.claimbuildName,
             regionId: applicationData.regionId,
-            type: applicationData.type,
+            type: (applicationData.type as string),
             factionNameOwnedBy: usePlayerStore().faction,
             coordinate: applicationData.coordinate,
-            productionSites: applicationData.productionSites,
-            specialBuildings: applicationData.specialBuildings,
+            productionSites: productionSites,
+            specialBuildings: specialBuildings,
             traders: applicationData.traders,
             siege: applicationData.siege,
-            houses: applicationData.houses,
+            houses: houses,
             builtBy: applicationData.builtBy,
           },
           {
@@ -238,14 +258,28 @@ export class ApiClient {
         .then(() => {
           resolve("Application created");
         })
-        .catch(() => {
-          ErrorHandler.throwError("You did not correctly fill the form.");
+        .catch((error) => {
+          reject(error.response.data.message)
         });
     });
   }
 
-  public static async loadProductionSiteTypes(): Promise<string[]> {
-    return ["Farm", "Mine"];
+  public static async loadProductionSiteTypes(): Promise<ProductionSite[]> {
+    const prodSiteStore = useProductionSiteStore();
+    return new Promise((resolve) => {
+      if (prodSiteStore.productionSites.length > 0) {
+        resolve(prodSiteStore.productionSites);
+        return;
+      }
+      axios
+        .get("http://localhost:8080/api/productionsite/all")
+        .then((response) => {
+          response.data.forEach((prodSite: ProductionSite) => {
+            prodSiteStore.productionSites.push(prodSite);
+          });
+          resolve(prodSiteStore.productionSites);
+        });
+    });
   }
 
   public static async loadSpecialBuildingTypes(): Promise<string[]> {

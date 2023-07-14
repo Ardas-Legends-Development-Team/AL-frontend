@@ -101,12 +101,15 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ProductionSiteWithCount } from "@/ts/types/ProductionSite";
+import { ProductionSite, ProductionSiteWithCount } from "@/ts/types/ProductionSite";
 import { ApiClient } from "@/ts/ApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const availableProductionSites = ref<string[]>([]);
+const allProductionSites = ref<ProductionSite[]>([]);
+//const allProdSiteTypes = ref<string[]>([]);
+//const allResources = ref<string[]>([]);
+
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
   formData.productionSites
@@ -156,8 +159,10 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadProductionSiteTypes().then((sites: string[]) => {
-  availableProductionSites.value = sites;
+ApiClient.loadProductionSiteTypes().then((sites: ProductionSite[]) => {
+  allProductionSites.value = sites;
+  console.log("LOADING ALL PROD SITES");
+
 });
 
 ApiClient.loadSpecialBuildingTypes().then((buildings) => {
