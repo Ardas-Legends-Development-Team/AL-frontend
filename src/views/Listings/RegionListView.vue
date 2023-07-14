@@ -82,7 +82,7 @@ function sendInfoToModal(region: Region) {
   console.log(selectedRegion.value);
 }
 
-ApiClient.loadRegions().then((data: any) => {
+ApiClient.loadRegions().then((data: Region[]) => {
   regions.value = data;
-});
+})
 </script>

@@ -72,8 +72,9 @@ export class ApiClient {
           });
           resolve(factionsStore.factionNames);
         });
-    });
-  }
+      });
+    }
+    
 
   public static async loadPlayerInfo(discordId?: string): Promise<PlayerInfo> {
     if (discordId !== undefined) {
