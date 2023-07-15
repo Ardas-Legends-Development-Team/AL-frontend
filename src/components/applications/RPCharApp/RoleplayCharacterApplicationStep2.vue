@@ -56,10 +56,11 @@
 import { computed, ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();
-const factions = ref<String[]>([]);
+const factions = ref<String[]>(useFactionsStore().factionNames);
 const characterTitle = ref<string>(formData.characterTitle);
 const factionName = ref<string>(formData.factionName);
 const characterReason = ref<string>(formData.characterReason);
