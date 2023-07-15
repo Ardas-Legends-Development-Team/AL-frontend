@@ -162,7 +162,14 @@ function filterClaimbuildTable(searchResults: any) {
 
 populateDiplomacyBanners();
 
-const testClaimbuilds = ref([]);
+const testClaimbuilds = ref([
+  {
+    name: "test",
+    claimbuildType: "test",
+    ownerFaction: "test",
+    stationedArmies: "test",
+  },
+]);
 
 RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction

@@ -67,9 +67,9 @@ const cookies = useCookie();
 
 //Change this depending on if it's production or dev server
 //const redirectUrl = discordRedirectUrl.dev;
-const redirectUrl = discordRedirectUrl.dev;
+const redirectUrl = discordRedirectUrl.production;
 // const authUrl = discordAuthUrl.dev;
-const authUrl = discordAuthUrl.dev;
+const authUrl = discordAuthUrl.production;
 
 authenticationClient.setScopes(["identify", "guilds"]);
 authenticationClient.setRedirect(redirectUrl);

@@ -17,7 +17,7 @@
     <select class="select select-bordered w-full" v-model="regionId">
       <option disabled selected>Region ID</option>
       <option v-for="(id, index) in regionIds" :key="index">
-        {{ id.id }}
+        {{ id }}
       </option>
     </select>
   </div>
@@ -89,7 +89,7 @@ import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 // previousStep event is not used in this component, but in the next steps
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const regionIds = ref<{ id: string }[]>([]);
+const regionIds = ref<string[]>([]);
 const builtBy = ref<string>(formData.builtBy.join(", "));
 const regionId = ref<string>("Region ID");
 const coordinate = ref<{ x: number; y: number; z: number }>(

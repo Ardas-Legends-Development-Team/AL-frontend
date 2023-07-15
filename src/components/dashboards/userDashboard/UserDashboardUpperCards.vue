@@ -8,7 +8,7 @@
     />
     <UserDashboardCard
       class="-translate-y-48"
-      :title="cardsData.currentRegion.title"
+      :title=cardsData.currentRegion.title
       :description="cardsData.currentRegion.description"
       :source="cardsData.currentRegion.source"
       :alt="cardsData.currentRegion.alt"
@@ -43,22 +43,22 @@ const cardsData = ref({
     alt: "valley road",
   },
   injuredStatus: {
-    title: "Injured",
+    title: "Health",
     description: "You are not injured",
     source:
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080522228191469730/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     alt: "health symbol",
   },
-});
+})
 
 PlayerApiClient.loadCharacterInfo().then((data) => {
   cardsData.value.currentRegion.description = data.currentRegion;
-  if (data.boundTo !== "") {
+  if (data.boundTo !== null) {
     cardsData.value.boundTo.description = data.boundTo;
   }
   if (data.injured) {
     cardsData.value.injuredStatus.description = "You are injured!";
-    if (data.startedHeal !== "") {
+    if (data.startedHeal !== null) {
       cardsData.value.injuredStatus.description +=
         "\nHealing started at " + data.startedHeal;
       cardsData.value.injuredStatus.description +=
