@@ -102,7 +102,7 @@
       class="btn btn-outline"
       @click="nextStep()"
     >
-      Submit Application
+      Next
     </button>
   </div>
 </template>

@@ -25,7 +25,7 @@ import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
-import { discordAuthUrl, discordRedirectUrl } from "@/config.json";
+import { discordAuthUrl, discordRedirectUrl, backendUrl } from "@/config.json";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
@@ -68,7 +68,7 @@ const cookies = useCookie();
 //Change this depending on if it's production or dev server
 //const redirectUrl = discordRedirectUrl.dev;
 const redirectUrl = discordRedirectUrl.production;
-// const authUrl = discordAuthUrl.dev;
+//const authUrl = discordAuthUrl.dev;
 const authUrl = discordAuthUrl.production;
 
 authenticationClient.setScopes(["identify", "guilds"]);
@@ -133,7 +133,7 @@ function verifyIfUserRegistered(token: any) {
     authenticationClient.getUser(token).then((user) => {
       discordId.value = user.id;
       axios
-        .get(`http://localhost:8080/api/player/discordid/${user.id}`)
+        .get(`http://${backendUrl.production}/api/player/discordid/${user.id}`)
         .then(() => {
           isLoggedIn.value = true;
           shouldShowRegistrationForm.value = false;
