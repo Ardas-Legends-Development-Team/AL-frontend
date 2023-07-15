@@ -8,7 +8,6 @@ import { Region } from "@/ts/types/Region";
 import { Faction } from "@/ts/types/Faction";
 import { useProductionSiteStore, useSpecialBuildingStore } from "@/stores/buildStores";
 import { ErrorHandler } from "@/ts/ErrorHandler";
-import { log } from "console";
 import { ProductionSite, ProductionSiteWithCount } from "./types/ProductionSite";
 
 export class ApiClient {
