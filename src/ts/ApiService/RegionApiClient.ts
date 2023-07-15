@@ -11,7 +11,7 @@ export class RegionApiClient extends ApiClient {
         resolve(regionIdStore.regionIds);
         return;
       }
-      axios.get(this.getBaseUrl() + "/api/region/all").then((response) => {
+      axios.get(this.getBaseUrl() + "/region/all").then((response) => {
         regionIdStore.regionIds = response.data;
         resolve(regionIdStore.regionIds);
       });
@@ -26,7 +26,7 @@ export class RegionApiClient extends ApiClient {
         return;
       }
       axios
-        .get(this.getBaseUrl() + "/api/region/all/detailed")
+        .get(this.getBaseUrl() + "/region/all/detailed")
         .then((response) => {
           regionStore.regions = response.data;
           resolve(regionStore.regions);
