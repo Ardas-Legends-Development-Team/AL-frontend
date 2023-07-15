@@ -81,6 +81,7 @@ const isFormFilled = computed(() => {
 });
 
 function nextStep() {
+
   emit("nextStep", {
     step: 2,
     type: type.value,

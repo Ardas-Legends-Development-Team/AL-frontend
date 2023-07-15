@@ -38,11 +38,14 @@ export class ApplicationApiClient extends ApiClient {
     applicationData: any
   ): Promise<string> {
     return new Promise((resolve) => {
+
+      const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x medium, ${applicationData.houses.large}x large`;
+
       axios
         .post(
           this.getBaseUrl() + "/applications/claimbuild",
           {
-            discordId: usePlayerStore().discordId,
+            applicant: { discordId: usePlayerStore().discordId},
             claimbuildName: applicationData.claimbuildName,
             regionId: applicationData.regionId,
             type: applicationData.type,
@@ -52,7 +55,7 @@ export class ApplicationApiClient extends ApiClient {
             specialBuildings: applicationData.specialBuildings,
             traders: applicationData.traders,
             siege: applicationData.siege,
-            houses: applicationData.houses,
+            houses: convertedHouses,
             builtBy: applicationData.builtBy,
           },
           {

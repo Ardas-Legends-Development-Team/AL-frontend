@@ -9,10 +9,10 @@
       >
         <option disabled selected>Production Site</option>
         <option
-          v-for="(building, index) in availableProductionSites"
+          v-for="(type, index) in availableProductionSiteTypes"
           :key="index"
         >
-          {{ building.type }}
+          {{ type }}
         </option>
       </select>
       <select
@@ -119,6 +119,7 @@ import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
 const availableProductionSites = ref<ProductionSite[]>([]);
+const availableProductionSiteTypes = ref<string[]>([]);
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
   formData.productionSites
@@ -178,9 +179,14 @@ function previousStep() {
 
 ClaimbuildApiClient.loadProductionSiteTypes().then(
   (sites: ProductionSite[]) => {
+    //Filters the result so it only contains every production site type once
     availableProductionSites.value = sites;
-  }
-);
+    const allTypesNotFiltered = sites.map((site) => site.type)
+    availableProductionSiteTypes.value = allTypesNotFiltered.filter((item, pos) => {
+      const isFirst = allTypesNotFiltered.indexOf(item) == pos;
+      return isFirst;
+    });
+  });
 
 ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
   availableSpecialBuildings.value = buildings;
