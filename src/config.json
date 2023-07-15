@@ -1,10 +1,10 @@
 {
   "discordRedirectUrl": {
     "dev": "http://localhost:3333",
-    "production": "https://ardas-legends-development-team.github.io/AL-frontend/"
+    "production": "http://ardas-legends.kekx.eu/al-frontend"
   },
   "discordAuthUrl": {
     "dev": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A3333&response_type=code&scope=identify%20guilds",
-    "production": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=https%3A%2F%2Fardas-legends-development-team.github.io%2FAL-frontend%2F&response_type=code&scope=identify%20guilds"
+    "production": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Fardas-legends.kekx.eu%2Fal-frontend&response_type=code&scope=identify%20guilds"
   }
 }
