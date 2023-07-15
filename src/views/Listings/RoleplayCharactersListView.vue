@@ -23,23 +23,23 @@
               </div>
             </div>
             <div>
-              <div class="font-bold">IGN {{ roleplayCharacter.ign }}</div>
+              <div class="font-bold">{{ roleplayCharacter.ign }}</div>
               <div class="text-sm opacity-70">
-                Faction {{ roleplayCharacter.faction }}
+                {{ roleplayCharacter.faction }}
               </div>
             </div>
           </div>
         </td>
         <td>
-          RPNAME {{ roleplayCharacter.rpChar.name }}
+          {{ roleplayCharacter.rpChar.name }}
           <br />
           <span class="badge badge-ghost badge-sm"
-            >TITLE {{ roleplayCharacter.rpChar.title }}</span
+            >{{ roleplayCharacter.rpChar.title }}</span
           >
         </td>
         <th>
           <p class="font-medium">
-            CURRENT REGION {{ roleplayCharacter.rpChar.currentRegion }}
+            Region {{ roleplayCharacter.rpChar.currentRegion }}
           </p>
         </th>
         <th>
@@ -58,9 +58,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
+import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 const roleplayCharacters = ref<RoleplayCharacter[]>([]);
 const selectedCharacter = ref<RoleplayCharacter>({
@@ -82,28 +82,11 @@ const selectedCharacter = ref<RoleplayCharacter>({
 });
 const avatars = ref<string[]>([]);
 
-async function getMockData(): Promise<RoleplayCharacter[]> {
-  const params = {
-    count: 10,
-    key: "6100d750",
-  };
-  return new Promise((resolve, reject) => {
-    axios
-      .get("https://api.mockaroo.com/api/e6750ad0", { params })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
 function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
   selectedCharacter.value = roleplayCharacter;
 }
 
-getMockData().then((data: any) => {
+RpCharApiClient.loadAllRpChars().then((data: any) => {
   roleplayCharacters.value = data;
   for (let i = 0; i < data.length; i++) {
     avatars.value.push(`https://mc-heads.net/avatar/${data[i].ign}/36`);
