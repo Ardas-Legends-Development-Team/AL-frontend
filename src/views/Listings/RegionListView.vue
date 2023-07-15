@@ -23,7 +23,7 @@
         </td>
         <td>
           <div class="font-bold">
-            {{ region.claimedBy.length > 0 ? region.claimedBy : "" }}
+            {{ region.claimedBy.length > 0 ? region.claimedBy.join(", ") : "" }}
           </div>
         </td>
         <td>
