@@ -12,7 +12,7 @@ export class FactionApiClient extends ApiClient {
         return;
       }
       axios
-        .get(this.getBaseUrl() + "/api/faction", {
+        .get(this.getBaseUrl() + "/faction", {
           params: {
             size: 100,
           },

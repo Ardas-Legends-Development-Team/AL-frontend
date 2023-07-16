@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { ProductionSite } from "@/ts/types/ProductionSite";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
 
 export const useSpecialBuildingStore = defineStore(
   "SpecialBuildingStore",
@@ -29,5 +30,13 @@ export const useClaimbuildTypeStore = defineStore("ClaimbuildTypeStore", () => {
 
   return {
     claimbuildTypes,
+  };
+});
+
+export const useClaimbuildStore = defineStore("ClaimbuildStore", () => {
+  const claimbuilds = ref<ClaimBuild[]>([]);
+
+  return {
+    claimbuilds: claimbuilds,
   };
 });

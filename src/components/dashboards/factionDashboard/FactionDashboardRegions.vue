@@ -59,7 +59,7 @@
               <th class="sticky top-0">Stationed Armies</th>
               <th class="sticky top-0">
                 <SearchBar
-                  :input-list="testClaimbuilds"
+                  :input-list="allClaimbuilds"
                   @search="filterClaimbuildTable"
                 />
               </th>
@@ -68,7 +68,7 @@
           <tbody>
             <tr
               class="hover"
-              v-for="claimbuild in testClaimbuilds"
+              v-for="claimbuild in selectedRegionClaimbuilds"
               :key="claimbuild.name"
             >
               <td>
@@ -77,13 +77,13 @@
                 </div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.claimbuildType }}</div>
+                <div class="font-bold">{{ claimbuild.claimBuildType }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.ownerFaction }}</div>
+                <div class="font-bold">{{ claimbuild.faction }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.stationedArmies }}</div>
+                <div class="font-bold">{{ claimbuild.armiesStationedCount }}</div>
               </td>
               <th>
                 <label
@@ -108,6 +108,8 @@ import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
 import SearchBar from "@/components/searchBar.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
 
 const props = defineProps({
   faction: {
@@ -127,11 +129,14 @@ const selectedRegion = ref<Region>({
   claimbuilds: [],
   characters: [],
 });
+const allClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
 const selectedClaimbuild = ref<any>();
 const factionsWithClaimBanners = ref<string[]>([]);
 
 function showRegionDetails(region: Region) {
   selectedRegion.value = region;
+  updateShownClaimbuilds();
 }
 
 function sendInfoToModal(claimbuild: any) {
@@ -156,20 +161,18 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
   );
 }
 
+function updateShownClaimbuilds() {
+  allClaimbuilds.value.forEach(cb => {
+  })
+  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter(cb => selectedRegion.value.claimbuilds.includes(cb.name))
+}
+
 function filterClaimbuildTable(searchResults: any) {
   console.log(searchResults);
 }
 
 populateDiplomacyBanners();
 
-const testClaimbuilds = ref([
-  {
-    name: "test",
-    claimbuildType: "test",
-    ownerFaction: "test",
-    stationedArmies: "test",
-  },
-]);
 
 RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction
@@ -179,5 +182,22 @@ RegionApiClient.loadRegions().then((regionList: Region[]) => {
   regions.value = regionList;
   filteredRegions.value = regionList;
   selectedRegion.value = regionList[0];
+
+  const allCbNames = regions.value
+    .map(region => region.claimbuilds)
+    .reduce((acc, param) => {
+      return acc.concat(param)
+  });
+  
+  ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames)
+    .then((fetchedCbs: ClaimBuild[]) => {
+      
+      allClaimbuilds.value = fetchedCbs;
+      
+      updateShownClaimbuilds();
+  })
+
 });
+
+
 </script>
