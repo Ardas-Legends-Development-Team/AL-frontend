@@ -2,9 +2,9 @@
   <div>
     <p class="mt-4 text-gray-500">What Production Sites are Present?</p>
 
-    <div class="flex flex-row">
+    <div class="flex flex-row w-full">
       <select
-        class="select select-bordered w-full"
+        class="select select-bordered flex-3 grow"
         v-model="selectedProductionSite.type"
       >
         <option disabled selected>Production Site</option>
@@ -16,7 +16,7 @@
         </option>
       </select>
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered grow flex-1 join-item"
         v-model="selectedProductionSite.resource"
       >
         <option disabled selected>Resource</option>
@@ -27,11 +27,11 @@
           {{ resource }}
         </option>
       </select>
-      <div class="form-control w-full max-w-xs">
+      <div class="form-control grow-0 min-w-[30%]">
         <input
           type="text"
           placeholder="Amount"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full"
           v-model="selectedProductionSite.count"
         />
       </div>
@@ -63,7 +63,7 @@
   <div>
     <div class="flex flex-row">
       <select
-        class="select select-bordered w-full"
+        class="select select-bordered grow"
         v-model="selectedSpecialBuilding"
       >
         <option disabled selected>Special Building</option>

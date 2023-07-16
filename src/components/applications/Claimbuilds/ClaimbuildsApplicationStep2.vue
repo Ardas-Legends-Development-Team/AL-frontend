@@ -21,13 +21,13 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
-      <p class="text-gray-500">Medium</p>
+      <p class="text-gray-500">Large</p>
 
       <input
         type="number"
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Medium houses"
+        placeholder="Large houses"
         v-model="houses.medium"
       />
     </div>
@@ -39,7 +39,7 @@
         type="number"
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Large houses"
+        placeholder="Mansions"
         v-model="houses.large"
       />
     </div>

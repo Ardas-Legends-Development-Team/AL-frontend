@@ -102,10 +102,7 @@ const isFormFilled = computed(() => {
     builtBy.value &&
     regionId.value !== "Region ID" &&
     builtBy.value !== "In-game name" &&
-    (coordinate.value.x !== 0 ||
-      coordinate.value.y !== 0 ||
-      coordinate.value.z !== 0) &&
-    claimbuildName.value !== "Claimbuild name"
+    claimbuildName.value !== ""
   );
 });
 

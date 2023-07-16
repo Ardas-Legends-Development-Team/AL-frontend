@@ -39,7 +39,7 @@ export class ApplicationApiClient extends ApiClient {
   ): Promise<string> {
     return new Promise((resolve) => {
 
-      const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x medium, ${applicationData.houses.large}x large`;
+      const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x large, ${applicationData.houses.large}x mansion`;
 
       axios
         .post(
