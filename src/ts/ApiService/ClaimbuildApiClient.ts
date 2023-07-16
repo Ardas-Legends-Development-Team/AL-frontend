@@ -59,6 +59,7 @@ export class ClaimbuildApiClient extends ApiClient {
     
     const claimbuildStore = useClaimbuildStore();
     return new Promise((resolve) => {
+      
       const cbNames: string[] = claimbuildStore.claimbuilds.map(cb => cb.name)
       const alreadyLoadedCbs: ClaimBuild[] = [];
       const cbsToFetch: string[] = []
@@ -82,9 +83,14 @@ export class ClaimbuildApiClient extends ApiClient {
             alreadyLoadedCbs.push(cb);
             
           });
+          
           resolve(alreadyLoadedCbs);
           return;
         }); 
+      }
+      else {
+        resolve(alreadyLoadedCbs);
+        return;
       }
     });
   }

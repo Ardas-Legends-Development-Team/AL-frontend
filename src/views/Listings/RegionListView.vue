@@ -51,7 +51,8 @@
   <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
     title="Claimbuilds in region"
-    :claimbuilds="selectedRegion.claimbuilds"
+    :claimbuilds="selectedRegionClaimbuilds"
+    :banner-map="selectedRegionClaimbuildBanners"
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal :characters="selectedRegion.characters" />
@@ -63,10 +64,15 @@ import { Region } from "@/ts/types/Region";
 import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
 import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
+import { factionNameToBanner } from "@/ts/factionBannersEnum";
 
 // TODO: Build the strings to show because we got arrays instead of one string
 // TODO: Get missing info from API to complete the table
 const regions = ref<Region[]>([]);
+const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
 const selectedRegion = ref<Region>({
   id: "",
   name: "",
@@ -79,7 +85,24 @@ const selectedRegion = ref<Region>({
 
 function sendInfoToModal(region: Region) {
   selectedRegion.value = region;
-  console.log(selectedRegion.value);
+  ClaimbuildApiClient.loadClaimbuildsByNames(selectedRegion.value.claimbuilds)
+    .then((claimbuilds) => {
+      selectedRegionClaimbuilds.value = claimbuilds
+
+      //Getting the banners for the claimbuilds inside the selected region
+      const allFactions = selectedRegionClaimbuilds.value.map(cb => cb.faction);
+      const factionsUnique = allFactions.filter((faction, pos) => {
+        return allFactions.indexOf(faction) == pos;
+      })
+    
+    
+      factionsUnique.forEach(faction => {
+      
+      selectedRegionClaimbuildBanners.value.set(faction, factionNameToBanner(faction))
+    });
+
+});
+  
 }
 
 RegionApiClient.loadRegions().then((data: any) => {
