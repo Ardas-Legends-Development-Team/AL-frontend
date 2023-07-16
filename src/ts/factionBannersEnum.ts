@@ -41,3 +41,15 @@ export function factionNameToBanner(faction: string): string {
   factionFormatted = factionFormatted.toUpperCase().replace(/[-| ]/g, "_").replace(/['"`]/g, "");
   return FactionBannersEnum[factionFormatted as keyof typeof FactionBannersEnum];
 }
+
+export function factionNamesToBannerMap(names: string[]): Map<string, string> {
+  const factionsUnique = names.filter((faction, pos) => {
+    return names.indexOf(faction) == pos;
+  })
+  const returnedMap = new Map<string, string>();
+  factionsUnique.forEach(faction => {
+    returnedMap.set(faction, factionNameToBanner(faction))
+  })
+
+  return returnedMap;
+}

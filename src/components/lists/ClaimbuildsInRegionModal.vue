@@ -12,11 +12,9 @@
           v-for="claimbuild in claimbuilds"
           class="grid basis-2 flex-grow h-full card bg-base-300 rounded-box place-items-center"
         >
-          <div class="flex items-center justify-start w-full space-x-10 pl-10 pr-5">
-            <div class="avatar grow-0">
-              <div class="mask mask-squircle w-12 h-12">
-                <img :src="bannerMap.get(claimbuild.faction)" alt="faction banner" />
-              </div>
+          <div class="flex items-center justify-start w-full space-x-10 pl-10 pt-1 pb-1 pr-5">
+            <div class="avatar grow-0 w-8">
+              <img :src="bannerMap.get(claimbuild.faction)" alt="faction banner"/>
             </div>
             <div class="flex flex-auto">
               <div class="w-full">

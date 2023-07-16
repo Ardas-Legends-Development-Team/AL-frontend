@@ -56,7 +56,11 @@
     :region-id="selectedRegion.id" 
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
-  <CharactersInRegionModal :characters="selectedRegionChars" :region-id="selectedRegion.id" />
+  <CharactersInRegionModal 
+    :characters="selectedRegionChars" 
+    :region-id="selectedRegion.id" 
+    :banner-map="selectedRegionCharacterBanners"  
+  />
 </template>
 
 <script setup lang="ts">
@@ -67,9 +71,9 @@ import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
-import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
+import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
 
 // TODO: Build the strings to show because we got arrays instead of one string
 // TODO: Get missing info from API to complete the table
@@ -77,6 +81,7 @@ const regions = ref<Region[]>([]);
 const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
 const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
 const selectedRegionChars = ref<RoleplayCharacter[]>([]);
+const selectedRegionCharacterBanners = ref<Map<string, string>>(new Map());
 const selectedRegion = ref<Region>({
   id: "",
   name: "",
@@ -95,24 +100,18 @@ function sendInfoToModal(region: Region) {
 
       //Getting the banners for the claimbuilds inside the selected region
       const allFactions = selectedRegionClaimbuilds.value.map(cb => cb.faction);
-      const factionsUnique = allFactions.filter((faction, pos) => {
-        return allFactions.indexOf(faction) == pos;
-      })
-    
-      factionsUnique.forEach(faction => {
-      
-      selectedRegionClaimbuildBanners.value.set(faction, factionNameToBanner(faction))
-    });
+      selectedRegionClaimbuildBanners.value = factionNamesToBannerMap(allFactions);
+  });
 
-    console.log("Selected region chars:");
-    console.log(selectedRegion.value);
-    
-    RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters)
-      .then((rpchars) => {
-        selectedRegionChars.value = rpchars;
-      })
-});
+  console.log("Selected region chars:");
+  console.log(selectedRegion.value);
   
+  RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters)
+    .then((rpchars) => {
+      selectedRegionChars.value = rpchars;
+      const allFactions = selectedRegionChars.value.map(rp => rp.faction)
+      selectedRegionCharacterBanners.value = factionNamesToBannerMap(allFactions);
+  })
 }
 
 RegionApiClient.loadRegions().then((data: any) => {

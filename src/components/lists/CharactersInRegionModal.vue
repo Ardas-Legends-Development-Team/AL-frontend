@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <div class="modal-box">
+    <div class="modal-box max-w-2xl">
       <label
         for="charactersInRegionModal"
         class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
@@ -12,7 +12,7 @@
           v-for="rpchar in characters"
           class="grid basis-2 flex-grow h-full card bg-base-300 rounded-box place-items-center"
         >
-          <div class="flex items-center w-full justify-between pt-1 pb-1 pl-10 space-x-10">
+          <div class="flex items-center w-full justify-between pt-1 pb-1 pl-10 pr-10 space-x-10">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
                 <img
@@ -23,7 +23,7 @@
             </div>
             <div class="flex flex-auto">
               <div class="w-full">
-                <div class="font-bold">{{ rpchar.rpChar.name }}</div>
+                <div class="font-bold">{{ rpchar.rpChar.name }} - {{ rpchar.rpChar.title }}</div>
                 <div class="flex justify-start space-x-3">
                   <div class="text-sm opacity-50">{{ rpchar.ign }}</div>
                   <div class="text-sm opacity-50">{{ rpchar.faction }}</div>
@@ -33,6 +33,7 @@
                 <div v-if="rpchar.rpChar.isHealing" class="text-sm text-green-500">Currently healing until {{ rpchar.rpChar.healEnds }}</div>
               </div>
             </div>
+            <img :src="bannerMap.get(rpchar.faction)" alt="faction banner" class="w-8" />
           </div>
         </div>
       </div>
@@ -47,6 +48,10 @@ defineProps({
   characters: {
     type: Array<RoleplayCharacter>,
     required: true,
+  },
+  bannerMap: {
+    type: Map<string, string>,
+    required: true
   },
   regionId: {
     type: String,
