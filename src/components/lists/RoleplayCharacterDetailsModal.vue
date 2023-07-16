@@ -53,7 +53,7 @@
             <p class="font-bold">
               Started Heal: {{ props.selectedCharacter.rpChar.startedHeal }}
             </p>
-            <span class="badge badge-ghost badge"
+            <span class="badge badge-ghost"
               >Heal Ends: {{ selectedCharacter.rpChar.healEnds }}</span
             >
           </div>

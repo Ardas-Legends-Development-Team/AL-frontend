@@ -53,9 +53,10 @@
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
+    :region-id="selectedRegion.id" 
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
-  <CharactersInRegionModal :characters="selectedRegion.characters" />
+  <CharactersInRegionModal :characters="selectedRegionChars" :region-id="selectedRegion.id" />
 </template>
 
 <script setup lang="ts">
@@ -67,12 +68,15 @@ import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
+import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
+import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 // TODO: Build the strings to show because we got arrays instead of one string
 // TODO: Get missing info from API to complete the table
 const regions = ref<Region[]>([]);
 const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
 const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
+const selectedRegionChars = ref<RoleplayCharacter[]>([]);
 const selectedRegion = ref<Region>({
   id: "",
   name: "",
@@ -95,12 +99,18 @@ function sendInfoToModal(region: Region) {
         return allFactions.indexOf(faction) == pos;
       })
     
-    
       factionsUnique.forEach(faction => {
       
       selectedRegionClaimbuildBanners.value.set(faction, factionNameToBanner(faction))
     });
 
+    console.log("Selected region chars:");
+    console.log(selectedRegion.value);
+    
+    RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters)
+      .then((rpchars) => {
+        selectedRegionChars.value = rpchars;
+      })
 });
   
 }
