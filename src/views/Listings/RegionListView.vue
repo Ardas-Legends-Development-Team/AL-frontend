@@ -34,7 +34,7 @@
             for="regionClaimbuildsModal"
             class="btn"
             @click="sendInfoToModal(region)"
-            >Claimbuilds</label
+            >{{ region.claimbuilds.length }} Claimbuilds</label
           >
         </th>
         <th>
@@ -42,7 +42,7 @@
             for="charactersInRegionModal"
             class="btn"
             @click="sendInfoToModal(region)"
-            >Characters</label
+            >{{ region.claimbuilds.length }} Characters</label
           >
         </th>
       </tr>
