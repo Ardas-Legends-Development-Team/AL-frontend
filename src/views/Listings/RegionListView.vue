@@ -42,7 +42,7 @@
             for="charactersInRegionModal"
             class="btn"
             @click="sendInfoToModal(region)"
-            >{{ region.claimbuilds.length }} Characters</label
+            >{{ region.characters.length }} Characters</label
           >
         </th>
       </tr>
