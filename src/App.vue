@@ -25,14 +25,14 @@ import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
-import { backendUrl, discordAuthUrl, discordRedirectUrl } from "@/config.json";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCharacterStore } from "./stores/playerStores";
-import { useErrorStore } from "@/stores/systemStores";
+import { useConfigStore, useErrorStore } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
+import { ApiClient } from "@/ts/ApiService/ApiClient";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
@@ -42,6 +42,8 @@ watch(
     hasError.value = newValue;
   }
 );
+
+console.log(import.meta.env.MODE);
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
@@ -55,11 +57,8 @@ const authenticationClient = new AuthenticationClient(
 
 const cookies = useCookie();
 
-//Change this depending on if it's production or dev server
-//const redirectUrl = discordRedirectUrl.dev;
-const redirectUrl = discordRedirectUrl.production;
-//const authUrl = discordAuthUrl.dev;
-const authUrl = discordAuthUrl.production;
+const redirectUrl = useConfigStore().redirectUrl;
+const authUrl = useConfigStore().authUrl;
 
 authenticationClient.setScopes(["identify", "guilds"]);
 authenticationClient.setRedirect(redirectUrl);
@@ -123,7 +122,7 @@ function verifyIfUserRegistered(token: any) {
     authenticationClient.getUser(token).then((user) => {
       discordId.value = user.id;
       axios
-        .get(`http://${backendUrl.production}/api/player/discordid/${user.id}`)
+        .get(`http://${ApiClient.getBaseUrl()}/api/player/discordid/${user.id}`)
         .then(() => {
           isLoggedIn.value = true;
           shouldShowRegistrationForm.value = false;

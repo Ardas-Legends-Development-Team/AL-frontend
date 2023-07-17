@@ -1,14 +1,14 @@
 {
-  "discordRedirectUrl": {
-    "dev": "http://localhost:3333",
+  "discord-redirect-url": {
+    "development": "http://localhost:3333",
     "production": "http://ardas-legends.kekx.eu/al-frontend"
   },
-  "discordAuthUrl": {
-    "dev": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A3333&response_type=code&scope=identify%20guilds",
+  "discord-auth-url": {
+    "development": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Flocalhost%3A3333&response_type=code&scope=identify%20guilds",
     "production": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Fardas-legends.kekx.eu%2Fal-frontend&response_type=code&scope=identify%20guilds"
   },
-  "backendUrl": {
-    "dev": "localhost:8080",
+  "backend-url": {
+    "development": "localhost:8080",
     "production": "62.178.205.33:7623"
   }
 }
