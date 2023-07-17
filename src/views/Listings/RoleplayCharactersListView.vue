@@ -33,9 +33,9 @@
         <td>
           {{ roleplayCharacter.rpChar.name }}
           <br />
-          <span class="badge badge-ghost badge-sm"
-            >{{ roleplayCharacter.rpChar.title }}</span
-          >
+          <span class="badge badge-ghost badge-sm">{{
+            roleplayCharacter.rpChar.title
+          }}</span>
         </td>
         <th>
           <p class="font-medium">

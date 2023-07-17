@@ -12,7 +12,9 @@ export class RegionApiClient extends ApiClient {
         return;
       }
       axios.get(this.getBaseUrl() + "/region/all").then((response) => {
-        regionIdStore.regionIds = response.data.map((region: { id: string; }) => region.id);
+        regionIdStore.regionIds = response.data.map(
+          (region: { id: string }) => region.id
+        );
         resolve(regionIdStore.regionIds);
       });
     });
@@ -25,12 +27,10 @@ export class RegionApiClient extends ApiClient {
         resolve(regionStore.regions);
         return;
       }
-      axios
-        .get(this.getBaseUrl() + "/region/all/detailed")
-        .then((response) => {
-          regionStore.regions = response.data;
-          resolve(regionStore.regions);
-        });
+      axios.get(this.getBaseUrl() + "/region/all/detailed").then((response) => {
+        regionStore.regions = response.data;
+        resolve(regionStore.regions);
+      });
     });
   }
 }

@@ -63,9 +63,6 @@ const formProgress = ref(15);
 const currentStep = ref(0);
 const formData = useClaimbuildsFormStore();
 
-// TODO: Add another application step to get houses, production sites and special buildings
-// TODO: Go through each step to get the correct data
-
 function nextStep(formInput: any) {
   console.log(formInput);
   switch (formInput.step) {

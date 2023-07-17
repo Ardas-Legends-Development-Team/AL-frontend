@@ -53,13 +53,13 @@
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
-    :region-id="selectedRegion.id" 
+    :region-id="selectedRegion.id"
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
-  <CharactersInRegionModal 
-    :characters="selectedRegionChars" 
-    :region-id="selectedRegion.id" 
-    :banner-map="selectedRegionCharacterBanners"  
+  <CharactersInRegionModal
+    :characters="selectedRegionChars"
+    :region-id="selectedRegion.id"
+    :banner-map="selectedRegionCharacterBanners"
   />
 </template>
 
@@ -94,24 +94,28 @@ const selectedRegion = ref<Region>({
 
 function sendInfoToModal(region: Region) {
   selectedRegion.value = region;
-  ClaimbuildApiClient.loadClaimbuildsByNames(selectedRegion.value.claimbuilds)
-    .then((claimbuilds) => {
-      selectedRegionClaimbuilds.value = claimbuilds
+  ClaimbuildApiClient.loadClaimbuildsByNames(
+    selectedRegion.value.claimbuilds
+  ).then((claimbuilds) => {
+    selectedRegionClaimbuilds.value = claimbuilds;
 
-      //Getting the banners for the claimbuilds inside the selected region
-      const allFactions = selectedRegionClaimbuilds.value.map(cb => cb.faction);
-      selectedRegionClaimbuildBanners.value = factionNamesToBannerMap(allFactions);
+    //Getting the banners for the claimbuilds inside the selected region
+    const allFactions = selectedRegionClaimbuilds.value.map((cb) => cb.faction);
+    selectedRegionClaimbuildBanners.value =
+      factionNamesToBannerMap(allFactions);
   });
 
   console.log("Selected region chars:");
   console.log(selectedRegion.value);
-  
-  RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters)
-    .then((rpchars) => {
+
+  RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters).then(
+    (rpchars) => {
       selectedRegionChars.value = rpchars;
-      const allFactions = selectedRegionChars.value.map(rp => rp.faction)
-      selectedRegionCharacterBanners.value = factionNamesToBannerMap(allFactions);
-  })
+      const allFactions = selectedRegionChars.value.map((rp) => rp.faction);
+      selectedRegionCharacterBanners.value =
+        factionNamesToBannerMap(allFactions);
+    }
+  );
 }
 
 RegionApiClient.loadRegions().then((data: any) => {

@@ -38,14 +38,13 @@ export class ApplicationApiClient extends ApiClient {
     applicationData: any
   ): Promise<string> {
     return new Promise((resolve) => {
-
       const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x large, ${applicationData.houses.large}x mansion`;
 
       axios
         .post(
           this.getBaseUrl() + "/applications/claimbuild",
           {
-            applicant: { discordId: usePlayerStore().discordId},
+            applicant: { discordId: usePlayerStore().discordId },
             claimbuildName: applicationData.claimbuildName,
             regionId: applicationData.regionId,
             type: applicationData.type,

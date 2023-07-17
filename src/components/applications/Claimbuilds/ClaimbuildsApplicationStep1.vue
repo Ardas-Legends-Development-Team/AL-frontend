@@ -107,7 +107,6 @@ const isFormFilled = computed(() => {
 });
 
 function nextStep() {
-
   emit("nextStep", {
     step: 1,
     builtBy: builtBy.value,

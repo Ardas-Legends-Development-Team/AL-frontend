@@ -25,7 +25,7 @@ import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
-import { discordAuthUrl, discordRedirectUrl, backendUrl } from "@/config.json";
+import { backendUrl, discordAuthUrl, discordRedirectUrl } from "@/config.json";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
@@ -33,16 +33,6 @@ import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useCharacterStore } from "./stores/playerStores";
 import { useErrorStore } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
-
-// TODO: Connect character list (Need to get list of rp chars)
-// TODO: Connect region list (Need claimbuilds and characters)
-// TODO: Connect faction name list (Need validation)
-// TODO: Connect rp application (Need validation)
-// TODO: Add missing inputs for claimbuild application (Need validation)
-// TODO: Connect claimbuild application (need more info from API)
-// TODO: Connect faction dashboard (Need validation and verification with test region data)
-// TODO: Connect user dashboard (Need validation)
-// TODO: Deploy to production
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);

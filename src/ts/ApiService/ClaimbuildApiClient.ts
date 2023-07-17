@@ -31,7 +31,6 @@ export class ClaimbuildApiClient extends ApiClient {
         resolve(productionSiteTypeStore.productionSiteTypes);
         return;
       }
-      // TODO: Change this to the correct endpoint
       axios.get(this.getBaseUrl() + "/productionsite/all").then((response) => {
         productionSiteTypeStore.productionSiteTypes = response.data;
         resolve(productionSiteTypeStore.productionSiteTypes);
@@ -55,40 +54,42 @@ export class ClaimbuildApiClient extends ApiClient {
     });
   }
 
-  public static async loadClaimbuildsByNames(names: string[]): Promise<ClaimBuild[]> {
-    
+  public static async loadClaimbuildsByNames(
+    names: string[]
+  ): Promise<ClaimBuild[]> {
     const claimbuildStore = useClaimbuildStore();
     return new Promise((resolve) => {
-      
-      const cbNames: string[] = claimbuildStore.claimbuilds.map(cb => cb.name)
+      const cbNames: string[] = claimbuildStore.claimbuilds.map(
+        (cb) => cb.name
+      );
       const alreadyLoadedCbs: ClaimBuild[] = [];
-      const cbsToFetch: string[] = []
+      const cbsToFetch: string[] = [];
 
       //Loop through cbs to see which are not loaded yet
-      names.forEach(name => {
+      names.forEach((name) => {
         const index = cbNames.indexOf(name);
         if (index !== -1) {
           //Typecast here should be fine because I check if the cb is in the array before
-          alreadyLoadedCbs.push(claimbuildStore.claimbuilds.at(index) as ClaimBuild)
-        }
-        else 
-          cbsToFetch.push(name)
-      })
+          alreadyLoadedCbs.push(
+            claimbuildStore.claimbuilds.at(index) as ClaimBuild
+          );
+        } else cbsToFetch.push(name);
+      });
 
-      if(cbsToFetch.length > 0) {
-        const nameParams = cbsToFetch.join(`&name=`)
-        axios.get(this.getBaseUrl() + `/claimbuild/name?name=${nameParams}`).then((response) => {
-          response.data.forEach((cb: ClaimBuild) => {
-            claimbuildStore.claimbuilds.push(cb);
-            alreadyLoadedCbs.push(cb);
-            
+      if (cbsToFetch.length > 0) {
+        const nameParams = cbsToFetch.join(`&name=`);
+        axios
+          .get(this.getBaseUrl() + `/claimbuild/name?name=${nameParams}`)
+          .then((response) => {
+            response.data.forEach((cb: ClaimBuild) => {
+              claimbuildStore.claimbuilds.push(cb);
+              alreadyLoadedCbs.push(cb);
+            });
+
+            resolve(alreadyLoadedCbs);
+            return;
           });
-          
-          resolve(alreadyLoadedCbs);
-          return;
-        }); 
-      }
-      else {
+      } else {
         resolve(alreadyLoadedCbs);
         return;
       }

@@ -10,12 +10,12 @@
       <h3 class="font-bold text-lg">{{ props.selectedCharacter.ign }}</h3>
       <div class="flex flex-col w-full mt-4">
         <div
-          v-if="props.selectedCharacter.rpChar.pvp"
+          v-if="props.selectedCharacter!.rpChar.pvp"
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
           <p class="font-medium">PvP Enabled</p>
         </div>
-        <div v-if="props.selectedCharacter.rpChar.pvp" class="divider"></div>
+        <div v-if="props.selectedCharacter!.rpChar.pvp" class="divider"></div>
         <div
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
@@ -32,21 +32,21 @@
           </p>
         </div>
         <div
-          v-if="props.selectedCharacter.rpChar.injured"
+          v-if="props.selectedCharacter!.rpChar.injured"
           class="divider"
         ></div>
         <div
-          v-if="props.selectedCharacter.rpChar.injured"
+          v-if="props.selectedCharacter!.rpChar.injured"
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
           <p class="font-medium">Character is injured</p>
         </div>
         <div
-          v-if="props.selectedCharacter.rpChar.isHealing"
+          v-if="props.selectedCharacter!.rpChar.isHealing"
           class="divider"
         ></div>
         <div
-          v-if="props.selectedCharacter.rpChar.isHealing"
+          v-if="props.selectedCharacter?.rpChar.isHealing"
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
           <div>

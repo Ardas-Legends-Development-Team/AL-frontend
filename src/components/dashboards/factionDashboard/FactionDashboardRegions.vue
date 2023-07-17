@@ -83,7 +83,9 @@
                 <div class="font-bold">{{ claimbuild.faction }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.armiesStationedCount }}</div>
+                <div class="font-bold">
+                  {{ claimbuild.armiesStationedCount }}
+                </div>
               </td>
               <th>
                 <label
@@ -162,9 +164,10 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
 }
 
 function updateShownClaimbuilds() {
-  allClaimbuilds.value.forEach(cb => {
-  })
-  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter(cb => selectedRegion.value.claimbuilds.includes(cb.name))
+  allClaimbuilds.value.forEach((cb) => {});
+  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter((cb) =>
+    selectedRegion.value.claimbuilds.includes(cb.name)
+  );
 }
 
 function filterClaimbuildTable(searchResults: any) {
@@ -172,7 +175,6 @@ function filterClaimbuildTable(searchResults: any) {
 }
 
 populateDiplomacyBanners();
-
 
 RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction
@@ -184,20 +186,17 @@ RegionApiClient.loadRegions().then((regionList: Region[]) => {
   selectedRegion.value = regionList[0];
 
   const allCbNames = regions.value
-    .map(region => region.claimbuilds)
+    .map((region) => region.claimbuilds)
     .reduce((acc, param) => {
-      return acc.concat(param)
-  });
-  
-  ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames)
-    .then((fetchedCbs: ClaimBuild[]) => {
-      
+      return acc.concat(param);
+    });
+
+  ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames).then(
+    (fetchedCbs: ClaimBuild[]) => {
       allClaimbuilds.value = fetchedCbs;
-      
+
       updateShownClaimbuilds();
-  })
-
+    }
+  );
 });
-
-
 </script>

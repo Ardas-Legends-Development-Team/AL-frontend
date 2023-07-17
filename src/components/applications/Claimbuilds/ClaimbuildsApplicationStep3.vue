@@ -179,14 +179,16 @@ function previousStep() {
 
 ClaimbuildApiClient.loadProductionSiteTypes().then(
   (sites: ProductionSite[]) => {
-    //Filters the result so it only contains every production site type once
+    //Filters the result, so it only contains every production site type once
     availableProductionSites.value = sites;
-    const allTypesNotFiltered = sites.map((site) => site.type)
-    availableProductionSiteTypes.value = allTypesNotFiltered.filter((item, pos) => {
-      const isFirst = allTypesNotFiltered.indexOf(item) == pos;
-      return isFirst;
-    });
-  });
+    const allTypesNotFiltered = sites.map((site) => site.type);
+    availableProductionSiteTypes.value = allTypesNotFiltered.filter(
+      (item, pos) => {
+        return allTypesNotFiltered.indexOf(item) === pos;
+      }
+    );
+  }
+);
 
 ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
   availableSpecialBuildings.value = buildings;
