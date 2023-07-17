@@ -29,7 +29,7 @@
       </select>
       <div class="form-control grow-0 min-w-[30%]">
         <input
-          type="text"
+          type="number"
           placeholder="Amount"
           class="input input-bordered w-full"
           v-model="selectedProductionSite.count"
