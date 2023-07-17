@@ -33,7 +33,7 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
-      <p class="text-gray-500">Large</p>
+      <p class="text-gray-500">Mansion</p>
 
       <input
         type="number"
