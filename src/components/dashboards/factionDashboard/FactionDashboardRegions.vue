@@ -170,9 +170,7 @@ function updateShownClaimbuilds() {
   );
 }
 
-function filterClaimbuildTable(searchResults: any) {
-  console.log(searchResults);
-}
+function filterClaimbuildTable(searchResults: any) {}
 
 populateDiplomacyBanners();
 

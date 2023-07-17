@@ -25,7 +25,6 @@ const shownCards: any = ref({});
 function populateShownCards(rank: string): void {
   shownCards.value.move = rankCardData[rank as keyof typeof rankCardData].move;
   shownCards.value.bind = commonCardData.bind;
-  console.log(shownCards);
 }
 
 PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {

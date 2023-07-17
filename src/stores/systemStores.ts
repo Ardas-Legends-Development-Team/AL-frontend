@@ -14,7 +14,7 @@ export const useErrorStore = defineStore("ErrorStore", () => {
 
 export const useConfigStore = defineStore("ConfigStore", () => {
   const deployMode = ref<string>(import.meta.env.MODE);
-  //Change this depending on if it's production or dev server
+  // Change this depending on if it's production or dev server
   const redirectUrl = ref<string>(
     deployMode.value === "production"
       ? config["discord-redirect-url"]["production"]
@@ -27,8 +27,8 @@ export const useConfigStore = defineStore("ConfigStore", () => {
   );
 
   return {
+    authUrl,
     deployMode,
     redirectUrl,
-    authUrl,
   };
 });

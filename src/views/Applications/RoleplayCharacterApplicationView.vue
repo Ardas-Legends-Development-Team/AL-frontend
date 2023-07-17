@@ -66,7 +66,6 @@ const currentStep = ref(0);
 const formData = useRoleplayCharacterFormStore();
 
 async function nextStep(formInput: any) {
-  console.log(formInput);
   switch (formInput.step) {
     case 1:
       formData.characterName = formInput.characterName;
@@ -87,7 +86,6 @@ async function nextStep(formInput: any) {
         formData.characterTitle = formData.factionName;
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
-      console.log(formData);
       await ApplicationApiClient.createRoleplayApplication(formData);
       router.push({
         name: "RoleplayCharacterApplicationEnd",

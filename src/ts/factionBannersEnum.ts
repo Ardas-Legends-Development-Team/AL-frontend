@@ -44,12 +44,12 @@ export function factionNameToBanner(faction: string): string {
 
 export function factionNamesToBannerMap(names: string[]): Map<string, string> {
   const factionsUnique = names.filter((faction, pos) => {
-    return names.indexOf(faction) == pos;
-  })
+    return names.indexOf(faction) === pos;
+  });
   const returnedMap = new Map<string, string>();
   factionsUnique.forEach(faction => {
     returnedMap.set(faction, factionNameToBanner(faction))
-  })
+  });
 
   return returnedMap;
 }

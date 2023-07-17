@@ -65,11 +65,11 @@ export class ClaimbuildApiClient extends ApiClient {
       const alreadyLoadedCbs: ClaimBuild[] = [];
       const cbsToFetch: string[] = [];
 
-      //Loop through cbs to see which are not loaded yet
+      // Loop through cbs to see which are not loaded yet
       names.forEach((name) => {
         const index = cbNames.indexOf(name);
         if (index !== -1) {
-          //Typecast here should be fine because I check if the cb is in the array before
+          // Typecast here should be fine because I check if the cb is in the array before
           alreadyLoadedCbs.push(
             claimbuildStore.claimbuilds.at(index) as ClaimBuild
           );

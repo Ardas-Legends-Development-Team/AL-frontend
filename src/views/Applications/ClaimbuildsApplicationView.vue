@@ -64,7 +64,6 @@ const currentStep = ref(0);
 const formData = useClaimbuildsFormStore();
 
 function nextStep(formInput: any) {
-  console.log(formInput);
   switch (formInput.step) {
     case 1:
       formData.builtBy = formInput.builtBy
@@ -85,7 +84,6 @@ function nextStep(formInput: any) {
     case 4:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
-      console.log(formData);
       ApplicationApiClient.createClaimbuildApplication(formData);
       router.push({
         name: "ClaimBuildsApplicationEnd",

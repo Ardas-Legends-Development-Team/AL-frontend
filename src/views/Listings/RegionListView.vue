@@ -105,9 +105,6 @@ function sendInfoToModal(region: Region) {
       factionNamesToBannerMap(allFactions);
   });
 
-  console.log("Selected region chars:");
-  console.log(selectedRegion.value);
-
   RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters).then(
     (rpchars) => {
       selectedRegionChars.value = rpchars;

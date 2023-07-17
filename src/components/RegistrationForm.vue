@@ -74,11 +74,9 @@ const error = ref(false);
 const errMsg = ref("");
 
 function register() {
-  console.log("Registering...");
   PlayerApiClient.registerPlayer(props.discordId, ign.value, faction.value)
     .then(() => window.location.reload())
     .catch((err) => {
-      console.log(err);
       error.value = true;
       errMsg.value = err.response.data.message;
     });

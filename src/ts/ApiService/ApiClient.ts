@@ -1,7 +1,7 @@
 import config from "@/config.json";
 
 export abstract class ApiClient {
-  private static baseUrl: string = `http://${
+  private static baseUrl = `http://${
     import.meta.env.MODE === "production"
       ? config["backend-url"]["production"]
       : config["backend-url"]["development"]

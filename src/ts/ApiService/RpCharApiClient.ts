@@ -49,8 +49,6 @@ export class RpCharApiClient extends ApiClient {
       const alreadyLoadedChars: RoleplayCharacter[] = [];
       const charsToFetch: string[] = [];
 
-      console.log(names);
-
       names.forEach((name) => {
         const index = loadedCharNames.indexOf(name);
         if (index !== -1) {

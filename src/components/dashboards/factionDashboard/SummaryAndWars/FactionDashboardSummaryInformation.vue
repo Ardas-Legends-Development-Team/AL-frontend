@@ -93,6 +93,5 @@ FactionApiClient.loadFactions().then((factions: Faction[]) => {
   faction.value = factions.find(
     (faction) => faction.nameOfFaction === props.factionName
   )!;
-  console.log(faction.value);
 });
 </script>
