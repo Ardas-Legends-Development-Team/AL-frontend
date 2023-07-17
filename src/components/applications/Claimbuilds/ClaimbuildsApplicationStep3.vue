@@ -144,6 +144,28 @@ const selectedProductionSiteAvailableResources = computed(() => {
 });
 
 function addProductionSite() {
+  if (
+    selectedProductionSite.value.type === "Production Site" ||
+    selectedProductionSite.value.resource === "Resource" ||
+    selectedProductionSite.value.count === 0
+  ) {
+    return;
+  }
+  // Verify that the selected production site already exists, if yes then add the count
+  const existingProductionSite = productionSites.value.find(
+    (site) =>
+      site.type === selectedProductionSite.value.type &&
+      site.resource === selectedProductionSite.value.resource
+  );
+  if (existingProductionSite) {
+    existingProductionSite.count += selectedProductionSite.value.count;
+    selectedProductionSite.value = {
+      type: "Production Site",
+      count: 0,
+      resource: "Resource",
+    };
+    return;
+  }
   productionSites.value.push(selectedProductionSite.value);
   selectedProductionSite.value = {
     type: "Production Site",
@@ -157,6 +179,9 @@ function removeProductionSite(index: number) {
 }
 
 function addSpecialBuilding() {
+  if (selectedSpecialBuilding.value === "Special Building") {
+    return;
+  }
   specialBuildings.value.push(selectedSpecialBuilding.value);
   selectedSpecialBuilding.value = "Special Building";
 }
