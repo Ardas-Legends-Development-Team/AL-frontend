@@ -8,7 +8,7 @@
     "production": "https://discord.com/api/oauth2/authorize?client_id=1066660773520212000&redirect_uri=http%3A%2F%2Fardas-legends.kekx.eu%2Fal-frontend&response_type=code&scope=identify%20guilds"
   },
   "backendUrl": {
-    "dev": "localhost:8080",
-    "production": "ardas-legends.kekx.eu:7623"
+    "development": "http://localhost:8080",
+    "production": "https://ardas-legends.kekx.eu:7623"
   }
 }
