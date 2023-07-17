@@ -122,7 +122,7 @@ function verifyIfUserRegistered(token: any) {
     authenticationClient.getUser(token).then((user) => {
       discordId.value = user.id;
       axios
-        .get(`http://${ApiClient.getBaseUrl()}/api/player/discordid/${user.id}`)
+        .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
         .then(() => {
           isLoggedIn.value = true;
           shouldShowRegistrationForm.value = false;
