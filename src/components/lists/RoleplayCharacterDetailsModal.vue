@@ -17,13 +17,17 @@
         </div>
         <div v-if="props.selectedCharacter!.rpChar.pvp" class="divider"></div>
         <div
+          v-if="props.selectedCharacter!.rpChar.boundTo"
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
           <p class="font-medium">
             Bound To: {{ props.selectedCharacter.rpChar.boundTo }}
           </p>
         </div>
-        <div class="divider"></div>
+        <div
+          v-if="props.selectedCharacter!.rpChar.boundTo"
+          class="divider"
+        ></div>
         <div
           class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
         >
