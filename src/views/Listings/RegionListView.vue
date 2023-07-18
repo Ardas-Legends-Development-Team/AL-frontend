@@ -7,12 +7,17 @@
         <th class="sticky top-0">Terrain type</th>
         <th class="sticky top-0">Factions with claim</th>
         <th class="sticky top-0">Neighbouring regions</th>
-        <th class="sticky top-0">Claimbuilds in region</th>
-        <th class="sticky top-0">Characters in region</th>
+        <th class="sticky top-0">
+          <SearchBar
+            :input-list="allRegions"
+            @search="updateFilteredRegionsOnSearch"
+          />
+        </th>
+        <th class="sticky top-0"></th>
       </tr>
     </thead>
     <tbody>
-      <tr class="hover" v-for="region in regions" :key="region.id">
+      <tr class="hover" v-for="region in filteredRegions" :key="region.id">
         <td>
           <div>
             <div class="font-bold">{{ region.id }}</div>
@@ -74,10 +79,10 @@ import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
+import SearchBar from "@/components/SearchBar.vue";
 
-// TODO: Build the strings to show because we got arrays instead of one string
-// TODO: Get missing info from API to complete the table
-const regions = ref<Region[]>([]);
+const allRegions = ref<Region[]>([]);
+const filteredRegions = ref<Region[]>([]);
 const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
 const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
 const selectedRegionChars = ref<RoleplayCharacter[]>([]);
@@ -115,7 +120,18 @@ function sendInfoToModal(region: Region) {
   );
 }
 
-RegionApiClient.loadRegions().then((data: any) => {
-  regions.value = data;
+function updateFilteredRegionsOnSearch(searchResults: Region[]) {
+  if (searchResults.length === 0) {
+    filteredRegions.value = allRegions.value;
+    return;
+  }
+  filteredRegions.value = allRegions.value.filter((region) =>
+    searchResults.includes(region)
+  );
+}
+
+RegionApiClient.loadRegions().then((data: Region[]) => {
+  allRegions.value = data;
+  filteredRegions.value = data;
 });
 </script>
