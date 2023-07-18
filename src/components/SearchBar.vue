@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { Region } from "@/ts/types/Region";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
