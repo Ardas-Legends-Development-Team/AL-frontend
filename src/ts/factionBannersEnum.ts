@@ -48,7 +48,7 @@ export function factionNamesToBannerMap(names: string[]): Map<string, string> {
   });
   const returnedMap = new Map<string, string>();
   factionsUnique.forEach(faction => {
-    returnedMap.set(faction, factionNameToBanner(faction))
+    returnedMap.set(faction, factionNameToBanner(faction));
   });
 
   return returnedMap;
