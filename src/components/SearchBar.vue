@@ -35,11 +35,12 @@ import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 
 const props = defineProps({
   inputList: {
-    type:
-      Array<string> ||
-      (Object as () => Array<ClaimBuild>) ||
-      (Object as () => Array<Region>) ||
-      (Object as () => Array<RoleplayCharacter>),
+    type: [
+      Array<string>,
+      Object as () => Array<ClaimBuild>,
+      Object as () => Array<Region>,
+      Object as () => Array<RoleplayCharacter>,
+    ],
     required: true,
   },
 });
