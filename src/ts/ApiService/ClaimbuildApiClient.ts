@@ -77,7 +77,7 @@ export class ClaimbuildApiClient extends ApiClient {
       });
 
       if (cbsToFetch.length > 0) {
-        const nameParams = cbsToFetch.join(`&name=`);
+        const nameParams = cbsToFetch.map(cb => cb.replace("&", "%26")).join(`&name=`);
         axios
           .get(this.getBaseUrl() + `/claimbuild/name?name=${nameParams}`)
           .then((response) => {
