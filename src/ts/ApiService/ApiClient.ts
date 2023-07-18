@@ -1,10 +1,10 @@
 import config from "@/config.json";
 
 export abstract class ApiClient {
-  private static baseUrl = `http://${
+  private static baseUrl: string = `${
     import.meta.env.MODE === "production"
-      ? config["backend-url"]["production"]
-      : config["backend-url"]["development"]
+      ? config["backendUrl"]["production"]
+      : config["backendUrl"]["development"]
   }/api`;
 
   public static getBaseUrl(): string {

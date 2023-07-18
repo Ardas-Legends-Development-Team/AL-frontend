@@ -7,7 +7,7 @@ import {
 } from "@/stores/buildStores";
 import { ProductionSite } from "@/ts/types/ProductionSite";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
-import { ClaimBuild } from "../types/ClaimBuild";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
 
 export class ClaimbuildApiClient extends ApiClient {
   public static async loadClaimbuildTypes(): Promise<string[]> {

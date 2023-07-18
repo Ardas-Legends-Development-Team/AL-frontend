@@ -1,7 +1,7 @@
 <template>
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="type">
-      <option disabled selected>Claimbuild Type</option>
+      <option disabled selected>Claimbuild type</option>
       <option v-for="(type, index) in claimbuildTypes" :key="index">
         {{ type }}
       </option>
@@ -33,7 +33,7 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
-      <p class="text-gray-500">Large</p>
+      <p class="text-gray-500">Mansion</p>
 
       <input
         type="number"
@@ -72,12 +72,7 @@ const houses = ref<{ small: number; medium: number; large: number }>(
   formData.houses
 );
 const isFormFilled = computed(() => {
-  return (
-    type.value !== "Claimbuild Type" &&
-    (houses.value.small > 0 ||
-      houses.value.medium > 0 ||
-      houses.value.large > 0)
-  );
+  return type.value !== "Claimbuild type";
 });
 
 function nextStep() {
