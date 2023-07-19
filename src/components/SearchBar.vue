@@ -98,6 +98,18 @@ function searchCustomType(
         searchResults.push(dataList[i]);
         break;
       }
+      // If it's of type object then iterate through the object's fields
+      if (typeof value === "object") {
+        for (const innerValue of Object.values(value)) {
+          if (
+            typeof innerValue === "string" &&
+            innerValue.toLowerCase().includes(searchText.toLowerCase())
+          ) {
+            searchResults.push(dataList[i]);
+            break;
+          }
+        }
+      }
     }
   }
   return searchResults;
