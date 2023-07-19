@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
-import { ApiClient } from "@/ts/ApiClient";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { Faction } from "@/ts/types/Faction";
 
 const props = defineProps({
@@ -88,11 +88,10 @@ function populateDiplomacyBanners() {
 }
 
 populateDiplomacyBanners();
-ApiClient.loadFactions().then((factions: Faction[]) => {
+FactionApiClient.loadFactions().then((factions: Faction[]) => {
   // Get the faction corresponding to the factionName prop
   faction.value = factions.find(
     (faction) => faction.nameOfFaction === props.factionName
   )!;
-  console.log(faction.value);
 });
 </script>

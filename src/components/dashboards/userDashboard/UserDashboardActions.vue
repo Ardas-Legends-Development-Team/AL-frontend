@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import UserDashboardActionCard from "@/components/dashboards/userDashboard/UserDashboardActionCard.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { commonCardData, rankCardData } from "@/ts/userDashboardActionCardData";
 import { ref } from "vue";
@@ -25,10 +25,9 @@ const shownCards: any = ref({});
 function populateShownCards(rank: string): void {
   shownCards.value.move = rankCardData[rank as keyof typeof rankCardData].move;
   shownCards.value.bind = commonCardData.bind;
-  console.log(shownCards);
 }
 
-ApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
+PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
   // TODO: Remove this line when we get correctly ranks from the server
   data.rank = "member";
   populateShownCards(data.rank);

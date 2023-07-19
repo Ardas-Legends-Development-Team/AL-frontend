@@ -8,7 +8,7 @@
     />
     <UserDashboardCard
       class="-translate-y-48"
-      :title=cardsData.currentRegion.title
+      :title="cardsData.currentRegion.title"
       :description="cardsData.currentRegion.description"
       :source="cardsData.currentRegion.source"
       :alt="cardsData.currentRegion.alt"
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 
 const cardsData = ref({
@@ -49,16 +49,16 @@ const cardsData = ref({
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080522228191469730/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     alt: "health symbol",
   },
-})
+});
 
-ApiClient.loadCharacterInfo().then((data) => {
+PlayerApiClient.loadCharacterInfo().then((data) => {
   cardsData.value.currentRegion.description = data.currentRegion;
-  if (data.boundTo !== null) {
+  if (data.boundTo) {
     cardsData.value.boundTo.description = data.boundTo;
   }
   if (data.injured) {
     cardsData.value.injuredStatus.description = "You are injured!";
-    if (data.startedHeal !== null) {
+    if (data.startedHeal) {
       cardsData.value.injuredStatus.description +=
         "\nHealing started at " + data.startedHeal;
       cardsData.value.injuredStatus.description +=

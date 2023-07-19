@@ -59,8 +59,8 @@
               <th class="sticky top-0">Stationed Armies</th>
               <th class="sticky top-0">
                 <SearchBar
-                  :input-list="testClaimbuilds"
-                  @search="filterClaimbuildTable"
+                  :input-list="allClaimbuilds"
+                  @search="updateFilteredClaimbuildsOnSearch"
                 />
               </th>
             </tr>
@@ -68,7 +68,7 @@
           <tbody>
             <tr
               class="hover"
-              v-for="claimbuild in testClaimbuilds"
+              v-for="claimbuild in filteredClaimbuilds"
               :key="claimbuild.name"
             >
               <td>
@@ -77,13 +77,15 @@
                 </div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.claimbuildType }}</div>
+                <div class="font-bold">{{ claimbuild.claimBuildType }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.ownerFaction }}</div>
+                <div class="font-bold">{{ claimbuild.faction }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.stationedArmies }}</div>
+                <div class="font-bold">
+                  {{ claimbuild.armiesStationedCount }}
+                </div>
               </td>
               <th>
                 <label
@@ -106,8 +108,10 @@ import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
-import SearchBar from "@/components/searchBar.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import SearchBar from "@/components/SearchBar.vue";
+import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
 
 const props = defineProps({
   faction: {
@@ -127,11 +131,15 @@ const selectedRegion = ref<Region>({
   claimbuilds: [],
   characters: [],
 });
-const selectedClaimbuild = ref<any>();
+const allClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
+const filteredClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedClaimbuild = ref<ClaimBuild>();
 const factionsWithClaimBanners = ref<string[]>([]);
 
 function showRegionDetails(region: Region) {
   selectedRegion.value = region;
+  showRegionClaimbuilds();
 }
 
 function sendInfoToModal(claimbuild: any) {
@@ -156,22 +164,26 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
   );
 }
 
-function filterClaimbuildTable(searchResults: any) {
-  console.log(searchResults);
+function showRegionClaimbuilds() {
+  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter((cb) =>
+    selectedRegion.value.claimbuilds.includes(cb.name)
+  );
+  filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
+}
+
+function updateFilteredClaimbuildsOnSearch(searchResults: ClaimBuild[]) {
+  if (searchResults.length === 0) {
+    filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
+    return;
+  }
+  filteredClaimbuilds.value = selectedRegionClaimbuilds.value.filter((cb) =>
+    searchResults.includes(cb)
+  );
 }
 
 populateDiplomacyBanners();
 
-const testClaimbuilds = ref([
-  {
-    name: "test",
-    claimbuildType: "test",
-    ownerFaction: "test",
-    stationedArmies: "test",
-  },
-]);
-
-ApiClient.loadRegions().then((regionList: Region[]) => {
+RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction
   regionList = regionList.filter((region) =>
     region.claimedBy.includes(props.faction)
@@ -179,5 +191,19 @@ ApiClient.loadRegions().then((regionList: Region[]) => {
   regions.value = regionList;
   filteredRegions.value = regionList;
   selectedRegion.value = regionList[0];
+
+  const allCbNames = regions.value
+    .map((region) => region.claimbuilds)
+    .reduce((acc, param) => {
+      return acc.concat(param);
+    });
+
+  ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames).then(
+    (fetchedCbs: ClaimBuild[]) => {
+      allClaimbuilds.value = fetchedCbs;
+
+      showRegionClaimbuilds();
+    }
+  );
 });
 </script>

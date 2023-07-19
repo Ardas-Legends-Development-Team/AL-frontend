@@ -55,11 +55,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();
-const factions = ref<String[]>([]);
+const factions = ref<String[]>(useFactionsStore().factionNames);
 const characterTitle = ref<string>(formData.characterTitle);
 const factionName = ref<string>(formData.factionName);
 const characterReason = ref<string>(formData.characterReason);
@@ -84,7 +85,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadFactionNames().then((factionNames: string[]) => {
+FactionApiClient.loadFactionNames().then((factionNames: string[]) => {
   factions.value = factionNames;
 });
 </script>

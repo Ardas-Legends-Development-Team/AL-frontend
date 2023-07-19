@@ -2,30 +2,36 @@
   <div>
     <p class="mt-4 text-gray-500">What Production Sites are Present?</p>
 
-    <div class="flex flex-row">
+    <div class="flex flex-row w-full">
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered flex-3 grow"
         v-model="selectedProductionSite.type"
       >
         <option disabled selected>Production Site</option>
-        <option>Building 1</option>
-        <option>Farm</option>
-        <option>Mine</option>
+        <option
+          v-for="(type, index) in availableProductionSiteTypes"
+          :key="index"
+        >
+          {{ type }}
+        </option>
       </select>
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered grow flex-1 join-item"
         v-model="selectedProductionSite.resource"
       >
         <option disabled selected>Resource</option>
-        <option>Food</option>
-        <option>Stone</option>
-        <option>Wood</option>
+        <option
+          v-for="(resource, index) in selectedProductionSiteAvailableResources"
+          :key="index"
+        >
+          {{ resource }}
+        </option>
       </select>
-      <div class="form-control w-full max-w-xs">
+      <div class="form-control grow-0 min-w-[30%]">
         <input
-          type="text"
+          type="number"
           placeholder="Amount"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full"
           v-model="selectedProductionSite.count"
         />
       </div>
@@ -57,13 +63,16 @@
   <div>
     <div class="flex flex-row">
       <select
-        class="select select-bordered join-item"
+        class="select select-bordered grow"
         v-model="selectedSpecialBuilding"
       >
         <option disabled selected>Special Building</option>
-        <option>Workshop</option>
-        <option>Bank</option>
-        <option>Harbor</option>
+        <option
+          v-for="(building, index) in availableSpecialBuildings"
+          :key="index"
+        >
+          {{ building }}
+        </option>
       </select>
       <div class="indicator">
         <button class="btn join-item" @click="addSpecialBuilding">
@@ -93,7 +102,7 @@
       class="btn btn-outline"
       @click="nextStep()"
     >
-      Submit Application
+      Next
     </button>
   </div>
 </template>
@@ -101,15 +110,16 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ProductionSite, ProductionSiteWithCount } from "@/ts/types/ProductionSite";
-import { ApiClient } from "@/ts/ApiClient";
+import {
+  ProductionSite,
+  ProductionSiteWithCount,
+} from "@/ts/types/ProductionSite";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
-const allProductionSites = ref<ProductionSite[]>([]);
-//const allProdSiteTypes = ref<string[]>([]);
-//const allResources = ref<string[]>([]);
-
+const availableProductionSites = ref<ProductionSite[]>([]);
+const availableProductionSiteTypes = ref<string[]>([]);
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
   formData.productionSites
@@ -125,7 +135,37 @@ const isFormFilled = computed(() => {
   return productionSites.value.length > 0;
 });
 
+// Add a computed property to get the resources for the selected production site
+// This is used to filter the resources in the dropdown
+const selectedProductionSiteAvailableResources = computed(() => {
+  return availableProductionSites.value
+    .filter((building) => building.type === selectedProductionSite.value.type)
+    .map((building) => building.resource);
+});
+
 function addProductionSite() {
+  if (
+    selectedProductionSite.value.type === "Production Site" ||
+    selectedProductionSite.value.resource === "Resource" ||
+    selectedProductionSite.value.count === 0
+  ) {
+    return;
+  }
+  // Verify that the selected production site already exists, if yes then add the count
+  const existingProductionSite = productionSites.value.find(
+    (site) =>
+      site.type === selectedProductionSite.value.type &&
+      site.resource === selectedProductionSite.value.resource
+  );
+  if (existingProductionSite) {
+    existingProductionSite.count += selectedProductionSite.value.count;
+    selectedProductionSite.value = {
+      type: "Production Site",
+      count: 0,
+      resource: "Resource",
+    };
+    return;
+  }
   productionSites.value.push(selectedProductionSite.value);
   selectedProductionSite.value = {
     type: "Production Site",
@@ -139,6 +179,9 @@ function removeProductionSite(index: number) {
 }
 
 function addSpecialBuilding() {
+  if (selectedSpecialBuilding.value === "Special Building") {
+    return;
+  }
   specialBuildings.value.push(selectedSpecialBuilding.value);
   selectedSpecialBuilding.value = "Special Building";
 }
@@ -159,13 +202,20 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadProductionSiteTypes().then((sites: ProductionSite[]) => {
-  allProductionSites.value = sites;
-  console.log("LOADING ALL PROD SITES");
+ClaimbuildApiClient.loadProductionSiteTypes().then(
+  (sites: ProductionSite[]) => {
+    //Filters the result, so it only contains every production site type once
+    availableProductionSites.value = sites;
+    const allTypesNotFiltered = sites.map((site) => site.type);
+    availableProductionSiteTypes.value = allTypesNotFiltered.filter(
+      (item, pos) => {
+        return allTypesNotFiltered.indexOf(item) === pos;
+      }
+    );
+  }
+);
 
-});
-
-ApiClient.loadSpecialBuildingTypes().then((buildings) => {
+ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
   availableSpecialBuildings.value = buildings;
 });
 </script>

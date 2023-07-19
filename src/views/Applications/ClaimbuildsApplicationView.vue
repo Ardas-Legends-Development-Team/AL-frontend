@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+      <div class="mx-auto mt-8 mb-0 max-w-3xl space-y-4">
         <component
           :is="steps[currentStep]"
           @nextStep="nextStep"
@@ -42,7 +42,7 @@ import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/C
 import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
 import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import { ErrorHandler } from "@/ts/ErrorHandler";
 
 const router = useRouter();
@@ -64,11 +64,7 @@ const formProgress = ref(15);
 const currentStep = ref(0);
 const formData = useClaimbuildsFormStore();
 
-// TODO: Add another application step to get houses, production sites and special buildings
-// TODO: Go through each step to get the correct data
-
 function nextStep(formInput: any) {
-  console.log(formInput);
   switch (formInput.step) {
     case 1:
       formData.builtBy = formInput.builtBy
@@ -89,16 +85,15 @@ function nextStep(formInput: any) {
     case 4:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
-      console.log(formData);
-      const result = ApiClient.createClaimbuildApplication(formData);
-      result.then((str) => {
-        router.push({
-          name: "ClaimBuildsApplicationEnd",
+      ApplicationApiClient.createClaimbuildApplication(formData)
+        .then(data => {
+          router.push({
+            name: "ClaimBuildsApplicationEnd",
+          });
+        })
+        .catch(error => {
+          ErrorHandler.throwError(error.response.data.message)
         });
-      }).catch((errMsg) => {
-        ErrorHandler.throwError(errMsg);
-      })
-      
       return;
     default:
       // do something

@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <label for="claimbuildType" class="sr-only">Claimbuild Type</label>
-    <div class="relative">
-      <input
-        type="text"
-        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Claimbuild Type"
-        v-model="type"
-      />
-    </div>
+  <div class="input-group">
+    <select class="select select-bordered w-full" v-model="type">
+      <option disabled selected>Claimbuild type</option>
+      <option v-for="(type, index) in claimbuildTypes" :key="index">
+        {{ type }}
+      </option>
+    </select>
   </div>
   <p class="mt-4 text-gray-500">Houses in the claimbuild</p>
   <div class="flex w-full">
@@ -24,18 +21,6 @@
     </div>
     <div class="divider divider-horizontal"></div>
     <div class="relative">
-      <p class="text-gray-500">Medium</p>
-
-      <input
-        type="number"
-        maxlength="25"
-        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-        placeholder="Medium houses"
-        v-model="houses.medium"
-      />
-    </div>
-    <div class="divider divider-horizontal"></div>
-    <div class="relative">
       <p class="text-gray-500">Large</p>
 
       <input
@@ -43,6 +28,18 @@
         maxlength="25"
         class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
         placeholder="Large houses"
+        v-model="houses.medium"
+      />
+    </div>
+    <div class="divider divider-horizontal"></div>
+    <div class="relative">
+      <p class="text-gray-500">Mansion</p>
+
+      <input
+        type="number"
+        maxlength="25"
+        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+        placeholder="Mansions"
         v-model="houses.large"
       />
     </div>
@@ -65,7 +62,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import { ApiClient } from "@/ts/ApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
@@ -75,12 +72,7 @@ const houses = ref<{ small: number; medium: number; large: number }>(
   formData.houses
 );
 const isFormFilled = computed(() => {
-  return (
-    type.value &&
-    (houses.value.small > 0 ||
-      houses.value.medium > 0 ||
-      houses.value.large > 0)
-  );
+  return type.value !== "Claimbuild type";
 });
 
 function nextStep() {
@@ -95,7 +87,7 @@ function previousStep() {
   emit("previousStep");
 }
 
-ApiClient.loadClaimbuildTypes().then((types: string[]) => {
+ClaimbuildApiClient.loadClaimbuildTypes().then((types: string[]) => {
   claimbuildTypes.value = types;
 });
 </script>

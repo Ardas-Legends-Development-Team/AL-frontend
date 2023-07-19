@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
 import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 
 const cardsData = ref({
@@ -39,7 +39,7 @@ const cardsData = ref({
   },
 });
 
-ApiClient.loadCharacterInfo().then((data) => {
+PlayerApiClient.loadCharacterInfo().then((data) => {
   cardsData.value.gear.description = data.gear;
   if (data.pvp) {
     cardsData.value.pvpStatus.description = "Enabled";
