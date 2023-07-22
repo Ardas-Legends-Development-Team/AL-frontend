@@ -3,6 +3,14 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   plugins: [require("daisyui")],
+  theme: {
+    extend: {
+      backgroundImage: {
+        "horizontal-navbar-background":
+          "url('https://media.discordapp.net/attachments/1069933973448441928/1070026186941530274/M1UyKQ2rvQdZ5TsNxnaS-3-nbmzv-transformed.jpeg?width=1440&height=352')",
+      },
+    },
+  },
   daisyui: {
     styled: true,
     base: false,
@@ -12,11 +20,12 @@ module.exports = {
     themes: [
       {
         lotr: {
+          ...require("daisyui/src/colors/themes")["[data-theme=luxury]"],
           primary: "#9b6311",
 
-          secondary: "#e7b039",
+          secondary: "#dad5c8",
 
-          accent: "#136014",
+          accent: "#e0a82e",
 
           neutral: "#20272d",
 
@@ -31,7 +40,6 @@ module.exports = {
           error: "#dc2626",
         },
       },
-      "luxury",
     ],
   },
 };

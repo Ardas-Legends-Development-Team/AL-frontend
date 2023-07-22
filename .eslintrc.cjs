@@ -13,6 +13,13 @@ module.exports = {
         ecmaVersion: "latest",
     },
     rules: {
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-for-in-array": "off",
+        "@typescript-eslint/no-throw-literal": "off",
+        "@typescript-eslint/consistent-type-imports": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off",
         "linebreak-style": "warn", // <----------
         "no-undef": "off",
         "no-duplicate-imports": "error",
@@ -24,8 +31,8 @@ module.exports = {
         "eqeqeq": "error",
         "new-cap": "error",
         "no-floating-decimal": "error",
-        "no-invalid-this": "error",
-        "no-multi-spaces": "error",
+        "no-invalid-this": "warn",
+        "no-multi-spaces": "warn",
         "prefer-const": "error",
 
 

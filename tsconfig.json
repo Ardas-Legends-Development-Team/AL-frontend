@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "composite": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -10,6 +11,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": [
       "ESNext",
       "DOM"
@@ -18,7 +22,10 @@
     "noEmit": true,
     "allowJs": true,
     "types": [
-      "vitest/globals"
+      "vitest",
+      "vitest/globals",
+      "vite/client",
+      "vue/ref-macros"
     ],
     "paths": {
       "@/*": [
@@ -31,7 +38,15 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "vite.config.ts"
+    "src/**/*.json",
+    "vite.config.ts",
+    "cypress/**/*.ts",
+    "test/**/*.ts",
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress"
   ],
   "references": [
     {

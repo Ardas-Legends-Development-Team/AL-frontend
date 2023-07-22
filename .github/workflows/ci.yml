@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - preliminary-dev
+      - dev
+      - main
+
+  pull_request:
+    branches:
+      - preliminary-dev
+      - dev
+      - main
+
+jobs:
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install
+        run: npm install
+
+      - name: Typecheck
+        run: npm run typecheck
+
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+        os: [ ubuntu-latest ]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm install
+      - run: npm run test:unit
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm install
+
+      - name: Cypress
+        uses: cypress-io/github-action@v4
+        with:
+          install-command: echo
+          build: npm run build
+          start: npx vite --port 3333
