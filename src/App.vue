@@ -10,7 +10,7 @@
       </main>
       <FooterBar />
     </div>
-    <ErrorAlert v-if="hasError" @click="hasError = false" />
+    <ErrorAlert v-if="hasError" @click="useErrorStore().hasError = false; " />
   </div>
   <RegistrationForm
     v-else-if="shouldShowRegistrationForm === true"
@@ -37,6 +37,9 @@ const hasError = ref(useErrorStore().hasError);
 watch(
   () => useErrorStore().hasError,
   (newValue) => {
+    console.log("Setting error val");
+    console.log(newValue);
+    
     hasError.value = newValue;
   }
 );

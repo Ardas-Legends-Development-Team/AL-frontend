@@ -43,6 +43,7 @@ import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/C
 import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
+import { ErrorHandler } from "@/ts/ErrorHandler";
 
 const router = useRouter();
 const steps = [
@@ -84,10 +85,15 @@ function nextStep(formInput: any) {
     case 4:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
-      ApplicationApiClient.createClaimbuildApplication(formData);
-      router.push({
-        name: "ClaimBuildsApplicationEnd",
-      });
+      ApplicationApiClient.createClaimbuildApplication(formData)
+        .then(data => {
+          router.push({
+            name: "ClaimBuildsApplicationEnd",
+          });
+        })
+        .catch(error => {
+          ErrorHandler.throwError(error.response.data.message)
+        });
       return;
     default:
       // do something
