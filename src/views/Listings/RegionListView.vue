@@ -38,7 +38,10 @@
           <label
             for="regionClaimbuildsModal"
             class="btn"
-            @click="sendInfoToModal(region)"
+            @click="
+              showClaimbuildModal = true;
+              sendInfoToModal(region);
+            "
             >{{ region.claimbuilds.length }} Claimbuilds</label
           >
         </th>
@@ -46,7 +49,10 @@
           <label
             for="charactersInRegionModal"
             class="btn"
-            @click="sendInfoToModal(region)"
+            @click="
+              showCharacterModal = true;
+              sendInfoToModal(region);
+            "
             >{{ region.characters.length }} Characters</label
           >
         </th>
@@ -55,6 +61,7 @@
   </table>
   <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
+    v-if="showClaimbuildModal"
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
@@ -62,6 +69,7 @@
   />
   <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal
+    v-if="showCharacterModal"
     :characters="selectedRegionChars"
     :region-id="selectedRegion.id"
     :banner-map="selectedRegionCharacterBanners"
@@ -69,10 +77,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { Region } from "@/ts/types/Region";
-import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
-import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
@@ -81,6 +87,15 @@ import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
 import SearchBar from "@/components/SearchBar.vue";
 
+const ClaimbuildsInRegionModal = defineAsyncComponent(
+  () => import("@/components/lists/ClaimbuildsInRegionModal.vue")
+);
+const CharactersInRegionModal = defineAsyncComponent(
+  () => import("@/components/lists/CharactersInRegionModal.vue")
+);
+
+const showCharacterModal = ref(false);
+const showClaimbuildModal = ref(false);
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
 const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
