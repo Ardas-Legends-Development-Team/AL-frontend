@@ -28,8 +28,6 @@ function populateShownCards(rank: string): void {
 }
 
 PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
-  // TODO: Remove this line when we get correctly ranks from the server
-  data.rank = "member";
   populateShownCards(data.rank);
 });
 </script>

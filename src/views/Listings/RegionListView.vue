@@ -99,25 +99,19 @@ const selectedRegion = ref<Region>({
 
 function sendInfoToModal(region: Region) {
   selectedRegion.value = region;
-  ClaimbuildApiClient.loadClaimbuildsByNames(
-    selectedRegion.value.claimbuilds
-  ).then((claimbuilds) => {
+  Promise.all([
+    ClaimbuildApiClient.loadClaimbuildsByNames(region.claimbuilds),
+    RpCharApiClient.loadRpCharsByNames(region.characters),
+  ]).then(([claimbuilds, rpchars]) => {
     selectedRegionClaimbuilds.value = claimbuilds;
-
-    //Getting the banners for the claimbuilds inside the selected region
+    selectedRegionChars.value = rpchars;
     const allFactions = selectedRegionClaimbuilds.value.map((cb) => cb.faction);
     selectedRegionClaimbuildBanners.value =
       factionNamesToBannerMap(allFactions);
+    const allFactionsChars = selectedRegionChars.value.map((rp) => rp.faction);
+    selectedRegionCharacterBanners.value =
+      factionNamesToBannerMap(allFactionsChars);
   });
-
-  RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters).then(
-    (rpchars) => {
-      selectedRegionChars.value = rpchars;
-      const allFactions = selectedRegionChars.value.map((rp) => rp.faction);
-      selectedRegionCharacterBanners.value =
-        factionNamesToBannerMap(allFactions);
-    }
-  );
 }
 
 function updateFilteredRegionsOnSearch(searchResults: Region[]) {

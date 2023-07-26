@@ -202,20 +202,18 @@ function previousStep() {
   emit("previousStep");
 }
 
-ClaimbuildApiClient.loadProductionSiteTypes().then(
-  (sites: ProductionSite[]) => {
-    //Filters the result, so it only contains every production site type once
-    availableProductionSites.value = sites;
-    const allTypesNotFiltered = sites.map((site) => site.type);
-    availableProductionSiteTypes.value = allTypesNotFiltered.filter(
-      (item, pos) => {
-        return allTypesNotFiltered.indexOf(item) === pos;
-      }
-    );
-  }
-);
-
-ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
+Promise.all([
+  ClaimbuildApiClient.loadProductionSiteTypes(),
+  ClaimbuildApiClient.loadSpecialBuildingTypes(),
+]).then(([sites, buildings]) => {
+  //Filters the result, so it only contains every production site type once
+  availableProductionSites.value = sites;
+  const allTypesNotFiltered = sites.map((site) => site.type);
+  availableProductionSiteTypes.value = allTypesNotFiltered.filter(
+    (item, pos) => {
+      return allTypesNotFiltered.indexOf(item) === pos;
+    }
+  );
   availableSpecialBuildings.value = buildings;
 });
 </script>
