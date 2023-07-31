@@ -35,41 +35,33 @@
           <div class="font-bold">{{ region.neighbours.join(", ") }}</div>
         </td>
         <th>
-          <label
-            for="regionClaimbuildsModal"
+          <button
             class="btn"
-            @click="
-              showClaimbuildModal = true;
-              sendInfoToModal(region);
-            "
-            >{{ region.claimbuilds.length }} Claimbuilds</label
+            onclick="regionClaimbuildsModal.showModal()"
+            @click="sendInfoToModal(region)"
           >
+            {{ region.claimbuilds.length }} Claimbuilds
+          </button>
         </th>
         <th>
-          <label
-            for="charactersInRegionModal"
+          <button
             class="btn"
-            @click="
-              showCharacterModal = true;
-              sendInfoToModal(region);
-            "
-            >{{ region.characters.length }} Characters</label
+            onclick="charactersInRegionModal.showModal()"
+            @click="sendInfoToModal(region)"
           >
+            {{ region.characters.length }} Characters
+          </button>
         </th>
       </tr>
     </tbody>
   </table>
-  <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
-    v-if="showClaimbuildModal"
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
     :region-id="selectedRegion.id"
   />
-  <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal
-    v-if="showCharacterModal"
     :characters="selectedRegionChars"
     :region-id="selectedRegion.id"
     :banner-map="selectedRegionCharacterBanners"
@@ -77,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from "vue";
+import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
@@ -86,16 +78,9 @@ import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
 import SearchBar from "@/components/SearchBar.vue";
+import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
+import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 
-const ClaimbuildsInRegionModal = defineAsyncComponent(
-  () => import("@/components/lists/ClaimbuildsInRegionModal.vue")
-);
-const CharactersInRegionModal = defineAsyncComponent(
-  () => import("@/components/lists/CharactersInRegionModal.vue")
-);
-
-const showCharacterModal = ref(false);
-const showClaimbuildModal = ref(false);
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
 const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
@@ -135,7 +120,7 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
     return;
   }
   filteredRegions.value = allRegions.value.filter((region) =>
-    searchResults.includes(region)
+    searchResults.includes(region),
   );
 }
 

@@ -1,12 +1,9 @@
 <template>
-  <input type="checkbox" id="rpCharDetailsModal" class="modal-toggle" />
-  <div class="modal">
-    <div class="modal-box">
-      <label
-        for="rpCharDetailsModal"
-        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
-        >✕</label
-      >
+  <dialog id="rpCharDetailsModal" class="modal">
+    <form method="dialog" class="modal-box">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
       <h3 class="font-bold text-lg">{{ props.selectedCharacter.ign }}</h3>
       <div class="flex flex-col w-full mt-4">
         <div
@@ -63,8 +60,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
 </template>
 
 <script setup lang="ts">

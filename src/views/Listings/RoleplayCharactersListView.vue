@@ -10,7 +10,7 @@
           <SearchBar
             :input-list="
               allRoleplayCharacters.map(
-                (roleplayCharacter) => roleplayCharacter.character
+                (roleplayCharacter) => roleplayCharacter.character,
               )
             "
             @search="updateFilteredCharactersOnSearch"
@@ -52,12 +52,13 @@
           </p>
         </th>
         <th>
-          <label
-            for="rpCharDetailsModal"
+          <button
             class="btn"
+            onclick="rpCharDetailsModal.showModal()"
             @click="sendInfoToModal(roleplayCharacter.character)"
-            >Details</label
           >
+            Details
+          </button>
         </th>
       </tr>
     </tbody>
@@ -100,7 +101,7 @@ const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
         healEnds: "",
       },
     },
-  }
+  },
 );
 
 function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
@@ -113,7 +114,7 @@ function updateFilteredCharactersOnSearch(searchResults: RoleplayCharacter[]) {
     return;
   }
   filteredCharacters.value = allRoleplayCharacters.value.filter((rpchar) =>
-    searchResults.includes(rpchar.character)
+    searchResults.includes(rpchar.character),
   );
 }
 
