@@ -38,7 +38,7 @@
           <button
             class="btn"
             onclick="regionClaimbuildsModal.showModal()"
-            @click="sendInfoToModal(region)"
+            @click="sendInfoToClaimbuildModal(region)"
           >
             {{ region.claimbuilds.length }} Claimbuilds
           </button>
@@ -47,7 +47,7 @@
           <button
             class="btn"
             onclick="charactersInRegionModal.showModal()"
-            @click="sendInfoToModal(region)"
+            @click="sendInfoToCharacterModal(region)"
           >
             {{ region.characters.length }} Characters
           </button>
@@ -97,21 +97,28 @@ const selectedRegion = ref<Region>({
   characters: [],
 });
 
-function sendInfoToModal(region: Region) {
+function sendInfoToCharacterModal(region: Region) {
   selectedRegion.value = region;
-  Promise.all([
-    ClaimbuildApiClient.loadClaimbuildsByNames(region.claimbuilds),
-    RpCharApiClient.loadRpCharsByNames(region.characters),
-  ]).then(([claimbuilds, rpchars]) => {
-    selectedRegionClaimbuilds.value = claimbuilds;
+  RpCharApiClient.loadRpCharsByNames(region.characters).then((rpchars) => {
     selectedRegionChars.value = rpchars;
-    const allFactions = selectedRegionClaimbuilds.value.map((cb) => cb.faction);
-    selectedRegionClaimbuildBanners.value =
-      factionNamesToBannerMap(allFactions);
     const allFactionsChars = selectedRegionChars.value.map((rp) => rp.faction);
     selectedRegionCharacterBanners.value =
       factionNamesToBannerMap(allFactionsChars);
   });
+}
+
+function sendInfoToClaimbuildModal(region: Region) {
+  selectedRegion.value = region;
+  ClaimbuildApiClient.loadClaimbuildsByNames(region.claimbuilds).then(
+    (claimbuilds) => {
+      selectedRegionClaimbuilds.value = claimbuilds;
+      const allFactions = selectedRegionClaimbuilds.value.map(
+        (cb) => cb.faction,
+      );
+      selectedRegionClaimbuildBanners.value =
+        factionNamesToBannerMap(allFactions);
+    },
+  );
 }
 
 function updateFilteredRegionsOnSearch(searchResults: Region[]) {
