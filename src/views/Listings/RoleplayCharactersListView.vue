@@ -1,12 +1,14 @@
 <template>
-  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
+  <table
+    class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+  >
     <!-- head -->
     <thead>
       <tr>
-        <th class="sticky top-0">IGN & Faction</th>
-        <th class="sticky top-0">Name & Title</th>
-        <th class="sticky top-0">Current Region</th>
-        <th class="sticky top-0">
+        <th>IGN & Faction</th>
+        <th>Name & Title</th>
+        <th>Current Region</th>
+        <th>
           <SearchBar
             :input-list="
               allRoleplayCharacters.map(

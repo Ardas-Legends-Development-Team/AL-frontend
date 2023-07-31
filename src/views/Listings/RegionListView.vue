@@ -1,13 +1,15 @@
 <template>
-  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
+  <table
+    class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+  >
     <!-- head -->
     <thead>
       <tr>
-        <th class="sticky top-0">Region ID</th>
-        <th class="sticky top-0">Terrain type</th>
-        <th class="sticky top-0">Factions with claim</th>
-        <th class="sticky top-0">Neighbouring regions</th>
-        <th class="sticky top-0">
+        <th>Region ID</th>
+        <th>Terrain type</th>
+        <th>Factions with claim</th>
+        <th>Neighbouring regions</th>
+        <th>
           <SearchBar
             :input-list="allRegions"
             @search="updateFilteredRegionsOnSearch"
