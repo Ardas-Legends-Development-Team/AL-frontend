@@ -4,10 +4,10 @@
   >
     <!-- head -->
     <thead>
-      <tr>
-        <th>IGN & Faction</th>
-        <th>Name & Title</th>
-        <th>Current Region</th>
+      <tr class="bg-base-200">
+        <th class="text-accent">IGN & Faction</th>
+        <th class="text-accent">Name & Title</th>
+        <th class="text-accent">Current Region</th>
         <th>
           <SearchBar
             :input-list="
@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <tr
-        class="hover"
+        class="bg-base-100 hover:bg-base-300"
         v-for="roleplayCharacter in filteredCharacters"
         :key="roleplayCharacter.character.ign"
       >

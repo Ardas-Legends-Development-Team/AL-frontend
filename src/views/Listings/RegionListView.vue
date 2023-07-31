@@ -1,14 +1,14 @@
 <template>
   <table
-    class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+    class="table table-pin-rows min-w-full divide-y divide-gray-200 relative"
   >
     <!-- head -->
     <thead>
-      <tr>
-        <th>Region ID</th>
-        <th>Terrain type</th>
-        <th>Factions with claim</th>
-        <th>Neighbouring regions</th>
+      <tr class="bg-base-200">
+        <th class="text-accent">Region ID</th>
+        <th class="text-accent">Terrain type</th>
+        <th class="text-accent">Factions with claim</th>
+        <th class="text-accent">Neighbouring regions</th>
         <th>
           <SearchBar
             :input-list="allRegions"
@@ -19,7 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="hover" v-for="region in filteredRegions" :key="region.id">
+      <tr
+        class="bg-base-100 hover:bg-base-300"
+        v-for="region in filteredRegions"
+        :key="region.id"
+      >
         <td>
           <div>
             <div class="font-bold">{{ region.id }}</div>
