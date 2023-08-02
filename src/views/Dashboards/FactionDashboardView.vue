@@ -45,13 +45,13 @@ const FactionDashboardRegions = defineAsyncComponent(
   () =>
     import(
       "@/components/dashboards/factionDashboard/FactionDashboardRegions.vue"
-    )
+    ),
 );
 const FactionDashboardArmies = defineAsyncComponent(
   () =>
     import(
       "@/components/dashboards/factionDashboard/FactionDashboardArmies.vue"
-    )
+    ),
 );
 
 const currentTab = ref(1);

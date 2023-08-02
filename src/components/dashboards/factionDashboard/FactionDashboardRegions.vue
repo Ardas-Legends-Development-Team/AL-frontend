@@ -160,13 +160,13 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
     return;
   }
   filteredRegions.value = regions.value.filter((region) =>
-    searchResults.includes(region)
+    searchResults.includes(region),
   );
 }
 
 function showRegionClaimbuilds() {
   selectedRegionClaimbuilds.value = allClaimbuilds.value.filter((cb) =>
-    selectedRegion.value.claimbuilds.includes(cb.name)
+    selectedRegion.value.claimbuilds.includes(cb.name),
   );
   filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
 }
@@ -177,7 +177,7 @@ function updateFilteredClaimbuildsOnSearch(searchResults: ClaimBuild[]) {
     return;
   }
   filteredClaimbuilds.value = selectedRegionClaimbuilds.value.filter((cb) =>
-    searchResults.includes(cb)
+    searchResults.includes(cb),
   );
 }
 
@@ -186,7 +186,7 @@ populateDiplomacyBanners();
 RegionApiClient.loadRegions().then((regionList: Region[]) => {
   // Get only the regions owned by the faction
   regionList = regionList.filter((region) =>
-    region.claimedBy.includes(props.faction)
+    region.claimedBy.includes(props.faction),
   );
   regions.value = regionList;
   filteredRegions.value = regionList;
@@ -203,7 +203,7 @@ RegionApiClient.loadRegions().then((regionList: Region[]) => {
       allClaimbuilds.value = fetchedCbs;
 
       showRegionClaimbuilds();
-    }
+    },
   );
 });
 </script>

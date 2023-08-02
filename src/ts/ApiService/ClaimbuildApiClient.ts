@@ -55,12 +55,12 @@ export class ClaimbuildApiClient extends ApiClient {
   }
 
   public static async loadClaimbuildsByNames(
-    names: string[]
+    names: string[],
   ): Promise<ClaimBuild[]> {
     const claimbuildStore = useClaimbuildStore();
     return new Promise((resolve) => {
       const cbNames: string[] = claimbuildStore.claimbuilds.map(
-        (cb) => cb.name
+        (cb) => cb.name,
       );
       const alreadyLoadedCbs: ClaimBuild[] = [];
       const cbsToFetch: string[] = [];
@@ -71,13 +71,15 @@ export class ClaimbuildApiClient extends ApiClient {
         if (index !== -1) {
           // Typecast here should be fine because I check if the cb is in the array before
           alreadyLoadedCbs.push(
-            claimbuildStore.claimbuilds.at(index) as ClaimBuild
+            claimbuildStore.claimbuilds.at(index) as ClaimBuild,
           );
         } else cbsToFetch.push(name);
       });
 
       if (cbsToFetch.length > 0) {
-        const nameParams = cbsToFetch.map(cb => cb.replace("&", "%26")).join(`&name=`);
+        const nameParams = cbsToFetch
+          .map((cb) => cb.replace("&", "%26"))
+          .join(`&name=`);
         axios
           .get(this.getBaseUrl() + `/claimbuild/name?name=${nameParams}`)
           .then((response) => {

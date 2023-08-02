@@ -70,7 +70,8 @@ const faction = ref<Faction>({
   leaderIgn: "",
 });
 
-const factionBanner = ref<string>(factionNameToBanner(props.factionName));
+const getPropFactionName = () => props.factionName;
+const factionBanner = ref<string>(factionNameToBanner(getPropFactionName()));
 const alliedFactions = ref<string[]>([]);
 const alliedFactionBanners = ref<string[]>([]);
 const enemyFactions = ref<string[]>([]);
@@ -79,7 +80,7 @@ const enemyFactionBanners = ref<string[]>([]);
 function populateDiplomacyBanners() {
   for (let i = 0; i < alliedFactions.value.length; i++) {
     alliedFactionBanners.value[i] = factionNameToBanner(
-      alliedFactions.value[i]
+      alliedFactions.value[i],
     );
   }
   for (let i = 0; i < enemyFactions.value.length; i++) {
@@ -91,7 +92,7 @@ populateDiplomacyBanners();
 FactionApiClient.loadFactions().then((factions: Faction[]) => {
   // Get the faction corresponding to the factionName prop
   faction.value = factions.find(
-    (faction) => faction.nameOfFaction === props.factionName
+    (faction) => faction.nameOfFaction === props.factionName,
   )!;
 });
 </script>

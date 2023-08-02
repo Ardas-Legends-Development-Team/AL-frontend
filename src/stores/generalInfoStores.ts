@@ -20,5 +20,5 @@ export const useClaimbuildTypesStore = defineStore(
     return {
       claimbuildTypes: claimbuildTypes,
     };
-  }
+  },
 );

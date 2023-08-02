@@ -86,13 +86,13 @@ function nextStep(formInput: any) {
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
       ApplicationApiClient.createClaimbuildApplication(formData)
-        .then(data => {
+        .then(() => {
           router.push({
             name: "ClaimBuildsApplicationEnd",
           });
         })
-        .catch(error => {
-          ErrorHandler.throwError(error.response.data.message)
+        .catch((error) => {
+          ErrorHandler.throwError(error.response.data.message);
         });
       return;
     default:

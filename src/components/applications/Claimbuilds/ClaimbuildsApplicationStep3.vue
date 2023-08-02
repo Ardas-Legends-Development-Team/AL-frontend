@@ -122,7 +122,7 @@ const availableProductionSites = ref<ProductionSite[]>([]);
 const availableProductionSiteTypes = ref<string[]>([]);
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
-  formData.productionSites
+  formData.productionSites,
 );
 const selectedProductionSite = ref<ProductionSiteWithCount>({
   type: "Production Site",
@@ -155,7 +155,7 @@ function addProductionSite() {
   const existingProductionSite = productionSites.value.find(
     (site) =>
       site.type === selectedProductionSite.value.type &&
-      site.resource === selectedProductionSite.value.resource
+      site.resource === selectedProductionSite.value.resource,
   );
   if (existingProductionSite) {
     existingProductionSite.count += selectedProductionSite.value.count;
@@ -212,7 +212,7 @@ Promise.all([
   availableProductionSiteTypes.value = allTypesNotFiltered.filter(
     (item, pos) => {
       return allTypesNotFiltered.indexOf(item) === pos;
-    }
+    },
   );
   availableSpecialBuildings.value = buildings;
 });

@@ -18,12 +18,12 @@ export const useConfigStore = defineStore("ConfigStore", () => {
   const redirectUrl = ref<string>(
     deployMode.value === "production"
       ? config["discord-redirect-url"]["production"]
-      : config["discord-redirect-url"]["development"]
+      : config["discord-redirect-url"]["development"],
   );
   const authUrl = ref<string>(
     deployMode.value === "production"
       ? config["discord-auth-url"]["production"]
-      : config["discord-auth-url"]["development"]
+      : config["discord-auth-url"]["development"],
   );
 
   return {

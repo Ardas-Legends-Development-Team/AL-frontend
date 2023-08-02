@@ -23,16 +23,6 @@ export default class AuthenticationClient {
     this.scopes = scopes;
   };
 
-  public createAuthLink = () => {
-    if (this.scopes[0] && this.redirectUri && this.clientId) {
-      return `https://discord.com/oauth2/authorize?client_id=${
-        this.clientId
-      }&redirect_uri=${
-        this.redirectUri
-      }&response_type=code&scope=${this.scopes.join(" ")}`;
-    }
-  };
-
   public getToken = async (code: string) => {
     if (
       this.scopes[0] &&
@@ -75,25 +65,6 @@ export default class AuthenticationClient {
     const tokenType = token.token_type;
     const accessToken = token.access_token;
     const res = await fetch("https://discord.com/api/users/@me", {
-      headers: {
-        Authorization: `${tokenType} ${accessToken}`,
-      },
-    });
-
-    return await res.json();
-  };
-
-  public getUserConnections = async (token: {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    refresh_token: string;
-    scope: string;
-  }) => {
-    const tokenType = token.token_type;
-    const accessToken = token.access_token;
-
-    const res = await fetch("https://discord.com/api/users/@me/connections", {
       headers: {
         Authorization: `${tokenType} ${accessToken}`,
       },

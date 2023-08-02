@@ -10,7 +10,7 @@
       </main>
       <FooterBar />
     </div>
-    <ErrorAlert v-if="hasError" @click="useErrorStore().hasError = false; " />
+    <ErrorAlert v-if="hasError" @click="useErrorStore().hasError = false" />
   </div>
   <RegistrationForm
     v-else-if="shouldShowRegistrationForm === true"
@@ -39,9 +39,9 @@ watch(
   (newValue) => {
     console.log("Setting error val");
     console.log(newValue);
-    
+
     hasError.value = newValue;
-  }
+  },
 );
 
 const serverId = "668590304487800832";
@@ -51,7 +51,7 @@ const userToken = ref("");
 const discordId = ref("");
 const authenticationClient = new AuthenticationClient(
   "1066660773520212000",
-  "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_"
+  "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_",
 );
 
 const cookies = useCookie();

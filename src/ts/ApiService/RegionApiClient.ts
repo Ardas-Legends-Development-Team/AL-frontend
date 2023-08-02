@@ -13,7 +13,7 @@ export class RegionApiClient extends ApiClient {
       }
       axios.get(this.getBaseUrl() + "/region/all").then((response) => {
         regionIdStore.regionIds = response.data.map(
-          (region: { id: string }) => region.id
+          (region: { id: string }) => region.id,
         );
         resolve(regionIdStore.regionIds);
       });

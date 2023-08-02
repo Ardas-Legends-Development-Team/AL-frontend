@@ -5,7 +5,7 @@ import { ApiClient } from "@/ts/ApiService/ApiClient";
 
 export class ApplicationApiClient extends ApiClient {
   public static async createRoleplayApplication(
-    applicationData: any
+    applicationData: any,
   ): Promise<string> {
     return new Promise((resolve) => {
       axios
@@ -23,7 +23,7 @@ export class ApplicationApiClient extends ApiClient {
           },
           {
             headers: {},
-          }
+          },
         )
         .then(() => {
           resolve("Application created");
@@ -35,7 +35,7 @@ export class ApplicationApiClient extends ApiClient {
   }
 
   public static async createClaimbuildApplication(
-    applicationData: any
+    applicationData: any,
   ): Promise<string> {
     return new Promise((resolve, reject) => {
       const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x large, ${applicationData.houses.large}x mansion`;
@@ -59,13 +59,13 @@ export class ApplicationApiClient extends ApiClient {
           },
           {
             headers: {},
-          }
+          },
         )
         .then(() => {
           resolve("Application created");
         })
         .catch((error) => {
-          reject(error)
+          reject(error);
         });
     });
   }
