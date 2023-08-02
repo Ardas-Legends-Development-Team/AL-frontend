@@ -1,13 +1,13 @@
 {
   "name": "ardas-legends-website",
   "private": true,
-  "version": "Alpha 0.1.1",
+  "version": "Alpha 0.2.0",
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "production": "vue-tsc && vite build && vite preview",
+    "production": "vue-tsc --noEmit && vite build && vite preview",
     "test": "vitest",
     "test:e2e": "cypress open",
     "test:unit": "vitest",
