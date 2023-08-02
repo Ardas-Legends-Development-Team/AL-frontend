@@ -1,12 +1,26 @@
 <template>
   <div
+    v-if="!isEvil"
     class="blurred-img"
     :class="loaded ? 'loaded' : ''"
-    :style="'background-image:url(' + props.src + '?profile=Lowres-Image)'"
+    :style="'background-image:url(' + props.goodSrc + '?profile=Lowres-Image)'"
   >
     <img
-      :src="props.src + '?profile=Normal-Image'"
-      :alt="props.alt"
+      :src="props.goodSrc + '?profile=Normal-Image'"
+      :alt="props.goodAlt"
+      loading="lazy"
+      @load="loaded = true"
+    />
+  </div>
+  <div
+    v-else
+    class="blurred-img"
+    :class="loaded ? 'loaded' : ''"
+    :style="'background-image:url(' + props.evilSrc + '?profile=Lowres-Image)'"
+  >
+    <img
+      :src="props.evilSrc + '?profile=Normal-Image'"
+      :alt="props.evilAlt"
       loading="lazy"
       @load="loaded = true"
     />
@@ -17,11 +31,23 @@
 import { ref } from "vue";
 
 const props = defineProps({
-  src: {
+  isEvil: {
+    type: Boolean,
+    required: true,
+  },
+  goodSrc: {
     type: String,
     required: true,
   },
-  alt: {
+  evilSrc: {
+    type: String,
+    required: true,
+  },
+  goodAlt: {
+    type: String,
+    required: true,
+  },
+  evilAlt: {
     type: String,
     required: true,
   },
