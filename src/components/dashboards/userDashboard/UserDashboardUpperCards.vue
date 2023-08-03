@@ -3,21 +3,21 @@
     <UserDashboardCard
       :title="cardsData.boundTo.title"
       :description="cardsData.boundTo.description"
-      :source="cardsData.boundTo.source"
-      :alt="cardsData.boundTo.alt"
+      :source="cardsData.boundTo.sourceGood"
+      :alt="cardsData.boundTo.altGood"
     />
     <UserDashboardCard
       class="-translate-y-48"
       :title="cardsData.currentRegion.title"
       :description="cardsData.currentRegion.description"
-      :source="cardsData.currentRegion.source"
-      :alt="cardsData.currentRegion.alt"
+      :source="cardsData.currentRegion.sourceGood"
+      :alt="cardsData.currentRegion.altGood"
     />
     <UserDashboardCard
       :title="cardsData.injuredStatus.title"
       :description="cardsData.injuredStatus.description"
-      :source="cardsData.injuredStatus.source"
-      :alt="cardsData.injuredStatus.alt"
+      :source="cardsData.injuredStatus.sourceGood"
+      :alt="cardsData.injuredStatus.altGood"
     />
   </div>
 </template>
@@ -31,23 +31,23 @@ const cardsData = ref({
   boundTo: {
     title: "Bound To",
     description: "Not bound to army or trading company",
-    source:
+    sourceGood:
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080521861940645949/alastor666ds_an_army_of_mysterious_and_dark_warriors_ffb588a6-7d6f-4fb0-8e5a-490f08ecef00.png",
-    alt: "umbar numenoreans",
+    altGood: "umbar numenoreans",
   },
   currentRegion: {
     title: "Current Region",
     description: "0",
-    source:
+    sourceGood:
       "https://media.discordapp.net/attachments/1080521946397147166/1080522043533033502/cajur_Medieval_landscape_background_mountains_Lord_of_the_Rings_c4ae9763-78ce-406a-ac6b-11939e7a5e2d.png?width=671&height=671",
-    alt: "valley road",
+    altGood: "valley road",
   },
   injuredStatus: {
     title: "Health",
     description: "You are not injured",
-    source:
+    sourceGood:
       "https://cdn.discordapp.com/attachments/1080521696479547502/1080522228191469730/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-    alt: "health symbol",
+    altGood: "health symbol",
   },
 });
 

@@ -25,8 +25,8 @@ FactionApiClient.loadFactionNames().then((factionNames) => {
   factionNames.forEach((factionName) => {
     cardsData.value.push({
       title: factionName,
-      source: factionNameToBanner(factionName),
-      alt: factionName + " banner",
+      sourceGood: factionNameToBanner(factionName),
+      altGood: factionName + " banner",
     });
   });
 });
