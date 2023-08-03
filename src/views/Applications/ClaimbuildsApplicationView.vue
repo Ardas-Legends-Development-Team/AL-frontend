@@ -24,10 +24,14 @@
     </div>
 
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-      <img
-        alt="roleplay image"
-        :src="stepsImages[currentStep].toString()"
-        class="absolute inset-0 h-full w-full object-cover"
+      <LazyLoadedImage
+        :key="stepsImages[currentStep].evilSrc"
+        :inside-classes="'absolute inset-0 h-full w-full object-cover'"
+        :evil-alt="stepsImages[currentStep].evilAlt"
+        :good-alt="stepsImages[currentStep].goodAlt"
+        :evil-src="stepsImages[currentStep].evilSrc"
+        :good-src="stepsImages[currentStep].goodSrc"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </div>
   </section>
@@ -44,6 +48,9 @@ import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/C
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+import { usePlayerStore } from "@/stores/playerStores";
+import { isFactionEvil } from "@/ts/utilities";
 
 const router = useRouter();
 const steps = [
@@ -53,12 +60,49 @@ const steps = [
   ClaimbuildsApplicationStep3,
   ClaimbuildsApplicationStep4,
 ];
-const stepsImages = ref<String[]>([
-  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
-  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
-  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
-  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
-  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
+const stepsImages = ref<
+  { evilAlt: string; goodAlt: string; evilSrc: string; goodSrc: string }[]
+>([
+  {
+    evilAlt: "dark mountain hall with torches",
+    goodAlt: "hobbit hamlet overlooking river",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/balrogslayer_mines_of_moria_lord_of_the_rings_cinematic_lightin_eca83409-5d53-4013-98f5-51362c23d3a4.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/balrogslayer_sunset_on_the_shire_hobbiton_lord_of_the_rings_war_6b17d4cb-9953-40d0-8134-6272c3d13d5f.png",
+  },
+  {
+    evilAlt: "black tower with red mountain behind overlooking lake",
+    goodAlt: "dalish town with clocktower",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/Anedhel_lord_of_the_rings_painting_of_a_Mordor_fortress_intrica_c6857ff0-b041-438c-8837-e20450531fc5.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/Anedhel_lord_of_the_rings_easterling_city_greg_rutkowski_intric_d8965ae2-9db9-4934-9ba7-795cfc23c2ed.png",
+  },
+  {
+    evilAlt: "haradrim palace courtyard",
+    goodAlt: "gondorian circular fortress",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/Anedhel_lord_of_the_rings_painting_of_Haradrim_palace_greg_rutk_570de439-4448-4f0e-9454-368ddd9b002a.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/Anedhel_lord_of_the_rings_gondor_circular_fortress_greg_rutkows_22b5f0a5-15bb-4cf0-83e7-90b0f19b51e4.png",
+  },
+  {
+    evilAlt: "minas morgul without morgul energy",
+    goodAlt: "dwarven dark mountain hall",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/7fKkl02Z4mhnz3shsnzs--3--xmgi1_4x.jpg",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/balrogslayer_mines_of_moria_lord_of_the_rings_cinematic_lightin_cead4c3f-1583-4c28-a862-a95f80ff0707.png",
+  },
+  {
+    evilAlt: "black numenorean ominous lighthouse",
+    goodAlt: "rivendell town in forest surrounded by hills",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/VdLcS3CwH67CHyldcEyj--4--ohqly_4x.jpg",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Claimbuild/mrenno2006_Lord_of_the_Rings_medieval_city_made_out_of_huge_nat_d8d3a2b0-c44b-4cd6-8f5d-d31617136800.png",
+  },
 ]);
 const formProgress = ref(15);
 const currentStep = ref(0);

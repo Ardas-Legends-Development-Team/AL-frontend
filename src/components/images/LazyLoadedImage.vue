@@ -6,6 +6,7 @@
     :style="'background-image:url(' + props.goodSrc + '?profile=Lowres-Image)'"
   >
     <img
+      :class="insideClasses"
       :src="props.goodSrc + '?profile=Normal-Image'"
       :alt="props.goodAlt"
       loading="lazy"
@@ -19,6 +20,7 @@
     :style="'background-image:url(' + props.evilSrc + '?profile=Lowres-Image)'"
   >
     <img
+      :class="insideClasses"
       :src="props.evilSrc + '?profile=Normal-Image'"
       :alt="props.evilAlt"
       loading="lazy"
@@ -51,6 +53,11 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  insideClasses: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 const loaded = ref(false);
@@ -61,6 +68,7 @@ const loaded = ref(false);
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .blurred-img::before {
   content: "";
   position: absolute;
