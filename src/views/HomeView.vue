@@ -4,8 +4,7 @@
     id="home-hero"
     class="hero min-h-screen"
     :style="{
-      'background-image':
-        'url(https://media.discordapp.net/attachments/1068863871772790865/1068869765587816548/VernonRoche__CA9.io_lord_of_the_rings_painting_of_huge_dwarven__487c0555-83b6-471a-a82d-1c79b7a23853.png?width=671&height=671)',
+      'background-image': getBackgroundImage(),
     }"
   >
     <div class="hero-overlay bg-opacity-60"></div>
@@ -24,4 +23,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+
+const getBackgroundImage = () => {
+  if (isFactionEvil(usePlayerStore().faction)) {
+    return "url(https://ateettea.sirv.com/Background%20and%20layout/chv87b39axfa1.png)";
+  } else {
+    return "url(https://ateettea.sirv.com/Background%20and%20layout/3952fd46-57f6-4705-8db5-92a9d3bd7f34.jpg)";
+  }
+};
+</script>
