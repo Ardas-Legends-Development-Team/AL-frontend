@@ -90,11 +90,11 @@ const stepsImages = ref<
   },
   {
     evilAlt: "dunlending wolf champion with a shield and horned helmet",
-    goodAlt: "dwarves having a drink inside a tavern near candles",
+    goodAlt: "aragorn wearing rugged clothes and with a dirty face",
     evilSrc:
       "https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20110408.png",
     goodSrc:
-      "https://ateettea.sirv.com/Applications/Roleplay/Dark-Eyes-Open_portrait_of_Aragon_Legolas_and_Gimli_enjoying_yu_30dd9010-e5c4-4d7d-a938-d22a83cb70b6.png",
+      "https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20112729.png",
   },
 ]);
 

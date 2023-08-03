@@ -1,10 +1,13 @@
 <template>
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row">
-      <img
-        alt="elf army with general"
-        src="https://cdn.discordapp.com/attachments/1068863871772790865/1068869733966942258/VernonRoche__CA9.io_lord_of_the_rings_painting_of_an_elven_army_a48b17a6-23f0-4f03-8af6-07282d3b1aa1.png"
-        class="max-w-sm rounded-lg shadow-2xl"
+      <LazyLoadedImage
+        :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
+        :evil-alt="'black orc fortress on top of fiery mountain'"
+        :good-alt="'arnor castle on top of a steep hill'"
+        :evil-src="'https://ateettea.sirv.com/Applications/Claimbuild/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg'"
+        :good-src="'https://ateettea.sirv.com/Applications/Claimbuild/cdfd83ee-4dfa-4499-be2b-7cefce156353.jpg'"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
       <div>
         <h1 class="text-5xl font-bold">Claimbuild Submitted!</h1>
@@ -14,11 +17,15 @@
           patient. We will let you know if anything needs to be modified.
         </p>
         <router-link to="/home">
-          <button class="btn btn">Back to Home</button>
+          <button class="btn">Back to Home</button>
         </router-link>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+</script>
