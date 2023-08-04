@@ -73,10 +73,10 @@ const stepsImages = ref<
       "https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png",
   },
   {
-    evilAlt: "black orc with red eyes and long hair",
+    evilAlt: "black orc with red eyes in heavy iron armour with iron mask",
     goodAlt: "gondor knight on a white horse",
     evilSrc:
-      "https://ateettea.sirv.com/Applications/Roleplay/BlueOrigin_shaman_Orc__red_eyes_insane_details_962aa3e6-bcb0-4fe1-bf7b-ddd7cbfd5804.png",
+      "https://ateettea.sirv.com/Applications/Roleplay/6b7aabd3-62d5-42db-b0c7-f52e0e2bc6bd.jpg",
     goodSrc:
       "https://ateettea.sirv.com/Applications/Roleplay/Stefano-da-Urbino-on-Midjourney_HD__photorealistic__handsome_st_3449577a-7085-4e93-9fb2-eccb3d96e2a5.png",
   },
