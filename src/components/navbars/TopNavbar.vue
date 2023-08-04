@@ -2,7 +2,8 @@
   <div
     class="navbar bg-center"
     :style="{
-      'background-image': getBackgroundImage(),
+      'background-image': getBackgroundImage().image,
+      'background-size': getBackgroundImage().shouldCover ? 'cover' : '',
     }"
   >
     <div class="navbar-start"></div>
@@ -31,9 +32,17 @@ import { usePlayerStore } from "@/stores/playerStores";
 
 const getBackgroundImage = () => {
   if (isFactionEvil(usePlayerStore().faction)) {
-    return "url(https://ateettea.sirv.com/SusansArt900_fantasy_magical_adult_forest_495096f0-7705-46a0-bad1-73829878d2d2.png)";
+    return {
+      image:
+        "url(https://ateettea.sirv.com/joseangel_ancient_wood_library_gothic_window_electric_light_blu_432e8ba1-8606-45d5-8d0d-7739eaa978c3.png)",
+      shouldCover: true,
+    };
   } else {
-    return "url(https://ateettea.sirv.com/SusansArt900_fantasy_magical_adult_forest_495096f0-7705-46a0-bad1-73829878d2d2.png)";
+    return {
+      image:
+        "url(https://ateettea.sirv.com/SusansArt900_fantasy_magical_adult_forest_495096f0-7705-46a0-bad1-73829878d2d2.png)",
+      shouldCover: true,
+    };
   }
 };
 </script>
