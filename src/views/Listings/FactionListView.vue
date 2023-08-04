@@ -4,8 +4,8 @@
       <RouterLink :to="`/faction/${data.title}`">
         <FactionListCard
           :title="data.title"
-          :alt="data.alt"
           :source="data.source"
+          :alt="data.alt"
         />
       </RouterLink>
     </div>
@@ -25,8 +25,8 @@ FactionApiClient.loadFactionNames().then((factionNames) => {
   factionNames.forEach((factionName) => {
     cardsData.value.push({
       title: factionName,
-      sourceGood: factionNameToBanner(factionName),
-      altGood: factionName + " banner",
+      source: factionNameToBanner(factionName),
+      alt: factionName + " banner",
     });
   });
 });

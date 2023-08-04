@@ -15,11 +15,11 @@ defineProps({
     type: String,
     required: true,
   },
-  sourceGood: {
+  source: {
     type: String,
     required: true,
   },
-  altGood: {
+  alt: {
     type: String,
     required: true,
   },
