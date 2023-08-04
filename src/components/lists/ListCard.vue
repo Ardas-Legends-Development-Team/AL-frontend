@@ -5,16 +5,14 @@
         <h2 class="card-title">{{ title }}</h2>
         <p>{{ description }}</p>
       </div>
-      <figure>
-        <LazyLoadedImage
-          :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
-          :evil-alt="altEvil"
-          :good-alt="altGood"
-          :evil-src="sourceEvil"
-          :good-src="sourceGood"
-          :is-evil="isFactionEvil(usePlayerStore().faction)"
-        />
-      </figure>
+      <LazyLoadedImage
+        :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
+        :evil-alt="altEvil"
+        :good-alt="altGood"
+        :evil-src="sourceEvil"
+        :good-src="sourceGood"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
+      />
     </div>
   </router-link>
 </template>

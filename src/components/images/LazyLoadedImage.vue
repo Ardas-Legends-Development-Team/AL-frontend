@@ -67,6 +67,8 @@ const loaded = ref(false);
 .blurred-img {
   background-repeat: no-repeat;
   background-size: cover;
+  width: 384px;
+  height: 380px;
 }
 
 .blurred-img::before {
