@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-wrap">
     <div v-for="(data, index) in cardsData" :key="index">
-      <ListCard
+      <GenericMediumCard
         :title="data.title"
         :router="data.router"
         :description="data.description"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import ListCard from "@/components/lists/ListCard.vue";
+import GenericMediumCard from "@/components/GenericMediumCard.vue";
 
 const cardsData = [
   {
