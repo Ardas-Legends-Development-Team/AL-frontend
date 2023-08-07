@@ -6,8 +6,8 @@
         v-for="(data, index) in shownCards"
         :key="index"
         :text="data.text"
-        :source="data.source"
-        :alt="data.alt"
+        :source-good="data.source"
+        :alt-good="data.alt"
       />
     </div>
   </div>

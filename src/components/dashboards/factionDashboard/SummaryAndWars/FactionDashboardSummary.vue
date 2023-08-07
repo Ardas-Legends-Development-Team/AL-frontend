@@ -11,8 +11,8 @@
         <div v-for="(card, index) in cardData" :key="index">
           <FactionDashboardActionCard
             :title="card.title"
-            :source="card.sourceGood"
-            :alt="card.altGood"
+            :source-good="card.sourceGood"
+            :alt-good="card.altGood"
           />
         </div>
       </div>
