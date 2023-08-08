@@ -1,47 +1,25 @@
 import axios from "axios";
-import { useFactionsStore } from "@/stores/generalInfoStores";
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
+import { ApiClient } from "@/ts/ApiService/ApiClient";
 
-export class ApiClient {
+export class PlayerApiClient extends ApiClient {
   public static registerPlayer(
     discordId: string,
     ign: string,
-    faction: string
+    faction: string,
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:8080/api/player", {
+        .post(this.getBaseUrl() + "/player", {
           discordID: discordId,
           faction: faction,
           ign: ign,
         })
         .then(() => resolve(true))
-        .catch(() => {
-          reject(false);
-        });
-    });
-  }
-
-  public static async loadFactions(): Promise<string[]> {
-    const factionsStore = useFactionsStore();
-    return new Promise((resolve) => {
-      if (factionsStore.factions.length > 0) {
-        resolve(factionsStore.factions);
-        return;
-      }
-      axios
-        .get("http://localhost:8080/api/faction", {
-          params: {
-            size: 100,
-          },
-        })
-        .then((response) => {
-          response.data.content.forEach((faction: any) => {
-            factionsStore.factions.push(faction.nameOfFaction);
-          });
-          resolve(factionsStore.factions);
+        .catch((err) => {
+          reject(err);
         });
     });
   }
@@ -58,7 +36,7 @@ export class ApiClient {
   }
 
   public static async loadCharacterInfo(
-    discordId?: string
+    discordId?: string,
   ): Promise<CharacterInfo> {
     if (discordId !== undefined) {
       return new Promise((resolve) => {
@@ -70,17 +48,13 @@ export class ApiClient {
     return useCharacterStore();
   }
 
-  public static async loadClaimbuildTypes(): Promise<string[]> {
-    return ["Something here"];
-  }
-
   /**
    * Loads player and then character info from the API and stores it in the player store and
    * character store. If the player info is already loaded, it will not load it again.
    * @param discordId
    */
   private static async loadPlayerCharacterInfoFromAPI(
-    discordId: string
+    discordId: string,
   ): Promise<boolean> {
     const playerStore = usePlayerStore();
     return new Promise((resolve) => {
@@ -89,15 +63,13 @@ export class ApiClient {
         return;
       }
       axios
-        .get("http://localhost:8080/api/player/discordid/" + discordId)
+        .get(this.getBaseUrl() + "/player/discordid/" + discordId)
         .then((response) => {
           const data = response.data;
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
-          // TODO: Replace with proper staff check
-          // playerStore.isStaff = data.isStaff;
-          playerStore.isStaff = false;
+          playerStore.isStaff = data.isStaff;
           // Load character info
           if (data.rpChar !== null) {
             const characterStore = useCharacterStore();

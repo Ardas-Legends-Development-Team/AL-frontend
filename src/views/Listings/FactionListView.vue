@@ -4,8 +4,8 @@
       <RouterLink :to="`/faction/${data.title}`">
         <FactionListCard
           :title="data.title"
-          :alt="data.alt"
           :source="data.source"
+          :alt="data.alt"
         />
       </RouterLink>
     </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ApiClient } from "@/ts/ApiClient";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { ref } from "vue";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import FactionListCard from "@/components/dashboards/factionDashboard/FactionListCard.vue";
@@ -21,12 +21,12 @@ import { RouterLink } from "vue-router";
 
 const cardsData = ref<any[]>([]);
 
-ApiClient.loadFactions().then((factions) => {
-  factions.forEach((faction) => {
+FactionApiClient.loadFactionNames().then((factionNames) => {
+  factionNames.forEach((factionName) => {
     cardsData.value.push({
-      title: faction,
-      source: factionNameToBanner(faction),
-      alt: faction + " banner",
+      title: factionName,
+      source: factionNameToBanner(factionName),
+      alt: factionName + " banner",
     });
   });
 });

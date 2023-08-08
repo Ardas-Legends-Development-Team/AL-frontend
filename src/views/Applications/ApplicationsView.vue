@@ -1,34 +1,41 @@
 <template>
   <div class="flex flex-wrap">
     <div v-for="(data, index) in cardsData" :key="index">
-      <ListCard
+      <GenericMediumCard
         :title="data.title"
         :router="data.router"
         :description="data.description"
-        :alt="data.alt"
-        :source="data.source"
+        :alt-good="data.altGood"
+        :source-good="data.sourceGood"
+        :alt-evil="data.altEvil"
+        :source-evil="data.sourceEvil"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import ListCard from "@/components/lists/ListCard.vue";
+import GenericMediumCard from "@/components/GenericMediumCard.vue";
 
 const cardsData = [
   {
     title: "Roleplay Character Application",
-    source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1068869765176766515/VernonRoche__CA9.io_lord_of_the_rings_painting_of_haradrim_sold_d7f2d6a0-8d57-4fee-a115-d6fd8b4c9c38.png",
-    alt: "haradrim soldiers",
+    sourceGood: "https://ateettea.sirv.com/Cards/W9soJbE.jpeg",
+    altGood: "dwarven warrior thinking after battle",
+    sourceEvil:
+      "https://ateettea.sirv.com/Cards/Baareth_black_warhammer_orc_front_portrait_prominent_jaw_helmet_6217b8e5-b85b-406f-a247-6a5799fca94e.png",
+    altEvil: "black orc with horned circlet and heavy armour",
     router: "/applications/roleplay_character",
     description: "Create your valiant hero or destructive tyrant here",
   },
   {
     title: "Claimbuilds Application",
-    source:
-      "https://media.discordapp.net/attachments/1068863871772790865/1068869733966942258/VernonRoche__CA9.io_lord_of_the_rings_painting_of_an_elven_army_a48b17a6-23f0-4f03-8af6-07282d3b1aa1.png",
-    alt: "elf army with general",
+    sourceGood:
+      "https://ateettea.sirv.com/Cards/MfeWlbPTwPCZl4B4EOmW--1--xvrsl_4x.jpg",
+    altGood: "elven mountain hall main entrance",
+    sourceEvil:
+      "https://ateettea.sirv.com/Cards/BlueOrigin_flying_ancient_Castle_above_an_army_of_Orcs__Gothic__9da9b1c3-af31-4d3c-a368-ec13cd347031.png",
+    altEvil: "angmar castle with flying ravens in the snow",
     router: "/applications/claimbuilds",
     description: "Create your claimbuilds here",
   },

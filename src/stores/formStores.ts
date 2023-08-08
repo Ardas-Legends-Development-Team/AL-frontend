@@ -1,55 +1,68 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
+import { ProductionSiteWithCount } from "@/ts/types/ProductionSite";
 
 export const useRoleplayCharacterFormStore = defineStore(
   "roleplayCharacterFormStore",
   () => {
-    const charName = ref("");
-    const faction = ref("Your faction");
+    const characterName = ref("");
+    const factionName = ref("Your faction");
     const gear = ref("");
-    const ign = ref("");
-    const preference = ref("Your in-game preference");
-    const reason = ref("");
-    const summary = ref("");
-    const title = ref("");
+    const pvpPreference = ref(false);
+    const linkToLore = ref("");
+    const characterTitle = ref("");
+    const characterReason = ref("");
 
     return {
-      charName,
-      faction,
+      characterName,
+      factionName,
       gear,
-      ign,
-      preference,
-      reason,
-      summary,
-      title,
+      pvpPreference,
+      linkToLore,
+      characterTitle,
+      characterReason,
     };
-  }
+  },
 );
-export const useClaimbuildsFormStore = defineStore(
-  "ClaimbuildsFormStore",
-  () => {
-    const buildCoordinatesX = ref();
-    const buildCoordinatesY = ref();
-    const buildCoordinatesZ = ref();
-    const buildName = ref("");
-    const buildType = ref("Type of build");
-    const extraInfo = ref("");
-    const faction = ref("Your faction");
-    const ign = ref("");
-    const region = ref("");
-    const shops = ref("");
+export const useClaimbuildsFormStore = defineStore("ClaimbuildsFormStore", {
+  state: () => {
+    const applicant = ref({ discordId: "" });
+    const claimbuildName = ref("");
+    const regionId = ref("");
+    const type = ref("Claimbuild type");
+    const factionNameOwnedBy = ref("Your faction");
+    const coordinate = ref({ x: 0, y: 0, z: 0 });
+    const productionSites: Ref<ProductionSiteWithCount[]> = ref([]);
+    const specialBuildings: Ref<string[]> = ref([]);
+    const traders = ref("");
+    const siege = ref("");
+    const houses: Ref<{ small: number; medium: number; large: number }> = ref({
+      small: 0,
+      medium: 0,
+      large: 0,
+    });
+    const builtBy: Ref<string[]> = ref([]);
 
     return {
-      buildCoordinatesX,
-      buildCoordinatesY,
-      buildCoordinatesZ,
-      buildName,
-      buildType,
-      extraInfo,
-      faction,
-      ign,
-      region,
-      shops,
+      applicant,
+      claimbuildName,
+      regionId,
+      type,
+      factionNameOwnedBy,
+      coordinate,
+      productionSites,
+      specialBuildings,
+      traders,
+      siege,
+      houses,
+      builtBy,
     };
-  }
-);
+  },
+  actions: {
+    hasWorkshop(): boolean {
+      return this.specialBuildings.some(
+        (building) => building.toLowerCase() === "workshop",
+      );
+    },
+  },
+});

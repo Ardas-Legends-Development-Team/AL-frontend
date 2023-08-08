@@ -29,12 +29,8 @@
     >
       <FactionDashboardSummaryWar :war="war" />
     </div>
-    <div class="my-4 flex flex-row justify-center">
-      <button
-        v-if="hasMorePastWars"
-        class="btn btn-accent btn-outline"
-        @click="showMore"
-      >
+    <div class="my-4 flex flex-row justify-center" v-if="hasMorePastWars">
+      <button v-if="hasMorePastWars" class="btn btn-accent btn-outline">
         Show More
       </button>
     </div>
@@ -46,22 +42,23 @@ import { onMounted, ref } from "vue";
 import { War } from "@/ts/types/War";
 import FactionDashboardSummaryWar from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWar.vue";
 
-const pastWarsPage = ref(0);
+//const pastWarsPage = ref(0);
 const pastWars = ref<War[]>([]);
 const hasMorePastWars = ref(true);
 
-function showMore() {
+/*function showMore() {
   for (const war of pastWarsMockData[pastWarsPage.value]) {
     pastWars.value.push(war);
   }
   pastWarsPage.value++;
-  if (pastWarsPage.value >= pastWarsMockData.length) {
+  if (pastWarsPage.value >= pastWarsMockData.value.length) {
     hasMorePastWars.value = false;
   }
-}
+}*/
 
 onMounted(() => {
-  showMore();
+  //showMore();
+  hasMorePastWars.value = false;
 });
 
 defineProps({
@@ -71,72 +68,7 @@ defineProps({
   },
 });
 
-const currentWarsMockData = ref([
-  {
-    allies: ["Gondor", "Gondor", "Mordor", "Angmar", "Angmar"],
-    enemies: ["Mordor", "Angmar", "Angmar", "Durin's Folk", "Gondor", "Gondor"],
-    faction: "Gondor",
-    mainEnemy: "Mordor",
-    outcome: "",
-  },
-  {
-    allies: ["Gondor", "Angmar", "Angmar"],
-    enemies: ["Mordor", "Angmar", "Angmar", "Durin's Folk", "Gondor", "Gondor"],
-    faction: "Gondor",
-    mainEnemy: "Mordor",
-    outcome: "",
-  },
-]);
+const currentWarsMockData = ref([]);
 
-const pastWarsMockData = [
-  [
-    {
-      allies: ["Gondor", "Gondor", "Mordor", "Angmar", "Angmar"],
-      enemies: [
-        "Mordor",
-        "Angmar",
-        "Angmar",
-        "Durin's Folk",
-        "Gondor",
-        "Gondor",
-      ],
-      faction: "Gondor",
-      mainEnemy: "Mordor",
-      outcome: "win",
-    },
-    {
-      allies: ["Gondor", "Angmar", "Angmar"],
-      enemies: [
-        "Mordor",
-        "Angmar",
-        "Angmar",
-        "Durin's Folk",
-        "Gondor",
-        "Gondor",
-      ],
-      faction: "Gondor",
-      mainEnemy: "Mordor",
-      outcome: "loss",
-    },
-  ],
-  [
-    {
-      allies: ["Gondor", "Angmar", "Angmar", "Dunland", "Rohan"],
-      enemies: [
-        "Mordor",
-        "Angmar",
-        "Angmar",
-        "Durin's Folk",
-        "Gondor",
-        "Gondor",
-        "Dunland",
-        "Rohan",
-        "Woodland Realm",
-      ],
-      faction: "Gondor",
-      mainEnemy: "Mordor",
-      outcome: "loss",
-    },
-  ],
-];
+//const pastWarsMockData = ref([]);
 </script>

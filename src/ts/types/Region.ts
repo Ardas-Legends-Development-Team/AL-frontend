@@ -1,9 +1,9 @@
 export type Region = {
-  rowId: number;
-  regionId: string;
-  terrainType: string;
-  factionsWithClaim: string;
-  neighbours: string;
-  claimbuildsInRegion: string;
-  charactersInRegion: string;
+  id: string;
+  name: string;
+  regionType: string;
+  claimedBy: string[];
+  neighbours: string[];
+  claimbuilds: string[];
+  characters: string[];
 };

@@ -43,7 +43,7 @@ const searchText = ref("");
 // Watch for changes to the search text and emit the search results
 watch(searchText, () => {
   const searchResults: Region[] = props.regions.filter((item) => {
-    if (item.regionId.toLowerCase().includes(searchText.value.toLowerCase())) {
+    if (item.id.toLowerCase().includes(searchText.value.toLowerCase())) {
       return item;
     }
   });

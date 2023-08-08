@@ -5,14 +5,14 @@
     </div>
     <div class="basis-1/3 flex flex-col">
       <div class="flex flex-row bg-base-200 rounded-lg">
-        <FactionDashboardSummaryInformation :faction="faction" />
+        <FactionDashboardSummaryInformation :faction-name="faction" />
       </div>
       <div class="flex flex-row">
         <div v-for="(card, index) in cardData" :key="index">
           <FactionDashboardActionCard
             :title="card.title"
-            :source="card.source"
-            :alt="card.alt"
+            :source-good="card.sourceGood"
+            :alt-good="card.altGood"
           />
         </div>
       </div>
@@ -36,13 +36,15 @@ defineProps({
 const cardData = ref([
   {
     title: "Declare War",
-    source: "https://i.imgur.com/1ZQ3Z9C.png",
-    alt: "faction banner",
+    sourceGood:
+      "https://cdn.discordapp.com/attachments/1080521696479547502/1080521864792780810/Crippler22_the_luxury_golden_life_auf_Sauron_2177b208-737c-4fd5-a534-670288a038d0.png",
+    altGood: "faction banner",
   },
   {
     title: "Start Alliance",
-    source: "https://i.imgur.com/1ZQ3Z9C.png",
-    alt: "faction banner",
+    sourceGood:
+      "https://cdn.discordapp.com/attachments/1080521696479547502/1080521864792780810/Crippler22_the_luxury_golden_life_auf_Sauron_2177b208-737c-4fd5-a534-670288a038d0.png",
+    altGood: "faction banner",
   },
 ]);
 </script>

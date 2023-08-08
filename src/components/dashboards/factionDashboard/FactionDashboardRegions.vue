@@ -15,7 +15,7 @@
           :key="index"
           @click="showRegionDetails(region)"
         >
-          {{ region.regionId }}
+          {{ region.id }}
         </button>
       </div>
     </div>
@@ -34,10 +34,10 @@
         </div>
         <div class="basis-1/3 flex flex-col">
           <h3 class="text-2xl font-bold text-accent my-3">
-            Region {{ selectedRegion.regionId }}
+            Region {{ selectedRegion.id }}
           </h3>
           <p class="text-lg font-semibold text-secondary">
-            Terrain Type: {{ selectedRegion.terrainType }}
+            Terrain Type: {{ selectedRegion.regionType }}
           </p>
         </div>
         <div
@@ -45,7 +45,7 @@
         >
           <p class="text-lg font-semibold text-accent">Neighbouring Regions:</p>
           <span>
-            {{ selectedRegion.neighbours.replaceAll(" ", ", ") }}
+            {{ selectedRegion.neighbours.join(", ") }}
           </span>
         </div>
       </div>
@@ -59,8 +59,8 @@
               <th class="sticky top-0">Stationed Armies</th>
               <th class="sticky top-0">
                 <SearchBar
-                  :input-list="testClaimbuilds"
-                  @search="filterClaimbuildTable"
+                  :input-list="allClaimbuilds"
+                  @search="updateFilteredClaimbuildsOnSearch"
                 />
               </th>
             </tr>
@@ -68,7 +68,7 @@
           <tbody>
             <tr
               class="hover"
-              v-for="claimbuild in testClaimbuilds"
+              v-for="claimbuild in filteredClaimbuilds"
               :key="claimbuild.name"
             >
               <td>
@@ -77,13 +77,15 @@
                 </div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.claimbuildType }}</div>
+                <div class="font-bold">{{ claimbuild.claimBuildType }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.ownerFaction }}</div>
+                <div class="font-bold">{{ claimbuild.faction }}</div>
               </td>
               <td>
-                <div class="font-bold">{{ claimbuild.stationedArmies }}</div>
+                <div class="font-bold">
+                  {{ claimbuild.armiesStationedCount }}
+                </div>
               </td>
               <th>
                 <label
@@ -99,18 +101,19 @@
       </div>
     </div>
   </div>
-  <ClaimbuildDetailsModal :selectedClaimbuild="selectedClaimbuild" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
-import SearchBar from "@/components/searchBar.vue";
+import SearchBar from "@/components/SearchBar.vue";
+import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
 
-defineProps({
+const props = defineProps({
   faction: {
     type: String,
     required: true,
@@ -120,19 +123,23 @@ defineProps({
 const regions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
 const selectedRegion = ref<Region>({
-  rowId: 2,
-  regionId: "string",
-  terrainType: "string",
-  factionsWithClaim: "string",
-  neighbours: "string",
-  claimbuildsInRegion: "string",
-  charactersInRegion: " string",
+  id: "",
+  name: "",
+  regionType: "",
+  claimedBy: [],
+  neighbours: [],
+  claimbuilds: [],
+  characters: [],
 });
-const selectedClaimbuild = ref<any>();
+const allClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
+const filteredClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedClaimbuild = ref<ClaimBuild>();
 const factionsWithClaimBanners = ref<string[]>([]);
 
 function showRegionDetails(region: Region) {
   selectedRegion.value = region;
+  showRegionClaimbuilds();
 }
 
 function sendInfoToModal(claimbuild: any) {
@@ -140,7 +147,7 @@ function sendInfoToModal(claimbuild: any) {
 }
 
 function populateDiplomacyBanners() {
-  const factions = ["Angmar", "Mordor", "Gondor"];
+  const factions = [props.faction];
   for (let i = 0; i < factions.length; i++) {
     factionsWithClaimBanners.value[i] = factionNameToBanner(factions[i]);
   }
@@ -153,71 +160,50 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
     return;
   }
   filteredRegions.value = regions.value.filter((region) =>
-    searchResults.includes(region)
+    searchResults.includes(region),
   );
 }
 
-function filterClaimbuildTable(searchResults: any) {
-  console.log(searchResults);
+function showRegionClaimbuilds() {
+  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter((cb) =>
+    selectedRegion.value.claimbuilds.includes(cb.name),
+  );
+  filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
+}
+
+function updateFilteredClaimbuildsOnSearch(searchResults: ClaimBuild[]) {
+  if (searchResults.length === 0) {
+    filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
+    return;
+  }
+  filteredClaimbuilds.value = selectedRegionClaimbuilds.value.filter((cb) =>
+    searchResults.includes(cb),
+  );
 }
 
 populateDiplomacyBanners();
 
-const testClaimbuilds = ref([
-  {
-    name: "test",
-    ownerFaction: "test",
-    claimbuildType: "test",
-    stationedArmies: 1,
-  },
-  {
-    name: "test2",
-    ownerFaction: "test2",
-    claimbuildType: "test2",
-    stationedArmies: 1,
-  },
-  {
-    name: "test5",
-    ownerFaction: "test",
-    claimbuildType: "test",
-    stationedArmies: 1,
-  },
-  {
-    name: "test6",
-    ownerFaction: "test2",
-    claimbuildType: "test2",
-    stationedArmies: 1,
-  },
-  {
-    name: "test3",
-    ownerFaction: "test3",
-    claimbuildType: "test3",
-    stationedArmies: 1,
-  },
-]);
+RegionApiClient.loadRegions().then((regionList: Region[]) => {
+  // Get only the regions owned by the faction
+  regionList = regionList.filter((region) =>
+    region.claimedBy.includes(props.faction),
+  );
+  regions.value = regionList;
+  filteredRegions.value = regionList;
+  selectedRegion.value = regionList[0];
 
-async function getMockData(): Promise<Region[]> {
-  const params = {
-    count: 50,
-    key: "6100d750",
-  };
-  return new Promise((resolve, reject) => {
-    axios
-      .get("https://api.mockaroo.com/api/ce561150", {
-        params,
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
+  const allCbNames = regions.value
+    .map((region) => region.claimbuilds)
+    .reduce((acc, param) => {
+      return acc.concat(param);
+    });
 
-getMockData().then((data: any) => {
-  regions.value = data;
-  filteredRegions.value = data;
-  selectedRegion.value = data[0];
+  ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames).then(
+    (fetchedCbs: ClaimBuild[]) => {
+      allClaimbuilds.value = fetchedCbs;
+
+      showRegionClaimbuilds();
+    },
+  );
 });
 </script>

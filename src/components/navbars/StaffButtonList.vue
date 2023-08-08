@@ -43,11 +43,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 
 const isStaff = ref(false);
 
-ApiClient.loadPlayerInfo().then((player) => {
+PlayerApiClient.loadPlayerInfo().then((player) => {
   isStaff.value = player.isStaff;
 });
 </script>

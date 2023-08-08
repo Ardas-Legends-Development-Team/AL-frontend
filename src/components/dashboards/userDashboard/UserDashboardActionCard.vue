@@ -1,6 +1,6 @@
 <template>
   <div class="w-28 h-fit rounded-lg bg-base-300">
-    <img class="p-3" :src="source" :alt="alt" />
+    <img class="p-3" :src="sourceGood" :alt="altGood" />
     <div class="px-2 pb-2 flex flex-row justify-end text-sm text-secondary">
       {{ text }}
     </div>
@@ -13,11 +13,11 @@ defineProps({
     type: String,
     required: true,
   },
-  source: {
+  sourceGood: {
     type: String,
     required: true,
   },
-  alt: {
+  altGood: {
     type: String,
     required: true,
   },

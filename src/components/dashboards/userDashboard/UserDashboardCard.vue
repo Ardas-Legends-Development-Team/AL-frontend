@@ -5,22 +5,41 @@
       <p>{{ description }}</p>
     </div>
     <figure>
-      <img :src="source" :alt="alt" />
+      <LazyLoadedImage
+        :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
+        :evil-alt="altEvil"
+        :good-alt="altGood"
+        :evil-src="sourceEvil"
+        :good-src="sourceGood"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
+      />
     </figure>
   </div>
 </template>
 
 <script setup lang="ts">
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+
 defineProps({
   title: {
     type: String,
     required: true,
   },
-  source: {
+  sourceGood: {
     type: String,
     required: true,
   },
-  alt: {
+  altGood: {
+    type: String,
+    required: true,
+  },
+  sourceEvil: {
+    type: String,
+    required: true,
+  },
+  altEvil: {
     type: String,
     required: true,
   },

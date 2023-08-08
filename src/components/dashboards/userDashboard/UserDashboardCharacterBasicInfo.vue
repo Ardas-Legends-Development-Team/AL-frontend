@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { ApiClient } from "@/ts/ApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 
 const factionBanner = ref<string>("");
@@ -33,14 +33,13 @@ const ign = ref<string>("");
 const title = ref<string>("");
 const avatar = ref<string>(``);
 
-ApiClient.loadPlayerInfo().then((data) => {
+PlayerApiClient.loadPlayerInfo().then((data) => {
   faction.value = data.faction;
   factionBanner.value = factionNameToBanner(data.faction);
   ign.value = data.ign;
   avatar.value = `https://mc-heads.net/avatar/${ign.value}/100`;
-  ApiClient.loadCharacterInfo().then((data) => {
+  PlayerApiClient.loadCharacterInfo().then((data) => {
     title.value = data.title;
-    // TODO: remove that when we have correct characters
     if (title.value === "") {
       title.value = "No Title";
     }

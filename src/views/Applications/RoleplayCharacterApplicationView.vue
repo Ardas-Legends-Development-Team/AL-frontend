@@ -27,10 +27,14 @@
     </div>
 
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-      <img
-        alt="roleplay image"
-        :src="stepsImages[currentStep].toString()"
-        class="absolute inset-0 h-full w-full object-cover"
+      <LazyLoadedImage
+        :key="stepsImages[currentStep].evilSrc"
+        :inside-classes="'absolute inset-0 h-full w-full object-cover'"
+        :evil-alt="stepsImages[currentStep].evilAlt"
+        :good-alt="stepsImages[currentStep].goodAlt"
+        :evil-src="stepsImages[currentStep].evilSrc"
+        :good-src="stepsImages[currentStep].goodSrc"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </div>
   </section>
@@ -44,6 +48,10 @@ import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharA
 import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
 import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
+import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 
 const router = useRouter();
 const steps = [
@@ -53,51 +61,79 @@ const steps = [
   RoleplayCharacterApplicationStep4,
 ];
 
-const stepsImages = ref<String[]>([
-  "https://media.discordapp.net/attachments/1068863871772790865/1070856198196314182/Jorundr_in_the_style_of_charlie_bowater_full_body_pose_24mn_blo_0f80d875-0ac4-48d5-bba7-7081157571d7.png?width=905&height=1357",
-  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856200062779483/hkjj_the_lord_of_the_rings_sauron_--v_4_b4e77a28-5d4d-4fec-9db3-97f661a0e12e.png",
-  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856213241282560/RBOYLE_male_dark_color_hard_rim_light_ray_tracing_side_profile__3ac5305c-2db5-477d-bb0e-c2d9b63357cb.png",
-  "https://cdn.discordapp.com/attachments/1068863871772790865/1070856214554099753/Novercalis_a_small_teenage_hobbit_halfling_character_singing_an_a2b4e92a-6498-4769-959f-e77de3ea7bf8.png",
+const stepsImages = ref<
+  { evilAlt: string; goodAlt: string; evilSrc: string; goodSrc: string }[]
+>([
+  {
+    evilAlt: "sauron wearing heavy black armor",
+    goodAlt: "gandalf holding a candle in the dark",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/Lord_Sauron_in_Armor_and_Balrog_d8f7c35e-93ae-4ebc-8fc2-bc57bab61cad.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png",
+  },
+  {
+    evilAlt: "black orc with red eyes in heavy iron armour with iron mask",
+    goodAlt: "gondor knight on a white horse",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/6b7aabd3-62d5-42db-b0c7-f52e0e2bc6bd.jpg",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/Stefano-da-Urbino-on-Midjourney_HD__photorealistic__handsome_st_3449577a-7085-4e93-9fb2-eccb3d96e2a5.png",
+  },
+  {
+    evilAlt: "haradrim noble soldier wearing red turban with blood on face",
+    goodAlt: "wood elf armoured archer inside forest",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/red-haradrim-warrior-lord-of-the-rings.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20110440.png",
+  },
+  {
+    evilAlt: "dunlending wolf champion with a shield and horned helmet",
+    goodAlt: "aragorn wearing rugged clothes and with a dirty face",
+    evilSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20110408.png",
+    goodSrc:
+      "https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20112729.png",
+  },
 ]);
 
 const formProgress = ref(25);
 const currentStep = ref(0);
 const formData = useRoleplayCharacterFormStore();
 
-function nextStep(formInput: any) {
-  currentStep.value++;
-  formProgress.value += 25;
-  console.log(formInput);
+async function nextStep(formInput: any) {
   switch (formInput.step) {
     case 1:
-      formData.ign = formInput.ign;
-      formData.charName = formInput.charName;
-      formData.preference = formInput.preference;
+      formData.characterName = formInput.characterName;
+      formData.pvpPreference = formInput.pvpPreference.toLowerCase() === "pvp";
       break;
     case 2:
-      formData.title = formInput.title;
-      formData.reason = formInput.reason;
-      formData.faction = formInput.faction;
+      formData.characterTitle = formInput.characterTitle;
+      formData.factionName = formInput.factionName;
+      formData.characterReason = formInput.characterReason;
       break;
     case 3:
       formData.gear = formInput.gear;
       break;
     case 4:
-      formData.summary = formInput.summary;
+      formData.linkToLore = formInput.linkToLore;
       // Verify if title is empty, to set it to faction
-      if (formData.title === "") {
-        formData.title = formData.faction;
+      if (formData.characterTitle === "") {
+        formData.characterTitle = formData.factionName;
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
-      console.log(formData);
-      router.push({
+      await ApplicationApiClient.createRoleplayApplication(formData);
+      await router.push({
         name: "RoleplayCharacterApplicationEnd",
       });
-      break;
+      return;
     default:
       // do something
       break;
   }
+  currentStep.value++;
+  formProgress.value += 25;
 }
 
 function previousStep() {
