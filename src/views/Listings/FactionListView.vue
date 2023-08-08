@@ -4,8 +4,8 @@
       <RouterLink :to="`/faction/${data.title}`">
         <FactionListCard
           :title="data.title"
-          :alt="data.alt"
           :source="data.source"
+          :alt="data.alt"
         />
       </RouterLink>
     </div>

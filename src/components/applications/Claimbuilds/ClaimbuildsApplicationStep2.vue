@@ -69,7 +69,7 @@ const formData = useClaimbuildsFormStore();
 const claimbuildTypes = ref<String[]>([]);
 const type = ref<string>(formData.type);
 const houses = ref<{ small: number; medium: number; large: number }>(
-  formData.houses
+  formData.houses,
 );
 const isFormFilled = computed(() => {
   return type.value !== "Claimbuild type";

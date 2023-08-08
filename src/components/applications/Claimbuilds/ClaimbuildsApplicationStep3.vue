@@ -122,7 +122,7 @@ const availableProductionSites = ref<ProductionSite[]>([]);
 const availableProductionSiteTypes = ref<string[]>([]);
 const availableSpecialBuildings = ref<string[]>([]);
 const productionSites = ref<ProductionSiteWithCount[]>(
-  formData.productionSites
+  formData.productionSites,
 );
 const selectedProductionSite = ref<ProductionSiteWithCount>({
   type: "Production Site",
@@ -155,7 +155,7 @@ function addProductionSite() {
   const existingProductionSite = productionSites.value.find(
     (site) =>
       site.type === selectedProductionSite.value.type &&
-      site.resource === selectedProductionSite.value.resource
+      site.resource === selectedProductionSite.value.resource,
   );
   if (existingProductionSite) {
     existingProductionSite.count += selectedProductionSite.value.count;
@@ -202,20 +202,18 @@ function previousStep() {
   emit("previousStep");
 }
 
-ClaimbuildApiClient.loadProductionSiteTypes().then(
-  (sites: ProductionSite[]) => {
-    //Filters the result, so it only contains every production site type once
-    availableProductionSites.value = sites;
-    const allTypesNotFiltered = sites.map((site) => site.type);
-    availableProductionSiteTypes.value = allTypesNotFiltered.filter(
-      (item, pos) => {
-        return allTypesNotFiltered.indexOf(item) === pos;
-      }
-    );
-  }
-);
-
-ClaimbuildApiClient.loadSpecialBuildingTypes().then((buildings: string[]) => {
+Promise.all([
+  ClaimbuildApiClient.loadProductionSiteTypes(),
+  ClaimbuildApiClient.loadSpecialBuildingTypes(),
+]).then(([sites, buildings]) => {
+  //Filters the result, so it only contains every production site type once
+  availableProductionSites.value = sites;
+  const allTypesNotFiltered = sites.map((site) => site.type);
+  availableProductionSiteTypes.value = allTypesNotFiltered.filter(
+    (item, pos) => {
+      return allTypesNotFiltered.indexOf(item) === pos;
+    },
+  );
   availableSpecialBuildings.value = buildings;
 });
 </script>

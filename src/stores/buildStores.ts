@@ -11,7 +11,7 @@ export const useSpecialBuildingStore = defineStore(
     return {
       specialBuildings,
     };
-  }
+  },
 );
 
 export const useProductionSiteTypeStore = defineStore(
@@ -22,7 +22,7 @@ export const useProductionSiteTypeStore = defineStore(
     return {
       productionSiteTypes,
     };
-  }
+  },
 );
 
 export const useClaimbuildTypeStore = defineStore("ClaimbuildTypeStore", () => {

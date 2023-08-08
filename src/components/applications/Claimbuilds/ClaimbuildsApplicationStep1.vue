@@ -93,7 +93,7 @@ const regionIds = ref<string[]>([]);
 const builtBy = ref<string>(formData.builtBy.join(", "));
 const regionId = ref<string>("Region ID");
 const coordinate = ref<{ x: number; y: number; z: number }>(
-  formData.coordinate
+  formData.coordinate,
 );
 const claimbuildName = ref<string>(formData.claimbuildName);
 const isFormFilled = computed(() => {

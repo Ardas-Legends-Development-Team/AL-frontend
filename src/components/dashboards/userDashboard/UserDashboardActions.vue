@@ -6,8 +6,8 @@
         v-for="(data, index) in shownCards"
         :key="index"
         :text="data.text"
-        :source="data.source"
-        :alt="data.alt"
+        :source-good="data.source"
+        :alt-good="data.alt"
       />
     </div>
   </div>
@@ -28,8 +28,6 @@ function populateShownCards(rank: string): void {
 }
 
 PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
-  // TODO: Remove this line when we get correctly ranks from the server
-  data.rank = "member";
   populateShownCards(data.rank);
 });
 </script>

@@ -52,8 +52,8 @@
 
 <script>
 import { defineComponent } from "vue";
-import DiscordIcon from "@/components/icons/DiscordIcon.vue";
-import InstagramIcon from "@/components/icons/InstagramIcon.vue";
+import DiscordIcon from "@/components/images/DiscordIcon.vue";
+import InstagramIcon from "@/components/images/InstagramIcon.vue";
 
 export default defineComponent({
   components: { InstagramIcon, DiscordIcon },

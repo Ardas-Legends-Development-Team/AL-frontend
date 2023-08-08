@@ -1,10 +1,10 @@
 <template>
-  <div class="card w-56 bg-base-100 shadow-xl">
-    <div class="items-center card-body">
-      <h2 class="card-title">{{ title }}</h2>
-      <p>{{ description }}</p>
-    </div>
-    <figure>
+  <router-link :to="router">
+    <div class="card w-96 bg-base-100 shadow-xl mx-10 my-10">
+      <div class="card-body h-36">
+        <h2 class="card-title">{{ title }}</h2>
+        <p>{{ description }}</p>
+      </div>
       <LazyLoadedImage
         :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
         :evil-alt="altEvil"
@@ -13,8 +13,8 @@
         :good-src="sourceGood"
         :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
-    </figure>
-  </div>
+    </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +44,10 @@ defineProps({
     required: true,
   },
   description: {
+    type: String,
+    required: true,
+  },
+  router: {
     type: String,
     required: true,
   },

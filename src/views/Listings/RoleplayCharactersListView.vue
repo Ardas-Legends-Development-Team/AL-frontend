@@ -1,16 +1,18 @@
 <template>
-  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
+  <table
+    class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+  >
     <!-- head -->
     <thead>
-      <tr>
-        <th class="sticky top-0">IGN & Faction</th>
-        <th class="sticky top-0">Name & Title</th>
-        <th class="sticky top-0">Current Region</th>
-        <th class="sticky top-0">
+      <tr class="bg-base-200">
+        <th class="text-accent">IGN & Faction</th>
+        <th class="text-accent">Name & Title</th>
+        <th class="text-accent">Current Region</th>
+        <th>
           <SearchBar
             :input-list="
               allRoleplayCharacters.map(
-                (roleplayCharacter) => roleplayCharacter.character
+                (roleplayCharacter) => roleplayCharacter.character,
               )
             "
             @search="updateFilteredCharactersOnSearch"
@@ -20,7 +22,7 @@
     </thead>
     <tbody>
       <tr
-        class="hover"
+        class="bg-base-100 hover:bg-base-300"
         v-for="roleplayCharacter in filteredCharacters"
         :key="roleplayCharacter.character.ign"
       >
@@ -52,12 +54,13 @@
           </p>
         </th>
         <th>
-          <label
-            for="rpCharDetailsModal"
+          <button
             class="btn"
+            onclick="rpCharDetailsModal.showModal()"
             @click="sendInfoToModal(roleplayCharacter.character)"
-            >Details</label
           >
+            Details
+          </button>
         </th>
       </tr>
     </tbody>
@@ -100,7 +103,7 @@ const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
         healEnds: "",
       },
     },
-  }
+  },
 );
 
 function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
@@ -113,7 +116,7 @@ function updateFilteredCharactersOnSearch(searchResults: RoleplayCharacter[]) {
     return;
   }
   filteredCharacters.value = allRoleplayCharacters.value.filter((rpchar) =>
-    searchResults.includes(rpchar.character)
+    searchResults.includes(rpchar.character),
   );
 }
 

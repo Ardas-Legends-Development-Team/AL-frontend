@@ -4,7 +4,7 @@
       <h2 class="card-title text-base">{{ title }}</h2>
     </div>
     <figure>
-      <img class="w-24 h-48 mb-2" :src="source" :alt="alt" />
+      <img class="w-24 h-48 mb-2" :src="sourceGood" :alt="altGood" />
     </figure>
   </div>
 </template>
@@ -15,11 +15,11 @@ defineProps({
     type: String,
     required: true,
   },
-  source: {
+  sourceGood: {
     type: String,
     required: true,
   },
-  alt: {
+  altGood: {
     type: String,
     required: true,
   },

@@ -8,7 +8,7 @@ export class PlayerApiClient extends ApiClient {
   public static registerPlayer(
     discordId: string,
     ign: string,
-    faction: string
+    faction: string,
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       axios
@@ -36,7 +36,7 @@ export class PlayerApiClient extends ApiClient {
   }
 
   public static async loadCharacterInfo(
-    discordId?: string
+    discordId?: string,
   ): Promise<CharacterInfo> {
     if (discordId !== undefined) {
       return new Promise((resolve) => {
@@ -54,7 +54,7 @@ export class PlayerApiClient extends ApiClient {
    * @param discordId
    */
   private static async loadPlayerCharacterInfoFromAPI(
-    discordId: string
+    discordId: string,
   ): Promise<boolean> {
     const playerStore = usePlayerStore();
     return new Promise((resolve) => {

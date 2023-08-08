@@ -3,21 +3,27 @@
     <UserDashboardCard
       :title="cardsData.boundTo.title"
       :description="cardsData.boundTo.description"
-      :source="cardsData.boundTo.source"
-      :alt="cardsData.boundTo.alt"
+      :alt-evil="cardsData.boundTo.altEvil"
+      :alt-good="cardsData.boundTo.altGood"
+      :source-evil="cardsData.boundTo.sourceEvil"
+      :source-good="cardsData.boundTo.sourceGood"
     />
     <UserDashboardCard
       class="-translate-y-48"
       :title="cardsData.currentRegion.title"
       :description="cardsData.currentRegion.description"
-      :source="cardsData.currentRegion.source"
-      :alt="cardsData.currentRegion.alt"
+      :alt-evil="cardsData.currentRegion.altEvil"
+      :alt-good="cardsData.currentRegion.altGood"
+      :source-evil="cardsData.currentRegion.sourceEvil"
+      :source-good="cardsData.currentRegion.sourceGood"
     />
     <UserDashboardCard
       :title="cardsData.injuredStatus.title"
       :description="cardsData.injuredStatus.description"
-      :source="cardsData.injuredStatus.source"
-      :alt="cardsData.injuredStatus.alt"
+      :alt-evil="cardsData.injuredStatus.altEvil"
+      :alt-good="cardsData.injuredStatus.altGood"
+      :source-evil="cardsData.injuredStatus.sourceEvil"
+      :source-good="cardsData.injuredStatus.sourceGood"
     />
   </div>
 </template>
@@ -31,23 +37,34 @@ const cardsData = ref({
   boundTo: {
     title: "Bound To",
     description: "Not bound to army or trading company",
-    source:
-      "https://cdn.discordapp.com/attachments/1080521696479547502/1080521861940645949/alastor666ds_an_army_of_mysterious_and_dark_warriors_ffb588a6-7d6f-4fb0-8e5a-490f08ecef00.png",
-    alt: "umbar numenoreans",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/balrogslayer_riders_of_Rohan_renaissance_painting_style_lord_of_233edd5c-9583-47ee-86cf-971eb5545442.png",
+    altGood: "dalish horsemen riding calmly in a tundra plain",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/alastor666ds_an_army_of_mysterious_and_dark_warriors_ffb588a6-7d6f-4fb0-8e5a-490f08ecef00.png",
+    altEvil:
+      "elite umbar numenoreans wearing black armor and hoods, covered by an iron mask",
   },
   currentRegion: {
     title: "Current Region",
     description: "0",
-    source:
-      "https://media.discordapp.net/attachments/1080521946397147166/1080522043533033502/cajur_Medieval_landscape_background_mountains_Lord_of_the_Rings_c4ae9763-78ce-406a-ac6b-11939e7a5e2d.png?width=671&height=671",
-    alt: "valley road",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/IbU2LQLma03q7Ncb37eM--4--qhbqo.webp",
+    altGood: "ranger standing on top of a hill, looking down a mountain pass",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/8NSCPrKwsb3xGWJxs22B--3--3zsy6_4x.jpg",
+    altEvil:
+      "goblin walking through a plain, with a mountain fort in the background",
   },
   injuredStatus: {
     title: "Health",
     description: "You are not injured",
-    source:
-      "https://cdn.discordapp.com/attachments/1080521696479547502/1080522228191469730/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-    alt: "health symbol",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+    altGood: "health symbol with golden snakes and wings",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/cloe_null_nazgul_lord_of_the_rings_epic_86cdb049-8e4b-4fd7-ac83-b3af181ba72b.png",
+    altEvil: "book of the dead, with a skeleton sigil on the cover",
   },
 });
 

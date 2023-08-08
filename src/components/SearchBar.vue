@@ -54,7 +54,7 @@ watch(searchText, () => {
 
 function getSearchResults(
   searchText: string,
-  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[]
+  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[],
 ) {
   if (searchText === "" || dataList.length === 0) {
     return dataList;
@@ -64,7 +64,7 @@ function getSearchResults(
   } else if (typeof dataList[0] === "object") {
     return searchCustomType(
       searchText,
-      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[]
+      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[],
     );
   }
 }
@@ -84,7 +84,7 @@ function searchString(searchText: string, dataList: string[]): string[] {
 
 function searchCustomType(
   searchText: string,
-  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[]
+  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[],
 ) {
   const searchResults = [];
   // Iterate through the list of objects

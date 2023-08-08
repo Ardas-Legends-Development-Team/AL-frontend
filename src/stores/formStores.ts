@@ -22,7 +22,7 @@ export const useRoleplayCharacterFormStore = defineStore(
       characterTitle,
       characterReason,
     };
-  }
+  },
 );
 export const useClaimbuildsFormStore = defineStore("ClaimbuildsFormStore", {
   state: () => {
@@ -61,7 +61,7 @@ export const useClaimbuildsFormStore = defineStore("ClaimbuildsFormStore", {
   actions: {
     hasWorkshop(): boolean {
       return this.specialBuildings.some(
-        (building) => building.toLowerCase() === "workshop"
+        (building) => building.toLowerCase() === "workshop",
       );
     },
   },

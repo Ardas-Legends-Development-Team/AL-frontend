@@ -1,13 +1,15 @@
 <template>
-  <table class="table table-zebra min-w-full divide-y divide-gray-200 relative">
+  <table
+    class="table table-pin-rows min-w-full divide-y divide-gray-200 relative"
+  >
     <!-- head -->
     <thead>
-      <tr>
-        <th class="sticky top-0">Region ID</th>
-        <th class="sticky top-0">Terrain type</th>
-        <th class="sticky top-0">Factions with claim</th>
-        <th class="sticky top-0">Neighbouring regions</th>
-        <th class="sticky top-0">
+      <tr class="bg-base-200">
+        <th class="text-accent">Region ID</th>
+        <th class="text-accent">Terrain type</th>
+        <th class="text-accent">Factions with claim</th>
+        <th class="text-accent">Neighbouring regions</th>
+        <th>
           <SearchBar
             :input-list="allRegions"
             @search="updateFilteredRegionsOnSearch"
@@ -17,7 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="hover" v-for="region in filteredRegions" :key="region.id">
+      <tr
+        class="bg-base-100 hover:bg-base-300"
+        v-for="region in filteredRegions"
+        :key="region.id"
+      >
         <td>
           <div>
             <div class="font-bold">{{ region.id }}</div>
@@ -35,32 +41,32 @@
           <div class="font-bold">{{ region.neighbours.join(", ") }}</div>
         </td>
         <th>
-          <label
-            for="regionClaimbuildsModal"
+          <button
             class="btn"
-            @click="sendInfoToModal(region)"
-            >{{ region.claimbuilds.length }} Claimbuilds</label
+            onclick="regionClaimbuildsModal.showModal()"
+            @click="sendInfoToClaimbuildModal(region)"
           >
+            {{ region.claimbuilds.length }} Claimbuilds
+          </button>
         </th>
         <th>
-          <label
-            for="charactersInRegionModal"
+          <button
             class="btn"
-            @click="sendInfoToModal(region)"
-            >{{ region.characters.length }} Characters</label
+            onclick="charactersInRegionModal.showModal()"
+            @click="sendInfoToCharacterModal(region)"
           >
+            {{ region.characters.length }} Characters
+          </button>
         </th>
       </tr>
     </tbody>
   </table>
-  <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
     :region-id="selectedRegion.id"
   />
-  <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal
     :characters="selectedRegionChars"
     :region-id="selectedRegion.id"
@@ -71,8 +77,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
-import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
-import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
@@ -80,6 +84,8 @@ import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
 import SearchBar from "@/components/SearchBar.vue";
+import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
+import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
 
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
@@ -97,26 +103,27 @@ const selectedRegion = ref<Region>({
   characters: [],
 });
 
-function sendInfoToModal(region: Region) {
+function sendInfoToCharacterModal(region: Region) {
   selectedRegion.value = region;
-  ClaimbuildApiClient.loadClaimbuildsByNames(
-    selectedRegion.value.claimbuilds
-  ).then((claimbuilds) => {
-    selectedRegionClaimbuilds.value = claimbuilds;
-
-    //Getting the banners for the claimbuilds inside the selected region
-    const allFactions = selectedRegionClaimbuilds.value.map((cb) => cb.faction);
-    selectedRegionClaimbuildBanners.value =
-      factionNamesToBannerMap(allFactions);
+  RpCharApiClient.loadRpCharsByNames(region.characters).then((rpchars) => {
+    selectedRegionChars.value = rpchars;
+    const allFactionsChars = selectedRegionChars.value.map((rp) => rp.faction);
+    selectedRegionCharacterBanners.value =
+      factionNamesToBannerMap(allFactionsChars);
   });
+}
 
-  RpCharApiClient.loadRpCharsByNames(selectedRegion.value.characters).then(
-    (rpchars) => {
-      selectedRegionChars.value = rpchars;
-      const allFactions = selectedRegionChars.value.map((rp) => rp.faction);
-      selectedRegionCharacterBanners.value =
+function sendInfoToClaimbuildModal(region: Region) {
+  selectedRegion.value = region;
+  ClaimbuildApiClient.loadClaimbuildsByNames(region.claimbuilds).then(
+    (claimbuilds) => {
+      selectedRegionClaimbuilds.value = claimbuilds;
+      const allFactions = selectedRegionClaimbuilds.value.map(
+        (cb) => cb.faction,
+      );
+      selectedRegionClaimbuildBanners.value =
         factionNamesToBannerMap(allFactions);
-    }
+    },
   );
 }
 
@@ -126,7 +133,7 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
     return;
   }
   filteredRegions.value = allRegions.value.filter((region) =>
-    searchResults.includes(region)
+    searchResults.includes(region),
   );
 }
 

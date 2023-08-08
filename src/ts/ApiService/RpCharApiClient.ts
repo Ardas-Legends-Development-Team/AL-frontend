@@ -39,12 +39,12 @@ export class RpCharApiClient extends ApiClient {
   }
 
   public static loadRpCharsByNames(
-    names: string[]
+    names: string[],
   ): Promise<RoleplayCharacter[]> {
     const rpCharStore = useRpCharStore();
     return new Promise((resolve) => {
       const loadedCharNames: string[] = rpCharStore.rpChars.map(
-        (rp) => rp.rpChar.name
+        (rp) => rp.rpChar.name,
       );
       const alreadyLoadedChars: RoleplayCharacter[] = [];
       const charsToFetch: string[] = [];
@@ -53,7 +53,7 @@ export class RpCharApiClient extends ApiClient {
         const index = loadedCharNames.indexOf(name);
         if (index !== -1) {
           alreadyLoadedChars.push(
-            rpCharStore.rpChars.at(index) as RoleplayCharacter
+            rpCharStore.rpChars.at(index) as RoleplayCharacter,
           );
         } else charsToFetch.push(name);
       });
