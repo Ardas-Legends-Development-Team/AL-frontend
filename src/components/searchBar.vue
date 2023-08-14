@@ -29,10 +29,18 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Region } from "@/ts/types/Region";
+import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 
 const props = defineProps({
   inputList: {
-    type: Array,
+    type: [
+      Array<string>,
+      Object as () => Array<ClaimBuild>,
+      Object as () => Array<Region>,
+      Object as () => Array<RoleplayCharacter>,
+    ],
     required: true,
   },
 });
@@ -44,11 +52,43 @@ watch(searchText, () => {
   emit("search", getSearchResults(searchText.value, props.inputList));
 });
 
-function getSearchResults(searchText: String, dataList: any[]) {
+function getSearchResults(
+  searchText: string,
+  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[],
+) {
+  if (searchText === "" || dataList.length === 0) {
+    return dataList;
+  }
+  if (typeof dataList[0] === "string") {
+    return searchString(searchText, dataList as string[]);
+  } else if (typeof dataList[0] === "object") {
+    return searchCustomType(
+      searchText,
+      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[],
+    );
+  }
+}
+
+function searchString(searchText: string, dataList: string[]): string[] {
+  const searchResults: string[] = [];
+  for (let i = 0; i < dataList.length; i++) {
+    if (
+      typeof dataList[i] === "string" &&
+      dataList[i].toLowerCase().includes(searchText.toLowerCase())
+    ) {
+      searchResults.push(dataList[i]);
+    }
+  }
+  return searchResults;
+}
+
+function searchCustomType(
+  searchText: string,
+  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[],
+) {
+  const searchResults = [];
   // Iterate through the list of objects
   // Then for each object iterate through it's fields
-  // If the field is a string and contains the search text, add the object to the search results
-  const searchResults: any[] = [];
   for (let i = 0; i < dataList.length; i++) {
     for (const value of Object.values(dataList[i])) {
       if (
@@ -57,6 +97,18 @@ function getSearchResults(searchText: String, dataList: any[]) {
       ) {
         searchResults.push(dataList[i]);
         break;
+      }
+      // If it's of type object then iterate through the object's fields
+      if (typeof value === "object") {
+        for (const innerValue of Object.values(value)) {
+          if (
+            typeof innerValue === "string" &&
+            innerValue.toLowerCase().includes(searchText.toLowerCase())
+          ) {
+            searchResults.push(dataList[i]);
+            break;
+          }
+        }
       }
     }
   }
