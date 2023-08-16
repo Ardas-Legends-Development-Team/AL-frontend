@@ -11,12 +11,33 @@
       <span class="footer-title">The server</span>
       <a class="link link-hover">About us</a>
       <a class="link link-hover">Contact</a>
+      <a
+        href="https://donatebot.io/checkout/668590304487800832"
+        target="_blank"
+        class="link link-hover"
+        >Donate</a
+      >
     </div>
     <div>
-      <span class="footer-title">Legal</span>
-      <a class="link link-hover">Terms of use</a>
-      <a class="link link-hover">Privacy policy</a>
-      <a class="link link-hover">Cookie policy</a>
+      <span class="footer-title">Useful Links</span>
+      <a
+        href="https://ardas-legends-development-team.github.io/ardas-legends-bot-guide/"
+        target="_blank"
+        class="link link-hover"
+        >Bot guide</a
+      >
+      <a
+        href="https://docs.google.com/document/d/1XqMzhv3kFzISpDWdPIEqG4nQRZzGpzCP/edit#heading=h.451kvydu733g"
+        target="_blank"
+        class="link link-hover"
+        >War guide</a
+      >
+      <a
+        href="https://docs.google.com/document/d/1X6clF1TZcom64_XC1mcd6ZwnAULrzV8h/edit?rtpof=true"
+        target="_blank"
+        class="link link-hover"
+        >Builder's bible</a
+      >
     </div>
     <div>
       <span class="footer-title">Social</span>
