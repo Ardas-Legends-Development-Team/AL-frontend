@@ -66,6 +66,10 @@ function nextStep() {
 }
 
 function previousStep() {
-  emit("previousStep");
+  emit("previousStep", {
+    step: 4,
+    traders: traders.value,
+    siege: siege.value,
+  });
 }
 </script>

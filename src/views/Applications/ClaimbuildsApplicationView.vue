@@ -147,7 +147,15 @@ function nextStep(formInput: any) {
   formProgress.value += 25;
 }
 
-function previousStep() {
+function previousStep(formInput: {
+  step: number;
+  traders: string;
+  siege: string;
+}) {
+  if (formInput.step === 4) {
+    formData.traders = formInput.traders;
+    formData.siege = formInput.siege;
+  }
   currentStep.value--;
   formProgress.value -= 25;
 }
