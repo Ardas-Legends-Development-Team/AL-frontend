@@ -1,8 +1,11 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { Faction } from "@/ts/types/Faction";
 
 export const usePlayerStore = defineStore("PlayerStore", () => {
   const discordId = ref("");
+
   const faction = ref("");
   const ign = ref("");
   const isStaff = ref(false);
@@ -27,7 +30,21 @@ export const useCharacterStore = defineStore("CharacterStore", () => {
   const rank = ref("Member");
   const startedHeal = ref("Some date");
   const title = ref("No title");
+  const isFactionLeader = ref(false);
 
+  function isLeader() {
+    const playerFaction = ref<Faction>();
+    FactionApiClient.loadFactions().then((factions: Faction[]) => {
+      // Get the faction corresponding to the factionName prop
+      playerFaction.value = factions.find(
+        (faction) => faction.nameOfFaction === usePlayerStore().faction,
+      )!;
+    });
+    isFactionLeader.value =
+      usePlayerStore().ign === playerFaction.value?.leaderIgn;
+  }
+
+  isLeader();
   return {
     boundTo,
     currentRegion,
@@ -40,5 +57,6 @@ export const useCharacterStore = defineStore("CharacterStore", () => {
     rank,
     startedHeal,
     title,
+    isFactionLeader,
   };
 });
