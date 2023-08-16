@@ -1,6 +1,12 @@
 <template>
+  <!--Armies list-->
   <div class="text-center text-neutral-content text-2xl font-bold my-4">
     Armies
+  </div>
+  <div
+    class="flex justify-end text-center text-neutral-content text-2xl font-bold my-4 mx-4"
+  >
+    <SearchBar :input-list="allArmies" @search="updateFilteredArmyOnSearch" />
   </div>
   <div
     class="mx-4 flex flex-row justify-end text-sm text-secondary overflow-auto max-h-64 scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100"
@@ -19,7 +25,7 @@
       <tbody>
         <tr
           class="bg-base-100 hover:bg-base-300"
-          v-for="army in allArmies"
+          v-for="army in filtredArmies"
           :key="army.id"
         >
           <td>
@@ -47,8 +53,16 @@
       </tbody>
     </table>
   </div>
+
+  <!--characters list-->
+
   <div class="text-center text-neutral-content text-2xl font-bold my-4">
-    Charaters
+    Characters
+  </div>
+  <div
+    class="flex justify-end text-center text-neutral-content text-2xl font-bold my-4 mx-4"
+  >
+    <SearchBar :input-list="allArmies" @search="updateFilteredArmyOnSearch" />
   </div>
   <div
     class="mx-4 mb-2 flex flex-row justify-end text-sm text-secondary overflow-auto max-h-64 scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100"
@@ -109,11 +123,22 @@ import { ref } from "vue";
 import { Army } from "@/ts/types/Army";
 
 import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
+import SearchBar from "@/components/SearchBar.vue";
 
 const allArmies = ref<Army[]>([]);
-
+const filtredArmies = ref<Army[]>([]);
+function updateFilteredArmyOnSearch(searchResults: Army[]) {
+  if (searchResults.length === 0) {
+    filtredArmies.value = allArmies.value;
+    return;
+  }
+  filtredArmies.value = allArmies.value.filter((army) =>
+    searchResults.includes(army),
+  );
+}
 ArmyApiClient.loadArmies().then((data: Army[]) => {
   allArmies.value = [...data];
+  filtredArmies.value = [...data];
 });
 
 defineProps({

@@ -32,6 +32,7 @@ import { ref, watch } from "vue";
 import { ClaimBuild } from "@/ts/types/ClaimBuild";
 import { Region } from "@/ts/types/Region";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
+import { Army } from "@/ts/types/Army";
 
 const props = defineProps({
   inputList: {
@@ -40,6 +41,7 @@ const props = defineProps({
       Object as () => Array<ClaimBuild>,
       Object as () => Array<Region>,
       Object as () => Array<RoleplayCharacter>,
+      Object as () => Array<Army>,
     ],
     required: true,
   },
@@ -54,7 +56,7 @@ watch(searchText, () => {
 
 function getSearchResults(
   searchText: string,
-  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[],
+  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[] | Army[],
 ) {
   if (searchText === "" || dataList.length === 0) {
     return dataList;
@@ -64,7 +66,7 @@ function getSearchResults(
   } else if (typeof dataList[0] === "object") {
     return searchCustomType(
       searchText,
-      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[],
+      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[] | Army[],
     );
   }
 }
@@ -84,7 +86,7 @@ function searchString(searchText: string, dataList: string[]): string[] {
 
 function searchCustomType(
   searchText: string,
-  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[],
+  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[] | Army[],
 ) {
   const searchResults = [];
   // Iterate through the list of objects
