@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!isEvil"
-    class="blurred-img"
+    class="blurred-img h-full"
     :class="loaded ? 'loaded' : ''"
     :style="'background-image:url(' + props.goodSrc + '?profile=Lowres-Image)'"
   >
@@ -15,7 +15,7 @@
   </div>
   <div
     v-else
-    class="blurred-img"
+    class="blurred-img h-full"
     :class="loaded ? 'loaded' : ''"
     :style="'background-image:url(' + props.evilSrc + '?profile=Lowres-Image)'"
   >
@@ -67,8 +67,6 @@ const loaded = ref(false);
 .blurred-img {
   background-repeat: no-repeat;
   background-size: cover;
-  width: 384px;
-  height: 380px;
 }
 
 .blurred-img::before {
