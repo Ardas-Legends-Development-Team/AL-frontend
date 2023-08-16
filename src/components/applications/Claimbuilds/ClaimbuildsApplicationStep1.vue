@@ -15,7 +15,7 @@
 
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="regionId">
-      <option disabled selected>Region ID</option>
+      <option disabled>Region ID</option>
       <option v-for="(id, index) in regionIds" :key="index">
         {{ id }}
       </option>
@@ -91,7 +91,7 @@ const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useClaimbuildsFormStore();
 const regionIds = ref<string[]>([]);
 const builtBy = ref<string>(formData.builtBy.join(", "));
-const regionId = ref<string>("Region ID");
+const regionId = ref<string>(formData.regionId);
 const coordinate = ref<{ x: number; y: number; z: number }>(
   formData.coordinate,
 );
