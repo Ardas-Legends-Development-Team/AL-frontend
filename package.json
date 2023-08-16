@@ -1,7 +1,7 @@
 {
   "name": "ardas-legends-website",
   "private": true,
-  "version": "Alpha 0.2.0",
+  "version": "Alpha 0.2.1",
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
@@ -12,10 +12,11 @@
     "test:e2e": "cypress open",
     "test:unit": "vitest",
     "typecheck": "vue-tsc --noEmit",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "docker:build": "docker build -t vernonroche/al-website-docker .",
+    "docker:run": "docker run -p 8081:3333 vernonroche/al-website-docker"
   },
   "dependencies": {
-    "@types/tailwindcss": "^3.1.0",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",
     "pinia": "^2.1.6",
