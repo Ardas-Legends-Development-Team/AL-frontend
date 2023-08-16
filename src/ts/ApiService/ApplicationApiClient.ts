@@ -18,7 +18,8 @@ export class ApplicationApiClient extends ApiClient {
             characterTitle: applicationData.characterTitle,
             characterReason: applicationData.characterReason,
             gear: applicationData.gear,
-            pvpPreference: applicationData.pvpPreference,
+            pvpPreference:
+              applicationData.pvpPreference.toLowerCase() === "pvp",
             linkToLore: applicationData.linkToLore,
           },
           {

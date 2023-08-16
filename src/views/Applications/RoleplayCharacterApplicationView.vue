@@ -106,7 +106,7 @@ async function nextStep(formInput: any) {
   switch (formInput.step) {
     case 1:
       formData.characterName = formInput.characterName;
-      formData.pvpPreference = formInput.pvpPreference.toLowerCase() === "pvp";
+      formData.pvpPreference = formInput.pvpPreference;
       break;
     case 2:
       formData.characterTitle = formInput.characterTitle;
