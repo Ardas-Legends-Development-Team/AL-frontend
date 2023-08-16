@@ -152,7 +152,7 @@ function previousStep(formInput: {
   traders: string;
   siege: string;
 }) {
-  if (formInput.step === 4) {
+  if (formInput && formInput.step === 4) {
     formData.traders = formInput.traders;
     formData.siege = formInput.siege;
   }
