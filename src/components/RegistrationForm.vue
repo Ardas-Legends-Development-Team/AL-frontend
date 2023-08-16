@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg">
-      <h1 class="text-center text-2xl font-bold text-primary sm:text-3xl">
+  <div class="background mx-auto max-w-screen-xl min-h-screen py-16">
+    <div class="mx-auto max-w-lg bg-base-200 rounded">
+      <h1 class="text-center text-2xl font-bold text-primary sm:text-3xl py-4">
         Register yourself
       </h1>
 
@@ -82,3 +82,10 @@ function register() {
     });
 }
 </script>
+
+<style scoped>
+.background {
+  background-image: url("https://ateettea.sirv.com/Background%20and%20layout/Screenshot%202023-03-06%20111013.png");
+  background-size: cover;
+}
+</style>
