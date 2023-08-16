@@ -136,7 +136,11 @@ async function nextStep(formInput: any) {
   formProgress.value += 25;
 }
 
-function previousStep() {
+function previousStep(formInput: { step: number; linkToLore: string }) {
+  // If we are on the last step, we need to set the linkToLore to persist it through the app
+  if (formInput.step === 4) {
+    formData.linkToLore = formInput.linkToLore;
+  }
   currentStep.value--;
   formProgress.value -= 33;
 }
