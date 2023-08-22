@@ -47,7 +47,6 @@ import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/C
 import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 import { usePlayerStore } from "@/stores/playerStores";
 import { isFactionEvil } from "@/ts/utilities";
@@ -129,15 +128,11 @@ function nextStep(formInput: any) {
     case 4:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
-      ApplicationApiClient.createClaimbuildApplication(formData)
-        .then(() => {
-          router.push({
-            name: "ClaimBuildsApplicationEnd",
-          });
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
+      ApplicationApiClient.createClaimbuildApplication(formData).then(() => {
+        router.push({
+          name: "ClaimBuildsApplicationEnd",
         });
+      });
       return;
     default:
       // do something

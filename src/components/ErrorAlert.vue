@@ -24,6 +24,10 @@ import { ref } from "vue";
 import { useErrorStore } from "@/stores/systemStores";
 
 const errorMessage = ref(useErrorStore().errorMessage);
+
+useErrorStore().$subscribe(() => {
+  errorMessage.value = useErrorStore().errorMessage;
+});
 </script>
 
 <style scoped></style>

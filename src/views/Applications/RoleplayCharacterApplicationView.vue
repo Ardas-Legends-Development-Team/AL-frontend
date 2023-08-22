@@ -123,9 +123,10 @@ async function nextStep(formInput: any) {
         formData.characterTitle = formData.factionName;
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
-      await ApplicationApiClient.createRoleplayApplication(formData);
-      await router.push({
-        name: "RoleplayCharacterApplicationEnd",
+      ApplicationApiClient.createRoleplayApplication(formData).then(() => {
+        router.push({
+          name: "RoleplayCharacterApplicationEnd",
+        });
       });
       return;
     default:
