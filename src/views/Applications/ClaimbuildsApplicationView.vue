@@ -96,11 +96,11 @@ const stepsImages = ref<
   },
   {
     evilAlt: "black numenorean ominous lighthouse",
-    goodAlt: "rivendell town in forest surrounded by hills",
+    goodAlt: "dunedain castle on top of a steep hill",
     evilSrc:
       "https://ateettea.sirv.com/Applications/Claimbuild/VdLcS3CwH67CHyldcEyj--4--ohqly_4x.jpg",
     goodSrc:
-      "https://ateettea.sirv.com/Applications/Claimbuild/mrenno2006_Lord_of_the_Rings_medieval_city_made_out_of_huge_nat_d8d3a2b0-c44b-4cd6-8f5d-d31617136800.png",
+      "https://ateettea.sirv.com/Applications/Claimbuild/cdfd83ee-4dfa-4499-be2b-7cefce156353.jpg",
   },
 ]);
 const formProgress = ref(15);
