@@ -29,8 +29,8 @@ export class ApplicationApiClient extends ApiClient {
         .then(() => {
           resolve("Application created");
         })
-        .catch(() => {
-          ErrorHandler.throwError("You did not correctly fill the form.");
+        .catch((error) => {
+          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }
@@ -38,7 +38,7 @@ export class ApplicationApiClient extends ApiClient {
   public static async createClaimbuildApplication(
     applicationData: any,
   ): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const convertedHouses = `${applicationData.houses.small}x small, ${applicationData.houses.medium}x large, ${applicationData.houses.large}x mansion`;
 
       axios
@@ -66,7 +66,7 @@ export class ApplicationApiClient extends ApiClient {
           resolve("Application created");
         })
         .catch((error) => {
-          reject(error);
+          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }

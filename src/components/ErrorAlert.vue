@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-center bottom-1 absolute sticky">
+  <div class="flex flex-row justify-center bottom-1 sticky">
     <div class="alert alert-error w-1/2 h-16">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +24,10 @@ import { ref } from "vue";
 import { useErrorStore } from "@/stores/systemStores";
 
 const errorMessage = ref(useErrorStore().errorMessage);
+
+useErrorStore().$subscribe(() => {
+  errorMessage.value = useErrorStore().errorMessage;
+});
 </script>
 
 <style scoped></style>

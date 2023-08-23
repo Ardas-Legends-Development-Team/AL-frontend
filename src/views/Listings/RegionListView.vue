@@ -41,32 +41,32 @@
           <div class="font-bold">{{ region.neighbours.join(", ") }}</div>
         </td>
         <th>
-          <button
+          <label
+            for="regionClaimbuildsModal"
             class="btn"
-            onclick="regionClaimbuildsModal.showModal()"
             @click="sendInfoToClaimbuildModal(region)"
+            >{{ region.claimbuilds.length }} Claimbuilds</label
           >
-            {{ region.claimbuilds.length }} Claimbuilds
-          </button>
         </th>
         <th>
-          <button
+          <label
+            for="charactersInRegionModal"
             class="btn"
-            onclick="charactersInRegionModal.showModal()"
             @click="sendInfoToCharacterModal(region)"
+            >{{ region.characters.length }} Characters</label
           >
-            {{ region.characters.length }} Characters
-          </button>
         </th>
       </tr>
     </tbody>
   </table>
+  <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
     :region-id="selectedRegion.id"
   />
+  <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal
     :characters="selectedRegionChars"
     :region-id="selectedRegion.id"
