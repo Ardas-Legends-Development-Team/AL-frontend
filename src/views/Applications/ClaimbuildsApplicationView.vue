@@ -1,7 +1,7 @@
 <template>
-  <section class="relative flex flex-wrap lg:h-screen lg:items-center">
-    <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
-      <div class="mx-auto max-w-lg text-center">
+  <section class="grid grid-cols-2 gap-4 h-screen justify-items-center">
+    <div class="w-full px-4 py-12">
+      <div class="max-w-lg text-center">
         <h1 class="text-2xl font-bold sm:text-3xl">Claimbuild Application</h1>
 
         <p class="mt-4 text-gray-500">
@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-8 mb-0 max-w-3xl space-y-4">
+      <div class="mt-8 mb-0 max-w-3xl space-y-4">
         <component
           :is="steps[currentStep]"
           @nextStep="nextStep"
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
+    <div class="relative w-full h-full">
       <LazyLoadedImage
         :key="stepsImages[currentStep].evilSrc"
         :inside-classes="'absolute inset-0 h-full w-full object-cover'"
