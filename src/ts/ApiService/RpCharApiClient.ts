@@ -7,8 +7,8 @@ export class RpCharApiClient extends ApiClient {
   public static loadAllRpChars(): Promise<RoleplayCharacter[]> {
     const rpCharStore = useRpCharStore();
     return new Promise((resolve) => {
-      if (rpCharStore.rpChars.length > 0) {
-        resolve(rpCharStore.rpChars);
+      if (rpCharStore.allRpChars.length > 0) {
+        resolve(rpCharStore.allRpChars);
         return;
       }
 
@@ -31,9 +31,9 @@ export class RpCharApiClient extends ApiClient {
               title: rpChar.title,
             },
           };
-          rpCharStore.rpChars.push(mappedChar);
+          rpCharStore.allRpChars.push(mappedChar);
         });
-        resolve(rpCharStore.rpChars);
+        resolve(rpCharStore.allRpChars);
       });
     });
   }
@@ -43,23 +43,38 @@ export class RpCharApiClient extends ApiClient {
   ): Promise<RoleplayCharacter[]> {
     const rpCharStore = useRpCharStore();
     return new Promise((resolve) => {
-      const loadedCharNames: string[] = rpCharStore.rpChars.map(
-        (rp) => rp.rpChar.name,
-      );
+      // Prepare arrays to hold characters that are already loaded and those to be fetched
       const alreadyLoadedChars: RoleplayCharacter[] = [];
-      const charsToFetch: string[] = [];
+      const charactersToFetch: string[] = [];
 
+      // Check which characters are already loaded and which need to be fetched
       names.forEach((name) => {
-        const index = loadedCharNames.indexOf(name);
-        if (index !== -1) {
-          alreadyLoadedChars.push(
-            rpCharStore.rpChars.at(index) as RoleplayCharacter,
+        // Iterate through the objects in the store and check if the name matches
+        // If it does, add it to the already loaded characters
+        // If we already loaded all characters, we don't need to fetch them again
+        let foundCharacter: RoleplayCharacter | undefined;
+        if (rpCharStore.allRpChars.length > 0) {
+          foundCharacter = rpCharStore.allRpChars.find(
+            (character) => character.rpChar.name === name,
           );
-        } else charsToFetch.push(name);
+        } else {
+          foundCharacter = rpCharStore.loadedSpecificRpChars.find(
+            (character) => character.rpChar.name === name,
+          );
+        }
+        if (foundCharacter) {
+          alreadyLoadedChars.push(foundCharacter);
+        } else {
+          // If not already loaded, add to charactersToFetch array
+          charactersToFetch.push(name);
+        }
       });
 
-      if (charsToFetch.length > 0) {
-        const nameParams = charsToFetch.join(`&name=`);
+      // If charactersToFetch array is not empty, we fetch those characters
+      if (charactersToFetch.length > 0) {
+        const nameParams = charactersToFetch.join(`&name=`);
+
+        // Send a GET request to fetch characters by name
         axios
           .get(this.getBaseUrl() + `/rpchars/name?name=${nameParams}`)
           .then((response) => {
@@ -81,7 +96,7 @@ export class RpCharApiClient extends ApiClient {
                   title: rpChar.title,
                 },
               };
-              rpCharStore.rpChars.push(mappedChar);
+              rpCharStore.loadedSpecificRpChars.push(mappedChar);
               alreadyLoadedChars.push(mappedChar);
             });
 
@@ -89,6 +104,7 @@ export class RpCharApiClient extends ApiClient {
             return;
           });
       } else {
+        // If no characters need to be fetched, resolve the promise with already loaded characters
         resolve(alreadyLoadedChars);
         return;
       }
