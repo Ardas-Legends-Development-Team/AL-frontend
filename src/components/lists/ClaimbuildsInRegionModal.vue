@@ -1,9 +1,11 @@
 <template>
-  <dialog id="regionClaimbuildsModal" class="modal">
-    <form method="dialog" class="modal-box">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-        ✕
-      </button>
+  <div class="modal">
+    <div class="modal-box">
+      <label
+        for="regionClaimbuildsModal"
+        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        >✕</label
+      >
       <h3 class="font-bold text-lg">Claimbuilds in region {{ regionId }}</h3>
       <div class="flex flex-col items-stretch space-y-3 w-full mt-4">
         <div
@@ -36,19 +38,16 @@
           </div>
         </div>
       </div>
-    </form>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
-  </dialog>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 
 defineProps({
   claimbuilds: {
-    type: Array<ClaimBuild>,
+    type: Array<Claimbuild>,
     required: true,
   },
   bannerMap: {

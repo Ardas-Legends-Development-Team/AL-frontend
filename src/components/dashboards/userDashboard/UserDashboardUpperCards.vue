@@ -49,8 +49,8 @@ const cardsData = ref({
     title: "Current Region",
     description: "0",
     sourceGood:
-      "https://ateettea.sirv.com/Dashboards/IbU2LQLma03q7Ncb37eM--4--qhbqo.webp",
-    altGood: "ranger standing on top of a hill, looking down a mountain pass",
+      "https://ateettea.sirv.com/Dashboards/vitoriasoares_m_Lord_of_the_Rings_movie_directed_by_HR_Geiger_s_489979d9-ecf7-42d3-b116-5dc2f617bb5f.png",
+    altGood: "grey wizard in a marsh with a big stone tower in the distance",
     sourceEvil:
       "https://ateettea.sirv.com/Dashboards/8NSCPrKwsb3xGWJxs22B--3--3zsy6_4x.jpg",
     altEvil:

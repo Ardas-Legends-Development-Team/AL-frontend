@@ -3,9 +3,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useRpCharStore = defineStore("RpCharStore", () => {
-  const rpChars = ref<RoleplayCharacter[]>([]);
+  const allRpChars = ref<RoleplayCharacter[]>([]);
+  const loadedSpecificRpChars = ref<RoleplayCharacter[]>([]);
 
   return {
-    rpChars,
+    allRpChars: allRpChars,
+    loadedSpecificRpChars: loadedSpecificRpChars,
   };
 });

@@ -41,32 +41,32 @@
           <div class="font-bold">{{ region.neighbours.join(", ") }}</div>
         </td>
         <th>
-          <button
+          <label
+            for="regionClaimbuildsModal"
             class="btn"
-            onclick="regionClaimbuildsModal.showModal()"
             @click="sendInfoToClaimbuildModal(region)"
+            >{{ region.claimbuilds.length }} Claimbuilds</label
           >
-            {{ region.claimbuilds.length }} Claimbuilds
-          </button>
         </th>
         <th>
-          <button
+          <label
+            for="charactersInRegionModal"
             class="btn"
-            onclick="charactersInRegionModal.showModal()"
             @click="sendInfoToCharacterModal(region)"
+            >{{ region.characters.length }} Characters</label
           >
-            {{ region.characters.length }} Characters
-          </button>
         </th>
       </tr>
     </tbody>
   </table>
+  <input type="checkbox" id="regionClaimbuildsModal" class="modal-toggle" />
   <ClaimbuildsInRegionModal
     title="Claimbuilds in region"
     :claimbuilds="selectedRegionClaimbuilds"
     :banner-map="selectedRegionClaimbuildBanners"
     :region-id="selectedRegion.id"
   />
+  <input type="checkbox" id="charactersInRegionModal" class="modal-toggle" />
   <CharactersInRegionModal
     :characters="selectedRegionChars"
     :region-id="selectedRegion.id"
@@ -78,7 +78,7 @@
 import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
@@ -89,7 +89,7 @@ import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.
 
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
-const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuilds = ref<Claimbuild[]>([]);
 const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
 const selectedRegionChars = ref<RoleplayCharacter[]>([]);
 const selectedRegionCharacterBanners = ref<Map<string, string>>(new Map());

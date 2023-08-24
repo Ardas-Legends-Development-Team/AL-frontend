@@ -54,13 +54,12 @@
           </p>
         </th>
         <th>
-          <button
+          <label
+            for="rpCharDetailsModal"
             class="btn"
-            onclick="rpCharDetailsModal.showModal()"
             @click="sendInfoToModal(roleplayCharacter.character)"
+            >Details</label
           >
-            Details
-          </button>
         </th>
       </tr>
     </tbody>
