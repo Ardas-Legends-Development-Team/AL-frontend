@@ -78,7 +78,7 @@
 import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
@@ -89,7 +89,7 @@ import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.
 
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);
-const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
+const selectedRegionClaimbuilds = ref<Claimbuild[]>([]);
 const selectedRegionClaimbuildBanners = ref<Map<string, string>>(new Map());
 const selectedRegionChars = ref<RoleplayCharacter[]>([]);
 const selectedRegionCharacterBanners = ref<Map<string, string>>(new Map());

@@ -43,11 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 
 defineProps({
   claimbuilds: {
-    type: Array<ClaimBuild>,
+    type: Array<Claimbuild>,
     required: true,
   },
   bannerMap: {

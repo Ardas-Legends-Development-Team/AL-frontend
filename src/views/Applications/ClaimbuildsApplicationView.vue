@@ -130,7 +130,7 @@ function nextStep(formInput: any) {
       formData.siege = formInput.siege;
       ApplicationApiClient.createClaimbuildApplication(formData).then(() => {
         router.push({
-          name: "ClaimBuildsApplicationEnd",
+          name: "ClaimbuildApplicationEnd",
         });
       });
       return;
