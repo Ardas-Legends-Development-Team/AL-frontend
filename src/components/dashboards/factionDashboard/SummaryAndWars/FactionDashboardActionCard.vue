@@ -5,7 +5,7 @@
     </div>
     <figure>
       <LazyLoadedImage
-        :inside-classes="'w-24 h-24 mb-2'"
+        :inside-classes="'h-1/2'"
         :evil-alt="altEvil"
         :good-alt="altGood"
         :evil-src="sourceEvil"
