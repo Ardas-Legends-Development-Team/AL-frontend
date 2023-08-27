@@ -17,7 +17,7 @@
   </div>
   <DeclareWarModal
     :target-faction-name="props.factionName"
-    @confirm="(e: string) => executeAction(e)"
+    @confirm="(e) => executeAction(e.name, e.value)"
   />
 </template>
 <script setup lang="ts">
@@ -46,7 +46,7 @@ const cardData = ref([
   },
 ]);
 
-function executeAction(cardTitle: string) {
+function executeAction(cardTitle: string, actionValue: any) {
   switch (cardTitle) {
     case "Declare War":
       console.log("Declare War");
