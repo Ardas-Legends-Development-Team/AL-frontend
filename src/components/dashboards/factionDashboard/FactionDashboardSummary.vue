@@ -7,7 +7,7 @@
       <div class="flex flex-row bg-base-200 rounded-lg">
         <FactionDashboardSummaryInformation :faction-name="faction" />
       </div>
-      <FactionDashboardSummaryActions />
+      <FactionDashboardSummaryActions :faction-name="faction" />
     </div>
   </div>
 </template>
