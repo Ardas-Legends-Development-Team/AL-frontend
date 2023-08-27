@@ -1,0 +1,68 @@
+<template>
+  <div
+    v-if="
+      useCharacterStore().isFactionLeader &&
+      usePlayerStore().faction !== props.factionName
+    "
+    class="flex flex-row justify-center"
+  >
+    <div v-for="(card, index) in cardData" :key="index">
+      <label :for="card.associatedModalRef">
+        <FactionDashboardActionCard
+          :title="card.title"
+          :source-good="card.sourceGood"
+          :alt-good="card.altGood"
+          :source-evil="card.sourceEvil"
+          :alt-evil="card.altEvil"
+        />
+      </label>
+    </div>
+  </div>
+  <DeclareWarModal
+    :target-faction-name="props.factionName"
+    @confirm="(e) => executeAction(e.name, e.value)"
+  />
+</template>
+<script setup lang="ts">
+import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
+import FactionDashboardActionCard from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue";
+import { ref } from "vue";
+import DeclareWarModal from "@/components/dashboards/factionDashboard/SummaryAndWars/DeclareWarModal.vue";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+
+const props = defineProps({
+  factionName: {
+    type: String,
+    required: true,
+  },
+});
+
+const cardData = ref([
+  {
+    title: "Declare War",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/svarthol_melkor_and_sauron_playing_chess_in_the_left_side_of_a__eaf08da4-5f78-4023-a04a-80b18ce8e3d0.png",
+    altGood: "Elf playing chess against a nazgul",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/svarthol_melkor_and_sauron_playing_chess_in_the_left_side_of_a__18f119ee-fb49-48b1-88e1-1233104b87c5.png",
+    altEvil: "Nazgul playing chess against a gondor captain",
+    associatedModalRef: "declareWarModal",
+  },
+]);
+
+function executeAction(cardTitle: string, actionValue: any) {
+  switch (cardTitle) {
+    case "Declare War":
+      FactionApiClient.declareWarToFaction(
+        props.factionName,
+        actionValue as string,
+      );
+      break;
+    default:
+      console.log("No action found");
+      break;
+  }
+}
+</script>
+
+<style scoped></style>

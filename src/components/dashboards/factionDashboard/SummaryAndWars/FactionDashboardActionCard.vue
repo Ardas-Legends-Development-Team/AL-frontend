@@ -4,12 +4,23 @@
       <h2 class="card-title text-base">{{ title }}</h2>
     </div>
     <figure>
-      <img class="w-24 h-48 mb-2" :src="sourceGood" :alt="altGood" />
+      <LazyLoadedImage
+        :inside-classes="'h-1/2'"
+        :evil-alt="altEvil"
+        :good-alt="altGood"
+        :evil-src="sourceEvil"
+        :good-src="sourceGood"
+        :is-evil="isFactionEvil(usePlayerStore().faction)"
+      />
     </figure>
   </div>
 </template>
 
 <script setup lang="ts">
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+
 defineProps({
   title: {
     type: String,
@@ -20,6 +31,14 @@ defineProps({
     required: true,
   },
   altGood: {
+    type: String,
+    required: true,
+  },
+  sourceEvil: {
+    type: String,
+    required: true,
+  },
+  altEvil: {
     type: String,
     required: true,
   },
