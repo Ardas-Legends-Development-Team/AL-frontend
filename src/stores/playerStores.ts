@@ -42,7 +42,6 @@ export const useCharacterStore = defineStore("CharacterStore", () => {
     });
     isFactionLeader.value =
       usePlayerStore().ign === playerFaction.value?.leaderIgn;
-    isFactionLeader.value = true;
   }
 
   isLeader();
