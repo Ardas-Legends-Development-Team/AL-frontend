@@ -25,6 +25,7 @@ import { useCharacterStore } from "@/stores/playerStores";
 import FactionDashboardActionCard from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue";
 import { ref } from "vue";
 import DeclareWarModal from "@/components/dashboards/factionDashboard/SummaryAndWars/DeclareWarModal.vue";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 
 const props = defineProps({
   factionName: {
@@ -49,8 +50,10 @@ const cardData = ref([
 function executeAction(cardTitle: string, actionValue: any) {
   switch (cardTitle) {
     case "Declare War":
-      console.log("Declare War");
-      // Toggle declareWarModal checkbox
+      FactionApiClient.declareWarToFaction(
+        props.factionName,
+        actionValue as string,
+      );
       break;
     default:
       console.log("No action found");
