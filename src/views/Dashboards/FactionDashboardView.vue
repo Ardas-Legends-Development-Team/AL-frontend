@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { defineAsyncComponent, ref } from "vue";
-import FactionDashboardSummary from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummary.vue";
+import FactionDashboardSummary from "@/components/dashboards/factionDashboard/FactionDashboardSummary.vue";
 
 const FactionDashboardRegions = defineAsyncComponent(
   () =>
