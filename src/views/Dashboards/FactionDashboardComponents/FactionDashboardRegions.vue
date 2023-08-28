@@ -59,7 +59,7 @@
               <th class="sticky top-0">Stationed Armies</th>
               <th class="sticky top-0">
                 <SearchBar
-                  :input-list="allClaimbuilds"
+                  :input-list="claimbuilds"
                   @search="updateFilteredClaimbuildsOnSearch"
                 />
               </th>
@@ -107,11 +107,11 @@
 import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
-import RegionSearchBar from "@/components/dashboards/factionDashboard/regionSearchBar.vue";
+import RegionSearchBar from "@/views/Dashboards/FactionDashboardComponents/Regions/regionSearchBar.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 
 const props = defineProps({
   faction: {
@@ -131,10 +131,10 @@ const selectedRegion = ref<Region>({
   claimbuilds: [],
   characters: [],
 });
-const allClaimbuilds = ref<ClaimBuild[]>([]);
-const selectedRegionClaimbuilds = ref<ClaimBuild[]>([]);
-const filteredClaimbuilds = ref<ClaimBuild[]>([]);
-const selectedClaimbuild = ref<ClaimBuild>();
+const claimbuilds = ref<Claimbuild[]>([]);
+const selectedRegionClaimbuilds = ref<Claimbuild[]>([]);
+const filteredClaimbuilds = ref<Claimbuild[]>([]);
+const selectedClaimbuild = ref<Claimbuild>();
 const factionsWithClaimBanners = ref<string[]>([]);
 
 function showRegionDetails(region: Region) {
@@ -165,13 +165,13 @@ function updateFilteredRegionsOnSearch(searchResults: Region[]) {
 }
 
 function showRegionClaimbuilds() {
-  selectedRegionClaimbuilds.value = allClaimbuilds.value.filter((cb) =>
+  selectedRegionClaimbuilds.value = claimbuilds.value.filter((cb) =>
     selectedRegion.value.claimbuilds.includes(cb.name),
   );
   filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
 }
 
-function updateFilteredClaimbuildsOnSearch(searchResults: ClaimBuild[]) {
+function updateFilteredClaimbuildsOnSearch(searchResults: Claimbuild[]) {
   if (searchResults.length === 0) {
     filteredClaimbuilds.value = selectedRegionClaimbuilds.value;
     return;
@@ -199,8 +199,8 @@ RegionApiClient.loadRegions().then((regionList: Region[]) => {
     });
 
   ClaimbuildApiClient.loadClaimbuildsByNames(allCbNames).then(
-    (fetchedCbs: ClaimBuild[]) => {
-      allClaimbuilds.value = fetchedCbs;
+    (fetchedCbs: Claimbuild[]) => {
+      claimbuilds.value = fetchedCbs;
 
       showRegionClaimbuilds();
     },

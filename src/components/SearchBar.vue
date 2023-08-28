@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 import { Region } from "@/ts/types/Region";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 
@@ -37,7 +37,7 @@ const props = defineProps({
   inputList: {
     type: [
       Array<string>,
-      Object as () => Array<ClaimBuild>,
+      Object as () => Array<Claimbuild>,
       Object as () => Array<Region>,
       Object as () => Array<RoleplayCharacter>,
     ],
@@ -54,7 +54,7 @@ watch(searchText, () => {
 
 function getSearchResults(
   searchText: string,
-  dataList: string[] | ClaimBuild[] | Region[] | RoleplayCharacter[],
+  dataList: string[] | Claimbuild[] | Region[] | RoleplayCharacter[],
 ) {
   if (searchText === "" || dataList.length === 0) {
     return dataList;
@@ -64,7 +64,7 @@ function getSearchResults(
   } else if (typeof dataList[0] === "object") {
     return searchCustomType(
       searchText,
-      dataList as ClaimBuild[] | Region[] | RoleplayCharacter[],
+      dataList as Claimbuild[] | Region[] | RoleplayCharacter[],
     );
   }
 }
@@ -84,7 +84,7 @@ function searchString(searchText: string, dataList: string[]): string[] {
 
 function searchCustomType(
   searchText: string,
-  dataList: ClaimBuild[] | Region[] | RoleplayCharacter[],
+  dataList: Claimbuild[] | Region[] | RoleplayCharacter[],
 ) {
   const searchResults = [];
   // Iterate through the list of objects
