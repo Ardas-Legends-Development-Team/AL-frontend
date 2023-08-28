@@ -43,10 +43,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
-import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
-import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
-import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep4.vue";
+import RoleplayCharacterApplicationStep1 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep1.vue";
+import RoleplayCharacterApplicationStep2 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep2.vue";
+import RoleplayCharacterApplicationStep3 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep3.vue";
+import RoleplayCharacterApplicationStep4 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import { isFactionEvil } from "@/ts/utilities";

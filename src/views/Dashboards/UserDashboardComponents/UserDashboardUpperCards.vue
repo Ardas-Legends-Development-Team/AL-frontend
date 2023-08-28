@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
+import UserDashboardCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 

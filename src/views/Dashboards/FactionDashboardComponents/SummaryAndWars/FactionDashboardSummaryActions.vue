@@ -25,9 +25,9 @@
 </template>
 <script setup lang="ts">
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
-import FactionDashboardActionCard from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardActionCard.vue";
+import FactionDashboardActionCard from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardActionCard.vue";
 import { ref } from "vue";
-import DeclareWarModal from "@/components/dashboards/factionDashboard/SummaryAndWars/DeclareWarModal.vue";
+import DeclareWarModal from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/DeclareWarModal.vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 
 const props = defineProps({

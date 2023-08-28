@@ -84,8 +84,8 @@ import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { factionNamesToBannerMap } from "@/ts/factionBannersEnum";
 import SearchBar from "@/components/SearchBar.vue";
-import ClaimbuildsInRegionModal from "@/components/lists/ClaimbuildsInRegionModal.vue";
-import CharactersInRegionModal from "@/components/lists/CharactersInRegionModal.vue";
+import ClaimbuildsInRegionModal from "@/components/modals/ClaimbuildsInRegionModal.vue";
+import CharactersInRegionModal from "@/components/modals/CharactersInRegionModal.vue";
 
 const allRegions = ref<Region[]>([]);
 const filteredRegions = ref<Region[]>([]);

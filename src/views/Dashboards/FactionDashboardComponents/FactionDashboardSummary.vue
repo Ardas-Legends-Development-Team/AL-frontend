@@ -17,9 +17,9 @@
 - make the cards actually do something
 - create a modal for declaring war and starting alliances (make sure the player gives a war name)
  */
-import FactionDashboardSummaryWars from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWars.vue";
-import FactionDashboardSummaryInformation from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryInformation.vue";
-import FactionDashboardSummaryActions from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryActions.vue";
+import FactionDashboardSummaryWars from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryWars.vue";
+import FactionDashboardSummaryInformation from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryInformation.vue";
+import FactionDashboardSummaryActions from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryActions.vue";
 
 defineProps({
   faction: {

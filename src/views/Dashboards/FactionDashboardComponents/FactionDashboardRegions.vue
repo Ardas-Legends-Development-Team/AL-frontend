@@ -107,7 +107,7 @@
 import { ref } from "vue";
 import { Region } from "@/ts/types/Region";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
-import RegionSearchBar from "@/components/dashboards/factionDashboard/Regions/regionSearchBar.vue";
+import RegionSearchBar from "@/views/Dashboards/FactionDashboardComponents/Regions/regionSearchBar.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";

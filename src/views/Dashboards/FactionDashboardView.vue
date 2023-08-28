@@ -39,18 +39,18 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { defineAsyncComponent, ref } from "vue";
-import FactionDashboardSummary from "@/components/dashboards/factionDashboard/FactionDashboardSummary.vue";
+import FactionDashboardSummary from "@/views/Dashboards/FactionDashboardComponents/FactionDashboardSummary.vue";
 
 const FactionDashboardRegions = defineAsyncComponent(
   () =>
     import(
-      "@/components/dashboards/factionDashboard/FactionDashboardRegions.vue"
+      "@/views/Dashboards/FactionDashboardComponents/FactionDashboardRegions.vue"
     ),
 );
 const FactionDashboardArmies = defineAsyncComponent(
   () =>
     import(
-      "@/components/dashboards/factionDashboard/FactionDashboardArmies.vue"
+      "@/views/Dashboards/FactionDashboardComponents/FactionDashboardArmies.vue"
     ),
 );
 
