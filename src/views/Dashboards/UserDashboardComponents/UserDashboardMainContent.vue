@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
-import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
+import UserDashboardActions from "@/views/Dashboards/UserDashboardComponents/UserDashboardActions.vue";
+import UserDashboardCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 

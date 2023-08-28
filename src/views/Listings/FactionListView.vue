@@ -16,7 +16,7 @@
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { ref } from "vue";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
-import FactionListCard from "@/components/dashboards/factionDashboard/FactionListCard.vue";
+import FactionListCard from "@/views/Dashboards/FactionDashboardComponents/FactionListCard.vue";
 import { RouterLink } from "vue-router";
 
 const cardsData = ref<any[]>([]);

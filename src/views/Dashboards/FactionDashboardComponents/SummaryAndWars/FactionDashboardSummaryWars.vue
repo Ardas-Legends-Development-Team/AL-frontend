@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { War } from "@/ts/types/War";
-import FactionDashboardSummaryWar from "@/components/dashboards/factionDashboard/SummaryAndWars/FactionDashboardSummaryWar.vue";
+import FactionDashboardSummaryWar from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryWar.vue";
 
 //const pastWarsPage = ref(0);
 const pastWars = ref<War[]>([]);

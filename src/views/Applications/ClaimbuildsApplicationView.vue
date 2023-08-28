@@ -40,11 +40,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue";
-import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
-import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep2.vue";
-import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
-import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
+import ClaimbuildsApplicationStep0 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep0.vue";
+import ClaimbuildsApplicationStep1 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep1.vue";
+import ClaimbuildsApplicationStep2 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep2.vue";
+import ClaimbuildsApplicationStep3 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep3.vue";
+import ClaimbuildsApplicationStep4 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
