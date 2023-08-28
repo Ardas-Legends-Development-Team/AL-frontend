@@ -12,7 +12,7 @@
   </div>
   <div class="input-group">
     <select class="select select-bordered w-full" v-model="pvpPreference">
-      <option disabled selected>Your in-game preference</option>
+      <option disabled>Your in-game preference</option>
       <option>PvP</option>
       <option>PvE</option>
     </select>
@@ -34,7 +34,7 @@ import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 const emit = defineEmits(["nextStep", "previousStep"]);
 const formData = useRoleplayCharacterFormStore();
 const characterName = ref<string>(formData.characterName);
-const pvpPreference = ref<string>("Your in-game preference");
+const pvpPreference = ref<string>(formData.pvpPreference);
 
 const isFormFilled = computed(() => {
   return (

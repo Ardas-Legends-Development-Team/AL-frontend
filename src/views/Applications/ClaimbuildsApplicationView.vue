@@ -1,7 +1,7 @@
 <template>
-  <section class="relative flex flex-wrap lg:h-screen lg:items-center">
-    <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
-      <div class="mx-auto max-w-lg text-center">
+  <section class="grid grid-cols-2 gap-4 h-screen justify-items-center">
+    <div class="w-full px-4 py-12">
+      <div class="max-w-lg text-center">
         <h1 class="text-2xl font-bold sm:text-3xl">Claimbuild Application</h1>
 
         <p class="mt-4 text-gray-500">
@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-8 mb-0 max-w-3xl space-y-4">
+      <div class="mt-8 mb-0 max-w-3xl space-y-4">
         <component
           :is="steps[currentStep]"
           @nextStep="nextStep"
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
+    <div class="relative w-full h-full">
       <LazyLoadedImage
         :key="stepsImages[currentStep].evilSrc"
         :inside-classes="'absolute inset-0 h-full w-full object-cover'"
@@ -40,14 +40,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import ClaimbuildsApplicationStep0 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep0.vue";
-import ClaimbuildsApplicationStep1 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep1.vue";
-import ClaimbuildsApplicationStep2 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep2.vue";
-import ClaimbuildsApplicationStep3 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep3.vue";
-import ClaimbuildsApplicationStep4 from "@/components/applications/Claimbuilds/ClaimbuildsApplicationStep4.vue";
+import ClaimbuildsApplicationStep0 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep0.vue";
+import ClaimbuildsApplicationStep1 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep1.vue";
+import ClaimbuildsApplicationStep2 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep2.vue";
+import ClaimbuildsApplicationStep3 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep3.vue";
+import ClaimbuildsApplicationStep4 from "@/views/Applications/ClaimbuildApplicationComponents/ClaimbuildsApplicationStep4.vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 import { usePlayerStore } from "@/stores/playerStores";
 import { isFactionEvil } from "@/ts/utilities";
@@ -97,11 +96,11 @@ const stepsImages = ref<
   },
   {
     evilAlt: "black numenorean ominous lighthouse",
-    goodAlt: "rivendell town in forest surrounded by hills",
+    goodAlt: "dunedain castle on top of a steep hill",
     evilSrc:
       "https://ateettea.sirv.com/Applications/Claimbuild/VdLcS3CwH67CHyldcEyj--4--ohqly_4x.jpg",
     goodSrc:
-      "https://ateettea.sirv.com/Applications/Claimbuild/mrenno2006_Lord_of_the_Rings_medieval_city_made_out_of_huge_nat_d8d3a2b0-c44b-4cd6-8f5d-d31617136800.png",
+      "https://ateettea.sirv.com/Applications/Claimbuild/cdfd83ee-4dfa-4499-be2b-7cefce156353.jpg",
   },
 ]);
 const formProgress = ref(15);
@@ -129,15 +128,11 @@ function nextStep(formInput: any) {
     case 4:
       formData.traders = formInput.traders;
       formData.siege = formInput.siege;
-      ApplicationApiClient.createClaimbuildApplication(formData)
-        .then(() => {
-          router.push({
-            name: "ClaimBuildsApplicationEnd",
-          });
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
+      ApplicationApiClient.createClaimbuildApplication(formData).then(() => {
+        router.push({
+          name: "ClaimbuildApplicationEnd",
         });
+      });
       return;
     default:
       // do something
@@ -147,7 +142,15 @@ function nextStep(formInput: any) {
   formProgress.value += 25;
 }
 
-function previousStep() {
+function previousStep(formInput: {
+  step: number;
+  traders: string;
+  siege: string;
+}) {
+  if (formInput && formInput.step === 4) {
+    formData.traders = formInput.traders;
+    formData.siege = formInput.siege;
+  }
   currentStep.value--;
   formProgress.value -= 25;
 }

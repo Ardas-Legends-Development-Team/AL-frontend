@@ -1,18 +1,23 @@
-FROM node:18-alpine as build-stage
+# Choose the Image which has Node installed already
+FROM node:20
 
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'app' folder the current working directory
 WORKDIR /app
-RUN corepack enable
 
-COPY .npmrc package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --frozen-lockfile
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
+# install project dependencies
+RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
-RUN pnpm build
 
-FROM nginx:stable-alpine as production-stage
+# build app for production with minification
+RUN npm run build
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3333
+CMD [ "http-server", "dist" ]

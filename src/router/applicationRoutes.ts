@@ -19,13 +19,13 @@ export const applicationRoutes = [
   {
     component: () =>
       import("@/views/Applications/ClaimbuildsApplicationView.vue"),
-    name: "ClaimBuildsApplication",
+    name: "ClaimbuildApplication",
     path: "/applications/claimbuilds",
   },
   {
     component: () =>
       import("@/views/Applications/ClaimbuildsApplicationEndView.vue"),
-    name: "ClaimBuildsApplicationEnd",
+    name: "ClaimbuildApplicationEnd",
     path: "/applications/claimbuilds/end",
   },
 ];

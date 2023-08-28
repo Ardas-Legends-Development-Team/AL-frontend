@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardActionCard from "@/components/dashboards/userDashboard/UserDashboardActionCard.vue";
+import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { commonCardData, rankCardData } from "@/ts/userDashboardActionCardData";

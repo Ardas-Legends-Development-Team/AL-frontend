@@ -130,16 +130,26 @@ function verifyIfUserRegistered(token: any) {
   });
 }
 
-loginUser(getCodeFromUrl()).then((token) => {
-  verifyIfUserInServer(token);
-  verifyIfUserRegistered(token)
-    .then((discordId) => {
-      PlayerApiClient.loadPlayerInfo(discordId).then(() => {
-        loadedUser.value = true;
+// If the user is in production mode, then we need to check if the user is logged in
+// and if he is registered in the server
+if (useConfigStore().deployMode === "production") {
+  loginUser(getCodeFromUrl()).then((token) => {
+    verifyIfUserInServer(token);
+    verifyIfUserRegistered(token)
+      .then((discordId) => {
+        PlayerApiClient.loadPlayerInfo(discordId).then(() => {
+          loadedUser.value = true;
+        });
+      })
+      .catch(() => {
+        shouldShowRegistrationForm.value = true;
       });
-    })
-    .catch(() => {
-      shouldShowRegistrationForm.value = true;
-    });
-});
+  });
+} else {
+  isLoggedIn.value = true;
+  shouldShowRegistrationForm.value = false;
+  PlayerApiClient.loadPlayerInfo("244463773052567553").then(() => {
+    loadedUser.value = true;
+  });
+}
 </script>

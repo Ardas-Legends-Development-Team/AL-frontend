@@ -7,7 +7,7 @@ import {
 } from "@/stores/buildStores";
 import { ProductionSite } from "@/ts/types/ProductionSite";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
-import { ClaimBuild } from "@/ts/types/ClaimBuild";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 
 export class ClaimbuildApiClient extends ApiClient {
   public static async loadClaimbuildTypes(): Promise<string[]> {
@@ -56,42 +56,60 @@ export class ClaimbuildApiClient extends ApiClient {
 
   public static async loadClaimbuildsByNames(
     names: string[],
-  ): Promise<ClaimBuild[]> {
+  ): Promise<Claimbuild[]> {
+    // Retrieve the claimbuild store
     const claimbuildStore = useClaimbuildStore();
+
     return new Promise((resolve) => {
-      const cbNames: string[] = claimbuildStore.claimbuilds.map(
-        (cb) => cb.name,
-      );
-      const alreadyLoadedCbs: ClaimBuild[] = [];
+      // Prepare arrays to hold claimbuilds that are already loaded and those to be fetched
+      const alreadyLoadedCbs: Claimbuild[] = [];
       const cbsToFetch: string[] = [];
 
-      // Loop through cbs to see which are not loaded yet
+      // Check which claimbuilds are already loaded and which need to be fetched
       names.forEach((name) => {
-        const index = cbNames.indexOf(name);
-        if (index !== -1) {
-          // Typecast here should be fine because I check if the cb is in the array before
-          alreadyLoadedCbs.push(
-            claimbuildStore.claimbuilds.at(index) as ClaimBuild,
+        // Iterate through the objects in the store and check if the name matches
+        // If it does, add it to the already loaded claimbuilds
+        // If we already loaded all claimbuilds, we don't need to fetch them again
+        let foundCb: Claimbuild | undefined;
+        if (claimbuildStore.allClaimbuilds.length > 0) {
+          foundCb = claimbuildStore.allClaimbuilds.find(
+            (cb) => cb.name === name,
           );
-        } else cbsToFetch.push(name);
+        } else {
+          foundCb = claimbuildStore.specificLoadedClaimbuilds.find(
+            (cb) => cb.name === name,
+          );
+        }
+        if (foundCb) {
+          alreadyLoadedCbs.push(foundCb);
+        } else {
+          // If not already loaded, add to cbsToFetch array
+          cbsToFetch.push(name);
+        }
       });
 
+      // If cbsToFetch array is not empty, we fetch those claimbuilds
       if (cbsToFetch.length > 0) {
         const nameParams = cbsToFetch
           .map((cb) => cb.replace("&", "%26"))
           .join(`&name=`);
+
+        // Send a GET request to fetch claimbuilds by name
         axios
           .get(this.getBaseUrl() + `/claimbuild/name?name=${nameParams}`)
           .then((response) => {
-            response.data.forEach((cb: ClaimBuild) => {
-              claimbuildStore.claimbuilds.push(cb);
+            // Add the fetched claimbuilds to the loaded claimbuilds and to the already loaded array
+            response.data.forEach((cb: Claimbuild) => {
+              claimbuildStore.specificLoadedClaimbuilds.push(cb);
               alreadyLoadedCbs.push(cb);
             });
 
+            // Resolve the promise with the already loaded claimbuilds
             resolve(alreadyLoadedCbs);
             return;
           });
       } else {
+        // If no claimbuilds need to be fetched, resolve the promise with already loaded claimbuilds
         resolve(alreadyLoadedCbs);
         return;
       }

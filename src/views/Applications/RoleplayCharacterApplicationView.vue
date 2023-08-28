@@ -43,10 +43,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import RoleplayCharacterApplicationStep1 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep1.vue";
-import RoleplayCharacterApplicationStep2 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep2.vue";
-import RoleplayCharacterApplicationStep3 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep3.vue";
-import RoleplayCharacterApplicationStep4 from "@/components/applications/RPCharApp/RoleplayCharacterApplicationStep4.vue";
+import RoleplayCharacterApplicationStep1 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep1.vue";
+import RoleplayCharacterApplicationStep2 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep2.vue";
+import RoleplayCharacterApplicationStep3 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep3.vue";
+import RoleplayCharacterApplicationStep4 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import { isFactionEvil } from "@/ts/utilities";
@@ -106,7 +106,7 @@ async function nextStep(formInput: any) {
   switch (formInput.step) {
     case 1:
       formData.characterName = formInput.characterName;
-      formData.pvpPreference = formInput.pvpPreference.toLowerCase() === "pvp";
+      formData.pvpPreference = formInput.pvpPreference;
       break;
     case 2:
       formData.characterTitle = formInput.characterTitle;
@@ -123,9 +123,10 @@ async function nextStep(formInput: any) {
         formData.characterTitle = formData.factionName;
       }
       // SEND TO BACKEND AND REDIRECT TO APPLICATIONS
-      await ApplicationApiClient.createRoleplayApplication(formData);
-      await router.push({
-        name: "RoleplayCharacterApplicationEnd",
+      ApplicationApiClient.createRoleplayApplication(formData).then(() => {
+        router.push({
+          name: "RoleplayCharacterApplicationEnd",
+        });
       });
       return;
     default:
@@ -136,7 +137,11 @@ async function nextStep(formInput: any) {
   formProgress.value += 25;
 }
 
-function previousStep() {
+function previousStep(formInput: { step: number; linkToLore: string }) {
+  // If we are on the last step, we need to set the linkToLore to persist it through the app
+  if (formInput && formInput.step === 4) {
+    formData.linkToLore = formInput.linkToLore;
+  }
   currentStep.value--;
   formProgress.value -= 33;
 }

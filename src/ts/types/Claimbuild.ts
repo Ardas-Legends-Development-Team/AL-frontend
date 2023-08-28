@@ -1,4 +1,4 @@
-export type ClaimBuild = {
+export type Claimbuild = {
   id: number;
   name: string;
   region: string;

@@ -2,7 +2,7 @@
   <div>
     <p class="mt-4 text-gray-500">What Production Sites are Present?</p>
 
-    <div class="flex flex-row w-full">
+    <div class="flex flex-row flex-wrap w-full">
       <select
         class="select select-bordered flex-3 grow"
         v-model="selectedProductionSite.type"
@@ -61,7 +61,7 @@
   <p class="mt-4 text-gray-500">What Special Buildings are Present?</p>
 
   <div>
-    <div class="flex flex-row">
+    <div class="flex flex-row flex-wrap">
       <select
         class="select select-bordered grow"
         v-model="selectedSpecialBuilding"

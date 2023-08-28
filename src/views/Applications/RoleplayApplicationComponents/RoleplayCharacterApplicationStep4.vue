@@ -50,6 +50,9 @@ function nextStep() {
 }
 
 function previousStep() {
-  emit("previousStep");
+  emit("previousStep", {
+    step: 4,
+    linkToLore: linkToLore.value,
+  });
 }
 </script>

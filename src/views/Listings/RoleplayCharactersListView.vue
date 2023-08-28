@@ -54,13 +54,12 @@
           </p>
         </th>
         <th>
-          <button
+          <label
+            for="rpCharDetailsModal"
             class="btn"
-            onclick="rpCharDetailsModal.showModal()"
             @click="sendInfoToModal(roleplayCharacter.character)"
+            >Details</label
           >
-            Details
-          </button>
         </th>
       </tr>
     </tbody>
@@ -73,7 +72,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
-import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
+import RoleplayCharacterDetailsModal from "@/components/modals/RoleplayCharacterDetailsModal.vue";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import SearchBar from "@/components/SearchBar.vue";
 

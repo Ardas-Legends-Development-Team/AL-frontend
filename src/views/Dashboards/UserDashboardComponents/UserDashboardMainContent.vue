@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardActions from "@/components/dashboards/userDashboard/UserDashboardActions.vue";
-import UserDashboardCard from "@/components/dashboards/userDashboard/UserDashboardCard.vue";
+import UserDashboardActions from "@/views/Dashboards/UserDashboardComponents/UserDashboardActions.vue";
+import UserDashboardCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 
@@ -45,7 +45,7 @@ const cardsData = ref({
     altGood:
       "mage fighting a huge balrog while preparing to launch a fireball at it, with black mountains surrounding them in the night",
     sourceEvil:
-      "https://ateettea.sirv.com/Dashboards/darkbrandon_uruk-hai_orcs_in_battle_in_the_style_of_paul_bonner_d2b64444-250c-4960-a61b-0994342e8198.png",
+      "https://ateettea.sirv.com/Dashboards/darkbrandon_uruk-hai_orcs_in_battle_in_the_style_of_paul_bonner_d2b64444-250c-4960-a61b-0994342e8198%20(copy).png",
     altEvil: "band of uruks walking out ready for a battle",
   },
 });
