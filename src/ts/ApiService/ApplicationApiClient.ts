@@ -1,6 +1,5 @@
 import axios from "axios";
 import { usePlayerStore } from "@/stores/playerStores";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 
 export class ApplicationApiClient extends ApiClient {
@@ -28,9 +27,6 @@ export class ApplicationApiClient extends ApiClient {
         )
         .then(() => {
           resolve("Application created");
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }
@@ -64,9 +60,6 @@ export class ApplicationApiClient extends ApiClient {
         )
         .then(() => {
           resolve("Application created");
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }

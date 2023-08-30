@@ -3,7 +3,6 @@ import { useFactionsStore } from "@/stores/generalInfoStores";
 import { Faction } from "@/ts/types/Faction";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 
 export class FactionApiClient extends ApiClient {
   public static async loadFactions(): Promise<Faction[]> {
@@ -70,9 +69,6 @@ export class FactionApiClient extends ApiClient {
         })
         .then(() => {
           resolve();
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }
