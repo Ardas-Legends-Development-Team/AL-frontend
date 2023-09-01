@@ -48,4 +48,50 @@ export class ArmyControlApiClient extends ApiClient {
         });
     });
   }
+
+  public static async stationArmy(
+    claimbuildName: string,
+    armyName: string,
+  ): Promise<string> {
+    return new Promise((resolve) => {
+      axios
+        .post(
+          this.getBaseUrl() + "/army/station",
+          {
+            executorDiscordId: usePlayerStore().discordId,
+            claimbuildName: claimbuildName,
+            armyName: armyName,
+          },
+          {
+            headers: {},
+          },
+        )
+        .then((response) => {
+          resolve(response.data.name);
+        });
+    });
+  }
+
+  public static async unstationArmy(
+    claimbuildName: string,
+    armyName: string,
+  ): Promise<string> {
+    return new Promise((resolve) => {
+      axios
+        .post(
+          this.getBaseUrl() + "/army/unstation",
+          {
+            executorDiscordId: usePlayerStore().discordId,
+            claimbuildName: claimbuildName,
+            armyName: armyName,
+          },
+          {
+            headers: {},
+          },
+        )
+        .then((response) => {
+          resolve(response.data.name);
+        });
+    });
+  }
 }
