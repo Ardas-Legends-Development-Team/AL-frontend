@@ -148,7 +148,7 @@ if (useConfigStore().deployMode === "production") {
 } else {
   isLoggedIn.value = true;
   shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo("305738671603056640").then(() => {
+  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
     loadedUser.value = true;
   });
 }
