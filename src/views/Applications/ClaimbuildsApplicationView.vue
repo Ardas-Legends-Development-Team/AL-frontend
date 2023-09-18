@@ -31,7 +31,6 @@
         :good-alt="stepsImages[currentStep].goodAlt"
         :evil-src="stepsImages[currentStep].evilSrc"
         :good-src="stepsImages[currentStep].goodSrc"
-        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </div>
   </section>
@@ -48,8 +47,6 @@ import ClaimbuildsApplicationStep4 from "@/views/Applications/ClaimbuildApplicat
 import { useClaimbuildsFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
-import { usePlayerStore } from "@/stores/playerStores";
-import { isFactionEvil } from "@/ts/utilities";
 
 const router = useRouter();
 const steps = [

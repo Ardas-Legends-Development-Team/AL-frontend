@@ -1,11 +1,11 @@
 <template>
-  <UserDashboardCharacterBasicInfo />
-  <UserDashboardUpperCards />
-  <UserDashboardMainContent />
+  <UserDashboardTitles />
+  <UserDashboardActions />
+  <UserDashboardCharacterInfo />
 </template>
 
 <script setup lang="ts">
-import UserDashboardCharacterBasicInfo from "@/views/Dashboards/UserDashboardComponents/UserDashboardCharacterBasicInfo.vue";
-import UserDashboardUpperCards from "@/views/Dashboards/UserDashboardComponents/UserDashboardUpperCards.vue";
-import UserDashboardMainContent from "@/views/Dashboards/UserDashboardComponents/UserDashboardMainContent.vue";
+import UserDashboardTitles from "@/views/Dashboards/UserDashboardComponents/UserDashboardTitles.vue";
+import UserDashboardCharacterInfo from "@/views/Dashboards/UserDashboardComponents/UserDashboardCharacterInfo.vue";
+import UserDashboardActions from "@/views/Dashboards/UserDashboardComponents/UserDashboardActions.vue";
 </script>

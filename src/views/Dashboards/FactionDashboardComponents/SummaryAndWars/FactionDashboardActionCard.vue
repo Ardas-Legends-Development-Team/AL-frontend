@@ -10,15 +10,12 @@
         :good-alt="altGood"
         :evil-src="sourceEvil"
         :good-src="sourceGood"
-        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </figure>
   </div>
 </template>
 
 <script setup lang="ts">
-import { isFactionEvil } from "@/ts/utilities";
-import { usePlayerStore } from "@/stores/playerStores";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 
 defineProps({

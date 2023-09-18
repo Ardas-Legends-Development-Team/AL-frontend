@@ -1,7 +1,7 @@
 <template>
-  <div class="card w-56 bg-base-100 shadow-xl">
+  <div class="card w-1/4 bg-base-100 shadow-xl">
     <div class="items-center card-body">
-      <h2 class="card-title">{{ title }}</h2>
+      <h2 class="card-title text-accent">{{ title }}</h2>
       <p>{{ description }}</p>
     </div>
     <figure>
@@ -11,15 +11,12 @@
         :good-alt="altGood"
         :evil-src="sourceEvil"
         :good-src="sourceGood"
-        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </figure>
   </div>
 </template>
 
 <script setup lang="ts">
-import { isFactionEvil } from "@/ts/utilities";
-import { usePlayerStore } from "@/stores/playerStores";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 
 defineProps({
