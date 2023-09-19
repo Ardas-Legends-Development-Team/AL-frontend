@@ -27,13 +27,12 @@ import { ref } from "vue";
 const shownCards: any = ref({});
 
 function populateShownCards(rank: string): void {
-  console.log(rankCardData[rank as keyof typeof rankCardData]);
   shownCards.value.move = rankCardData[rank as keyof typeof rankCardData].move;
   shownCards.value.bind = commonCardData.bind;
+  shownCards.value.unbind = commonCardData.unbind;
 }
 
 PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
-  console.log("Rank: " + data.rank);
   populateShownCards(data.rank.toLowerCase());
 });
 </script>

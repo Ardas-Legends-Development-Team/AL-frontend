@@ -33,4 +33,13 @@ export const commonCardData = {
     sourceEvil:
       "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
   },
+  unbind: {
+    altGood: "Sauron Eye",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+    text: "Unbind",
+    altEvil: "Some alt",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+  },
 };

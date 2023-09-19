@@ -1,7 +1,14 @@
 <template>
-  <UserDashboardTitles />
-  <UserDashboardActions />
-  <UserDashboardCharacterInfo />
+  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+    <UserDashboardTitles />
+  </div>
+  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+    <UserDashboardActions />
+  </div>
+
+  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+    <UserDashboardCharacterInfo />
+  </div>
 </template>
 
 <script setup lang="ts">
