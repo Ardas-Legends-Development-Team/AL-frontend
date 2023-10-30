@@ -63,4 +63,28 @@ export class ApplicationApiClient extends ApiClient {
         });
     });
   }
+
+  public static async getAllApplications(): Promise<any> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/applications/roleplay/active?size=1000", {
+          headers: {},
+        })
+        .then((response) => {
+          const rpApps = response.data.content;
+
+          axios
+            .get(
+              this.getBaseUrl() + "/applications/claimbuild/active?size=1000",
+              {
+                headers: {},
+              },
+            )
+            .then((response) => {
+              const cbApps = response.data.content;
+              resolve(rpApps.concat(cbApps));
+            });
+        });
+    });
+  }
 }
