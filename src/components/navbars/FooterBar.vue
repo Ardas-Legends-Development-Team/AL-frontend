@@ -51,7 +51,10 @@
       </div>
     </div>
     <div class="top-4 right-4">
-      <a class="btn btn-primary inline-block mask mask-circle" href="#">
+      <a
+        class="btn btn-primary inline-block mask mask-circle"
+        @click="scrollToTop"
+      >
         <span class="sr-only">Back to top</span>
 
         <svg
@@ -71,12 +74,11 @@
   </footer>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import DiscordIcon from "@/components/images/DiscordIcon.vue";
 import InstagramIcon from "@/components/images/InstagramIcon.vue";
 
-export default defineComponent({
-  components: { InstagramIcon, DiscordIcon },
-});
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 </script>
