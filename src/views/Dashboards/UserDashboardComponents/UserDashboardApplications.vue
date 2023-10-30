@@ -18,15 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
-import { ref } from "vue";
-
-const apps = ref<any>([]);
-
-// TODO: get only active applications concerning the current user
-// TODO: have a better display for each app as well as their status
-ApplicationApiClient.getAllApplications().then((data) => {
-  apps.value = data;
-  console.log(apps);
-});
+const props = defineProps<{
+  apps: any[];
+}>();
 </script>

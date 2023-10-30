@@ -1,16 +1,23 @@
 <template>
-  <div class="grid grid-cols-3 justify-items-center">
-    <div class="mt-5 shrink">
-      <img class="mask mask-circle w-20" :src="avatar" alt="avatar" />
+  <div class="grid grid-cols-3 gap-4">
+    <div class="flex flex-row items-center justify-center space-x-2">
+      <img class="my-3 w-16 h-32" :src="factionBanner" alt="faction banner" />
+      <img class="mask mask-circle w-24 h-24" :src="avatar" alt="avatar" />
     </div>
     <div
-      class="text-center text-neutral-content justify-center mt-4 h-20 w-1/2"
+      class="flex flex-col items-center justify-center space-y-2 text-center"
     >
-      <h1 class="mb-1 text-3xl text-neutral-content">{{ characterName }}</h1>
+      <h1 class="text-3xl">{{ characterName }}</h1>
       <div class="badge badge-outline badge-primary">{{ title }}</div>
     </div>
-    <div class="my-2 w-16 h-32">
-      <img :src="factionBanner" alt="faction banner" />
+    <div
+      v-if="numberOfApps > 0"
+      class="badge badge-primary h-10 mt-5"
+      @click="scrollToBottom"
+    >
+      Scroll to {{ numberOfApps }} open application{{
+        numberOfApps > 1 ? "s" : ""
+      }}
     </div>
   </div>
 </template>
@@ -19,6 +26,10 @@
 import { ref } from "vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
+
+defineProps<{
+  numberOfApps: number;
+}>();
 
 const factionBanner = ref<string>("");
 const faction = ref<string>("");
@@ -41,4 +52,8 @@ PlayerApiClient.loadPlayerInfo().then((data) => {
     }
   });
 });
+
+const scrollToBottom = () => {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+};
 </script>
