@@ -12,7 +12,7 @@
     </div>
     <div
       v-if="numberOfApps > 0"
-      class="badge badge-primary h-10 mt-5"
+      class="badge badge-primary h-10 mt-5 cursor-pointer"
       @click="scrollToBottom"
     >
       Scroll to {{ numberOfApps }} open application{{

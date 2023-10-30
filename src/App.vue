@@ -10,6 +10,7 @@
     <div class="relative min-h-screen flex flex-col">
       <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
         <router-view v-if="loadedUser" />
+        <BackToTopButton />
       </main>
       <FooterBar />
     </div>
@@ -35,6 +36,7 @@ import { useConfigStore, useErrorStore } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
+import BackToTopButton from "@/components/BackToTopButton.vue";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);

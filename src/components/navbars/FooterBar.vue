@@ -50,35 +50,10 @@
         </a>
       </div>
     </div>
-    <div class="top-4 right-4">
-      <a
-        class="btn btn-primary inline-block mask mask-circle"
-        @click="scrollToTop"
-      >
-        <span class="sr-only">Back to top</span>
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-7 w-5"
-          viewBox="0 0 20 5"
-          fill="#fffff"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </a>
-    </div>
   </footer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import DiscordIcon from "@/components/images/DiscordIcon.vue";
 import InstagramIcon from "@/components/images/InstagramIcon.vue";
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
 </script>
