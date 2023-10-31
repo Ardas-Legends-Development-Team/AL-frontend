@@ -79,6 +79,13 @@ const cardsData = ref({
 });
 
 PlayerApiClient.loadCharacterInfo().then((data) => {
+  if (data.boundTo) {
+    cardsData.value.boundTo.description = data.boundTo;
+  }
+  cardsData.value.currentRegion.description = data.currentRegion;
+  if (data.injured) {
+    cardsData.value.injuredStatus.description = data.healEnds;
+  }
   cardsData.value.gear.description = data.gear;
   if (data.pvp) {
     cardsData.value.pvpStatus.description = "Enabled";

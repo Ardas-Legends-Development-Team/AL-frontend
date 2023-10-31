@@ -25,7 +25,7 @@ const apps = ref<any[]>([]);
 
 // TODO: get only active applications concerning the current user
 // TODO: have a better display for each app as well as their status
-ApplicationApiClient.getAllApplications().then((data) => {
+ApplicationApiClient.getAllActiveApplications().then((data) => {
   apps.value = data;
   console.log(apps.value);
 });

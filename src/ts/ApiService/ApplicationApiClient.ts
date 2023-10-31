@@ -64,7 +64,7 @@ export class ApplicationApiClient extends ApiClient {
     });
   }
 
-  public static async getAllApplications(): Promise<any> {
+  public static async getAllActiveApplications(): Promise<any> {
     return new Promise((resolve) => {
       axios
         .get(this.getBaseUrl() + "/applications/roleplay/active?size=1000", {
