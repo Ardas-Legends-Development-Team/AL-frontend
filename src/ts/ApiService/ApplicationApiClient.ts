@@ -89,6 +89,10 @@ export class ApplicationApiClient extends ApiClient {
             .then((response) => {
               const cbApps = response.data.content;
               const apps = rpApps.concat(cbApps);
+              // Get only the apps for the current player
+              apps.filter((app: any) => {
+                return app.applicant.discordId === usePlayerStore().discordId;
+              });
               // call formatDateArrayToString on each application's appliedAt
               apps.forEach((app: any) => {
                 app.appliedAt = formatDateArrayToString(app.appliedAt);
