@@ -6,7 +6,16 @@ export const useFactionsStore = defineStore("FactionsStore", () => {
   const factions = ref<Faction[]>([]);
   const factionNames = ref<string[]>([]);
   const factionLeaders = ref<string[]>([]);
-  const playerFaction = ref<Faction>();
+  const playerFaction = ref<Faction>({
+    id: 0,
+    nameOfFaction: "",
+    countOfArmies: "",
+    countOfClaimbuilds: [],
+    countOfClaimedRegions: [],
+    countOfPlayers: [],
+    homeRegion: "",
+    leaderIgn: "",
+  });
   const isPlayerFactionLeader = ref<boolean>(false);
 
   return {

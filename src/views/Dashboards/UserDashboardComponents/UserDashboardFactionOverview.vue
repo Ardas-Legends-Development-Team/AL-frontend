@@ -68,18 +68,18 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import UserDashboardFactionInformation from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionInformation.vue";
 import { RouterLink } from "vue-router";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 
 const isSidebarOpen = ref(true);
 const faction = ref<string>("");
 const factionBanner = ref<string>("");
 
-PlayerApiClient.loadPlayerInfo().then((data) => {
-  faction.value = data.faction;
-  factionBanner.value = factionNameToBanner(data.faction);
+FactionApiClient.loadPlayerFaction().then((playerFaction) => {
+  faction.value = playerFaction.nameOfFaction;
+  factionBanner.value = factionNameToBanner(playerFaction.nameOfFaction);
 });
 
 function openSidebar(flag: boolean) {
