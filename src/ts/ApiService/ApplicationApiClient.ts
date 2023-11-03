@@ -1,8 +1,10 @@
 import axios from "axios";
 import { usePlayerStore } from "@/stores/playerStores";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
-import { ClaimbuildApplication } from "@/ts/types/ClaimbuildApplication";
-import { RoleplayApplication } from "@/ts/types/RoleplayApplication";
+import {
+  ClaimbuildApplication,
+  RoleplayApplication,
+} from "@/ts/types/Application";
 import { formatDateArrayToString } from "@/ts/utilities";
 
 export class ApplicationApiClient extends ApiClient {

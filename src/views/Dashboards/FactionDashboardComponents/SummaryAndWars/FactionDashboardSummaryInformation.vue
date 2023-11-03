@@ -62,10 +62,10 @@ const props = defineProps({
 const faction = ref<Faction>({
   id: 0,
   nameOfFaction: "",
-  countOfArmies: "",
-  countOfClaimbuilds: [],
-  countOfClaimedRegions: [],
-  countOfPlayers: [],
+  countOfArmies: 0,
+  countOfClaimbuilds: 0,
+  countOfClaimedRegions: 0,
+  countOfPlayers: 0,
   homeRegion: "",
   leaderIgn: "",
 });
