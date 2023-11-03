@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
-import { CharacterInfo } from "@/ts/types/CharacterInfo";
+import { CharacterInfo } from "@/ts/types/RoleplayCharacter";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 
 export class PlayerApiClient extends ApiClient {

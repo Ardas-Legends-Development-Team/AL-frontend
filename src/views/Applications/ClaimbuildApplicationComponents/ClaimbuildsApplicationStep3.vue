@@ -110,10 +110,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useClaimbuildsFormStore } from "@/stores/formStores";
-import {
-  ProductionSite,
-  ProductionSiteWithCount,
-} from "@/ts/types/ProductionSite";
+import { ProductionSite, ProductionSiteWithCount } from "@/ts/types/Claimbuild";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 
 const emit = defineEmits(["nextStep", "previousStep"]);

@@ -20,13 +20,17 @@ import UserDashboardActions from "@/views/Dashboards/UserDashboardComponents/Use
 import UserDashboardApplications from "@/views/Dashboards/UserDashboardComponents/UserDashboardApplications.vue";
 import { ref } from "vue";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
+import {
+  ClaimbuildApplication,
+  RoleplayApplication,
+} from "@/ts/types/Application";
 
-const apps = ref<any[]>([]);
+const apps = ref<Array<RoleplayApplication | ClaimbuildApplication>>([]);
 
 // TODO: get only active applications concerning the current user
 // TODO: have a better display for each app as well as their status
 ApplicationApiClient.getAllActiveApplications().then((data) => {
   apps.value = data;
-  console.log(apps.value);
+  console.log(apps.value[0].appliedAt);
 });
 </script>

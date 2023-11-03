@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
-import { ProductionSiteWithCount } from "@/ts/types/ProductionSite";
+import { ProductionSiteWithCount } from "@/ts/types/Claimbuild";
 
 export const useRoleplayCharacterFormStore = defineStore(
   "roleplayCharacterFormStore",

@@ -3,7 +3,7 @@
     Character Information
   </h2>
   <div class="flex flex-row flex-wrap justify-evenly my-8">
-    <UserDashboardCard
+    <UserDashboardInfoCard
       v-for="(data, index) in cardsData"
       :key="index"
       class="m-2"
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import UserDashboardCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardInfoCard.vue";
+import UserDashboardInfoCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardInfoCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 

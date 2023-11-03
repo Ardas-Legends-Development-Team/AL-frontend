@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
-import { CharacterInfo } from "@/ts/types/CharacterInfo";
+import { CharacterInfo } from "@/ts/types/RoleplayCharacter";
 import { commonCardData, rankCardData } from "@/ts/userDashboardActionCardData";
 import { ref } from "vue";
 

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { usePlayerStore } from "@/stores/playerStores";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
+import { ClaimbuildApplication } from "@/ts/types/ClaimbuildApplication";
+import { RoleplayApplication } from "@/ts/types/RoleplayApplication";
+import { formatDateArrayToString } from "@/ts/utilities";
 
 export class ApplicationApiClient extends ApiClient {
   public static async createRoleplayApplication(
@@ -64,7 +67,9 @@ export class ApplicationApiClient extends ApiClient {
     });
   }
 
-  public static async getAllActiveApplications(): Promise<any> {
+  public static async getAllActiveApplications(): Promise<
+    Array<RoleplayApplication | ClaimbuildApplication>
+  > {
     return new Promise((resolve) => {
       axios
         .get(this.getBaseUrl() + "/applications/roleplay/active?size=1000", {
@@ -72,7 +77,6 @@ export class ApplicationApiClient extends ApiClient {
         })
         .then((response) => {
           const rpApps = response.data.content;
-
           axios
             .get(
               this.getBaseUrl() + "/applications/claimbuild/active?size=1000",
@@ -82,7 +86,12 @@ export class ApplicationApiClient extends ApiClient {
             )
             .then((response) => {
               const cbApps = response.data.content;
-              resolve(rpApps.concat(cbApps));
+              const apps = rpApps.concat(cbApps);
+              // call formatDateArrayToString on each application's appliedAt
+              apps.forEach((app: any) => {
+                app.appliedAt = formatDateArrayToString(app.appliedAt);
+              });
+              resolve(apps);
             });
         });
     });
