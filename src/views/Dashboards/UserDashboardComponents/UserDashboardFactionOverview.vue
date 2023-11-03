@@ -53,15 +53,21 @@
         </div>
         <div class="flex flex-col items-center justify-between my-4">
           <RouterLink :to="`/faction/${faction}`">
-            <button class="btn btn-secondary">{{ faction }}</button>
+            <button class="btn btn-outline">{{ faction }}</button>
           </RouterLink>
           <img
             class="my-3 w-16 h-32"
             :src="factionBanner"
             alt="faction banner"
           />
+          <UserDashboardFactionInformation
+            :player-count="playerCount"
+            :army-count="armyCount"
+            :claimbuild-count="claimbuildCount"
+            :region-count="regionCount"
+            :faction-leader="factionLeader"
+          />
         </div>
-        <UserDashboardFactionInformation />
       </div>
     </div>
   </div>
@@ -76,10 +82,20 @@ import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 const isSidebarOpen = ref(true);
 const faction = ref<string>("");
 const factionBanner = ref<string>("");
+const playerCount = ref<number>(0);
+const armyCount = ref<number>(0);
+const claimbuildCount = ref<number>(0);
+const regionCount = ref<number>(0);
+const factionLeader = ref<string>("");
 
 FactionApiClient.loadPlayerFaction().then((playerFaction) => {
   faction.value = playerFaction.nameOfFaction;
   factionBanner.value = factionNameToBanner(playerFaction.nameOfFaction);
+  playerCount.value = playerFaction.countOfPlayers;
+  armyCount.value = playerFaction.countOfArmies;
+  claimbuildCount.value = playerFaction.countOfClaimbuilds;
+  regionCount.value = playerFaction.countOfClaimedRegions;
+  factionLeader.value = playerFaction.leaderIgn;
 });
 
 function openSidebar(flag: boolean) {
