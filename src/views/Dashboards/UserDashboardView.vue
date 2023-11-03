@@ -28,7 +28,6 @@ import {
 const apps = ref<Array<RoleplayApplication | ClaimbuildApplication>>([]);
 
 // TODO: get only active applications concerning the current user
-// TODO: have a better display for each app as well as their status
 ApplicationApiClient.getAllActiveApplications().then((data) => {
   apps.value = data;
   console.log(apps.value[0].appliedAt);

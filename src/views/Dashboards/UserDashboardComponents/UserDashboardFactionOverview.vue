@@ -51,8 +51,10 @@
             </svg>
           </div>
         </div>
-        <div class="flex flex-col items-center justify-between">
-          <h1 class="text-3xl">{{ faction }}</h1>
+        <div class="flex flex-col items-center justify-between my-4">
+          <RouterLink :to="`/faction/${faction}`">
+            <button class="btn btn-secondary">{{ faction }}</button>
+          </RouterLink>
           <img
             class="my-3 w-16 h-32"
             :src="factionBanner"
@@ -69,6 +71,7 @@ import { ref } from "vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { factionNameToBanner } from "@/ts/factionBannersEnum";
 import UserDashboardFactionInformation from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionInformation.vue";
+import { RouterLink } from "vue-router";
 
 const isSidebarOpen = ref(true);
 const faction = ref<string>("");
