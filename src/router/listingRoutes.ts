@@ -2,21 +2,21 @@ export const listingRoutes = [
   {
     component: () => import("@/views/Listings/ListsView.vue"),
     name: "Lists",
-    path: "/modals",
+    path: "/lists",
   },
   {
     component: () => import("@/views/Listings/RoleplayCharactersListView.vue"),
     name: "RoleplayCharactersList",
-    path: "/modals/roleplay_characters",
+    path: "/lists/roleplay_characters",
   },
   {
     component: () => import("@/views/Listings/RegionListView.vue"),
     name: "RegionsList",
-    path: "/modals/regions",
+    path: "/lists/regions",
   },
   {
     component: () => import("@/views/Listings/FactionListView.vue"),
     name: "FactionsList",
-    path: "/modals/factions",
+    path: "/lists/factions",
   },
 ];

@@ -26,7 +26,7 @@ const cardsData = [
     sourceEvil:
       "https://ateettea.sirv.com/Cards/dmtphoto_Lord_of_the_Rings_Ring_Wraiths_on_black_horses_Greg_Ru_67643b9c-072f-44cd-ae65-b6571828261e.png",
     altEvil: "the nazgul on black horses in the night with a full moon behind",
-    router: "/modals/roleplay_characters",
+    router: "/lists/roleplay_characters",
     description: "Heroes, monsters and legends of all sorts can be found here",
   },
   {
@@ -39,7 +39,7 @@ const cardsData = [
       "https://ateettea.sirv.com/Cards/WcB3G92lGCX7hSLmKvCE--4--c2js3_4x.jpg",
     altEvil:
       "moria mines with huge natural stone pillars, with a small goblin camp in the foreground",
-    router: "/modals/regions",
+    router: "/lists/regions",
     description:
       "From the peaks of the Misty Mountains to the desserts of Harad, find all regions here",
   },
@@ -51,7 +51,7 @@ const cardsData = [
     sourceEvil:
       "https://ateettea.sirv.com/Cards/Dark_1988_The_Dark_Lord_Sauron_sits_on_the_throne_in_the_fortre_c8af9024-051f-4eef-81fd-24f3d2ece103.png",
     altEvil: "black numenorean on throne",
-    router: "/modals/factions",
+    router: "/lists/factions",
     description:
       "Here lie the great factions of Arda, from the black legions of Mordor to the blacksmiths of Ered Luin",
   },
