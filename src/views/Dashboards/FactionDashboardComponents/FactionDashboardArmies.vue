@@ -150,7 +150,7 @@ import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import SearchBar from "@/components/SearchBar.vue";
 
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
-import RoleplayCharacterDetailsModal from "@/components/lists/RoleplayCharacterDetailsModal.vue";
+import RoleplayCharacterDetailsModal from "@/components/modals/RoleplayCharacterDetailsModal.vue";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 const allArmies = ref<Army[]>([]);
