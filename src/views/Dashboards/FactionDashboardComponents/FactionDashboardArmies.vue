@@ -140,9 +140,8 @@
 </template>
 
 <script setup lang="ts">
-/*TODO
-- add faction filters
- */
+// TODO: add faction filters
+// TODO: get only characters of the faction
 import { ref } from "vue";
 import { Army } from "@/ts/types/Army";
 
