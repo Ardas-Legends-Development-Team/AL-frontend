@@ -1,7 +1,7 @@
 {
   "name": "ardas-legends-website",
   "private": true,
-  "version": "Alpha 0.2.1",
+  "version": "Alpha 0.2.2",
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",

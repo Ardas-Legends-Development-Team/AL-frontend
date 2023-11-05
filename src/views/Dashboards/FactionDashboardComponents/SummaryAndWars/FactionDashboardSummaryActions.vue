@@ -24,11 +24,11 @@
   />
 </template>
 <script setup lang="ts">
-import { usePlayerStore } from "@/stores/playerStores";
 import FactionDashboardActionCard from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardActionCard.vue";
 import { ref } from "vue";
 import DeclareWarModal from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/DeclareWarModal.vue";
-import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { usePlayerStore } from "@/stores/playerStores";
+import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const props = defineProps({
@@ -54,7 +54,7 @@ const cardData = ref([
 function executeAction(cardTitle: string, actionValue: any) {
   switch (cardTitle) {
     case "Declare War":
-      FactionApiClient.declareWarToFaction(
+      WarApiClient.declareWarToFaction(
         props.factionName,
         actionValue as string,
       );

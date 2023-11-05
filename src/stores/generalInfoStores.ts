@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { Faction } from "@/ts/types/Faction";
+import { War } from "@/ts/types/War";
 
 export const useFactionsStore = defineStore("FactionsStore", () => {
   const factions = ref<Faction[]>([]);
@@ -33,7 +34,15 @@ export const useClaimbuildTypesStore = defineStore(
     const claimbuildTypes = ref<string[]>([]);
 
     return {
-      claimbuildTypes: claimbuildTypes,
+      claimbuildTypes,
     };
   },
 );
+
+export const useWarsStore = defineStore("WarsStore", () => {
+  const wars = ref<War[]>([]);
+
+  return {
+    wars,
+  };
+});

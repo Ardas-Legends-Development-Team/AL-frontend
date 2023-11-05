@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="flex flex-row justify-center my-4"
-    v-if="currentWarsMockData.length > 0"
-  >
+  <div class="flex flex-row justify-center my-4" v-if="currentWars.length > 0">
     <h2 class="text-3xl text-secondary font-bold">Current Wars</h2>
   </div>
   <div class="flex flex-col justify-center">
     <div
-      v-for="(war, index) in currentWarsMockData"
+      v-for="(war, index) in currentWars"
       :key="index"
       class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
     >
@@ -22,10 +19,6 @@
       v-for="(war, index) in pastWars"
       :key="index"
       class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
-      :class="{
-        [`bg-green-900`]: war.outcome === 'win',
-        [`bg-red-950`]: war.outcome === 'loss',
-      }"
     >
       <FactionDashboardSummaryWar :war="war" />
     </div>
@@ -41,6 +34,7 @@
 import { onMounted, ref } from "vue";
 import { War } from "@/ts/types/War";
 import FactionDashboardSummaryWar from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryWar.vue";
+import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 
 //const pastWarsPage = ref(0);
 const pastWars = ref<War[]>([]);
@@ -61,14 +55,23 @@ onMounted(() => {
   hasMorePastWars.value = false;
 });
 
-defineProps({
+const props = defineProps({
   faction: {
     type: String,
     required: true,
   },
 });
 
-const currentWarsMockData = ref([]);
+const currentWars = ref<War[]>([]);
 
-//const pastWarsMockData = ref([]);
+WarApiClient.loadWars().then((wars) => {
+  for (const war of wars) {
+    if (
+      war.nameOfAttacker === props.faction ||
+      war.nameOfDefender === props.faction
+    ) {
+      currentWars.value.push(war);
+    }
+  }
+});
 </script>

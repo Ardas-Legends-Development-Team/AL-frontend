@@ -15,7 +15,6 @@
 <script setup lang="ts">
 /*TODO
 - make the cards actually do something
-- create a modal for declaring war and starting alliances (make sure the player gives a war name)
  */
 import FactionDashboardSummaryWars from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryWars.vue";
 import FactionDashboardSummaryInformation from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryInformation.vue";
