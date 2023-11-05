@@ -201,6 +201,7 @@ const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
         isHealing: false,
         startedHeal: "",
         healEnds: "",
+        rank: "",
       },
     },
   },

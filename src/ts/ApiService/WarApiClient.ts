@@ -1,8 +1,8 @@
 import axios from "axios";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
-import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
+import { usePlayerStore } from "@/stores/playerStores";
 import { ErrorHandler } from "@/ts/ErrorHandler";
-import { useWarsStore } from "@/stores/generalInfoStores";
+import { useFactionsStore, useWarsStore } from "@/stores/generalInfoStores";
 import { War } from "@/ts/types/War";
 
 export class WarApiClient extends ApiClient {
@@ -12,7 +12,7 @@ export class WarApiClient extends ApiClient {
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       // If player does not have enough privileges, do not send the request
-      if (!useCharacterStore().isFactionLeader) {
+      if (!useFactionsStore().isPlayerFactionLeader) {
         reject("You are not a faction leader");
       }
       // Send the request
