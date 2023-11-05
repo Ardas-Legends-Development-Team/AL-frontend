@@ -1,5 +1,5 @@
 <template>
-  <div class="card w-40 bg-base-100 shadow-xl mx-4 my-4">
+  <div class="card w-40 bg-base-100 shadow-xl mx-4 my-4 cursor-pointer">
     <div class="items-center card-body h-20 mb-2">
       <h2 class="card-title text-base">{{ title }}</h2>
     </div>
