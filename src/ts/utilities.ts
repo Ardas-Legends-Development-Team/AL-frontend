@@ -31,3 +31,11 @@ export function isFactionEvil(factionName: string): boolean {
   ];
   return factions.includes(factionFormatted);
 }
+
+export function formatDateArrayToString(dateArray: number[]): string {
+  return `${dateArray[0]}-${dateArray[1]}-${dateArray[2]}`;
+}
+
+export const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

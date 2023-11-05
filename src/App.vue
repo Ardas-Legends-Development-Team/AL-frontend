@@ -3,10 +3,14 @@
     <header>
       <TopNavbar v-if="loadedUser" />
       <VerticalNavbar v-if="loadedUser" />
+      <UserDashboardFactionOverview
+        v-if="loadedUser && $route.path === '/user_dashboard'"
+      />
     </header>
     <div class="relative min-h-screen flex flex-col">
       <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
         <router-view v-if="loadedUser" />
+        <BackToTopButton />
       </main>
       <FooterBar />
     </div>
@@ -31,6 +35,8 @@ import RegistrationForm from "@/components/RegistrationForm.vue";
 import { useConfigStore, useErrorStore } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
+import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
+import BackToTopButton from "@/components/BackToTopButton.vue";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
@@ -148,7 +154,7 @@ if (useConfigStore().deployMode === "production") {
 } else {
   isLoggedIn.value = true;
   shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo("244463773052567553").then(() => {
+  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
     loadedUser.value = true;
   });
 }

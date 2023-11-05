@@ -5,6 +5,14 @@
 
 This web app is going to be the main access point into the Arda's Legend's roleplay system.
 
+## Commiting changes
+
+- If the issue does not exist yet, create a new one using the predefined template and assign it a milestone corresponding to it's release period
+- For each issue, create a branch from "dev". Depending on it's category (feature/bug/optimization) create a branch with this format: "category/name-representing-issue". Example: "feature/claimbuild-detail-modal"
+- During development make sure your linter is working and run "npm run production" to verify that your code compiles correctly
+- When development is finished on the separate branch, merge changes from "dev" and then create a pull request to put changes on the "dev" branch
+- Wait validation from lead dev
+
 ## Run the project
 
 - Development build: npm run dev
@@ -19,5 +27,5 @@ This web app is going to be the main access point into the Arda's Legend's rolep
 - Frameworks: Vite for Vue 3, TailwindCSS, Node.js
 - Libraries: DaisyUI, Pinia, Axios, Vue cookie next
 - Plugins: Vue router
-- Testing: Cypress, Vitest
-- Analysis: Codacy, CodeFactor, ArgosCI
+- Testing: Vitest
+- Analysis: Codacy, CodeFactor

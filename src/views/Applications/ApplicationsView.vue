@@ -29,7 +29,7 @@ const cardsData = [
     description: "Create your valiant hero or destructive tyrant here",
   },
   {
-    title: "components Application",
+    title: "Claimbuild Application",
     sourceGood:
       "https://ateettea.sirv.com/Cards/MfeWlbPTwPCZl4B4EOmW--1--xvrsl_4x.jpg",
     altGood: "elven mountain hall main entrance",

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!isEvil"
+    v-if="!isFactionEvil(usePlayerStore().faction)"
     class="blurred-img h-full"
     :class="loaded ? 'loaded' : ''"
     :style="'background-image:url(' + props.goodSrc + '?profile=Lowres-Image)'"
@@ -31,12 +31,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { isFactionEvil } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
 
 const props = defineProps({
-  isEvil: {
-    type: Boolean,
-    required: true,
-  },
   goodSrc: {
     type: String,
     required: true,

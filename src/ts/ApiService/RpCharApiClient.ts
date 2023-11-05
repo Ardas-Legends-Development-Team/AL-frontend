@@ -29,6 +29,8 @@ export class RpCharApiClient extends ApiClient {
               pvp: rpChar.pvp,
               startedHeal: rpChar.startedHeal,
               title: rpChar.title,
+              // TODO: Add correct rank when it's implemented in the API
+              rank: "Member",
             },
           };
           rpCharStore.allRpChars.push(mappedChar);
@@ -94,6 +96,8 @@ export class RpCharApiClient extends ApiClient {
                   pvp: rpChar.pvp,
                   startedHeal: rpChar.startedHeal,
                   title: rpChar.title,
+                  // TODO: Add correct rank when it's implemented in the API
+                  rank: "Member",
                 },
               };
               rpCharStore.loadedSpecificRpChars.push(mappedChar);

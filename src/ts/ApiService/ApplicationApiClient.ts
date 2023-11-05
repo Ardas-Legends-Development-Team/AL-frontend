@@ -1,7 +1,12 @@
 import axios from "axios";
 import { usePlayerStore } from "@/stores/playerStores";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
+import {
+  ClaimbuildApplication,
+  getApplicationType,
+  RoleplayApplication,
+} from "@/ts/types/Application";
+import { formatDateArrayToString } from "@/ts/utilities";
 
 export class ApplicationApiClient extends ApiClient {
   public static async createRoleplayApplication(
@@ -28,9 +33,6 @@ export class ApplicationApiClient extends ApiClient {
         )
         .then(() => {
           resolve("Application created");
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }
@@ -64,9 +66,66 @@ export class ApplicationApiClient extends ApiClient {
         )
         .then(() => {
           resolve("Application created");
+        });
+    });
+  }
+
+  public static async getPlayerActiveApplications(): Promise<
+    Array<RoleplayApplication | ClaimbuildApplication>
+  > {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/applications/roleplay/active?size=1000", {
+          headers: {},
         })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
+        .then((response) => {
+          const rpApps = response.data.content;
+          axios
+            .get(
+              this.getBaseUrl() + "/applications/claimbuild/active?size=1000",
+              {
+                headers: {},
+              },
+            )
+            .then((response) => {
+              const cbApps = response.data.content;
+              const apps: Array<RoleplayApplication | ClaimbuildApplication> =
+                rpApps.concat(cbApps);
+              // Get only the apps for the current player
+              const filteredApps: (
+                | RoleplayApplication
+                | ClaimbuildApplication
+              )[] = [];
+              apps.forEach(
+                (app: RoleplayApplication | ClaimbuildApplication) => {
+                  // In order to check if the application is from the current player, we need to
+                  // get the application type first, to know which field to check
+                  const type = getApplicationType(app);
+                  if (type === "claimbuild") {
+                    // cast to claimbuild application
+                    if (
+                      (app as ClaimbuildApplication).application.ign ===
+                      usePlayerStore().ign
+                    ) {
+                      filteredApps.push(app);
+                    }
+                  } else if (type === "roleplay") {
+                    // cast to roleplay application
+                    if (
+                      (app as RoleplayApplication).playerIgn ===
+                      usePlayerStore().ign
+                    ) {
+                      filteredApps.push(app);
+                    }
+                  }
+                },
+              );
+              // call formatDateArrayToString on each application's appliedAt
+              filteredApps.forEach((app: any) => {
+                app.appliedAt = formatDateArrayToString(app.appliedAt);
+              });
+              resolve(filteredApps);
+            });
         });
     });
   }
