@@ -3,6 +3,7 @@ import { usePlayerStore } from "@/stores/playerStores";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import {
   ClaimbuildApplication,
+  getApplicationType,
   RoleplayApplication,
 } from "@/ts/types/Application";
 import { formatDateArrayToString } from "@/ts/utilities";
@@ -69,7 +70,7 @@ export class ApplicationApiClient extends ApiClient {
     });
   }
 
-  public static async getAllActiveApplications(): Promise<
+  public static async getPlayerActiveApplications(): Promise<
     Array<RoleplayApplication | ClaimbuildApplication>
   > {
     return new Promise((resolve) => {
@@ -88,16 +89,42 @@ export class ApplicationApiClient extends ApiClient {
             )
             .then((response) => {
               const cbApps = response.data.content;
-              const apps = rpApps.concat(cbApps);
+              const apps: Array<RoleplayApplication | ClaimbuildApplication> =
+                rpApps.concat(cbApps);
               // Get only the apps for the current player
-              apps.filter((app: any) => {
-                return app.applicant.discordId === usePlayerStore().discordId;
-              });
+              const filteredApps: (
+                | RoleplayApplication
+                | ClaimbuildApplication
+              )[] = [];
+              apps.forEach(
+                (app: RoleplayApplication | ClaimbuildApplication) => {
+                  // In order to check if the application is from the current player, we need to
+                  // get the application type first, to know which field to check
+                  const type = getApplicationType(app);
+                  if (type === "claimbuild") {
+                    // cast to claimbuild application
+                    if (
+                      (app as ClaimbuildApplication).application.ign ===
+                      usePlayerStore().ign
+                    ) {
+                      filteredApps.push(app);
+                    }
+                  } else if (type === "roleplay") {
+                    // cast to roleplay application
+                    if (
+                      (app as RoleplayApplication).playerIgn ===
+                      usePlayerStore().ign
+                    ) {
+                      filteredApps.push(app);
+                    }
+                  }
+                },
+              );
               // call formatDateArrayToString on each application's appliedAt
-              apps.forEach((app: any) => {
+              filteredApps.forEach((app: any) => {
                 app.appliedAt = formatDateArrayToString(app.appliedAt);
               });
-              resolve(apps);
+              resolve(filteredApps);
             });
         });
     });
