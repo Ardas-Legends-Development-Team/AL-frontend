@@ -1,7 +1,7 @@
 export type War = {
-  allies: string[];
-  enemies: string[];
-  faction: string;
-  mainEnemy: string;
-  outcome: string;
+  id: number;
+  nameOfWar: string;
+  nameOfAttacker: string;
+  nameOfDefender: string;
+  startDate: string;
 };
