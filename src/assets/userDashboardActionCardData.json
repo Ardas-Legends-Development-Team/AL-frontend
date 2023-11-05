@@ -1,49 +1,72 @@
 {
   "COMMENTS, README PLEASE": [
     "rankCardData holds the data for actions that can change depending on a rank, while commonCardData holds data",
-    "for cards that have the same effect no matter the rank"
+    "for cards that have the same effect no matter the rank",
+    "For action inputs the possible choices are text, dropdownChoice"
   ],
   "rankCardData": {
-    "king": {
+    "leader": {
       "move": {
         "altGood": "Sauron Eye",
         "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-        "title": "King Move",
+        "title": "Leader Move",
         "altEvil": "Some alt",
         "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
         "description": "King Move Description",
         "actionInputs": [
           {
+            "type": "dropdownChoice",
+            "placeholder": "Target character or army",
+            "chooseFrom": [
+              "characters",
+              "armies"
+            ]
+          },
+          {
             "type": "text",
-            "placeholder": "King Move Input"
+            "placeholder": "Destination region"
           }
         ]
       },
       "bind": {
         "altGood": "Sauron Eye",
         "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-        "title": "Bind",
+        "title": "Leader Bind",
         "altEvil": "Some alt",
         "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
         "description": "Bind Description",
         "actionInputs": [
           {
-            "type": "text",
-            "placeholder": "Bind Input"
+            "type": "dropdownChoice",
+            "placeholder": "Target character",
+            "chooseFrom": [
+              "characters"
+            ]
+          },
+          {
+            "type": "dropdownChoice",
+            "placeholder": "Army name",
+            "chooseFrom": [
+              "armies"
+            ]
           }
         ]
       },
       "unbind": {
         "altGood": "Sauron Eye",
         "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-        "title": "Unbind",
+        "title": "Leader Unbind",
         "altEvil": "Some alt",
         "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
         "description": "Unbind Description",
         "actionInputs": [
           {
-            "type": "text",
-            "placeholder": "Unbind Input"
+            "type": "dropdownChoice",
+            "placeholder": "Target character or army",
+            "chooseFrom": [
+              "characters",
+              "armies"
+            ]
           }
         ]
       }
@@ -59,7 +82,7 @@
         "actionInputs": [
           {
             "type": "text",
-            "placeholder": "Member Move Input"
+            "placeholder": "Destination region"
           }
         ]
       },
@@ -72,8 +95,11 @@
         "description": "Bind Description",
         "actionInputs": [
           {
-            "type": "text",
-            "placeholder": "Bind Input"
+            "type": "dropdownChoice",
+            "placeholder": "Army name",
+            "chooseFrom": [
+              "armies"
+            ]
           }
         ]
       },
@@ -85,10 +111,6 @@
         "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
         "description": "Unbind Description",
         "actionInputs": [
-          {
-            "type": "text",
-            "placeholder": "Unbind Input"
-          }
         ]
       }
     }

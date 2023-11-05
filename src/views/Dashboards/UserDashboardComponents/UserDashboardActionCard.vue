@@ -1,5 +1,8 @@
 <template>
-  <div class="w-28 h-fit rounded-lg bg-base-300">
+  <div
+    class="w-28 h-fit rounded-lg bg-base-300"
+    @click="sendInfoToModal(description, actionInputs)"
+  >
     <LazyLoadedImage
       :evil-alt="altEvil"
       :good-alt="altGood"
@@ -10,10 +13,18 @@
       {{ title }}
     </div>
   </div>
+  <UserDashboardActionModal
+    :is-open="isModalOpen"
+    :description="selectedAction.description"
+    :action-inputs="selectedAction.actionInputs"
+    @close="isModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionModal.vue";
+import { ref } from "vue";
 
 defineProps({
   title: {
@@ -45,4 +56,17 @@ defineProps({
     required: true,
   },
 });
+
+const selectedAction = ref({
+  description: "",
+  actionInputs: [{}],
+});
+
+const isModalOpen = ref(false);
+
+function sendInfoToModal(description: string, actionInputs: any[]) {
+  selectedAction.value.description = description;
+  selectedAction.value.actionInputs = actionInputs;
+  isModalOpen.value = true;
+}
 </script>

@@ -24,19 +24,28 @@ import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/
 import { rankCardData } from "@/assets/userDashboardActionCardData.json";
 import { ref } from "vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
-import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const shownCards: any = ref({});
 
 function populateShownCards(rank: string): void {
-  shownCards.value.move = rankCardData[rank as keyof typeof rankCardData].move;
-  shownCards.value.bind = rankCardData[rank as keyof typeof rankCardData].bind;
-  shownCards.value.unbind =
-    rankCardData[rank as keyof typeof rankCardData].unbind;
+  // If rank is different from member add all rank-specific actions, and then we add the member actions
+  if (rank !== "member") {
+    shownCards.value.rankMove =
+      rankCardData[rank as keyof typeof rankCardData].move;
+    shownCards.value.rankBind =
+      rankCardData[rank as keyof typeof rankCardData].bind;
+    shownCards.value.rankUnbind =
+      rankCardData[rank as keyof typeof rankCardData].unbind;
+  }
+  shownCards.value.memberMove = rankCardData.member.move;
+  shownCards.value.memberBind = rankCardData.member.bind;
+  shownCards.value.memberUnbind = rankCardData.member.unbind;
 }
 
 FactionApiClient.loadFactions().then(() => {
-  const rank = useFactionsStore().isPlayerFactionLeader ? "Leader" : "Member";
+  // TODO: Uncomment this
+  //const rank = useFactionsStore().isPlayerFactionLeader ? "Leader" : "Member";
+  const rank = "Leader";
   populateShownCards(rank.toLowerCase());
 });
 </script>
