@@ -84,10 +84,6 @@ export class PlayerApiClient extends ApiClient {
             characterStore.startedHeal = data.rpChar.startedHeal;
             characterStore.healEnds = data.rpChar.healEnds;
           }
-          console.log(
-            "Player info loaded from API",
-            usePlayerStore().discordId,
-          );
 
           resolve(true);
           return;

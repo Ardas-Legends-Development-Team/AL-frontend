@@ -43,9 +43,6 @@ const hasError = ref(useErrorStore().hasError);
 watch(
   () => useErrorStore().hasError,
   (newValue) => {
-    console.log("Setting error val");
-    console.log(newValue);
-
     hasError.value = newValue;
   },
 );

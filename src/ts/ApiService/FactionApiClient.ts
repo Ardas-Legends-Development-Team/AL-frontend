@@ -93,6 +93,7 @@ export class FactionApiClient extends ApiClient {
             factionsStore.factions.push(faction);
             factionsStore.factionNames.push(faction.nameOfFaction);
             factionsStore.factionLeaders.push(faction.leaderIgn);
+
             if (faction.nameOfFaction === usePlayerStore().faction) {
               factionsStore.playerFaction = faction;
               // Check if the player is leader of the faction

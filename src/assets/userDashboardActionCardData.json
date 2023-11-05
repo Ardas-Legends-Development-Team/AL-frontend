@@ -2,7 +2,7 @@
   "COMMENTS, README PLEASE": [
     "rankCardData holds the data for actions that can change depending on a rank, while commonCardData holds data",
     "for cards that have the same effect no matter the rank",
-    "For action inputs the possible choices are text, dropdownChoice"
+    "For action inputs the possible choices are text, dropdown"
   ],
   "rankCardData": {
     "leader": {
@@ -15,7 +15,7 @@
         "description": "King Move Description",
         "actionInputs": [
           {
-            "type": "dropdownChoice",
+            "type": "dropdown",
             "placeholder": "Target character or army",
             "chooseFrom": [
               "characters",
@@ -24,7 +24,8 @@
           },
           {
             "type": "text",
-            "placeholder": "Destination region"
+            "placeholder": "Destination region",
+            "chooseFrom": []
           }
         ]
       },
@@ -37,14 +38,14 @@
         "description": "Bind Description",
         "actionInputs": [
           {
-            "type": "dropdownChoice",
+            "type": "dropdown",
             "placeholder": "Target character",
             "chooseFrom": [
               "characters"
             ]
           },
           {
-            "type": "dropdownChoice",
+            "type": "dropdown",
             "placeholder": "Army name",
             "chooseFrom": [
               "armies"
@@ -61,7 +62,7 @@
         "description": "Unbind Description",
         "actionInputs": [
           {
-            "type": "dropdownChoice",
+            "type": "dropdown",
             "placeholder": "Target character or army",
             "chooseFrom": [
               "characters",
@@ -82,7 +83,8 @@
         "actionInputs": [
           {
             "type": "text",
-            "placeholder": "Destination region"
+            "placeholder": "Destination region",
+            "chooseFrom": []
           }
         ]
       },
@@ -95,7 +97,7 @@
         "description": "Bind Description",
         "actionInputs": [
           {
-            "type": "dropdownChoice",
+            "type": "dropdown",
             "placeholder": "Army name",
             "chooseFrom": [
               "armies"

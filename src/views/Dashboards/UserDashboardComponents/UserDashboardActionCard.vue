@@ -14,6 +14,7 @@
     </div>
   </div>
   <UserDashboardActionModal
+    v-if="isModalOpen"
     :is-open="isModalOpen"
     :description="selectedAction.description"
     :action-inputs="selectedAction.actionInputs"
