@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { ProductionSite } from "@/ts/types/ProductionSite";
-import { Claimbuild } from "@/ts/types/Claimbuild";
+import { Claimbuild, ProductionSite } from "@/ts/types/Claimbuild";
 
 export const useSpecialBuildingStore = defineStore(
   "SpecialBuildingStore",

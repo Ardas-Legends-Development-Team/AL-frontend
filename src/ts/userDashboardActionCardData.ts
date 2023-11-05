@@ -3,16 +3,22 @@ export const rankCardData = {
     move: {
       altGood: "Sauron Eye",
       sourceGood:
-        "https://media.discordapp.net/attachments/1080521946397147166/1080522044636143636/balrogslayer_mordor_mount_doom_volcanic_fire_eye_of_sauron_on_t_577e1a4f-9b83-4cbc-8b70-27be636fee05.png?width=171&height=171",
+        "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
       text: "King Move",
+      altEvil: "Some alt",
+      sourceEvil:
+        "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     },
   },
   member: {
     move: {
       altGood: "Sauron Eye",
       sourceGood:
-        "https://media.discordapp.net/attachments/1080521946397147166/1080522044636143636/balrogslayer_mordor_mount_doom_volcanic_fire_eye_of_sauron_on_t_577e1a4f-9b83-4cbc-8b70-27be636fee05.png?width=171&height=171",
+        "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
       text: "Move",
+      altEvil: "Some alt",
+      sourceEvil:
+        "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     },
   },
 };
@@ -21,7 +27,19 @@ export const commonCardData = {
   bind: {
     altGood: "Sauron Eye",
     sourceGood:
-      "https://media.discordapp.net/attachments/1080521946397147166/1080522044636143636/balrogslayer_mordor_mount_doom_volcanic_fire_eye_of_sauron_on_t_577e1a4f-9b83-4cbc-8b70-27be636fee05.png?width=171&height=171",
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
     text: "Bind",
+    altEvil: "Some alt",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+  },
+  unbind: {
+    altGood: "Sauron Eye",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+    text: "Unbind",
+    altEvil: "Some alt",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
   },
 };

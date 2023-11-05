@@ -34,7 +34,6 @@
         :good-alt="stepsImages[currentStep].goodAlt"
         :evil-src="stepsImages[currentStep].evilSrc"
         :good-src="stepsImages[currentStep].goodSrc"
-        :is-evil="isFactionEvil(usePlayerStore().faction)"
       />
     </div>
   </section>
@@ -49,8 +48,6 @@ import RoleplayCharacterApplicationStep3 from "@/views/Applications/RoleplayAppl
 import RoleplayCharacterApplicationStep4 from "@/views/Applications/RoleplayApplicationComponents/RoleplayCharacterApplicationStep4.vue";
 import { useRoleplayCharacterFormStore } from "@/stores/formStores";
 import { ApplicationApiClient } from "@/ts/ApiService/ApplicationApiClient";
-import { isFactionEvil } from "@/ts/utilities";
-import { usePlayerStore } from "@/stores/playerStores";
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 
 const router = useRouter();

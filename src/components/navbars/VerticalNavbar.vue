@@ -34,7 +34,7 @@
           </div>
           <div
             @click="openSidebar(true)"
-            class="text-gray-700 ml-8 cursor-pointer"
+            class="bg-base-300/50 rounded-md text-gray-700 ml-8 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

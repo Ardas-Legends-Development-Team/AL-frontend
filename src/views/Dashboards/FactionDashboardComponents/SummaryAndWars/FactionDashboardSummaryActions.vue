@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="
-      useCharacterStore().isFactionLeader &&
+      useFactionsStore().isPlayerFactionLeader &&
       usePlayerStore().faction !== props.factionName
     "
     class="flex flex-row justify-center"
@@ -24,11 +24,12 @@
   />
 </template>
 <script setup lang="ts">
-import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
+import { usePlayerStore } from "@/stores/playerStores";
 import FactionDashboardActionCard from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardActionCard.vue";
 import { ref } from "vue";
 import DeclareWarModal from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/DeclareWarModal.vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const props = defineProps({
   factionName: {

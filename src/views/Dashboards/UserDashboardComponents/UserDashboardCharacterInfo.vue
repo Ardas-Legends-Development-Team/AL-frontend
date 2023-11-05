@@ -1,35 +1,24 @@
 <template>
-  <div class="flex flex-row justify-evenly my-8">
-    <UserDashboardCard
-      :title="cardsData.boundTo.title"
-      :description="cardsData.boundTo.description"
-      :alt-evil="cardsData.boundTo.altEvil"
-      :alt-good="cardsData.boundTo.altGood"
-      :source-evil="cardsData.boundTo.sourceEvil"
-      :source-good="cardsData.boundTo.sourceGood"
-    />
-    <UserDashboardCard
-      class="-translate-y-48"
-      :title="cardsData.currentRegion.title"
-      :description="cardsData.currentRegion.description"
-      :alt-evil="cardsData.currentRegion.altEvil"
-      :alt-good="cardsData.currentRegion.altGood"
-      :source-evil="cardsData.currentRegion.sourceEvil"
-      :source-good="cardsData.currentRegion.sourceGood"
-    />
-    <UserDashboardCard
-      :title="cardsData.injuredStatus.title"
-      :description="cardsData.injuredStatus.description"
-      :alt-evil="cardsData.injuredStatus.altEvil"
-      :alt-good="cardsData.injuredStatus.altGood"
-      :source-evil="cardsData.injuredStatus.sourceEvil"
-      :source-good="cardsData.injuredStatus.sourceGood"
+  <h2 class="mb-1 text-3xl text-neutral-content font-bold ml-16 mt-8 pb-4">
+    Character Information
+  </h2>
+  <div class="flex flex-row flex-wrap justify-evenly my-8">
+    <UserDashboardInfoCard
+      v-for="(data, index) in cardsData"
+      :key="index"
+      class="m-2"
+      :title="data.title"
+      :description="data.description"
+      :alt-evil="data.altEvil"
+      :alt-good="data.altGood"
+      :source-evil="data.sourceEvil"
+      :source-good="data.sourceGood"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import UserDashboardCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardCard.vue";
+import UserDashboardInfoCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardInfoCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
 
@@ -66,21 +55,40 @@ const cardsData = ref({
       "https://ateettea.sirv.com/Dashboards/cloe_null_nazgul_lord_of_the_rings_epic_86cdb049-8e4b-4fd7-ac83-b3af181ba72b.png",
     altEvil: "book of the dead, with a skeleton sigil on the cover",
   },
+  gear: {
+    title: "Gear",
+    description: "No character gear",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/Crippler22_the_luxury_golden_life_auf_Sauron_2177b208-737c-4fd5-a534-670288a038d0.png",
+    altGood: "luxurious golden helmet of an elven general",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/20c3172f-ac60-453e-a2ff-c65817c4e124.jpg",
+    altEvil: "dwarven ring of power with a blue gem in the center",
+  },
+  pvpStatus: {
+    title: "PvP",
+    description: "Disabled",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/Mister_Lonely_art_by_keith_parkinson_dark_lord_morgoth_holds_al_1aebfbeb-b0bd-4705-89ff-c88197520a53.png",
+    altGood:
+      "mage fighting a huge balrog while preparing to launch a fireball at it, with black mountains surrounding them in the night",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/darkbrandon_uruk-hai_orcs_in_battle_in_the_style_of_paul_bonner_d2b64444-250c-4960-a61b-0994342e8198%20(copy).png",
+    altEvil: "band of uruks walking out ready for a battle",
+  },
 });
 
 PlayerApiClient.loadCharacterInfo().then((data) => {
-  cardsData.value.currentRegion.description = data.currentRegion;
   if (data.boundTo) {
     cardsData.value.boundTo.description = data.boundTo;
   }
+  cardsData.value.currentRegion.description = data.currentRegion;
   if (data.injured) {
-    cardsData.value.injuredStatus.description = "You are injured!";
-    if (data.startedHeal) {
-      cardsData.value.injuredStatus.description +=
-        "\nHealing started at " + data.startedHeal;
-      cardsData.value.injuredStatus.description +=
-        "\nHealing ends at " + data.healEnds;
-    }
+    cardsData.value.injuredStatus.description = data.healEnds;
+  }
+  cardsData.value.gear.description = data.gear;
+  if (data.pvp) {
+    cardsData.value.pvpStatus.description = "Enabled";
   }
 });
 </script>
