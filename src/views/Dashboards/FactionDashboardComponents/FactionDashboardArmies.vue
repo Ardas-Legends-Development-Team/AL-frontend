@@ -140,8 +140,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: add faction filters
-// TODO: get only characters of the faction
 import { ref } from "vue";
 import { Army } from "@/ts/types/Army";
 
@@ -163,12 +161,16 @@ function updateFilteredArmyOnSearch(searchResults: Army[]) {
     searchResults.includes(army),
   );
 }
-ArmyApiClient.loadArmies().then((data: Army[]) => {
-  allArmies.value = [...data];
-  filtredArmies.value = [...data];
+ArmyApiClient.loadArmies().then((armies: Army[]) => {
+  // Get only armies in the faction
+  const factionArmies = armies.filter(
+    (army) => army.nameOfFaction === props.faction,
+  );
+  allArmies.value = [...factionArmies];
+  filtredArmies.value = [...factionArmies];
 });
 
-defineProps({
+const props = defineProps({
   faction: {
     type: String,
     required: true,
@@ -219,10 +221,13 @@ function updateFilteredCharactersOnSearch(searchResults: RoleplayCharacter[]) {
 }
 
 RpCharApiClient.loadAllRpChars().then((data: RoleplayCharacter[]) => {
-  for (let i = 0; i < data.length; i++) {
+  // Get only characters in the faction
+  const rpChars = data.filter((rpchar) => rpchar.faction === props.faction);
+
+  for (let i = 0; i < rpChars.length; i++) {
     allRoleplayCharacters.value.push({
-      avatar: `https://mc-heads.net/avatar/${data[i].ign}/36`,
-      character: data[i],
+      avatar: `https://mc-heads.net/avatar/${rpChars[i].ign}/36`,
+      character: rpChars[i],
     });
   }
   filteredCharacters.value = allRoleplayCharacters.value;
