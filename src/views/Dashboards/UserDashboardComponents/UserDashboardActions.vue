@@ -21,7 +21,10 @@
 import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { CharacterInfo } from "@/ts/types/RoleplayCharacter";
-import { commonCardData, rankCardData } from "@/ts/userDashboardActionCardData";
+import {
+  commonCardData,
+  rankCardData,
+} from "@/assets/userDashboardActionCardData.json";
 import { ref } from "vue";
 
 const shownCards: any = ref({});
