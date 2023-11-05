@@ -5,13 +5,15 @@
   <div class="text-center text-neutral-content bg-base-100 p-4">
     <div class="grid grid-cols-3 justify-items-center gap-3">
       <UserDashboardActionCard
-        v-for="(data, index) in shownCards"
+        v-for="(cardData, index) in shownCards"
         :key="index"
-        :text="data.text"
-        :source-good="data.sourceGood"
-        :alt-good="data.altGood"
-        :source-evil="data.sourceEvil"
-        :alt-evil="data.altEvil"
+        :title="cardData.title"
+        :source-good="cardData.sourceGood"
+        :alt-good="cardData.altGood"
+        :source-evil="cardData.sourceEvil"
+        :alt-evil="cardData.altEvil"
+        :description="cardData.description"
+        :action-inputs="cardData.actionInputs"
       />
     </div>
   </div>
@@ -19,23 +21,22 @@
 
 <script setup lang="ts">
 import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionCard.vue";
-import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
-import { CharacterInfo } from "@/ts/types/RoleplayCharacter";
-import {
-  commonCardData,
-  rankCardData,
-} from "@/assets/userDashboardActionCardData.json";
+import { rankCardData } from "@/assets/userDashboardActionCardData.json";
 import { ref } from "vue";
+import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const shownCards: any = ref({});
 
 function populateShownCards(rank: string): void {
   shownCards.value.move = rankCardData[rank as keyof typeof rankCardData].move;
-  shownCards.value.bind = commonCardData.bind;
-  shownCards.value.unbind = commonCardData.unbind;
+  shownCards.value.bind = rankCardData[rank as keyof typeof rankCardData].bind;
+  shownCards.value.unbind =
+    rankCardData[rank as keyof typeof rankCardData].unbind;
 }
 
-PlayerApiClient.loadCharacterInfo().then((data: CharacterInfo) => {
-  populateShownCards(data.rank.toLowerCase());
+FactionApiClient.loadFactions().then(() => {
+  const rank = useFactionsStore().isPlayerFactionLeader ? "Leader" : "Member";
+  populateShownCards(rank.toLowerCase());
 });
 </script>

@@ -1,42 +1,96 @@
 {
   "COMMENTS, README PLEASE": [
-          "rankCardData holds the data for actions that can change depending on a rank, while commonCardData holds data",
-          "for cards that have the same effect no matter the rank"
-    ],
+    "rankCardData holds the data for actions that can change depending on a rank, while commonCardData holds data",
+    "for cards that have the same effect no matter the rank"
+  ],
   "rankCardData": {
     "king": {
       "move": {
         "altGood": "Sauron Eye",
         "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-        "text": "King Move",
+        "title": "King Move",
         "altEvil": "Some alt",
-        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png"
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "King Move Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "King Move Input"
+          }
+        ]
+      },
+      "bind": {
+        "altGood": "Sauron Eye",
+        "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "title": "Bind",
+        "altEvil": "Some alt",
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "Bind Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "Bind Input"
+          }
+        ]
+      },
+      "unbind": {
+        "altGood": "Sauron Eye",
+        "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "title": "Unbind",
+        "altEvil": "Some alt",
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "Unbind Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "Unbind Input"
+          }
+        ]
       }
     },
     "member": {
       "move": {
         "altGood": "Sauron Eye",
         "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-        "text": "Move",
+        "title": "Move",
         "altEvil": "Some alt",
-        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png"
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "Member Move Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "Member Move Input"
+          }
+        ]
+      },
+      "bind": {
+        "altGood": "Sauron Eye",
+        "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "title": "Bind",
+        "altEvil": "Some alt",
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "Bind Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "Bind Input"
+          }
+        ]
+      },
+      "unbind": {
+        "altGood": "Sauron Eye",
+        "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "title": "Unbind",
+        "altEvil": "Some alt",
+        "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
+        "description": "Unbind Description",
+        "actionInputs": [
+          {
+            "type": "text",
+            "placeholder": "Unbind Input"
+          }
+        ]
       }
-    }
-  },
-  "commonCardData": {
-    "bind": {
-      "altGood": "Sauron Eye",
-      "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-      "text": "Bind",
-      "altEvil": "Some alt",
-      "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png"
-    },
-    "unbind": {
-      "altGood": "Sauron Eye",
-      "sourceGood": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png",
-      "text": "Unbind",
-      "altEvil": "Some alt",
-      "sourceEvil": "https://ateettea.sirv.com/Dashboards/SimonGrey8_Caduceus_of_god_hermes._4k_resolution_1d6b1ea9-e609-4d13-a215-a6b9ff7dc059.png"
     }
   }
 }

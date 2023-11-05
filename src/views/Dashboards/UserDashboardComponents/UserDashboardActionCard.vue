@@ -7,7 +7,7 @@
       :good-src="sourceGood"
     />
     <div class="px-2 pb-2 flex flex-row justify-end text-sm text-secondary">
-      {{ text }}
+      {{ title }}
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 
 defineProps({
-  text: {
+  title: {
     type: String,
     required: true,
   },
@@ -34,6 +34,14 @@ defineProps({
   },
   altEvil: {
     type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  actionInputs: {
+    type: Array,
     required: true,
   },
 });
