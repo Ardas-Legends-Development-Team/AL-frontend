@@ -75,6 +75,7 @@ function sendInfoToModal(description: string, actionInputs: any[]) {
 }
 
 function submitAction(playerInputs: PlayerActionInput[]) {
+  isModalOpen.value = false;
   PlayerActionRequestHandler.handleRequest(props.title, playerInputs);
 }
 </script>

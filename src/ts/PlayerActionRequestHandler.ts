@@ -5,6 +5,7 @@ import {
   getPlayerBoundToArmy,
 } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
+import { AlertHandler } from "@/ts/AlertHandler";
 
 /**
  * This handler is responsible for handling the player action requests.
@@ -52,6 +53,8 @@ export class PlayerActionRequestHandler {
         ErrorHandler.throwError("Action was not found.");
         break;
     }
+    // Show a success message
+    AlertHandler.showSuccessAlert("Action submitted successfully.");
   }
 
   private static getTargetDiscordId(playerInputs: PlayerActionInput[]): string {

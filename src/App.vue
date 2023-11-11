@@ -15,6 +15,13 @@
       <FooterBar />
     </div>
     <ErrorAlert v-if="hasError" @click="useErrorStore().hasError = false" />
+    <AlertMessage
+      v-if="hasAlert"
+      @click="
+        useAlertStore().hasAlert = false;
+        useAlertStore().hasSuccessAlert = false;
+      "
+    />
   </div>
   <RegistrationForm
     v-else-if="shouldShowRegistrationForm === true"
@@ -32,18 +39,33 @@ import TopNavbar from "@/components/navbars/TopNavbar.vue";
 import VerticalNavbar from "@/components/navbars/VerticalNavbar.vue";
 import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
-import { useConfigStore, useErrorStore } from "@/stores/systemStores";
+import {
+  useAlertStore,
+  useConfigStore,
+  useErrorStore,
+} from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
 import BackToTopButton from "@/components/BackToTopButton.vue";
+import AlertMessage from "@/components/AlertMessage.vue";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
+const hasAlert = ref(
+  useAlertStore().hasAlert || useAlertStore().hasSuccessAlert,
+);
 watch(
   () => useErrorStore().hasError,
   (newValue) => {
     hasError.value = newValue;
+  },
+);
+
+watch(
+  () => useAlertStore().hasAlert || useAlertStore().hasSuccessAlert,
+  (newValue) => {
+    hasAlert.value = newValue;
   },
 );
 

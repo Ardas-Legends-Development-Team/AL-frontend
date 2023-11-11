@@ -12,6 +12,20 @@ export const useErrorStore = defineStore("ErrorStore", () => {
   };
 });
 
+export const useAlertStore = defineStore("AlertStore", () => {
+  const alertMessage = ref<string>("");
+  const hasAlert = ref<boolean>(false);
+  const successAlertMessage = ref<string>("");
+  const hasSuccessAlert = ref<boolean>(false);
+
+  return {
+    alertMessage,
+    hasAlert,
+    successAlertMessage,
+    hasSuccessAlert,
+  };
+});
+
 export const useConfigStore = defineStore("ConfigStore", () => {
   const deployMode = ref<string>(import.meta.env.MODE);
   // Change this depending on if it's production or dev server
