@@ -24,6 +24,8 @@ import UserDashboardActionCard from "@/views/Dashboards/UserDashboardComponents/
 import { rankCardData } from "@/assets/userDashboardActionCardData.json";
 import { ref } from "vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
+import { getArmyBoundToPlayer } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
 
 const shownCards: any = ref({});
 
@@ -41,9 +43,16 @@ function populateShownCards(rank: string): void {
     shownCards.value.rankUnstation =
       rankCardData[rank as keyof typeof rankCardData].unstation;
   }
+  // Add all member actions concerning the player himself. Do not add mutually exclusive actions
+  // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
   shownCards.value.memberMove = rankCardData.member.move;
-  shownCards.value.memberBind = rankCardData.member.bind;
-  shownCards.value.memberUnbind = rankCardData.member.unbind;
+  // If the player is bound to an army, we show only the unbind action and vice-versa
+  if (getArmyBoundToPlayer(usePlayerStore().discordId) !== "") {
+    shownCards.value.memberUnbind = rankCardData.member.unbind;
+  } else {
+    shownCards.value.memberBind = rankCardData.member.bind;
+  }
+  // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
   shownCards.value.memberStation = rankCardData.member.station;
   shownCards.value.memberUnstation = rankCardData.member.unstation;
 }

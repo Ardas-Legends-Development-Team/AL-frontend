@@ -49,7 +49,7 @@ export function getArmyBoundToPlayer(discordId: string): string {
   PlayerApiClient.loadCharacterInfo(discordId).then((characterInfo) => {
     return characterInfo.boundTo;
   });
-  return "Error";
+  return "";
 }
 
 export function getPlayerBoundToArmy(armyName: string): string {
@@ -57,7 +57,7 @@ export function getPlayerBoundToArmy(armyName: string): string {
     const army = armies.find((army: Army) => army.nameOfArmy === armyName);
     return army?.boundTo;
   });
-  return "Error";
+  return "";
 }
 
 export function getDiscordIdFromCharacterName(characterName: string): string {
@@ -67,5 +67,5 @@ export function getDiscordIdFromCharacterName(characterName: string): string {
     );
     return character?.discordId;
   });
-  return "Error";
+  return "";
 }
