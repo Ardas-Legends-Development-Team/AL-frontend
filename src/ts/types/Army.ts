@@ -4,4 +4,5 @@ export type Army = {
   armyType: string;
   nameOfFaction: string;
   currentRegion: string;
+  boundTo: string;
 };

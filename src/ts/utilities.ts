@@ -1,3 +1,7 @@
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
+import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
+import { Army } from "@/ts/types/Army";
+
 /**
  *  For a given faction name, returns true if the faction is evil.
  * @param factionName
@@ -39,3 +43,18 @@ export function formatDateArrayToString(dateArray: number[]): string {
 export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+export function getArmyBoundToPlayer(discordId: string): string {
+  PlayerApiClient.loadCharacterInfo(discordId).then((characterInfo) => {
+    return characterInfo.boundTo;
+  });
+  return "Error";
+}
+
+export function getPlayerBoundToArmy(armyName: string): string {
+  ArmyApiClient.loadArmies().then((armies) => {
+    const army = armies.find((army: Army) => army.nameOfArmy === armyName);
+    return army?.boundTo;
+  });
+  return "Error";
+}

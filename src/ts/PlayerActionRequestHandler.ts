@@ -26,6 +26,15 @@ export class PlayerActionRequestHandler {
       requestParameters[input.representedData] = input.selectedOption;
     });
     requestParameters["executorDiscordId"] = this.executorDiscordId;
+    // If the action title does not contain "leader", the targetDiscordId is the executorDiscordId,
+    // else we need to find the targetDiscordId
+    if (!actionTitle.includes("leader")) {
+      requestParameters["targetDiscordId"] = this.executorDiscordId;
+    } else {
+      //TODO: Find the targetDiscordId
+      const targetDiscordId = "TODO";
+      requestParameters["targetDiscordId"] = targetDiscordId;
+    }
     console.log("Sent request parameters: ", requestParameters);
     // Call the appropriate API service
     switch (actionTitle) {
