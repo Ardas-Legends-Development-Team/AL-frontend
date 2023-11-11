@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "production": "vue-tsc --noEmit && vite build && vite preview",
+    "build": "rimraf tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build",
+    "preview": "rimraf tsconfig.tsbuildinfo && vite preview",
+    "production": "rimraf tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build && vite preview",
     "test": "vitest",
     "test:e2e": "cypress open",
     "test:unit": "vitest",
