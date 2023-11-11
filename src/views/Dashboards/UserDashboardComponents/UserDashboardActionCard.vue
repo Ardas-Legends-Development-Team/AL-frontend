@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-28 h-fit rounded-lg bg-base-300"
+    class="w-28 h-fit rounded-lg bg-base-300 cursor-pointer"
     @click="sendInfoToModal(description, actionInputs)"
   >
     <LazyLoadedImage

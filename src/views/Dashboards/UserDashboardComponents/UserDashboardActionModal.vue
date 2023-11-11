@@ -96,7 +96,7 @@ function populateInputs() {
                 await RpCharApiClient.loadAllRpChars().then(
                   (characters: RoleplayCharacter[]) => {
                     // Add an element to the list which will be disabled in the dropdown
-                    dropdownList.push("Characters");
+                    if (characters.length > 0) dropdownList.push("Characters");
                     for (const character of characters) {
                       if (character.faction === playerFaction.nameOfFaction) {
                         dropdownList.push(character.rpChar.name);
@@ -109,7 +109,7 @@ function populateInputs() {
                 // Get only armies of the faction
                 await ArmyApiClient.loadArmies().then((armies: Army[]) => {
                   // Add an element to the list which will be disabled in the dropdown
-                  dropdownList.push("Armies");
+                  if (armies.length > 0) dropdownList.push("Armies");
                   for (const army of armies) {
                     if (army.nameOfFaction === playerFaction.nameOfFaction) {
                       dropdownList.push(army.nameOfArmy);
