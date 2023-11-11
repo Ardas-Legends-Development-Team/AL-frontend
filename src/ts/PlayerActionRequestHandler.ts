@@ -1,5 +1,10 @@
-import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
+import {
+  getDiscordIdFromCharacterName,
+  getPlayerBoundToArmy,
+} from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
 
 /**
  * This handler is responsible for handling the player action requests.
@@ -7,21 +12,14 @@ import { ErrorHandler } from "@/ts/ErrorHandler";
  * service to handle the request.
  */
 export class PlayerActionRequestHandler {
-  private static readonly executorDiscordId =
-    PlayerApiClient.loadPlayerInfo().discordId;
+  private static readonly executorDiscordId = usePlayerStore().discordId;
   public static handleRequest(
     actionTitle: string,
-    playerInputs: {
-      type: string;
-      placeholder: string;
-      selectedOption: string;
-      dropdownList: string[];
-      representedData: string;
-    }[],
+    playerInputs: PlayerActionInput[],
   ): void {
     actionTitle = actionTitle.toLowerCase();
     // Build the API parameters from playerInputs and then add executorDiscordId
-    const requestParameters = {};
+    const requestParameters: any = {};
     playerInputs.forEach((input) => {
       requestParameters[input.representedData] = input.selectedOption;
     });
@@ -31,9 +29,8 @@ export class PlayerActionRequestHandler {
     if (!actionTitle.includes("leader")) {
       requestParameters["targetDiscordId"] = this.executorDiscordId;
     } else {
-      //TODO: Find the targetDiscordId
-      const targetDiscordId = "TODO";
-      requestParameters["targetDiscordId"] = targetDiscordId;
+      requestParameters["targetDiscordId"] =
+        this.getTargetDiscordId(playerInputs);
     }
     console.log("Sent request parameters: ", requestParameters);
     // Call the appropriate API service
@@ -49,10 +46,27 @@ export class PlayerActionRequestHandler {
       case "bind":
         break;
       case "unbind":
+        // TODO: we don't pass the army as input parameter so we need fetch it
         break;
       default:
         ErrorHandler.throwError("Action was not found.");
         break;
     }
+  }
+
+  private static getTargetDiscordId(playerInputs: PlayerActionInput[]): string {
+    // Iterate through the playerInputs to find, calling the appropriate utility method to extract the targetDiscordId
+    // from either a character name or an army name
+    for (const input of playerInputs) {
+      if (input.representedData === "targetCharaterName") {
+        return getDiscordIdFromCharacterName(input.selectedOption);
+      } else if (
+        input.representedData === "armyName" &&
+        input.selectedOption !== ""
+      ) {
+        return getPlayerBoundToArmy(input.selectedOption);
+      }
+    }
+    return "Error";
   }
 }

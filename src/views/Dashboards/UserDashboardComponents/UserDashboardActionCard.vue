@@ -19,6 +19,7 @@
     :description="selectedAction.description"
     :action-inputs="selectedAction.actionInputs"
     @close="isModalOpen = false"
+    @submit="(playerInputs: PlayerActionInput[]) => submitAction(playerInputs)"
   />
 </template>
 
@@ -26,8 +27,10 @@
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionModal.vue";
 import { ref } from "vue";
+import { PlayerActionRequestHandler } from "@/ts/PlayerActionRequestHandler";
+import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -69,5 +72,9 @@ function sendInfoToModal(description: string, actionInputs: any[]) {
   selectedAction.value.description = description;
   selectedAction.value.actionInputs = actionInputs;
   isModalOpen.value = true;
+}
+
+function submitAction(playerInputs: PlayerActionInput[]) {
+  PlayerActionRequestHandler.handleRequest(props.title, playerInputs);
 }
 </script>

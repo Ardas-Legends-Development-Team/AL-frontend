@@ -45,7 +45,7 @@
             "chooseFrom": [
               "characters"
             ],
-            "representedData": "targetDiscordId"
+            "representedData": "targetCharacterName"
           },
           {
             "type": "dropdown",

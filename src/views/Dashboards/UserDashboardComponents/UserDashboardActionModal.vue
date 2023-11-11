@@ -44,7 +44,7 @@
         <button
           v-else
           class="btn btn-error btn-outline mt-4"
-          @click="sendActionRequest"
+          @click="submitAction"
         >
           Are you sure ?
         </button>
@@ -63,6 +63,7 @@ import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import { Army } from "@/ts/types/Army";
 import { ref } from "vue";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
 
 const props = defineProps({
   isOpen: {
@@ -84,22 +85,14 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "submit"]);
 const isConfirming = ref(false);
 
 function closeModal() {
   emit("close");
 }
 
-const shownInputs = ref<
-  {
-    type: string;
-    placeholder: string;
-    selectedOption: string;
-    dropdownList: string[];
-    representedData: string;
-  }[]
->([]);
+const shownInputs = ref<PlayerActionInput[]>([]);
 
 function askForConfirmation(): void {
   // Check if an input is empty, if yes then show an error message
@@ -112,7 +105,9 @@ function askForConfirmation(): void {
   isConfirming.value = true;
 }
 
-function sendActionRequest(): void {}
+function submitAction(): void {
+  emit("submit", shownInputs.value);
+}
 
 function populateInputs(): void {
   for (const input of props.actionInputs) {
