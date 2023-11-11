@@ -2,7 +2,7 @@
   <div class="modal" :class="isOpen ? 'modal-open' : ''">
     <div class="modal-box">
       <label
-        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        class="btn btn-primary btn-m btn-circle btn-outline absolute right-2 top-2"
         @click="closeModal"
         >✕</label
       >
@@ -17,6 +17,7 @@
             class="input input-bordered my-2"
             :type="input.type"
             :placeholder="input.placeholder"
+            v-model="input.selectedOption"
           />
           <div v-else-if="input.type === 'dropdown'">
             <select
@@ -33,6 +34,20 @@
             </select>
           </div>
         </div>
+        <button
+          v-if="!isConfirming"
+          class="btn btn-primary btn-outline mt-4"
+          @click="askForConfirmation"
+        >
+          Submit
+        </button>
+        <button
+          v-else
+          class="btn btn-error btn-outline mt-4"
+          @click="sendActionRequest"
+        >
+          Are you sure ?
+        </button>
       </div>
     </div>
   </div>
@@ -47,6 +62,7 @@ import { Faction } from "@/ts/types/Faction";
 import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import { Army } from "@/ts/types/Army";
 import { ref } from "vue";
+import { ErrorHandler } from "@/ts/ErrorHandler";
 
 const props = defineProps({
   isOpen: {
@@ -62,12 +78,14 @@ const props = defineProps({
       type: string;
       placeholder: string;
       chooseFrom: string[];
+      representedData: string;
     }>,
     required: true,
   },
 });
 
 const emit = defineEmits(["close"]);
+const isConfirming = ref(false);
 
 function closeModal() {
   emit("close");
@@ -79,10 +97,24 @@ const shownInputs = ref<
     placeholder: string;
     selectedOption: string;
     dropdownList: string[];
+    representedData: string;
   }[]
 >([]);
 
-function populateInputs() {
+function askForConfirmation(): void {
+  // Check if an input is empty, if yes then show an error message
+  for (const input of shownInputs.value) {
+    if (input.selectedOption === "") {
+      ErrorHandler.throwError("Please fill in all the inputs");
+      return;
+    }
+  }
+  isConfirming.value = true;
+}
+
+function sendActionRequest(): void {}
+
+function populateInputs(): void {
   for (const input of props.actionInputs) {
     if (input.type === "dropdown") {
       // For each dropdown choice, we need to get the list of characters or armies or anything else specified
@@ -126,6 +158,7 @@ function populateInputs() {
             placeholder: input.placeholder,
             selectedOption: "",
             dropdownList: [...dropdownList],
+            representedData: input.representedData,
           });
         },
       );
@@ -135,6 +168,7 @@ function populateInputs() {
         placeholder: input.placeholder,
         selectedOption: "",
         dropdownList: [],
+        representedData: input.representedData,
       });
     }
   }

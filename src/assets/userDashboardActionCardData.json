@@ -2,7 +2,8 @@
   "COMMENTS, README PLEASE": [
     "rankCardData holds the data for actions that can change depending on a rank, while commonCardData holds data",
     "for cards that have the same effect no matter the rank",
-    "For action inputs the possible choices are text, dropdown"
+    "For action inputs the possible choices are text, dropdown",
+    "For action inputs, the representedData means what API parameter this value represents"
   ],
   "rankCardData": {
     "leader": {
@@ -16,16 +17,17 @@
         "actionInputs": [
           {
             "type": "dropdown",
-            "placeholder": "Target character or army",
+            "placeholder": "Target army",
             "chooseFrom": [
-              "characters",
               "armies"
-            ]
+            ],
+            "representedData": "armyName"
           },
           {
             "type": "text",
             "placeholder": "Destination region",
-            "chooseFrom": []
+            "chooseFrom": [],
+            "representedData": "toRegion"
           }
         ]
       },
@@ -42,14 +44,16 @@
             "placeholder": "Target character",
             "chooseFrom": [
               "characters"
-            ]
+            ],
+            "representedData": "targetDiscordId"
           },
           {
             "type": "dropdown",
             "placeholder": "Army name",
             "chooseFrom": [
               "armies"
-            ]
+            ],
+            "representedData": "armyName"
           }
         ]
       },
@@ -63,11 +67,11 @@
         "actionInputs": [
           {
             "type": "dropdown",
-            "placeholder": "Target character or army",
+            "placeholder": "Target army",
             "chooseFrom": [
-              "characters",
               "armies"
-            ]
+            ],
+            "representedData": "armyName"
           }
         ]
       }
@@ -84,7 +88,8 @@
           {
             "type": "text",
             "placeholder": "Destination region",
-            "chooseFrom": []
+            "chooseFrom": [],
+            "representedData": "toRegion"
           }
         ]
       },
@@ -101,7 +106,8 @@
             "placeholder": "Army name",
             "chooseFrom": [
               "armies"
-            ]
+            ],
+            "representedData": "armyName"
           }
         ]
       },
