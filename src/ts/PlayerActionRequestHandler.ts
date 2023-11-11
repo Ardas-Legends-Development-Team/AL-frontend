@@ -42,6 +42,10 @@ export class PlayerActionRequestHandler {
         break;
       case "leader unbind":
         break;
+      case "leader station":
+        break;
+      case "leader unstation":
+        break;
       case "move":
         break;
       case "bind":
@@ -49,9 +53,14 @@ export class PlayerActionRequestHandler {
       case "unbind":
         // TODO: we don't pass the army as input parameter so we need fetch it
         break;
+      case "station":
+        break;
+
+      case "unstation":
+        break;
       default:
         ErrorHandler.throwError("Action was not found.");
-        break;
+        return;
     }
     // Show a success message
     AlertHandler.showSuccessAlert("Action submitted successfully.");

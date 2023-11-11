@@ -1,6 +1,12 @@
 <template>
+  <!-- Depending on if it's a rank action (contains leader), give the card a different background color -->
   <div
-    class="w-28 h-fit rounded-lg bg-base-300 cursor-pointer"
+    class="w-28 h-fit rounded-lg cursor-pointer"
+    :class="
+      title.toLowerCase().includes('leader')
+        ? 'bg-accent-content'
+        : 'bg-base-300'
+    "
     @click="sendInfoToModal(description, actionInputs)"
   >
     <LazyLoadedImage

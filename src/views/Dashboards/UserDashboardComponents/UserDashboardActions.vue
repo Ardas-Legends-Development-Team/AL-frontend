@@ -3,7 +3,7 @@
     Actions
   </h2>
   <div class="text-center text-neutral-content bg-base-100 p-4">
-    <div class="grid grid-cols-3 justify-items-center gap-3">
+    <div class="grid grid-cols-5 justify-items-center gap-3">
       <UserDashboardActionCard
         v-for="(cardData, index) in shownCards"
         :key="index"
@@ -36,10 +36,16 @@ function populateShownCards(rank: string): void {
       rankCardData[rank as keyof typeof rankCardData].bind;
     shownCards.value.rankUnbind =
       rankCardData[rank as keyof typeof rankCardData].unbind;
+    shownCards.value.rankStation =
+      rankCardData[rank as keyof typeof rankCardData].station;
+    shownCards.value.rankUnstation =
+      rankCardData[rank as keyof typeof rankCardData].unstation;
   }
   shownCards.value.memberMove = rankCardData.member.move;
   shownCards.value.memberBind = rankCardData.member.bind;
   shownCards.value.memberUnbind = rankCardData.member.unbind;
+  shownCards.value.memberStation = rankCardData.member.station;
+  shownCards.value.memberUnstation = rankCardData.member.unstation;
 }
 
 FactionApiClient.loadFactions().then(() => {

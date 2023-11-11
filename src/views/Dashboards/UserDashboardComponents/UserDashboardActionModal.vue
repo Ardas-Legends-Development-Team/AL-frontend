@@ -27,7 +27,11 @@
               <option
                 v-for="(element, index) in input.dropdownList"
                 :key="index"
-                :disabled="element === 'Characters' || element === 'Armies'"
+                :disabled="
+                  element === 'Characters' ||
+                  element === 'Armies' ||
+                  element === 'Claimbuilds'
+                "
               >
                 {{ element }}
               </option>
@@ -64,6 +68,8 @@ import { Army } from "@/ts/types/Army";
 import { ref } from "vue";
 import { ErrorHandler } from "@/ts/ErrorHandler";
 import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
+import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
+import { Claimbuild } from "@/ts/types/Claimbuild";
 
 const props = defineProps({
   isOpen: {
@@ -143,6 +149,21 @@ function populateInputs(): void {
                     }
                   }
                 });
+                break;
+              case "claimbuilds":
+                // Get only claimbuilds of the faction
+                await ClaimbuildApiClient.loadAllClaimbuilds().then(
+                  (claimBuilds: Claimbuild[]) => {
+                    // Add an element to the list which will be disabled in the dropdown
+                    if (claimBuilds.length > 0)
+                      dropdownList.push("Claimbuilds");
+                    for (const claimBuild of claimBuilds) {
+                      if (claimBuild.faction === playerFaction.nameOfFaction) {
+                        dropdownList.push(claimBuild.name);
+                      }
+                    }
+                  },
+                );
                 break;
               default:
                 break;
