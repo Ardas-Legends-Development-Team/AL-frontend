@@ -1,6 +1,7 @@
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import { Army } from "@/ts/types/Army";
+import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 /**
  *  For a given faction name, returns true if the faction is evil.
@@ -55,6 +56,16 @@ export function getPlayerBoundToArmy(armyName: string): string {
   ArmyApiClient.loadArmies().then((armies) => {
     const army = armies.find((army: Army) => army.nameOfArmy === armyName);
     return army?.boundTo;
+  });
+  return "Error";
+}
+
+export function getDiscordIdFromCharacterName(characterName: string): string {
+  RpCharApiClient.loadRpCharsByNames([characterName]).then((characters) => {
+    const character = characters.find(
+      (character) => character.rpChar.name === characterName,
+    );
+    return character?.discordId;
   });
   return "Error";
 }
