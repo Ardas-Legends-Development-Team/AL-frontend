@@ -45,27 +45,27 @@ export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export function getArmyBoundToPlayer(discordId: string): string {
-  PlayerApiClient.loadCharacterInfo(discordId).then((characterInfo) => {
-    return characterInfo.boundTo;
-  });
-  return "";
+export async function getArmyBoundToPlayer(discordId: string): Promise<string> {
+  const characterInfo = await PlayerApiClient.loadCharacterInfo(discordId);
+  return characterInfo.boundTo;
 }
 
-export function getPlayerBoundToArmy(armyName: string): string {
-  ArmyApiClient.loadArmies().then((armies) => {
-    const army = armies.find((army: Army) => army.nameOfArmy === armyName);
-    return army?.boundTo;
-  });
-  return "";
+export async function getPlayerBoundToArmy(armyName: string): Promise<string> {
+  const armies = await ArmyApiClient.loadArmies();
+  const army = armies.find((army: Army) => army.nameOfArmy === armyName);
+  if (!army) {
+    return "";
+  }
+  return army.boundTo;
 }
 
-export function getDiscordIdFromCharacterName(characterName: string): string {
-  RpCharApiClient.loadRpCharsByNames([characterName]).then((characters) => {
-    const character = characters.find(
-      (character) => character.rpChar.name === characterName,
-    );
-    return character?.discordId;
-  });
-  return "";
+export async function getDiscordIdFromCharacterName(
+  characterName: string,
+): Promise<string> {
+  // TODO: for the love of god optimize this from the API side because there's too much overhead
+  const characters = await RpCharApiClient.loadRpCharsByNames([characterName]);
+  const discordId = await PlayerApiClient.loadPlayerInfoFromIgn(
+    characters[0].ign,
+  );
+  return discordId.discordId;
 }

@@ -34,9 +34,29 @@ export class MovementApiClient extends ApiClient {
         .post(
           this.getBaseUrl() + "/movement/move-army-or-company",
           {
-            discordId: usePlayerStore().discordId,
+            executorDiscordId: usePlayerStore().discordId,
             armyName: armyName,
             toRegion: destinationRegionId,
+          },
+          {
+            headers: {},
+          },
+        )
+        .then((response) => {
+          resolve(response.data);
+        });
+    });
+  }
+
+  public static async cancelCharacterMovement(
+    targetDiscordId: string,
+  ): Promise<MovementResponse> {
+    return new Promise((resolve) => {
+      axios
+        .patch(
+          this.getBaseUrl() + "/movement/cancel-char-move",
+          {
+            discordId: targetDiscordId,
           },
           {
             headers: {},

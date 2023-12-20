@@ -58,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: ask for confirmation after submitting every action
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";

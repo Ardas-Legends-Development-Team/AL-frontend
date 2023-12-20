@@ -6,6 +6,10 @@ import {
 } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
 import { AlertHandler } from "@/ts/AlertHandler";
+import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
+import { ArmyControlApiClient } from "@/ts/ApiService/ArmyControlApiClient";
+import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
+import { CharacterInfo } from "@/ts/types/CharacterInfo";
 
 /**
  * This handler is responsible for handling the player action requests.
@@ -14,10 +18,10 @@ import { AlertHandler } from "@/ts/AlertHandler";
  */
 export class PlayerActionRequestHandler {
   private static readonly executorDiscordId = usePlayerStore().discordId;
-  public static handleRequest(
+  public static async handleRequest(
     actionTitle: string,
     playerInputs: PlayerActionInput[],
-  ): void {
+  ): Promise<void> {
     actionTitle = actionTitle.toLowerCase();
     // Build the API parameters from playerInputs and then add executorDiscordId
     const requestParameters: any = {};
@@ -30,33 +34,88 @@ export class PlayerActionRequestHandler {
     if (!actionTitle.includes("leader")) {
       requestParameters["targetDiscordId"] = this.executorDiscordId;
     } else {
-      requestParameters["targetDiscordId"] =
-        this.getTargetDiscordId(playerInputs);
+      // Check if the action is a bind action, then pass a corresponding boolean to getTargetDiscordId
+      const isBind = actionTitle.includes("bind");
+      requestParameters["targetDiscordId"] = await this.getTargetDiscordId(
+        playerInputs,
+        isBind,
+      );
     }
+    const characterInfo: CharacterInfo =
+      await PlayerApiClient.loadCharacterInfo(usePlayerStore().discordId);
     console.log("Sent request parameters: ", requestParameters);
     // Call the appropriate API service
     switch (actionTitle) {
       case "leader move":
+        await MovementApiClient.moveArmyOrCompany(
+          requestParameters["toRegion"],
+          requestParameters["armyName"],
+        );
         break;
       case "leader bind":
+        await ArmyControlApiClient.bindArmy(
+          requestParameters["targetDiscordId"],
+          requestParameters["armyName"],
+        );
         break;
       case "leader unbind":
+        await ArmyControlApiClient.unbindArmy(
+          requestParameters["targetDiscordId"],
+          requestParameters["armyName"],
+        );
         break;
       case "leader station":
+        await ArmyControlApiClient.stationArmy(
+          requestParameters["claimbuildName"],
+          requestParameters["armyName"],
+        );
         break;
       case "leader unstation":
+        await ArmyControlApiClient.unstationArmy(
+          requestParameters["claimbuildName"],
+          requestParameters["armyName"],
+        );
         break;
       case "move":
+        // Check if we're bound to an army and if yes fetch it
+        if (characterInfo.boundTo) {
+          requestParameters["armyName"] = characterInfo.boundTo;
+          await MovementApiClient.moveArmyOrCompany(
+            requestParameters["toRegion"],
+            requestParameters["armyName"],
+          );
+        } else {
+          await MovementApiClient.moveCharacter(requestParameters["toRegion"]);
+        }
         break;
       case "bind":
+        await ArmyControlApiClient.bindArmy(
+          requestParameters["targetDiscordId"],
+          requestParameters["armyName"],
+        );
         break;
       case "unbind":
-        // TODO: we don't pass the army as input parameter so we need fetch it
+        requestParameters["armyName"] = characterInfo.boundTo;
+        await ArmyControlApiClient.unbindArmy(
+          requestParameters["targetDiscordId"],
+          requestParameters["armyName"],
+        );
+
         break;
       case "station":
+        requestParameters["armyName"] = characterInfo.boundTo;
+        await ArmyControlApiClient.stationArmy(
+          requestParameters["claimbuildName"],
+          requestParameters["armyName"],
+        );
         break;
 
       case "unstation":
+        requestParameters["armyName"] = characterInfo.boundTo;
+        await ArmyControlApiClient.unstationArmy(
+          requestParameters["claimbuildName"],
+          requestParameters["armyName"],
+        );
         break;
       default:
         ErrorHandler.throwError("Action was not found.");
@@ -66,17 +125,21 @@ export class PlayerActionRequestHandler {
     AlertHandler.showSuccessAlert("Action submitted successfully.");
   }
 
-  private static getTargetDiscordId(playerInputs: PlayerActionInput[]): string {
+  private static async getTargetDiscordId(
+    playerInputs: PlayerActionInput[],
+    isBind: boolean,
+  ): Promise<string> {
     // Iterate through the playerInputs to find, calling the appropriate utility method to extract the targetDiscordId
     // from either a character name or an army name
     for (const input of playerInputs) {
-      if (input.representedData === "targetCharaterName") {
-        return getDiscordIdFromCharacterName(input.selectedOption);
+      if (input.representedData === "targetCharacterName") {
+        return await getDiscordIdFromCharacterName(input.selectedOption);
       } else if (
         input.representedData === "armyName" &&
-        input.selectedOption !== ""
+        input.selectedOption !== "" &&
+        !isBind
       ) {
-        return getPlayerBoundToArmy(input.selectedOption);
+        return await getPlayerBoundToArmy(input.selectedOption);
       }
     }
     return "Error";

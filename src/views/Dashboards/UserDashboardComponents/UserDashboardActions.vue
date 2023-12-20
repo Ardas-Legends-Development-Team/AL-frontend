@@ -29,7 +29,7 @@ import { usePlayerStore } from "@/stores/playerStores";
 
 const shownCards: any = ref({});
 
-function populateShownCards(rank: string): void {
+async function populateShownCards(rank: string): Promise<void> {
   // If rank is different from member add all rank-specific actions, and then we add the member actions
   if (rank !== "member") {
     shownCards.value.rankMove =
@@ -46,15 +46,18 @@ function populateShownCards(rank: string): void {
   // Add all member actions concerning the player himself. Do not add mutually exclusive actions
   // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
   shownCards.value.memberMove = rankCardData.member.move;
-  // If the player is bound to an army, we show only the unbind action and vice-versa
-  if (getArmyBoundToPlayer(usePlayerStore().discordId) !== "") {
+  // If the player is not bound to an army, we only show the bind action and not unbind/station/unstation
+  const armyBoundToPlayer = await getArmyBoundToPlayer(
+    usePlayerStore().discordId,
+  );
+  if (armyBoundToPlayer) {
     shownCards.value.memberUnbind = rankCardData.member.unbind;
+    // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
+    shownCards.value.memberStation = rankCardData.member.station;
+    shownCards.value.memberUnstation = rankCardData.member.unstation;
   } else {
     shownCards.value.memberBind = rankCardData.member.bind;
   }
-  // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
-  shownCards.value.memberStation = rankCardData.member.station;
-  shownCards.value.memberUnstation = rankCardData.member.unstation;
 }
 
 FactionApiClient.loadFactions().then(() => {

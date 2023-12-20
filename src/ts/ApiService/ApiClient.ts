@@ -8,8 +8,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("Error response", error.response);
     if (error.response) {
-      ErrorHandler.throwError(error.response.data.message);
+      ErrorHandler.throwError(error.response.data);
     } else {
       ErrorHandler.throwError("Unexpected error occured");
     }

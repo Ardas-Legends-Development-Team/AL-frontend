@@ -27,7 +27,6 @@ import {
 
 const apps = ref<Array<RoleplayApplication | ClaimbuildApplication>>([]);
 
-// TODO: get only active applications concerning the current user
 ApplicationApiClient.getPlayerActiveApplications().then((data) => {
   apps.value = data;
 });

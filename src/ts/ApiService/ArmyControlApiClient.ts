@@ -9,7 +9,7 @@ export class ArmyControlApiClient extends ApiClient {
   ): Promise<string> {
     return new Promise((resolve) => {
       axios
-        .post(
+        .patch(
           this.getBaseUrl() + "/army/bind",
           {
             executorDiscordId: usePlayerStore().discordId,
@@ -32,7 +32,7 @@ export class ArmyControlApiClient extends ApiClient {
   ): Promise<string> {
     return new Promise((resolve) => {
       axios
-        .post(
+        .patch(
           this.getBaseUrl() + "/army/unbind",
           {
             executorDiscordId: usePlayerStore().discordId,
@@ -55,7 +55,7 @@ export class ArmyControlApiClient extends ApiClient {
   ): Promise<string> {
     return new Promise((resolve) => {
       axios
-        .post(
+        .patch(
           this.getBaseUrl() + "/army/station",
           {
             executorDiscordId: usePlayerStore().discordId,
@@ -78,7 +78,7 @@ export class ArmyControlApiClient extends ApiClient {
   ): Promise<string> {
     return new Promise((resolve) => {
       axios
-        .post(
+        .patch(
           this.getBaseUrl() + "/army/unstation",
           {
             executorDiscordId: usePlayerStore().discordId,
