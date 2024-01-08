@@ -4,10 +4,10 @@
     <div class="modal-box max-w-2xl">
       <label
         for="declareWarModal"
-        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        class="btn-m btn btn-circle btn-primary absolute right-2 top-2"
         >✕</label
       >
-      <h2 class="font-bold text-lg">
+      <h2 class="text-lg font-bold">
         Declare war to {{ props.targetFactionName }}
       </h2>
       <input
@@ -16,10 +16,10 @@
         placeholder="Name of the war"
         class="input input-bordered input-primary w-full max-w-xs"
       />
-      <h3 class="font-bold text-lg">Are you sure you want to declare a war?</h3>
+      <h3 class="text-lg font-bold">Are you sure you want to declare a war?</h3>
       <label
         for="declareWarModal"
-        class="btn primary"
+        class="primary btn"
         @click="emit('confirm', { name: 'Declare War', value: warName })"
       >
         Confirm

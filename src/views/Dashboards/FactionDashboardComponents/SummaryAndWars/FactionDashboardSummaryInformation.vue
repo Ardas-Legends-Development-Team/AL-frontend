@@ -1,16 +1,16 @@
 <template>
-  <div class="flex flex-col content-center basis-2/3 m-4">
-    <h3 class="text-2xl text-accent my-3">King: {{ faction.leaderIgn }}</h3>
-    <h3 class="text-2xl my-3">Home Region: {{ faction.homeRegion }}</h3>
-    <h3 class="text-2xl my-3">
+  <div class="m-4 flex basis-2/3 flex-col content-center">
+    <h3 class="my-3 text-2xl text-accent">King: {{ faction.leaderIgn }}</h3>
+    <h3 class="my-3 text-2xl">Home Region: {{ faction.homeRegion }}</h3>
+    <h3 class="my-3 text-2xl">
       Claimed Regions: {{ faction.countOfClaimedRegions }}
     </h3>
-    <h3 class="text-2xl my-3">Claimbuilds: {{ faction.countOfClaimbuilds }}</h3>
-    <h3 class="text-2xl my-3">Armies: {{ faction.countOfArmies }}</h3>
-    <h3 class="text-2xl my-3">Players: {{ faction.countOfPlayers }}</h3>
+    <h3 class="my-3 text-2xl">Claimbuilds: {{ faction.countOfClaimbuilds }}</h3>
+    <h3 class="my-3 text-2xl">Armies: {{ faction.countOfArmies }}</h3>
+    <h3 class="my-3 text-2xl">Players: {{ faction.countOfPlayers }}</h3>
   </div>
-  <div class="basis-1/3 my-3">
-    <div class="w-24 h-48 mx-2">
+  <div class="my-3 basis-1/3">
+    <div class="mx-2 h-48 w-24">
       <img :src="factionBanner" alt="faction banner" />
     </div>
     <div class="divider"></div>
@@ -18,12 +18,12 @@
       <div
         v-for="alliedFactionBanner in alliedFactionBanners"
         :key="alliedFactionBanner"
-        class="w-8 h-16"
+        class="h-16 w-8"
       >
         <img :src="alliedFactionBanner" alt="faction banner" />
       </div>
       <img
-        class="w-8 h-8 mt-4 mx-2"
+        class="mx-2 mt-4 h-8 w-8"
         src="../../../../assets/peace.png"
         alt="peace dove"
       />
@@ -33,12 +33,12 @@
       <div
         v-for="enemyFactionBanner in enemyFactionBanners"
         :key="enemyFactionBanner"
-        class="w-8 h-16"
+        class="h-16 w-8"
       >
         <img :src="enemyFactionBanner" alt="faction banner" />
       </div>
       <img
-        class="w-8 h-8 mt-4 mx-2"
+        class="mx-2 mt-4 h-8 w-8"
         src="../../../../assets/swords.png"
         alt="swords"
       />

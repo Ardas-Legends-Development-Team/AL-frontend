@@ -1,12 +1,12 @@
 <template>
   <div v-if="apps.length > 0">
-    <h2 class="mb-1 text-3xl text-neutral-content font-bold ml-16 mt-8 pb-4">
+    <h2 class="mb-1 ml-16 mt-8 pb-4 text-3xl font-bold text-neutral-content">
       Character Information
     </h2>
     <div
       v-for="app in apps"
       :key="app.id"
-      class="flex flex-row flex-wrap justify-center items-center"
+      class="flex flex-row flex-wrap items-center justify-center"
     >
       <UserDashboardApplicationCard
         :vote-count="app.voteCount"

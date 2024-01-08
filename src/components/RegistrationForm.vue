@@ -1,7 +1,7 @@
 <template>
-  <div class="background mx-auto max-w-screen-xl min-h-screen py-16">
-    <div class="mx-auto max-w-lg bg-base-200 rounded">
-      <h1 class="text-center text-2xl font-bold text-primary sm:text-3xl py-4">
+  <div class="background mx-auto min-h-screen max-w-screen-xl py-16">
+    <div class="mx-auto max-w-lg rounded bg-base-200">
+      <h1 class="py-4 text-center text-2xl font-bold text-primary sm:text-3xl">
         Register yourself
       </h1>
 
@@ -10,7 +10,7 @@
         the roleplay system.
       </p>
 
-      <form action="" class="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl">
+      <form action="" class="mb-0 mt-6 space-y-4 rounded-lg p-8 shadow-2xl">
         <p class="text-lg font-medium">Please provide us your information</p>
 
         <div>

@@ -1,17 +1,17 @@
 <template>
   <div class="grid grid-cols-3 gap-4">
     <div class="flex flex-row items-center justify-center space-x-2">
-      <img class="my-4 mask mask-circle w-24 h-24" :src="avatar" alt="avatar" />
+      <img class="mask mask-circle my-4 h-24 w-24" :src="avatar" alt="avatar" />
     </div>
     <div
       class="flex flex-col items-center justify-center space-y-2 text-center"
     >
       <h1 class="text-3xl">{{ characterName }}</h1>
-      <div class="badge badge-outline badge-primary">{{ title }}</div>
+      <div class="badge badge-primary badge-outline">{{ title }}</div>
     </div>
     <div
       v-if="numberOfApps > 0"
-      class="badge badge-primary h-10 mt-5 cursor-pointer"
+      class="badge badge-primary mt-5 h-10 cursor-pointer"
       @click="scrollToBottom"
     >
       Scroll to {{ numberOfApps }} open application{{

@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+  <div class="mx-4 my-4 rounded-2xl bg-base-100/30">
     <UserDashboardTitles :number-of-apps="apps.length" />
   </div>
-  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+  <div class="mx-4 my-4 rounded-2xl bg-base-100/30">
     <UserDashboardActions />
   </div>
-  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+  <div class="mx-4 my-4 rounded-2xl bg-base-100/30">
     <UserDashboardCharacterInfo />
   </div>
-  <div class="bg-base-100/30 my-4 rounded-2xl mx-4">
+  <div class="mx-4 my-4 rounded-2xl bg-base-100/30">
     <UserDashboardApplications :apps="apps" />
   </div>
 </template>

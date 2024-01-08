@@ -4,21 +4,21 @@
     <div class="modal-box">
       <label
         for="rpCharDetailsModal"
-        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        class="btn-m btn btn-circle btn-primary absolute right-2 top-2"
         >✕</label
       >
-      <h3 class="font-bold text-lg">{{ props.selectedCharacter.ign }}</h3>
-      <div class="flex flex-col w-full mt-4">
+      <h3 class="text-lg font-bold">{{ props.selectedCharacter.ign }}</h3>
+      <div class="mt-4 flex w-full flex-col">
         <div
           v-if="props.selectedCharacter!.rpChar.pvp"
-          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
         >
           <p class="font-medium">PvP Enabled</p>
         </div>
         <div v-if="props.selectedCharacter!.rpChar.pvp" class="divider"></div>
         <div
           v-if="props.selectedCharacter!.rpChar.boundTo"
-          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
         >
           <p class="font-medium">
             Bound To: {{ props.selectedCharacter.rpChar.boundTo }}
@@ -29,7 +29,7 @@
           class="divider"
         ></div>
         <div
-          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
         >
           <p class="font-medium">
             Gear: {{ props.selectedCharacter.rpChar.gear }}
@@ -41,7 +41,7 @@
         ></div>
         <div
           v-if="props.selectedCharacter!.rpChar.injured"
-          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
         >
           <p class="font-medium">Character is injured</p>
         </div>
@@ -51,7 +51,7 @@
         ></div>
         <div
           v-if="props.selectedCharacter?.rpChar.isHealing"
-          class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
         >
           <div>
             <p class="font-bold">

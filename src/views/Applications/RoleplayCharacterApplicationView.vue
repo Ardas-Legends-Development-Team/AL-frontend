@@ -12,7 +12,7 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+      <div class="mx-auto mb-0 mt-8 max-w-md space-y-4">
         <component
           :is="steps[currentStep]"
           @nextStep="nextStep"

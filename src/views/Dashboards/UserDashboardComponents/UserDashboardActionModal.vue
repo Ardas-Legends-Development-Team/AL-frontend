@@ -2,14 +2,14 @@
   <div class="modal" :class="isOpen ? 'modal-open' : ''">
     <div class="modal-box">
       <label
-        class="btn btn-primary btn-m btn-circle btn-outline absolute right-2 top-2"
+        class="btn-m btn btn-circle btn-primary btn-outline absolute right-2 top-2"
         @click="closeModal"
         >✕</label
       >
-      <h3 class="font-bold text-lg">{{ description }}</h3>
-      <div class="flex flex-col w-full mt-4">
+      <h3 class="text-lg font-bold">{{ description }}</h3>
+      <div class="mt-4 flex w-full flex-col">
         <div v-for="(input, index) in shownInputs" :key="index">
-          <h3 class="text-secondary text-lg font-bold mt-4">
+          <h3 class="mt-4 text-lg font-bold text-secondary">
             {{ input.placeholder }}
           </h3>
           <input
@@ -21,7 +21,7 @@
           />
           <div v-else-if="input.type === 'dropdown'">
             <select
-              class="select select-bordered w-full my-2"
+              class="select select-bordered my-2 w-full"
               v-model="input.selectedOption"
             >
               <option

@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-base-100 w-full h-20 flex justify-center">
-    <div class="text-center text-neutral-content text-4xl font-bold mt-4">
+  <div class="flex h-20 w-full justify-center bg-base-100">
+    <div class="mt-4 text-center text-4xl font-bold text-neutral-content">
       {{ faction }}
     </div>
   </div>
   <div class="flex flex-row justify-evenly bg-base-100">
     <div
-      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
+      class="btn btn-outline h-16 w-1/3 justify-center bg-base-100 text-center"
       :class="{
         [`btn-primary btn-active`]: currentTab === 0,
       }"
@@ -15,7 +15,7 @@
       <h1 class="mb-1 text-2xl text-secondary">Regions & Claimbuilds</h1>
     </div>
     <div
-      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
+      class="btn btn-outline h-16 w-1/3 justify-center bg-base-100 text-center"
       :class="{
         [`btn-primary btn-active`]: currentTab === 1,
       }"
@@ -24,7 +24,7 @@
       <h1 class="mb-1 text-2xl text-secondary">Summary</h1>
     </div>
     <div
-      class="btn btn-outline text-center bg-base-100 justify-center h-16 w-1/3"
+      class="btn btn-outline h-16 w-1/3 justify-center bg-base-100 text-center"
       :class="{
         [`btn-primary btn-active`]: currentTab === 2,
       }"

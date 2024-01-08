@@ -2,16 +2,16 @@
   <div v-if="isStaff">
     <router-link to="/staff_area">
       <div
-        class="flex items-center justify-between text-gray-400 mt-20 btn bt-ghost"
+        class="bt-ghost btn mt-20 flex items-center justify-between text-gray-400"
       >
-        <h4 class="uppercase font-semibold">Staff Area</h4>
+        <h4 class="font-semibold uppercase">Staff Area</h4>
       </div>
     </router-link>
     <ul class="my-10 flex flex-wrap">
-      <li class="w-1/2 flex justify-start mb-6">
+      <li class="mb-6 flex w-1/2 justify-start">
         <router-link to="/staff_area/applications_review">
           <a
-            class="bg-gray-700 rounded-md text-gray-300 flex flex-col justify-center items-center w-20 h-20 p-4"
+            class="flex h-20 w-20 flex-col items-center justify-center rounded-md bg-gray-700 p-4 text-gray-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
               <rect x="4" y="8" width="6" height="12" rx="2"></rect>
               <rect x="14" y="8" width="6" height="6" rx="2"></rect>
             </svg>
-            <p class="mt-1 uppercase font-semibold text-xs text-primary">
+            <p class="mt-1 text-xs font-semibold uppercase text-primary">
               Apps
             </p>
           </a>

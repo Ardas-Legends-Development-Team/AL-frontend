@@ -3,8 +3,8 @@
     <div class="basis-2/3">
       <FactionDashboardSummaryWars :faction="faction" />
     </div>
-    <div class="basis-1/3 flex flex-col">
-      <div class="flex flex-row bg-base-200 rounded-lg">
+    <div class="flex basis-1/3 flex-col">
+      <div class="flex flex-row rounded-lg bg-base-200">
         <FactionDashboardSummaryInformation :faction-name="faction" />
       </div>
       <FactionDashboardSummaryActions :faction-name="faction" />

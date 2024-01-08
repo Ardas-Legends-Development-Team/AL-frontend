@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-row justify-center bottom-1 sticky">
+  <div class="sticky bottom-1 flex flex-row justify-center">
     <div
-      class="alert w-1/2 h-16"
+      class="alert h-16 w-1/2"
       :class="isSuccessAlert ? 'alert-success' : 'alert-info'"
     >
       <svg
         v-if="isSuccessAlert"
         xmlns="http://www.w3.org/2000/svg"
-        class="stroke-current shrink-0 h-6 w-6"
+        class="h-6 w-6 shrink-0 stroke-current"
         fill="none"
         viewBox="0 0 24 24"
       >
@@ -24,7 +24,7 @@
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        class="stroke-current shrink-0 w-6 h-6"
+        class="h-6 w-6 shrink-0 stroke-current"
       >
         <path
           stroke-linecap="round"

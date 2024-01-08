@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-row">
-    <div class="items-center basis-1/5 bg-base-100 py-6">
-      <h3 class="text-2xl font-bold text-accent text-center">Owned Regions</h3>
+    <div class="basis-1/5 items-center bg-base-100 py-6">
+      <h3 class="text-center text-2xl font-bold text-accent">Owned Regions</h3>
       <div class="divider"></div>
       <RegionSearchBar
         class="mb-4"
         :regions="regions"
         @search="updateFilteredRegionsOnSearch"
       />
-      <div class="grid grid-cols-3 max-h-screen overflow-y-scroll">
+      <div class="grid max-h-screen grid-cols-3 overflow-y-scroll">
         <button
-          class="btn btn-square btn-outline btn-secondary px-8 my-1 mx-3"
+          class="btn btn-square btn-secondary btn-outline mx-3 my-1 px-8"
           v-for="(region, index) in filteredRegions"
           :key="index"
           @click="showRegionDetails(region)"
@@ -20,20 +20,20 @@
       </div>
     </div>
     <div class="basis-4/5">
-      <div class="flex flex-row my-4 mx-4">
+      <div class="mx-4 my-4 flex flex-row">
         <div class="basis-1/3">
           <div class="flex flex-row flex-wrap">
             <div
               v-for="factionBanner in factionsWithClaimBanners"
               :key="factionBanner"
-              class="w-12 h-16"
+              class="h-16 w-12"
             >
               <img :src="factionBanner" alt="faction banner" />
             </div>
           </div>
         </div>
-        <div class="basis-1/3 flex flex-col">
-          <h3 class="text-2xl font-bold text-accent my-3">
+        <div class="flex basis-1/3 flex-col">
+          <h3 class="my-3 text-2xl font-bold text-accent">
             Region {{ selectedRegion.id }}
           </h3>
           <p class="text-lg font-semibold text-secondary">
@@ -41,7 +41,7 @@
           </p>
         </div>
         <div
-          class="basis-1/3 bg-base-100/70 p-4 rounded-xl border-dotted border-2 border-primary h-28"
+          class="h-28 basis-1/3 rounded-xl border-2 border-dotted border-primary bg-base-100/70 p-4"
         >
           <p class="text-lg font-semibold text-accent">Neighbouring Regions:</p>
           <span>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="max-h-screen overflow-y-scroll">
-        <table class="table w-full table-zebra divide-y divide-gray-200">
+        <table class="table table-zebra w-full divide-y divide-gray-200">
           <thead>
             <tr>
               <th class="sticky top-0">Name</th>

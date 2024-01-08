@@ -1,6 +1,6 @@
 <template>
   <div class="card w-1/4 bg-base-100 shadow-xl">
-    <div class="items-center card-body">
+    <div class="card-body items-center">
       <h2 class="card-title text-accent">{{ title }}</h2>
       <p>{{ description }}</p>
     </div>

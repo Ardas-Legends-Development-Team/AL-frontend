@@ -1,8 +1,8 @@
 <template>
-  <h2 class="mb-1 text-3xl text-neutral-content font-bold ml-16 mt-8 pb-4">
+  <h2 class="mb-1 ml-16 mt-8 pb-4 text-3xl font-bold text-neutral-content">
     Character Information
   </h2>
-  <div class="flex flex-row flex-wrap justify-evenly my-8">
+  <div class="my-8 flex flex-row flex-wrap justify-evenly">
     <UserDashboardInfoCard
       v-for="(data, index) in cardsData"
       :key="index"

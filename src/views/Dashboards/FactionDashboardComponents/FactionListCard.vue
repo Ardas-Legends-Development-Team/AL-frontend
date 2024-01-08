@@ -1,10 +1,10 @@
 <template>
-  <div class="card w-40 bg-base-100 shadow-xl mx-4 my-4">
-    <div class="items-center card-body h-20 mb-2">
+  <div class="card mx-4 my-4 w-40 bg-base-100 shadow-xl">
+    <div class="card-body mb-2 h-20 items-center">
       <h2 class="card-title text-base">{{ title }}</h2>
     </div>
     <figure>
-      <img class="w-24 h-48 mb-2" :src="source" :alt="alt" />
+      <img class="mb-2 h-48 w-24" :src="source" :alt="alt" />
     </figure>
   </div>
 </template>

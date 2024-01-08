@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer p-10 bg-base-200 text-neutral-content">
+  <footer class="footer bg-base-200 p-10 text-neutral-content">
     <div>
       <img
         class="h-32 rounded-lg"
@@ -9,12 +9,12 @@
     </div>
     <div>
       <span class="footer-title">The server</span>
-      <a class="link link-hover">About us</a>
-      <a class="link link-hover">Contact</a>
+      <a class="link-hover link">About us</a>
+      <a class="link-hover link">Contact</a>
       <a
         href="https://donatebot.io/checkout/668590304487800832"
         target="_blank"
-        class="link link-hover"
+        class="link-hover link"
         >Donate</a
       >
     </div>
@@ -23,19 +23,19 @@
       <a
         href="https://ardas-legends-development-team.github.io/ardas-legends-bot-guide/"
         target="_blank"
-        class="link link-hover"
+        class="link-hover link"
         >Bot guide</a
       >
       <a
         href="https://docs.google.com/document/d/1XqMzhv3kFzISpDWdPIEqG4nQRZzGpzCP/edit#heading=h.451kvydu733g"
         target="_blank"
-        class="link link-hover"
+        class="link-hover link"
         >War guide</a
       >
       <a
         href="https://docs.google.com/document/d/1X6clF1TZcom64_XC1mcd6ZwnAULrzV8h/edit?rtpof=true"
         target="_blank"
-        class="link link-hover"
+        class="link-hover link"
         >Builder's bible</a
       >
     </div>

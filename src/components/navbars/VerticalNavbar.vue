@@ -2,7 +2,7 @@
   <div class="absolute z-10">
     <div
       @click="openSidebar(false)"
-      class="flex items-center justify-center rounded-r-md bg-gray-800 text-gray-300 ml-0 cursor-pointer absolute inset-0 mt-10 m-auto w-8 h-8 hidden"
+      class="absolute inset-0 m-auto ml-0 mt-10 flex hidden h-8 w-8 cursor-pointer items-center justify-center rounded-r-md bg-gray-800 text-gray-300"
       id="sidebar-toggle"
     >
       <svg
@@ -23,7 +23,7 @@
     </div>
     <div
       id="sidebar"
-      class="overflow-y-scroll lg:overflow-y-auto fixed lg:sticky h-screen lg:h-auto z-40 top-0 bg-base-200 pt-10 w-60"
+      class="fixed top-0 z-40 h-screen w-60 overflow-y-scroll bg-base-200 pt-10 lg:sticky lg:h-auto lg:overflow-y-auto"
     >
       <div class="px-8">
         <div class="flex items-center justify-between">
@@ -34,7 +34,7 @@
           </div>
           <div
             @click="openSidebar(true)"
-            class="bg-base-300/50 rounded-md text-gray-700 ml-8 cursor-pointer"
+            class="ml-8 cursor-pointer rounded-md bg-base-300/50 text-gray-700"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

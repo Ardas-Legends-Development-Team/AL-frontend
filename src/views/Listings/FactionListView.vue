@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-7 gap-4 m-6">
+  <div class="m-6 grid grid-cols-7 gap-4">
     <div v-for="data in cardsData" :key="data">
       <RouterLink :to="`/faction/${data.title}`">
         <FactionListCard

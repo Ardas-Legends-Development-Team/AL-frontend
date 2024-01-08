@@ -1,7 +1,7 @@
 <template>
   <!-- Depending on if it's a rank action (contains leader), give the card a different background color -->
   <div
-    class="w-28 h-fit rounded-lg cursor-pointer"
+    class="h-fit w-28 cursor-pointer rounded-lg"
     :class="
       title.toLowerCase().includes('leader')
         ? 'bg-accent-content'
@@ -15,7 +15,7 @@
       :evil-src="sourceEvil"
       :good-src="sourceGood"
     />
-    <div class="px-2 pb-2 flex flex-row justify-end text-sm text-secondary">
+    <div class="flex flex-row justify-end px-2 pb-2 text-sm text-secondary">
       {{ title }}
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <section class="grid grid-cols-2 gap-4 h-screen justify-items-center">
+  <section class="grid h-screen grid-cols-2 justify-items-center gap-4">
     <div class="w-full px-4 py-12">
       <div class="max-w-lg text-center">
         <h1 class="text-2xl font-bold sm:text-3xl">Claimbuild Application</h1>
@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      <div class="mt-8 mb-0 max-w-3xl space-y-4">
+      <div class="mb-0 mt-8 max-w-3xl space-y-4">
         <component
           :is="steps[currentStep]"
           @nextStep="nextStep"
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="relative w-full h-full">
+    <div class="relative h-full w-full">
       <LazyLoadedImage
         :key="stepsImages[currentStep].evilSrc"
         :inside-classes="'absolute inset-0 h-full w-full object-cover'"

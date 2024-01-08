@@ -3,20 +3,20 @@
     <div class="modal-box">
       <label
         for="regionClaimbuildsModal"
-        class="btn btn-primary btn-m btn-circle absolute right-2 top-2"
+        class="btn-m btn btn-circle btn-primary absolute right-2 top-2"
         >✕</label
       >
-      <h3 class="font-bold text-lg">Claimbuilds in region {{ regionId }}</h3>
-      <div class="flex flex-col items-stretch space-y-3 w-full mt-4">
+      <h3 class="text-lg font-bold">Claimbuilds in region {{ regionId }}</h3>
+      <div class="mt-4 flex w-full flex-col items-stretch space-y-3">
         <div
           v-for="claimbuild in claimbuilds"
           :key="claimbuild.name"
-          class="grid basis-2 flex-grow h-full card bg-base-300 rounded-box place-items-center"
+          class="card rounded-box grid h-full flex-grow basis-2 place-items-center bg-base-300"
         >
           <div
-            class="flex items-center justify-start w-full space-x-10 pl-10 pt-1 pb-1 pr-5"
+            class="flex w-full items-center justify-start space-x-10 pb-1 pl-10 pr-5 pt-1"
           >
-            <div class="avatar grow-0 w-8">
+            <div class="avatar w-8 grow-0">
               <img
                 :src="bannerMap.get(claimbuild.faction)"
                 alt="faction banner"

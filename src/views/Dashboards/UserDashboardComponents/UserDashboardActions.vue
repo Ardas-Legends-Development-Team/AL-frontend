@@ -1,8 +1,8 @@
 <template>
-  <h2 class="mb-1 text-3xl text-neutral-content font-bold ml-16 pb-4">
+  <h2 class="mb-1 ml-16 pb-4 text-3xl font-bold text-neutral-content">
     Actions
   </h2>
-  <div class="text-center text-neutral-content bg-base-100 p-4">
+  <div class="bg-base-100 p-4 text-center text-neutral-content">
     <div class="grid grid-cols-5 justify-items-center gap-3">
       <UserDashboardActionCard
         v-for="(cardData, index) in shownCards"

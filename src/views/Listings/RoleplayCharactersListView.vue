@@ -1,6 +1,6 @@
 <template>
   <table
-    class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+    class="table table-pin-rows table-zebra relative min-w-full divide-y divide-gray-200"
   >
     <!-- head -->
     <thead>
@@ -29,7 +29,7 @@
         <td>
           <div class="flex items-center space-x-3">
             <div class="avatar">
-              <div class="mask mask-squircle w-12 h-12">
+              <div class="mask mask-squircle h-12 w-12">
                 <img :src="roleplayCharacter.avatar" alt="Avatar" />
               </div>
             </div>

@@ -1,8 +1,8 @@
 <template>
   <transition name="fade">
-    <div v-show="showButton" class="bottom-8 right-8 fixed cursor-pointer">
+    <div v-show="showButton" class="fixed bottom-8 right-8 cursor-pointer">
       <a
-        class="btn btn-primary inline-block mask mask-circle"
+        class="btn btn-primary mask mask-circle inline-block"
         @click="scrollToTop"
       >
         <span class="sr-only">Back to top</span>

@@ -1,24 +1,24 @@
 <template>
-  <div class="flex flex-row justify-center my-4" v-if="currentWars.length > 0">
-    <h2 class="text-3xl text-secondary font-bold">Current Wars</h2>
+  <div class="my-4 flex flex-row justify-center" v-if="currentWars.length > 0">
+    <h2 class="text-3xl font-bold text-secondary">Current Wars</h2>
   </div>
   <div class="flex flex-col justify-center">
     <div
       v-for="(war, index) in currentWars"
       :key="index"
-      class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
+      class="mx-16 my-2 flex flex-row justify-center rounded-lg bg-base-200"
     >
       <FactionDashboardSummaryWar :war="war" />
     </div>
   </div>
-  <div class="flex flex-row justify-center my-4" v-if="pastWars.length > 0">
-    <h2 class="text-3xl text-secondary font-bold">Past Wars</h2>
+  <div class="my-4 flex flex-row justify-center" v-if="pastWars.length > 0">
+    <h2 class="text-3xl font-bold text-secondary">Past Wars</h2>
   </div>
   <div class="flex flex-col justify-center">
     <div
       v-for="(war, index) in pastWars"
       :key="index"
-      class="flex flex-row justify-center bg-base-200 rounded-lg my-2 mx-16"
+      class="mx-16 my-2 flex flex-row justify-center rounded-lg bg-base-200"
     >
       <FactionDashboardSummaryWar :war="war" />
     </div>

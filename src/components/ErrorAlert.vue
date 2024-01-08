@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-row justify-center bottom-1 sticky">
-    <div class="alert alert-error w-1/2 h-16">
+  <div class="sticky bottom-1 flex flex-row justify-center">
+    <div class="alert alert-error h-16 w-1/2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="stroke-current shrink-0 h-6 w-6"
+        class="h-6 w-6 shrink-0 stroke-current"
         fill="none"
         viewBox="0 0 24 24"
       >

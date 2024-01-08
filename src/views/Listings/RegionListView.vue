@@ -1,6 +1,6 @@
 <template>
   <table
-    class="table table-pin-rows min-w-full divide-y divide-gray-200 relative"
+    class="table table-pin-rows relative min-w-full divide-y divide-gray-200"
   >
     <!-- head -->
     <thead>

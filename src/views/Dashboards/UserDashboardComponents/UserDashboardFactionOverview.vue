@@ -1,8 +1,8 @@
 <template>
-  <div class="absolute z-10 right-0">
+  <div class="absolute right-0 z-10">
     <div
       @click="openSidebar(false)"
-      class="flex items-center justify-center rounded-r-md bg-gray-800 text-gray-300 mr-0 cursor-pointer absolute inset-0 mt-10 m-auto w-8 h-8"
+      class="absolute inset-0 m-auto mr-0 mt-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-r-md bg-gray-800 text-gray-300"
       id="right-sidebar-toggle"
     >
       <svg
@@ -23,7 +23,7 @@
     </div>
     <div
       id="right-sidebar"
-      class="overflow-y-scroll lg:overflow-y-auto fixed lg:sticky h-screen lg:h-auto z-40 top-0 bg-base-200 pt-10 w-60"
+      class="fixed top-0 z-40 h-screen w-60 overflow-y-scroll bg-base-200 pt-10 lg:sticky lg:h-auto lg:overflow-y-auto"
     >
       <div class="px-8">
         <div
@@ -32,7 +32,7 @@
         <div class="flex items-center justify-between">
           <div
             @click="openSidebar(true)"
-            class="bg-base-300/50 rounded-md text-gray-700 cursor-pointer"
+            class="cursor-pointer rounded-md bg-base-300/50 text-gray-700"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,12 +51,12 @@
             </svg>
           </div>
         </div>
-        <div class="flex flex-col items-center justify-between my-4">
+        <div class="my-4 flex flex-col items-center justify-between">
           <RouterLink :to="`/faction/${faction}`">
             <button class="btn btn-outline">{{ faction }}</button>
           </RouterLink>
           <img
-            class="my-3 w-16 h-32"
+            class="my-3 h-32 w-16"
             :src="factionBanner"
             alt="faction banner"
           />

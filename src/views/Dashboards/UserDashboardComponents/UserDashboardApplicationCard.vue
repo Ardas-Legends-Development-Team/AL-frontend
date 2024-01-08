@@ -1,5 +1,5 @@
 <template>
-  <div class="card w-56 bg-base-100 shadow-xl m-4">
+  <div class="card m-4 w-56 bg-base-100 shadow-xl">
     <div class="card-body">
       <h3 class="card-title">
         {{ capitalizeFirstLetter(applicationType) }}: {{ name }}

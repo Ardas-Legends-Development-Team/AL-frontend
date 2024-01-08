@@ -1,7 +1,7 @@
 {
   "name": "ardas-legends-website",
   "private": true,
-  "version": "Alpha 0.2.2",
+  "version": "Alpha 0.2.3",
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
@@ -44,6 +44,8 @@
     "eslint-plugin-vue": "^9.16.1",
     "jsdom": "^22.1.0",
     "postcss": "^8.4.27",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6",
     "vite": "^4.4.7",

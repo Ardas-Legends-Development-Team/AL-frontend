@@ -1,6 +1,6 @@
 <template>
   <router-link :to="router">
-    <div class="card w-96 bg-base-100 shadow-xl mx-10 my-10">
+    <div class="card mx-10 my-10 w-96 bg-base-100 shadow-xl">
       <div class="card-body h-36">
         <h2 class="card-title">{{ title }}</h2>
         <p>{{ description }}</p>

@@ -1,18 +1,18 @@
 <template>
   <!--Armies list-->
-  <div class="text-center text-neutral-content text-2xl font-bold my-4">
+  <div class="my-4 text-center text-2xl font-bold text-neutral-content">
     Armies
   </div>
   <div
-    class="flex justify-end text-center text-neutral-content text-2xl font-bold my-4 mx-4"
+    class="mx-4 my-4 flex justify-end text-center text-2xl font-bold text-neutral-content"
   >
     <SearchBar :input-list="allArmies" @search="updateFilteredArmyOnSearch" />
   </div>
   <div
-    class="mx-4 flex flex-row justify-end text-sm text-secondary overflow-auto max-h-64 scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100"
+    class="scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100 mx-4 flex max-h-64 flex-row justify-end overflow-auto text-sm text-secondary"
   >
     <table
-      class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+      class="table table-zebra table-pin-rows relative min-w-full divide-y divide-gray-200"
     >
       <!-- head -->
       <thead>
@@ -56,11 +56,11 @@
 
   <!--characters list-->
 
-  <div class="text-center text-neutral-content text-2xl font-bold my-4">
+  <div class="my-4 text-center text-2xl font-bold text-neutral-content">
     Characters
   </div>
   <div
-    class="flex justify-end text-center text-neutral-content text-2xl font-bold my-4 mx-4"
+    class="mx-4 my-4 flex justify-end text-center text-2xl font-bold text-neutral-content"
   >
     <SearchBar
       :input-list="
@@ -72,10 +72,10 @@
     />
   </div>
   <div
-    class="mx-4 mb-2 flex flex-row justify-end text-sm text-secondary overflow-auto max-h-64 scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100"
+    class="scrollbar scrollbar-thumb-red-500 scrollbar-track-red-100 mx-4 mb-2 flex max-h-64 flex-row justify-end overflow-auto text-sm text-secondary"
   >
     <table
-      class="table table-pin-rows table-zebra min-w-full divide-y divide-gray-200 relative"
+      class="table table-zebra table-pin-rows relative min-w-full divide-y divide-gray-200"
     >
       <!-- head -->
       <thead>
@@ -95,7 +95,7 @@
           <td>
             <div class="flex items-center space-x-3">
               <div class="avatar">
-                <div class="mask mask-squircle w-12 h-12">
+                <div class="mask mask-squircle h-12 w-12">
                   <img :src="roleplayCharacter.avatar" alt="Avatar" />
                 </div>
               </div>
@@ -152,6 +152,7 @@ import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 const allArmies = ref<Army[]>([]);
 const filtredArmies = ref<Army[]>([]);
+
 function updateFilteredArmyOnSearch(searchResults: Army[]) {
   if (searchResults.length === 0) {
     filtredArmies.value = allArmies.value;
@@ -161,6 +162,7 @@ function updateFilteredArmyOnSearch(searchResults: Army[]) {
     searchResults.includes(army),
   );
 }
+
 ArmyApiClient.loadArmies().then((armies: Army[]) => {
   // Get only armies in the faction
   const factionArmies = armies.filter(
