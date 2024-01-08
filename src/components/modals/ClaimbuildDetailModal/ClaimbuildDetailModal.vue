@@ -8,8 +8,11 @@
         </button>
       </form>
       <!-- Modal content -->
-      <div class="grid h-full grid-flow-col grid-cols-4">
-        <div class="col-span-3">{{ selectedClaimbuild }}</div>
+      <div class="grid h-full grid-cols-4">
+        <div class="col-span-3">
+          {{ selectedClaimbuild }}
+          <ClaimbuildTopInfo :selected-claimbuild="selectedClaimbuild" />
+        </div>
         <div class="col-span-1">
           <LazyLoadedImage
             :key="'https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png'"
@@ -28,11 +31,12 @@
 <script setup lang="ts">
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 import { Claimbuild } from "@/ts/types/Claimbuild";
+import ClaimbuildTopInfo from "@/components/modals/ClaimbuildDetailModal/ClaimbuildTopInfo.vue";
 
 defineProps({
   selectedClaimbuild: {
-    type: Object as Claimbuild,
-    required: false,
+    type: Object as () => Claimbuild,
+    required: true,
   },
 });
 </script>

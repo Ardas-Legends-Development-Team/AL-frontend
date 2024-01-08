@@ -103,7 +103,10 @@
       </div>
     </div>
   </div>
-  <ClaimbuildDetailModal :selected-claimbuild="selectedClaimbuild" />
+  <ClaimbuildDetailModal
+    v-if="selectedClaimbuild"
+    :selected-claimbuild="selectedClaimbuild"
+  />
 </template>
 
 <script setup lang="ts">
@@ -115,7 +118,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { Claimbuild } from "@/ts/types/Claimbuild";
-import ClaimbuildDetailModal from "@/components/modals/ClaimbuildDetailModal.vue";
+import ClaimbuildDetailModal from "@/components/modals/ClaimbuildDetailModal/ClaimbuildDetailModal.vue";
 
 const props = defineProps({
   faction: {
