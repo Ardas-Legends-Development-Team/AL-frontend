@@ -60,7 +60,6 @@ function executeAction(cardTitle: string, actionValue: any) {
       );
       break;
     default:
-      console.log("No action found");
       break;
   }
 }

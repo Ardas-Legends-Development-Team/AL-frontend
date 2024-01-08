@@ -12,27 +12,9 @@ export class FactionApiClient extends ApiClient {
         resolve(factionsStore.factions);
         return;
       }
-      axios
-        .get(this.getBaseUrl() + "/faction", {
-          params: {
-            size: 100,
-          },
-        })
-        .then((response) => {
-          response.data.content.forEach((faction: Faction) => {
-            factionsStore.factions.push(faction);
-            factionsStore.factionNames.push(faction.nameOfFaction);
-            factionsStore.factionLeaders.push(faction.leaderIgn);
-            if (faction.nameOfFaction === usePlayerStore().faction) {
-              factionsStore.playerFaction = faction;
-              // Check if the player is leader of the faction
-              if (faction.leaderIgn === usePlayerStore().ign) {
-                factionsStore.isPlayerFactionLeader = true;
-              }
-            }
-          });
-          resolve(factionsStore.factions);
-        });
+      this.loadFactionsDataIntoStore().then(() => {
+        resolve(factionsStore.factions);
+      });
     });
   }
 
@@ -43,27 +25,9 @@ export class FactionApiClient extends ApiClient {
         resolve(factionsStore.factionNames);
         return;
       }
-      axios
-        .get(this.getBaseUrl() + "/faction", {
-          params: {
-            size: 100,
-          },
-        })
-        .then((response) => {
-          response.data.content.forEach((faction: Faction) => {
-            factionsStore.factions.push(faction);
-            factionsStore.factionNames.push(faction.nameOfFaction);
-            factionsStore.factionLeaders.push(faction.leaderIgn);
-            if (faction.nameOfFaction === usePlayerStore().faction) {
-              factionsStore.playerFaction = faction;
-              // Check if the player is leader of the faction
-              if (faction.leaderIgn === usePlayerStore().ign) {
-                factionsStore.isPlayerFactionLeader = true;
-              }
-            }
-          });
-          resolve(factionsStore.factionNames);
-        });
+      this.loadFactionsDataIntoStore().then(() => {
+        resolve(factionsStore.factionNames);
+      });
     });
   }
 
@@ -74,27 +38,9 @@ export class FactionApiClient extends ApiClient {
         resolve(factionsStore.factionLeaders);
         return;
       }
-      axios
-        .get(this.getBaseUrl() + "/faction", {
-          params: {
-            size: 100,
-          },
-        })
-        .then((response) => {
-          response.data.content.forEach((faction: Faction) => {
-            factionsStore.factions.push(faction);
-            factionsStore.factionNames.push(faction.nameOfFaction);
-            factionsStore.factionLeaders.push(faction.leaderIgn);
-            if (faction.nameOfFaction === usePlayerStore().faction) {
-              factionsStore.playerFaction = faction;
-              // Check if the player is leader of the faction
-              if (faction.leaderIgn === usePlayerStore().ign) {
-                factionsStore.isPlayerFactionLeader = true;
-              }
-            }
-          });
-          resolve(factionsStore.factionLeaders);
-        });
+      this.loadFactionsDataIntoStore().then(() => {
+        resolve(factionsStore.factionLeaders);
+      });
     });
   }
 
@@ -105,27 +51,9 @@ export class FactionApiClient extends ApiClient {
         resolve(factionsStore.playerFaction);
         return;
       }
-      axios
-        .get(this.getBaseUrl() + "/faction", {
-          params: {
-            size: 100,
-          },
-        })
-        .then((response) => {
-          response.data.content.forEach((faction: Faction) => {
-            factionsStore.factions.push(faction);
-            factionsStore.factionNames.push(faction.nameOfFaction);
-            factionsStore.factionLeaders.push(faction.leaderIgn);
-            if (faction.nameOfFaction === usePlayerStore().faction) {
-              factionsStore.playerFaction = faction;
-              // Check if the player is leader of the faction
-              if (faction.leaderIgn === usePlayerStore().ign) {
-                factionsStore.isPlayerFactionLeader = true;
-              }
-            }
-          });
-          resolve(factionsStore.playerFaction);
-        });
+      this.loadFactionsDataIntoStore().then(() => {
+        resolve(factionsStore.playerFaction);
+      });
     });
   }
 
@@ -146,6 +74,34 @@ export class FactionApiClient extends ApiClient {
           nameOfWar: nameOfWar,
         })
         .then(() => {
+          resolve();
+        });
+    });
+  }
+
+  private static async loadFactionsDataIntoStore(): Promise<void> {
+    const factionsStore = useFactionsStore();
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/faction", {
+          params: {
+            size: 100,
+          },
+        })
+        .then((response) => {
+          response.data.content.forEach((faction: Faction) => {
+            factionsStore.factions.push(faction);
+            factionsStore.factionNames.push(faction.nameOfFaction);
+            factionsStore.factionLeaders.push(faction.leaderIgn);
+
+            if (faction.nameOfFaction === usePlayerStore().faction) {
+              factionsStore.playerFaction = faction;
+              // Check if the player is leader of the faction
+              if (faction.leaderIgn === usePlayerStore().ign) {
+                factionsStore.isPlayerFactionLeader = true;
+              }
+            }
+          });
           resolve();
         });
     });

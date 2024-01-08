@@ -84,14 +84,29 @@ export class PlayerApiClient extends ApiClient {
             characterStore.startedHeal = data.rpChar.startedHeal;
             characterStore.healEnds = data.rpChar.healEnds;
           }
-          console.log(
-            "Player info loaded from API",
-            usePlayerStore().discordId,
-          );
 
           resolve(true);
           return;
         });
+    });
+  }
+
+  /**
+   * Used when searching for a player by their IGN
+   * @param ign
+   */
+  public static async loadPlayerInfoFromIgn(ign: string): Promise<PlayerInfo> {
+    return new Promise((resolve) => {
+      axios.get(this.getBaseUrl() + "/player/ign/" + ign).then((response) => {
+        const data = response.data;
+        const playerInfo: PlayerInfo = {
+          ign: data.ign,
+          faction: data.faction,
+          discordId: data.discordId,
+          isStaff: data.isStaff,
+        };
+        resolve(playerInfo);
+      });
     });
   }
 }

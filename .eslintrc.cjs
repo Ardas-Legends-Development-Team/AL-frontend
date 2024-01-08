@@ -34,7 +34,7 @@ module.exports = {
         "no-invalid-this": "warn",
         "no-multi-spaces": "warn",
         "prefer-const": "error",
-
+        "no-case-declarations": "off",
 
     },
 };

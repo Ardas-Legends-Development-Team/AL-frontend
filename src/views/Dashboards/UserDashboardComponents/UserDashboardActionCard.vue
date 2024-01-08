@@ -1,5 +1,14 @@
 <template>
-  <div class="w-28 h-fit rounded-lg bg-base-300">
+  <!-- Depending on if it's a rank action (contains leader), give the card a different background color -->
+  <div
+    class="w-28 h-fit rounded-lg cursor-pointer"
+    :class="
+      title.toLowerCase().includes('leader')
+        ? 'bg-accent-content'
+        : 'bg-base-300'
+    "
+    @click="sendInfoToModal(description, actionInputs)"
+  >
     <LazyLoadedImage
       :evil-alt="altEvil"
       :good-alt="altGood"
@@ -7,16 +16,28 @@
       :good-src="sourceGood"
     />
     <div class="px-2 pb-2 flex flex-row justify-end text-sm text-secondary">
-      {{ text }}
+      {{ title }}
     </div>
   </div>
+  <UserDashboardActionModal
+    v-if="isModalOpen"
+    :is-open="isModalOpen"
+    :description="selectedAction.description"
+    :action-inputs="selectedAction.actionInputs"
+    @close="isModalOpen = false"
+    @submit="(playerInputs: PlayerActionInput[]) => submitAction(playerInputs)"
+  />
 </template>
 
 <script setup lang="ts">
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
+import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionModal.vue";
+import { ref } from "vue";
+import { PlayerActionRequestHandler } from "@/ts/PlayerActionRequestHandler";
+import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
 
-defineProps({
-  text: {
+const props = defineProps({
+  title: {
     type: String,
     required: true,
   },
@@ -36,5 +57,38 @@ defineProps({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  actionInputs: {
+    type: Array,
+    required: true,
+  },
 });
+
+const selectedAction = ref({
+  description: "",
+  actionInputs: [
+    {
+      type: "",
+      placeholder: "",
+      chooseFrom: [],
+      representedData: "",
+    },
+  ],
+});
+
+const isModalOpen = ref(false);
+
+function sendInfoToModal(description: string, actionInputs: any[]) {
+  selectedAction.value.description = description;
+  selectedAction.value.actionInputs = actionInputs;
+  isModalOpen.value = true;
+}
+
+function submitAction(playerInputs: PlayerActionInput[]) {
+  isModalOpen.value = false;
+  PlayerActionRequestHandler.handleRequest(props.title, playerInputs);
+}
 </script>

@@ -53,6 +53,14 @@ export class ClaimbuildApiClient extends ApiClient {
     });
   }
 
+  public static async loadAllClaimbuilds(): Promise<Claimbuild[]> {
+    return new Promise((resolve) => {
+      axios.get(this.getBaseUrl() + "/claimbuild?size=100").then((response) => {
+        resolve(response.data.content);
+      });
+    });
+  }
+
   public static async loadClaimbuildsByNames(
     names: string[],
   ): Promise<Claimbuild[]> {
