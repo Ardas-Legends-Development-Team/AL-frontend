@@ -10,6 +10,7 @@ import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
 import { ArmyControlApiClient } from "@/ts/ApiService/ArmyControlApiClient";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
+import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
 
 /**
  * This handler is responsible for handling the player action requests.
@@ -43,11 +44,12 @@ export class PlayerActionRequestHandler {
     }
     const characterInfo: CharacterInfo =
       await PlayerApiClient.loadCharacterInfo(usePlayerStore().discordId);
+    let movement: MovementResponse = {} as MovementResponse;
     console.log("Sent request parameters: ", requestParameters);
     // Call the appropriate API service
     switch (actionTitle) {
       case "leader move":
-        await MovementApiClient.moveArmyOrCompany(
+        movement = await MovementApiClient.moveArmyOrCompany(
           requestParameters["toRegion"],
           requestParameters["armyName"],
         );
@@ -80,12 +82,14 @@ export class PlayerActionRequestHandler {
         // Check if we're bound to an army and if yes fetch it
         if (characterInfo.boundTo) {
           requestParameters["armyName"] = characterInfo.boundTo;
-          await MovementApiClient.moveArmyOrCompany(
+          movement = await MovementApiClient.moveArmyOrCompany(
             requestParameters["toRegion"],
             requestParameters["armyName"],
           );
         } else {
-          await MovementApiClient.moveCharacter(requestParameters["toRegion"]);
+          movement = await MovementApiClient.moveCharacter(
+            requestParameters["toRegion"],
+          );
         }
         break;
       case "bind":
@@ -123,6 +127,9 @@ export class PlayerActionRequestHandler {
     }
     // Show a success message
     AlertHandler.showSuccessAlert("Action submitted successfully.");
+    // If we did a movement action, show the taken path and time needed
+    // TODO: when time and hoursUntilNextRegion are fixed, show a modal with the path and time needed
+    console.log("Movement: ", movement);
   }
 
   private static async getTargetDiscordId(
