@@ -69,7 +69,14 @@ const props = defineProps({
 
 const selectedAction = ref({
   description: "",
-  actionInputs: [{}],
+  actionInputs: [
+    {
+      type: "",
+      placeholder: "",
+      chooseFrom: [],
+      representedData: "",
+    },
+  ],
 });
 
 const isModalOpen = ref(false);
