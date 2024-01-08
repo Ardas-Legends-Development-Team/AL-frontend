@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "build": "del tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build",
-    "preview": "del tsconfig.tsbuildinfo && vite preview",
-    "production": "del tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build && vite preview",
+    "build": "npx rimraf tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build",
+    "preview": "npx rimraf tsconfig.tsbuildinfo && vite preview",
+    "production": "npx rimraf tsconfig.tsbuildinfo && vue-tsc --noEmit && vite build && vite preview",
     "test": "vitest",
     "test:e2e": "cypress open",
     "test:unit": "vitest",
-    "typecheck": "vue-tsc --noEmit",
+    "typecheck": "npx rimraf tsconfig.tsbuildinfo && vue-tsc --noEmit",
     "coverage": "vitest run --coverage",
     "docker:build": "docker build -t vernonroche/al-website-docker .",
     "docker:run": "docker run -p 8081:3333 vernonroche/al-website-docker"
