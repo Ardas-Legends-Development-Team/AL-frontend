@@ -25,7 +25,6 @@
       "vitest",
       "vitest/globals",
       "vite/client",
-      "vue/ref-macros"
     ],
     "paths": {
       "@/*": [
