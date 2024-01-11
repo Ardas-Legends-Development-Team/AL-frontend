@@ -12,6 +12,7 @@
         <div class="col-span-3">
           {{ selectedClaimbuild }}
           <ClaimbuildTopInfo :selected-claimbuild="selectedClaimbuild" />
+          <ClaimbuildMiddleInfo :selected-claimbuild="selectedClaimbuild" />
         </div>
         <div class="col-span-1">
           <LazyLoadedImage
@@ -32,6 +33,7 @@
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
 import { Claimbuild } from "@/ts/types/Claimbuild";
 import ClaimbuildTopInfo from "@/components/modals/ClaimbuildDetailModal/ClaimbuildTopInfo.vue";
+import ClaimbuildMiddleInfo from "@/components/modals/ClaimbuildDetailModal/ClaimbuildMiddleInfo.vue";
 
 defineProps({
   selectedClaimbuild: {

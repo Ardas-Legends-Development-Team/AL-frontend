@@ -45,6 +45,7 @@
       </div>
     </div>
   </div>
+  <div class="divider mx-10"></div>
 </template>
 
 <script setup lang="ts">
