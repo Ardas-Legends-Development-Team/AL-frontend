@@ -16,6 +16,16 @@
           {{ selectedClaimbuild.claimBuildType }} -
           {{ selectedClaimbuild.faction }}
         </p>
+        <div class="mt-6">
+          <div>
+            <span class="text-accent">Free army slots: </span>
+            <span>{{ selectedClaimbuild.freeArmiesRemaining }}</span>
+          </div>
+          <div>
+            <span class="text-accent">Free company slots: </span>
+            <span>{{ selectedClaimbuild.freeCompaniesRemaining }}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="card w-10/12 bg-base-300 shadow-xl">
