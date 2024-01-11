@@ -18,6 +18,32 @@
         </p>
       </div>
     </div>
+    <div class="card w-10/12 bg-base-300 shadow-xl">
+      <div class="card-body text-center">
+        <h2 class="card-title text-2xl font-bold">Location</h2>
+        <div class="divider"></div>
+        <div class="grid grid-cols-2 justify-items-stretch gap-y-4">
+          <p>Region:</p>
+          <p>{{ selectedClaimbuild.region }}</p>
+          <p>X:</p>
+          <p>{{ selectedClaimbuild.coordinates.x }}</p>
+          <p>Y:</p>
+          <p>{{ selectedClaimbuild.coordinates.y }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card w-10/12 bg-base-300 shadow-xl">
+      <div class="card-body text-center">
+        <h2 class="card-title text-2xl font-bold">Stationed</h2>
+        <div class="divider"></div>
+        <div class="grid grid-cols-2 justify-items-stretch gap-y-4">
+          <p>Armies:</p>
+          <p>{{ selectedClaimbuild.armiesStationedCount }}</p>
+          <p>Companies:</p>
+          <p>Coming soon</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
