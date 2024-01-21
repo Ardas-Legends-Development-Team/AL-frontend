@@ -88,12 +88,14 @@
                 </div>
               </td>
               <th>
-                <label
-                  for="rpCharDetailsModal"
+                <button
                   class="btn"
                   @click="sendInfoToModal(claimbuild)"
-                  >Details</label
+                  onclick="
+                  claimbuild_detail_modal.showModal()"
                 >
+                  Details
+                </button>
               </th>
             </tr>
           </tbody>
@@ -101,6 +103,10 @@
       </div>
     </div>
   </div>
+  <ClaimbuildDetailModal
+    v-if="selectedClaimbuild"
+    :selected-claimbuild="selectedClaimbuild"
+  />
 </template>
 
 <script setup lang="ts">
@@ -112,6 +118,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import { RegionApiClient } from "@/ts/ApiService/RegionApiClient";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { Claimbuild } from "@/ts/types/Claimbuild";
+import ClaimbuildDetailModal from "@/components/modals/ClaimbuildDetailModal/ClaimbuildDetailModal.vue";
 
 const props = defineProps({
   faction: {
@@ -142,7 +149,7 @@ function showRegionDetails(region: Region) {
   showRegionClaimbuilds();
 }
 
-function sendInfoToModal(claimbuild: any) {
+function sendInfoToModal(claimbuild: Claimbuild) {
   selectedClaimbuild.value = claimbuild;
 }
 
