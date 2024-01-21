@@ -72,7 +72,45 @@ const houses = ref<{ small: number; medium: number; large: number }>(
   formData.houses,
 );
 const isFormFilled = computed(() => {
-  return type.value !== "Claimbuild type";
+  return (
+    type.value !== "Claimbuild type" &&
+    houses.value.small >= minimumSmallHouses.value &&
+    houses.value.medium >= minimumLargeHouses.value &&
+    houses.value.large >= minimumMansions.value
+  );
+});
+const minimumSmallHouses = computed(() => {
+  switch (type.value) {
+    case "Hamlet":
+    case "Stronghold":
+      return 4;
+    case "Village":
+      return 8;
+    case "Town":
+      return 16;
+    case "Capital":
+      return 24;
+    default:
+      return 0;
+  }
+});
+const minimumLargeHouses = computed(() => {
+  switch (type.value) {
+    case "Town":
+      return 4;
+    case "Capital":
+      return 8;
+    default:
+      return 0;
+  }
+});
+const minimumMansions = computed(() => {
+  switch (type.value) {
+    case "Capital":
+      return 2;
+    default:
+      return 0;
+  }
 });
 
 function nextStep() {
