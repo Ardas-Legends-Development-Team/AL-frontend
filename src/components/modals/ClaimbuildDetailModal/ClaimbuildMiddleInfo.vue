@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { Claimbuild } from "@/ts/types/Claimbuild";
-import { computed, defineProps } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   selectedClaimbuild: {

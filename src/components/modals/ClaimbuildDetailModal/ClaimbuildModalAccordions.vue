@@ -9,7 +9,7 @@
       <div class="collapse-content">
         <p
           v-for="productionSite in selectedClaimbuild.productionSites"
-          :key="productionSite.productionSite"
+          :key="productionSite.productionSite.type"
         >
           {{ productionSite.amount }}
           {{ productionSite.productionSite.resource }}

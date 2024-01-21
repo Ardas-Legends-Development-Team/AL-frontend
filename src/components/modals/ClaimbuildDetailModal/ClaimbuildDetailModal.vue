@@ -18,12 +18,31 @@
         </div>
         <div class="col-span-1">
           <LazyLoadedImage
-            :key="'https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png'"
             :inside-classes="'h-full w-max object-cover'"
-            :evil-alt="'test'"
-            :good-alt="'test'"
-            :evil-src="'https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png'"
-            :good-src="'https://ateettea.sirv.com/Applications/Roleplay/20Cent_Gandalf_is_the_lord_of_the_ring_realistic_volumetric_lig_fb68c12b-7194-4b08-816b-23a4cf406651.png'"
+            :evil-alt="
+              getClaimbuildTypeImageAlt(
+                selectedClaimbuild.claimBuildType,
+                selectedClaimbuild.faction,
+              )
+            "
+            :good-alt="
+              getClaimbuildTypeImageAlt(
+                selectedClaimbuild.claimBuildType,
+                selectedClaimbuild.faction,
+              )
+            "
+            :evil-src="
+              getClaimbuildTypeImage(
+                selectedClaimbuild.claimBuildType,
+                selectedClaimbuild.faction,
+              )
+            "
+            :good-src="
+              getClaimbuildTypeImage(
+                selectedClaimbuild.claimBuildType,
+                selectedClaimbuild.faction,
+              )
+            "
           />
         </div>
       </div>
@@ -37,6 +56,10 @@ import { Claimbuild } from "@/ts/types/Claimbuild";
 import ClaimbuildTopInfo from "@/components/modals/ClaimbuildDetailModal/ClaimbuildTopInfo.vue";
 import ClaimbuildMiddleInfo from "@/components/modals/ClaimbuildDetailModal/ClaimbuildMiddleInfo.vue";
 import ClaimbuildModalAccordions from "@/components/modals/ClaimbuildDetailModal/ClaimbuildModalAccordions.vue";
+import {
+  getClaimbuildTypeImage,
+  getClaimbuildTypeImageAlt,
+} from "@/ts/ClaimbuildTypeImageEnum";
 
 defineProps({
   selectedClaimbuild: {
