@@ -10,10 +10,6 @@ const routes = [
     path: "/:pathMatch(.*)*",
   },
   {
-    path: "/",
-    redirect: "/user_dashboard",
-  },
-  {
     component: () => import("@/views/HomeView.vue"),
     name: "Home",
     path: "/home",
