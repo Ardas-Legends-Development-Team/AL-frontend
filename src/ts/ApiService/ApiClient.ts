@@ -22,9 +22,9 @@ export abstract class ApiClient {
     import.meta.env.MODE === "production"
       ? config["backendUrl"]["production"]
       : config["backendUrl"]["development"]
-  }/api`;
+  }`;
 
   public static getBaseUrl(): string {
-    return this.baseUrl;
+    return this.baseUrl + "/api";
   }
 }
