@@ -69,6 +69,7 @@ watch(
   },
 );
 
+const authTokenCookieKey = "ardaslegends_auth_token"
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(false);
@@ -91,9 +92,23 @@ const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);
 
+function setAuthTokenCookie(token: any) {
+  cookies.setCookie(authTokenCookieKey, token);
+}
+
+function getAuthTokenCookie() {
+  if (cookies.isCookieAvailable(authTokenCookieKey)) {
+    return cookies.getCookie(authTokenCookieKey);
+  }
+  return undefined;
+}
+
 function redirectToAuthUrl() {
   window.location.href = authUrl;
 }
+
+
+
 
 
 function getCodeFromUrl(): string {
@@ -102,8 +117,9 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
+/* 
 function setAccessTokenCookie(token: any) {
-  cookies.setCookie("access_token", token);
+  cookies.setCookie("ardaslegends_auth_token", token);
 }
 
 function getAccessTokenCookie() {
@@ -112,7 +128,7 @@ function getAccessTokenCookie() {
   }
   return undefined;
 }
-
+*/
 function loginUser(code: string) {
   return new Promise((resolve) => {
     if (getAccessTokenCookie()) {
