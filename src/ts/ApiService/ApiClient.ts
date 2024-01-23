@@ -27,4 +27,8 @@ export abstract class ApiClient {
   public static getBaseUrl(): string {
     return this.baseUrl + "/api";
   }
+
+  public static getAuthBaseUrl(): string {
+    return this.baseUrl + "/auth"
+  }
 }
