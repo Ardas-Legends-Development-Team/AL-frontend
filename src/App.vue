@@ -95,6 +95,7 @@ function redirectToAuthUrl() {
   window.location.href = authUrl;
 }
 
+
 function getCodeFromUrl(): string {
   const query = window.location.href.split("?");
   if (query.length < 2) return "";
@@ -119,12 +120,15 @@ function loginUser(code: string) {
       resolve(getAccessTokenCookie());
       return;
     }
+
     if (!code) redirectToAuthUrl();
+
     authenticationClient.getToken(code).then((token) => {
       setAccessTokenCookie(token);
       userToken.value = token.access_token;
       resolve(token);
     });
+
   });
 }
 
@@ -157,24 +161,24 @@ function verifyIfUserRegistered(token: any) {
 
 // If the user is in production mode, then we need to check if the user is logged in
 // and if he is registered in the server
-if (useConfigStore().deployMode === "production") {
-  loginUser(getCodeFromUrl()).then((token) => {
-    verifyIfUserInServer(token);
-    verifyIfUserRegistered(token)
-      .then((discordId) => {
-        PlayerApiClient.loadPlayerInfo(discordId).then(() => {
-          loadedUser.value = true;
-        });
-      })
-      .catch(() => {
-        shouldShowRegistrationForm.value = true;
-      });
-  });
-} else {
-  isLoggedIn.value = true;
-  shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
-    loadedUser.value = true;
-  });
-}
+//if (useConfigStore().deployMode === "development") {
+//  loginUser(getCodeFromUrl()).then((token) => {
+//    verifyIfUserInServer(token);
+//    verifyIfUserRegistered(token)
+//      .then((discordId) => {
+//        PlayerApiClient.loadPlayerInfo(discordId).then(() => {
+//          loadedUser.value = true;
+//        });
+//      })
+//      .catch(() => {
+//        shouldShowRegistrationForm.value = true;
+//      });
+//  });
+//} else {
+//  isLoggedIn.value = true;
+//  shouldShowRegistrationForm.value = false;
+//  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
+//    loadedUser.value = true;
+//  });
+//}
 </script>
