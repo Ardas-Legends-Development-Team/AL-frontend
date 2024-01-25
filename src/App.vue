@@ -49,6 +49,8 @@ import { ApiClient } from "@/ts/ApiService/ApiClient";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
 import BackToTopButton from "@/components/BackToTopButton.vue";
 import AlertMessage from "@/components/AlertMessage.vue";
+import { o } from "vitest/dist/types-198fd1d9";
+import { AuthClient } from "./ts/ApiService/AuthClient";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
@@ -75,10 +77,13 @@ const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(false);
 const userToken = ref("");
 const discordId = ref("");
+const authToken = ref("")
 const authenticationClient = new AuthenticationClient(
   "1066660773520212000",
   "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_",
 );
+
+const authClient = new AuthClient();
 
 const cookies = useCookie();
 
@@ -102,6 +107,29 @@ function getAuthTokenCookie() {
   }
   return undefined;
 }
+
+
+authToken.value = getAuthTokenCookie();
+console.log(authToken.value);
+// If there is no auth token found in the cookies then start the discord oauth process
+if(!authToken.value) {
+  const authCode = getCodeFromUrl()
+  console.log("code: " + authCode)
+  if(authCode === "") {
+    redirectToAuthUrl()
+  }
+  else {
+    console.log("codeWorked: " + authCode)
+
+    console.log("JS UrlEncoded: " + new URLSearchParams({
+          authCode,
+        }).toString());
+
+    console.log("authUrl " + authUrl)
+    const authTokenFromBackend = authClient.authorize(authCode, authUrl)
+  }
+}
+
 
 function redirectToAuthUrl() {
   window.location.href = authUrl;
@@ -129,51 +157,51 @@ function getAccessTokenCookie() {
   return undefined;
 }
 */
-function loginUser(code: string) {
-  return new Promise((resolve) => {
-    if (getAccessTokenCookie()) {
-      userToken.value = getAccessTokenCookie().access_token;
-      resolve(getAccessTokenCookie());
-      return;
-    }
+// function loginUser(code: string) {
+//   return new Promise((resolve) => {
+//     if (getAccessTokenCookie()) {
+//       userToken.value = getAccessTokenCookie().access_token;
+//       resolve(getAccessTokenCookie());
+//       return;
+//     }
 
-    if (!code) redirectToAuthUrl();
+//     if (!code) redirectToAuthUrl();
 
-    authenticationClient.getToken(code).then((token) => {
-      setAccessTokenCookie(token);
-      userToken.value = token.access_token;
-      resolve(token);
-    });
+//     authenticationClient.getToken(code).then((token) => {
+//       setAccessTokenCookie(token);
+//       userToken.value = token.access_token;
+//       resolve(token);
+//     });
 
-  });
-}
+//   });
+// }
 
-function verifyIfUserInServer(token: any) {
-  authenticationClient.getUserGuilds(token).then((guilds) => {
-    if (guilds.find((guild: any) => guild.id === serverId)) {
-      return;
-    }
-    window.location.href = serverInviteUrl;
-  });
-}
+// function verifyIfUserInServer(token: any) {
+//   authenticationClient.getUserGuilds(token).then((guilds) => {
+//     if (guilds.find((guild: any) => guild.id === serverId)) {
+//       return;
+//     }
+//     window.location.href = serverInviteUrl;
+//   });
+// }
 
-function verifyIfUserRegistered(token: any) {
-  return new Promise<string>((resolve, reject) => {
-    authenticationClient.getUser(token).then((user) => {
-      discordId.value = user.id;
-      axios
-        .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
-        .then(() => {
-          isLoggedIn.value = true;
-          shouldShowRegistrationForm.value = false;
-          resolve(user.id);
-        })
-        .catch(() => {
-          reject("User not registered");
-        });
-    });
-  });
-}
+// function verifyIfUserRegistered(token: any) {
+//   return new Promise<string>((resolve, reject) => {
+//     authenticationClient.getUser(token).then((user) => {
+//       discordId.value = user.id;
+//       axios
+//         .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
+//         .then(() => {
+//           isLoggedIn.value = true;
+//           shouldShowRegistrationForm.value = false;
+//           resolve(user.id);
+//         })
+//         .catch(() => {
+//           reject("User not registered");
+//         });
+//     });
+//   });
+// }
 
 // If the user is in production mode, then we need to check if the user is logged in
 // and if he is registered in the server
