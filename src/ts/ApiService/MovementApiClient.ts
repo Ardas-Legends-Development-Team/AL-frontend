@@ -105,4 +105,20 @@ export class MovementApiClient extends ApiClient {
         });
     });
   }
+
+  public static async getCharacterMovement(
+    characterName: string,
+  ): Promise<any> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/movement/char", {
+          params: {
+            name: characterName,
+          },
+        })
+        .then((response) => {
+          resolve(response.data);
+        });
+    });
+  }
 }

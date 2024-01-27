@@ -21,8 +21,21 @@
 import UserDashboardInfoCard from "@/views/Dashboards/UserDashboardComponents/UserDashboardInfoCard.vue";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ref } from "vue";
+import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
+import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
+import { formatDateString } from "@/ts/utilities";
 
 const cardsData = ref({
+  movement: {
+    title: "Movement",
+    description: "No movement in progress",
+    sourceGood:
+      "https://ateettea.sirv.com/Dashboards/lord-of-the-rings-grass-plain-with-a-dark-ranger-m.png",
+    altGood: "knight riding a horse in a grass plain with a small river",
+    sourceEvil:
+      "https://ateettea.sirv.com/Dashboards/lord-of-the-rings-grass-plain-with-a-black-knight-.png",
+    altEvil: "soldier walking in a grass plain, with a castle in the distance",
+  },
   boundTo: {
     title: "Bound To",
     description: "Not bound to army or trading company",
@@ -90,5 +103,21 @@ PlayerApiClient.loadCharacterInfo().then((data) => {
   if (data.pvp) {
     cardsData.value.pvpStatus.description = "Enabled";
   }
+  // Get the current movement if we have one
+  MovementApiClient.getCharacterMovement(data.name).then(
+    (movement: { currentMovement: MovementResponse }) => {
+      if (movement.currentMovement) {
+        const destination =
+          movement.currentMovement.path[
+            movement.currentMovement.path.length - 1
+          ].region;
+        cardsData.value.movement.description =
+          "Arriving at region\n" +
+          destination +
+          " at " +
+          formatDateString(movement.currentMovement.endTime);
+      }
+    },
+  );
 });
 </script>
