@@ -38,6 +38,15 @@
             </select>
           </div>
         </div>
+        <!-- If we need a confirmation and it's a movement action, then show the path used -->
+        <div v-if="isConfirming">
+          <h3 class="mt-4 text-xl font-bold text-error">
+            Movement confirmation
+          </h3>
+          <p>Time of arrival: {{ movementTimeOfArrival }}</p>
+          <p>Time taken: {{ movementHoursUntilComplete }} hours</p>
+          <p>Path: {{ movementPath }}</p>
+        </div>
         <button
           v-if="!isConfirming"
           class="btn btn-primary btn-outline mt-4"
@@ -69,6 +78,10 @@ import { ErrorHandler } from "@/ts/ErrorHandler";
 import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { Claimbuild } from "@/ts/types/Claimbuild";
+import { getArmyBoundToPlayer } from "@/ts/utilities";
+import { usePlayerStore } from "@/stores/playerStores";
+import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
+import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
 
 const props = defineProps({
   isOpen: {
@@ -88,6 +101,10 @@ const props = defineProps({
     }>,
     required: true,
   },
+  actionType: {
+    type: String,
+    required: true,
+  },
 });
 
 const emit = defineEmits(["close", "submit"]);
@@ -99,12 +116,68 @@ function closeModal() {
 
 const shownInputs = ref<PlayerActionInput[]>([]);
 
-function askForConfirmation(): void {
+const movementTimeOfArrival = ref("");
+const movementHoursUntilComplete = ref(0);
+const movementPath = ref<String[]>([]);
+
+async function askForConfirmation(): Promise<void> {
   // Check if an input is empty, if yes then show an error message
   for (const input of shownInputs.value) {
     if (input.selectedOption === "") {
       ErrorHandler.throwError("Please fill in all the inputs");
       return;
+    }
+  }
+  // Now check the action type, if it's a movement action, we need to fetch if the character is bound to an army and calculate the path
+  if (props.actionType?.toLowerCase().includes("move")) {
+    // Fetch the selected region from the inputs
+    let selectedRegion = "";
+    for (const input of shownInputs.value) {
+      if (input.representedData === "toRegion") {
+        selectedRegion = input.selectedOption;
+      }
+    }
+
+    // Check if it's a normal move or a leader move
+    if (props.actionType?.toLowerCase().includes("leader")) {
+      // Fetch the army we selected from the inputs and calculate the path
+      for (const input of shownInputs.value) {
+        if (input.representedData === "armyName") {
+          const movement = await MovementApiClient.calculateArmyPath(
+            usePlayerStore().discordId,
+            input.selectedOption,
+            selectedRegion,
+          );
+          movementTimeOfArrival.value = movement.endTime;
+          movementHoursUntilComplete.value = movement.hoursUntilComplete;
+          // We need to convert the path to an array of strings
+          for (const path of movement.path) {
+            movementPath.value.push(path.region);
+          }
+        }
+      }
+    } else {
+      // Get if the character is bound to an army, if yes then cut the duration by half
+      const armyName = await getArmyBoundToPlayer(usePlayerStore().discordId);
+      let movement: MovementResponse;
+      if (armyName !== "") {
+        movement = await MovementApiClient.calculateArmyPath(
+          usePlayerStore().discordId,
+          armyName,
+          selectedRegion,
+        );
+      } else {
+        movement = await MovementApiClient.calculateCharacterPath(
+          usePlayerStore().discordId,
+          selectedRegion,
+        );
+      }
+      movementTimeOfArrival.value = movement.endTime;
+      movementHoursUntilComplete.value = movement.hoursUntilComplete;
+      // We need to convert the path to an array of strings
+      for (const path of movement.path) {
+        movementPath.value.push(path.region);
+      }
     }
   }
   isConfirming.value = true;
