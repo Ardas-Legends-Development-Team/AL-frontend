@@ -9,4 +9,9 @@ export const staffRoutes = [
     name: "ApplicationsReview",
     path: "/staff_area/applications_review",
   },
+  {
+    component: () => import("@/views/Staff/StaffWars.vue"),
+    name: "StaffWars",
+    path: "/staff_area/wars",
+  },
 ];
