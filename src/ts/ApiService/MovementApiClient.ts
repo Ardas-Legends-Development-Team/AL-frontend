@@ -95,7 +95,7 @@ export class MovementApiClient extends ApiClient {
       axios
         .get(this.getBaseUrl() + "/movement/calculate/army", {
           params: {
-            discordId: discordId,
+            executorDiscordId: discordId,
             armyName: armyName,
             toRegion: destinationRegionId,
           },
