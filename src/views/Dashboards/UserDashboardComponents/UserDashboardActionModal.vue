@@ -82,6 +82,7 @@ import { getArmyBoundToPlayer } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
 import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
 import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
+import path from "node:path";
 
 const props = defineProps({
   isOpen: {
@@ -118,7 +119,7 @@ const shownInputs = ref<PlayerActionInput[]>([]);
 
 const movementTimeOfArrival = ref("");
 const movementHoursUntilComplete = ref(0);
-const movementPath = ref<String[]>([]);
+const movementPath = ref<String>("");
 
 async function askForConfirmation(): Promise<void> {
   // Check if an input is empty, if yes then show an error message
@@ -147,20 +148,18 @@ async function askForConfirmation(): Promise<void> {
             usePlayerStore().discordId,
             input.selectedOption,
             selectedRegion,
-          );
-          movementTimeOfArrival.value = movement.endTime;
-          movementHoursUntilComplete.value = movement.hoursUntilComplete;
-          // We need to convert the path to an array of strings
-          for (const path of movement.path) {
-            movementPath.value.push(path.region);
+            );
+            movementTimeOfArrival.value = movement.endTime;
+            movementHoursUntilComplete.value = movement.hoursUntilComplete;
+            // We need to convert the path to an array of strings
+            movementPath.value += movement.path.map((path) => path.region).join(" -> ")
           }
         }
-      }
-    } else {
-      // Get if the character is bound to an army, if yes then cut the duration by half
-      const armyName = await getArmyBoundToPlayer(usePlayerStore().discordId);
-      let movement: MovementResponse;
-      if (armyName !== "") {
+      } else {
+        // Get if the character is bound to an army, if yes then cut the duration by half
+        const armyName = await getArmyBoundToPlayer(usePlayerStore().discordId);
+        let movement: MovementResponse;
+      if (armyName !== null) {
         movement = await MovementApiClient.calculateArmyPath(
           usePlayerStore().discordId,
           armyName,
@@ -172,12 +171,11 @@ async function askForConfirmation(): Promise<void> {
           selectedRegion,
         );
       }
-      movementTimeOfArrival.value = movement.endTime;
+      movementTimeOfArrival.value = new Date(movement.endTime).toLocaleString();
       movementHoursUntilComplete.value = movement.hoursUntilComplete;
       // We need to convert the path to an array of strings
-      for (const path of movement.path) {
-        movementPath.value.push(path.region);
-      }
+      console.log(movement.path);
+      movementPath.value += movement.path.map((path) => path.region).join(" -> ")
     }
   }
   isConfirming.value = true;
