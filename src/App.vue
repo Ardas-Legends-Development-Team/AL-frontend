@@ -126,7 +126,7 @@ if(!authToken.value) {
         }).toString());
 
     console.log("authUrl " + authUrl)
-    const authTokenFromBackend = authClient.authorize(authCode, authUrl)
+    const authTokenFromBackend = authClient.authorize(authCode, redirectUrl)
   }
 }
 

@@ -4,7 +4,7 @@
     "production": "http://ardas-legends.kekx.eu/al-frontend"
   },
   "discord-auth-url": {
-    "development": "https://discord.com/api/oauth2/authorize?client_id=1015367754771083405&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3333%2F&scope=identify+guilds",
+    "development": "https://discord.com/api/oauth2/authorize?client_id=1015367754771083405&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3333&scope=identify+guilds",
     "production": "https://discord.com/api/oauth2/authorize?client_id=1025515465663062066&redirect_uri=http%3A%2F%2Fardas-legends.kekx.eu%2Fal-frontend&response_type=code&scope=identify%20guilds"
   },
   "backendUrl": {
