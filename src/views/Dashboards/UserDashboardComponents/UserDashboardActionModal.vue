@@ -82,7 +82,6 @@ import { getArmyBoundToPlayer } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
 import { MovementApiClient } from "@/ts/ApiService/MovementApiClient";
 import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
-import path from "node:path";
 
 const props = defineProps({
   isOpen: {
@@ -148,17 +147,19 @@ async function askForConfirmation(): Promise<void> {
             usePlayerStore().discordId,
             input.selectedOption,
             selectedRegion,
-            );
-            movementTimeOfArrival.value = movement.endTime;
-            movementHoursUntilComplete.value = movement.hoursUntilComplete;
-            // We need to convert the path to an array of strings
-            movementPath.value += movement.path.map((path) => path.region).join(" -> ")
-          }
+          );
+          movementTimeOfArrival.value = movement.endTime;
+          movementHoursUntilComplete.value = movement.hoursUntilComplete;
+          // We need to convert the path to an array of strings
+          movementPath.value += movement.path
+            .map((path) => path.region)
+            .join(" -> ");
         }
-      } else {
-        // Get if the character is bound to an army, if yes then cut the duration by half
-        const armyName = await getArmyBoundToPlayer(usePlayerStore().discordId);
-        let movement: MovementResponse;
+      }
+    } else {
+      // Get if the character is bound to an army, if yes then cut the duration by half
+      const armyName = await getArmyBoundToPlayer(usePlayerStore().discordId);
+      let movement: MovementResponse;
       if (armyName !== null) {
         movement = await MovementApiClient.calculateArmyPath(
           usePlayerStore().discordId,
@@ -175,7 +176,9 @@ async function askForConfirmation(): Promise<void> {
       movementHoursUntilComplete.value = movement.hoursUntilComplete;
       // We need to convert the path to an array of strings
       console.log(movement.path);
-      movementPath.value += movement.path.map((path) => path.region).join(" -> ")
+      movementPath.value += movement.path
+        .map((path) => path.region)
+        .join(" -> ");
     }
   }
   isConfirming.value = true;
