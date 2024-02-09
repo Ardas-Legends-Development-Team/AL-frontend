@@ -1,21 +1,19 @@
 <template>
-  <div v-if="isStaff"></div>
-  <div
-    class="my-4 flex flex-row justify-center"
-    v-if="isStaff && wars.length > 0"
-  >
-    <h2 class="text-3xl font-bold text-secondary">Ongoing Wars</h2>
-  </div>
-  <div class="flex flex-col justify-center">
-    <div
-      v-for="(war, index) in wars"
-      :key="index"
-      class="mx-16 my-2 flex flex-row items-center justify-center rounded-lg bg-base-200"
-    >
-      <WarBlock :war="war" :key="war.id" />
-      <button class="btn btn-error btn-outline" @click="endWar(war.name)">
-        End War
-      </button>
+  <div v-if="isStaff">
+    <div class="my-4 flex flex-row justify-center" v-if="wars.length > 0">
+      <h2 class="text-3xl font-bold text-secondary">Ongoing Wars</h2>
+    </div>
+    <div class="flex flex-col justify-center">
+      <div
+        v-for="(war, index) in wars"
+        :key="index"
+        class="mx-16 my-2 flex flex-row items-center justify-center rounded-lg bg-base-200"
+      >
+        <WarBlock :war="war" :key="war.id" />
+        <button class="btn btn-error btn-outline" @click="endWar(war.name)">
+          End War
+        </button>
+      </div>
     </div>
   </div>
 </template>
