@@ -67,10 +67,11 @@ const currentWars = ref<War[]>([]);
 WarApiClient.loadWars().then((wars) => {
   for (const war of wars) {
     if (
-      war.nameOfAttacker === props.faction ||
-      war.nameOfDefender === props.faction
+      war.initialAttacker === props.faction ||
+      war.initialDefender === props.faction
     ) {
-      currentWars.value.push(war);
+      if (war.isActive) currentWars.value.push(war);
+      else pastWars.value.push(war);
     }
   }
 });

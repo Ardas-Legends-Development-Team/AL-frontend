@@ -52,4 +52,31 @@ export class WarApiClient extends ApiClient {
         });
     });
   }
+
+  /**
+   * Forcefully ends the war. Only staff can do this.
+   * @param nameOfWar
+   * @param executorDiscordId
+   */
+  public static async forceEndWar(
+    nameOfWar: string,
+    executorDiscordId: string,
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      // Send the request
+      axios
+        .delete(this.getBaseUrl() + "/wars/end/force", {
+          params: {
+            executorDiscordId: executorDiscordId,
+            warName: nameOfWar,
+          },
+        })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          ErrorHandler.throwError(error.response.data.message);
+        });
+    });
+  }
 }

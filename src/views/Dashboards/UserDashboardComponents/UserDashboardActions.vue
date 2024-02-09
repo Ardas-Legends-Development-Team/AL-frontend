@@ -26,6 +26,7 @@ import { ref } from "vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { getArmyBoundToPlayer } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
+import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const shownCards: any = ref({});
 
@@ -61,9 +62,7 @@ async function populateShownCards(rank: string): Promise<void> {
 }
 
 FactionApiClient.loadFactions().then(() => {
-  // TODO: Uncomment this
-  //const rank = useFactionsStore().isPlayerFactionLeader ? "Leader" : "Member";
-  const rank = "Leader";
+  const rank = useFactionsStore().isPlayerFactionLeader ? "Leader" : "Member";
   populateShownCards(rank.toLowerCase());
 });
 </script>

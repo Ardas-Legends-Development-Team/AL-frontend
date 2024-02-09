@@ -57,28 +57,6 @@ export class FactionApiClient extends ApiClient {
     });
   }
 
-  public static async declareWarToFaction(
-    defendingFactionName: string,
-    nameOfWar: string,
-  ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // If player does not have enough privileges, do not send the request
-      if (!useFactionsStore().isPlayerFactionLeader) {
-        reject("You are not a faction leader");
-      }
-      // Send the request
-      axios
-        .post(this.getBaseUrl() + "/wars/declare", {
-          executorDiscordId: usePlayerStore().discordId,
-          defendingFactionName: defendingFactionName,
-          nameOfWar: nameOfWar,
-        })
-        .then(() => {
-          resolve();
-        });
-    });
-  }
-
   private static async loadFactionsDataIntoStore(): Promise<void> {
     const factionsStore = useFactionsStore();
     return new Promise((resolve) => {

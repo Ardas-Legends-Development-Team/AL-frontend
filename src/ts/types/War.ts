@@ -1,7 +1,11 @@
 export type War = {
   id: number;
-  nameOfWar: string;
-  nameOfAttacker: string;
-  nameOfDefender: string;
+  name: string;
+  agressors: string[];
+  defenders: string[];
+  initialAttacker: string;
+  initialDefender: string;
   startDate: string;
+  endDate: string;
+  isActive: boolean;
 };
