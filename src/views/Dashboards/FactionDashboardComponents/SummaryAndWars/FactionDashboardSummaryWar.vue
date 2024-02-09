@@ -43,8 +43,8 @@ const attackerFactionBanner = ref<string>("");
 const defenderFactionBanner = ref<string>("");
 
 function populateWarBanners() {
-  attackerFactionBanner.value = factionNameToBanner(props.war.nameOfAttacker);
-  defenderFactionBanner.value = factionNameToBanner(props.war.nameOfDefender);
+  attackerFactionBanner.value = factionNameToBanner(props.war?.initialAttacker);
+  defenderFactionBanner.value = factionNameToBanner(props.war?.initialDefender);
 }
 
 populateWarBanners();

@@ -70,7 +70,8 @@ WarApiClient.loadWars().then((wars) => {
       war.initialAttacker === props.faction ||
       war.initialDefender === props.faction
     ) {
-      currentWars.value.push(war);
+      if (war.isActive) currentWars.value.push(war);
+      else pastWars.value.push(war);
     }
   }
 });
