@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
-import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionModal.vue";
+import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardSimpleActionModal.vue";
 import { ref } from "vue";
 import { PlayerActionRequestHandler } from "@/ts/PlayerActionRequestHandler";
 import { PlayerActionInput } from "@/ts/types/PlayerActionInput";

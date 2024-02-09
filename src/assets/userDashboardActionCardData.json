@@ -118,8 +118,45 @@
             "representedData": "armyName"
           }
         ]
+      },
+      "createArmy": {
+        "altGood": "Lothlorien palace in the middle of a mallorn forest",
+        "sourceGood": "https://ateettea.sirv.com/Actions/balrogslayer_lothlorien_epic_scale_tall_looming_trees_cinematic_c9fcdc22-7af7-4161-8349-2b902308a6d1.png",
+        "title": "Create army",
+        "altEvil": "Angmarim fiery mountain fortress",
+        "sourceEvil": "https://ateettea.sirv.com/Actions/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg",
+        "description": "Create Army Description",
+        "actionInputs": [
+          {
+            "type": "dropdown",
+            "placeholder": "Target claimbuild",
+            "chooseFrom": [
+              "claimbuilds"
+            ],
+            "representedData": "claimbuildName"
+          }
+        ]
+      },
+      "disband": {
+        "altGood": "Lothlorien palace in the middle of a mallorn forest",
+        "sourceGood": "https://ateettea.sirv.com/Actions/balrogslayer_lothlorien_epic_scale_tall_looming_trees_cinematic_c9fcdc22-7af7-4161-8349-2b902308a6d1.png",
+        "title": "Disband Army",
+        "altEvil": "Angmarim fiery mountain fortress",
+        "sourceEvil": "https://ateettea.sirv.com/Actions/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg",
+        "description": "Disband Description",
+        "actionInputs": [
+          {
+            "type": "dropdown",
+            "placeholder": "Target army",
+            "chooseFrom": [
+              "armies"
+            ],
+            "representedData": "armyName"
+          }
+        ]
       }
     },
+
     "member": {
       "move": {
         "altGood": "Dale riders moving through a swampland",

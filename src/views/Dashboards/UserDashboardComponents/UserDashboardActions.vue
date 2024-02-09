@@ -42,6 +42,10 @@ async function populateShownCards(rank: string): Promise<void> {
       rankCardData[rank as keyof typeof rankCardData].station;
     shownCards.value.rankUnstation =
       rankCardData[rank as keyof typeof rankCardData].unstation;
+    shownCards.value.createArmy =
+      rankCardData[rank as keyof typeof rankCardData].createArmy;
+    shownCards.value.disband =
+      rankCardData[rank as keyof typeof rankCardData].disband;
   }
   // Add all member actions concerning the player himself. Do not add mutually exclusive actions
   // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)

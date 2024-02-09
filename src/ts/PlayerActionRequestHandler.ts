@@ -78,6 +78,24 @@ export class PlayerActionRequestHandler {
           requestParameters["armyName"],
         );
         break;
+      case "create army":
+        // TODO: add the correct parameters
+        await ArmyControlApiClient.createArmy(
+          requestParameters["armyName"],
+          "army type",
+          "claimbuild source",
+          [
+            {
+              unitTypeName: "company1",
+              count: 1,
+              isMounted: false,
+            },
+          ],
+        );
+        break;
+      case "diband army":
+        await ArmyControlApiClient.disbandArmy(requestParameters["armyName"]);
+        break;
       case "move":
         // Check if we're bound to an army and if yes fetch it
         if (characterInfo.boundTo) {
