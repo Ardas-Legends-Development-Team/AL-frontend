@@ -69,3 +69,10 @@ export async function getDiscordIdFromCharacterName(
   );
   return discordId.discordId;
 }
+
+export function formatDateString(dateString: string): string {
+  const splitString = dateString.split("T");
+  const date = splitString[0];
+  const time = splitString[1].split(".")[0];
+  return date + " " + time;
+}

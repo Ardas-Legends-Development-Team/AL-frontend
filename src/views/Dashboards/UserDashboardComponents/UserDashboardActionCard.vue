@@ -24,6 +24,7 @@
     :is-open="isModalOpen"
     :description="selectedAction.description"
     :action-inputs="selectedAction.actionInputs"
+    :action-type="title"
     @close="isModalOpen = false"
     @submit="(playerInputs: PlayerActionInput[]) => submitAction(playerInputs)"
   />
