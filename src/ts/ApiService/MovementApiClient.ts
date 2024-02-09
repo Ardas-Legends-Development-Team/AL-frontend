@@ -67,4 +67,58 @@ export class MovementApiClient extends ApiClient {
         });
     });
   }
+
+  public static async calculateCharacterPath(
+    discordId: string,
+    destinationRegionId: string,
+  ): Promise<MovementResponse> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/movement/calculate/char", {
+          params: {
+            discordId: discordId,
+            toRegion: destinationRegionId,
+          },
+        })
+        .then((response) => {
+          resolve(response.data);
+        });
+    });
+  }
+
+  public static async calculateArmyPath(
+    discordId: string,
+    armyName: string,
+    destinationRegionId: string,
+  ): Promise<MovementResponse> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/movement/calculate/army", {
+          params: {
+            executorDiscordId: discordId,
+            armyName: armyName,
+            toRegion: destinationRegionId,
+          },
+        })
+        .then((response) => {
+          resolve(response.data);
+        });
+    });
+  }
+
+  public static async getCharacterMovement(
+    characterName: string,
+  ): Promise<any> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + "/movement/char", {
+          params: {
+            name: characterName,
+          },
+        })
+        .then((response) => {
+          resolve(response.data);
+        });
+    });
+  }
 }
