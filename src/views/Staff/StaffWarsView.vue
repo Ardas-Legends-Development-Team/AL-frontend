@@ -13,7 +13,7 @@
       class="mx-16 my-2 flex flex-row items-center justify-center rounded-lg bg-base-200"
     >
       <WarBlock :war="war" :key="war.id" />
-      <button class="btn btn-error btn-outline" @click="endWar(war.nameOfWar)">
+      <button class="btn btn-error btn-outline" @click="endWar(war.name)">
         End War
       </button>
     </div>
@@ -35,7 +35,7 @@ function endWar(nameOfWar: string) {
   WarApiClient.forceEndWar(nameOfWar, usePlayerStore().discordId).then(() => {
     // Remove war from wars array
     for (let i = 0; i < wars.value.length; i++) {
-      if (wars.value[i].nameOfWar === nameOfWar) {
+      if (wars.value[i].name === nameOfWar) {
         wars.value.splice(i, 1);
         break;
       }
@@ -50,13 +50,7 @@ PlayerApiClient.loadPlayerInfo().then((player: { isStaff: boolean }) => {
     WarApiClient.loadWars().then((loadedWars) => {
       // Get only ongoing wars
       for (let i = 0; i < loadedWars.length; i++) {
-        if (loadedWars[i].ongoing) {
-          wars.value.push(loadedWars[i]);
-        }
-      }
-      // Add all wars to the wars array
-      for (const war of loadedWars) {
-        wars.value.push(war);
+        if (loadedWars[i].isActive) wars.value.push(loadedWars[i]);
       }
     });
   }

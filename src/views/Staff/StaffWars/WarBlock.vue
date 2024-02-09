@@ -11,7 +11,7 @@
       <h3
         class="mx-2 my-10 basis-1/3 text-center text-xl font-bold text-accent"
       >
-        {{ war.nameOfAttacker }} VS {{ war.nameOfDefender }}
+        {{ war.initialAttacker }} VS {{ war.initialDefender }}
       </h3>
       <div class="flex basis-1/3 flex-row flex-wrap">
         <img
@@ -43,8 +43,8 @@ const attackerFactionBanner = ref<string>("");
 const defenderFactionBanner = ref<string>("");
 
 function populateWarBanners() {
-  attackerFactionBanner.value = factionNameToBanner(props.war.nameOfAttacker);
-  defenderFactionBanner.value = factionNameToBanner(props.war.nameOfDefender);
+  attackerFactionBanner.value = factionNameToBanner(props.war?.initialAttacker);
+  defenderFactionBanner.value = factionNameToBanner(props.war?.initialDefender);
 }
 
 populateWarBanners();
