@@ -18,10 +18,8 @@ export class ArmyControlApiClient extends ApiClient {
             executorDiscordId: usePlayerStore().discordId,
             name: armyName,
             armyType: armyType,
-            claimbuildName: claimbuildName,
+            claimBuildName: claimbuildName,
             units: units,
-            // TODO: deprecated in the backend, once it's removed from there remove it from here as well
-            unitString: "",
           },
           {
             headers: {},

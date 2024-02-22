@@ -104,6 +104,7 @@ import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { Claimbuild } from "@/ts/types/Claimbuild";
 import { usePlayerStore } from "@/stores/playerStores";
 import { ArmyControlApiClient } from "@/ts/ApiService/ArmyControlApiClient";
+import { AlertHandler } from "@/ts/AlertHandler";
 
 defineProps({
   isOpen: {
@@ -153,15 +154,19 @@ async function askForConfirmation(): Promise<void> {
   isConfirming.value = true;
 }
 
-function submitAction(): void {
+async function submitAction(): Promise<void> {
   // Correctly format army type
-  armyType.value = armyType.value === "Army" ? "ARMY" : "TRADE_COMPANY";
-  ArmyControlApiClient.createArmy(
+  const formattedArmyType =
+    armyType.value === "Army" ? "ARMY" : "TRADE_COMPANY";
+  await ArmyControlApiClient.createArmy(
     armyName.value,
-    armyType.value,
+    formattedArmyType,
     claimbuildName.value,
     units.value,
   );
+
+  AlertHandler.showSuccessAlert("Army created successfully");
+  closeModal();
 }
 
 ClaimbuildApiClient.loadAllClaimbuilds().then((claimbuilds: Claimbuild[]) => {
