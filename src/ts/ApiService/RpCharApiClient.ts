@@ -12,7 +12,7 @@ export class RpCharApiClient extends ApiClient {
         return;
       }
 
-      axios.get(this.getBaseUrl() + "/rpchars?size=100").then((response) => {
+      axios.get(this.getBaseUrl() + "/rpchars?size=1000").then((response) => {
         response.data.content.forEach((rpChar: any) => {
           const mappedChar: RoleplayCharacter = {
             discordId: rpChar.ownerId,

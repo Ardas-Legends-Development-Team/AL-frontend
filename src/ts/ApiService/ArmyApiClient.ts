@@ -6,7 +6,7 @@ import { ApiClient } from "@/ts/ApiService/ApiClient";
 export class ArmyApiClient extends ApiClient {
   public static async loadArmies(): Promise<Army[]> {
     return new Promise((resolve) => {
-      axios.get(this.getBaseUrl() + "/army?size=100").then((response) => {
+      axios.get(this.getBaseUrl() + "/army?size=1000").then((response) => {
         resolve(response.data.content);
       });
     });
