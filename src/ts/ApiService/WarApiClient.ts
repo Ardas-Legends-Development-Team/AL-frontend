@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import { usePlayerStore } from "@/stores/playerStores";
-import { ErrorHandler } from "@/ts/ErrorHandler";
 import { useFactionsStore, useWarsStore } from "@/stores/generalInfoStores";
 import { War } from "@/ts/types/War";
 
@@ -24,9 +23,6 @@ export class WarApiClient extends ApiClient {
         })
         .then(() => {
           resolve();
-        })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
         });
     });
   }
@@ -73,9 +69,30 @@ export class WarApiClient extends ApiClient {
         })
         .then(() => {
           resolve();
+        });
+    });
+  }
+
+  public static async declareBattle(
+    battleName: string,
+    attackingArmyName: string,
+    defendingTargetName: string,
+    isFieldBattle: boolean,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // Send the request
+      // If the battle is a field battle, we only send the army name, otherwise we send the claimbuild name
+      axios
+        .post(this.getBaseUrl() + "/battles", {
+          executorDiscordId: usePlayerStore().discordId,
+          battleName: battleName,
+          attackingArmyName: attackingArmyName,
+          defendingArmyName: isFieldBattle ? defendingTargetName : null,
+          isFieldBattle: isFieldBattle,
+          claimBuildName: isFieldBattle ? null : defendingTargetName,
         })
-        .catch((error) => {
-          ErrorHandler.throwError(error.response.data.message);
+        .then(() => {
+          resolve();
         });
     });
   }

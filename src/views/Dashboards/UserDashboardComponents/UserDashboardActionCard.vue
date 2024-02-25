@@ -4,7 +4,8 @@
     class="h-fit w-28 cursor-pointer rounded-lg"
     :class="
       title.toLowerCase().includes('leader') ||
-      title.toLowerCase().includes('create army')
+      title.toLowerCase().includes('create army') ||
+      title.toLowerCase().includes('disband army')
         ? 'bg-accent-content'
         : 'bg-base-300'
     "
@@ -33,6 +34,10 @@
     :is-open="isCreateArmyModalOpen"
     @close="isCreateArmyModalOpen = false"
   />
+  <UserDashboardDeclareBattleActionModal
+    :is-open="isDeclareBattleModalOpen"
+    @close="isDeclareBattleModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -42,6 +47,7 @@ import { ref } from "vue";
 import { PlayerActionRequestHandler } from "@/ts/PlayerActionRequestHandler";
 import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
 import UserDashboardCreateArmyActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardCreateArmyActionModal.vue";
+import UserDashboardDeclareBattleActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardDeclareBattleActionModal.vue";
 
 const props = defineProps({
   title: {
@@ -88,6 +94,7 @@ const selectedAction = ref({
 
 const isModalOpen = ref(false);
 const isCreateArmyModalOpen = ref(false);
+const isDeclareBattleModalOpen = ref(false);
 
 function sendInfoToModal(
   title: string,
@@ -97,6 +104,11 @@ function sendInfoToModal(
   // If the title contains "create army", open the create army modal
   if (title.toLowerCase().includes("create army")) {
     isCreateArmyModalOpen.value = true;
+    return;
+  }
+  // Else if the title contains "declare battle", open the declare battle modal
+  if (title.toLowerCase().includes("declare battle")) {
+    isDeclareBattleModalOpen.value = true;
     return;
   }
   // Otherwise, open the simple action modal

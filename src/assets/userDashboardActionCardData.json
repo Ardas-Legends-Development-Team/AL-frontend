@@ -127,14 +127,6 @@
         "sourceEvil": "https://ateettea.sirv.com/Actions/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg",
         "description": "Create Army Description",
         "actionInputs": [
-          {
-            "type": "dropdown",
-            "placeholder": "Target claimbuild",
-            "chooseFrom": [
-              "claimbuilds"
-            ],
-            "representedData": "claimbuildName"
-          }
         ]
       },
       "disband": {
@@ -227,6 +219,16 @@
         "altEvil": "Army of evil monsters marching out of Mordor",
         "sourceEvil": "https://ateettea.sirv.com/Actions/Killian_Army_of_dragons_orcs_and_balrogs_attacking_gondolin_lor_0ae287bb-b81f-4c6a-a39d-44f2ac7a029a.png",
         "description": "Unstation Description",
+        "actionInputs": [
+        ]
+      },
+      "declareBattle": {
+        "altGood": "Elven army walking out of a mountain fortress",
+        "sourceGood": "https://ateettea.sirv.com/Actions/fajftl8vsqpa1.png",
+        "title": "Declare Battle",
+        "altEvil": "Army of evil monsters marching out of Mordor",
+        "sourceEvil": "https://ateettea.sirv.com/Actions/Killian_Army_of_dragons_orcs_and_balrogs_attacking_gondolin_lor_0ae287bb-b81f-4c6a-a39d-44f2ac7a029a.png",
+        "description": "Declare Battle Description",
         "actionInputs": [
         ]
       }

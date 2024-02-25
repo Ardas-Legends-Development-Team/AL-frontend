@@ -10,10 +10,15 @@ axios.interceptors.response.use(
   (error) => {
     console.log("Error response", error.response);
     if (error.response) {
-      ErrorHandler.throwError(error.response.data);
+      if (error.response.message)
+        ErrorHandler.throwError(error.response.message);
+      else if (error.response.data.message)
+        ErrorHandler.throwError(error.response.data.message);
+      else ErrorHandler.throwError(error.response.data);
     } else {
       ErrorHandler.throwError("Unexpected error occured");
     }
+    return Promise.reject(error);
   },
 );
 

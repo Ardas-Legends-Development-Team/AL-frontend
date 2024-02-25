@@ -60,6 +60,7 @@ async function populateShownCards(rank: string): Promise<void> {
     // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
     shownCards.value.memberStation = rankCardData.member.station;
     shownCards.value.memberUnstation = rankCardData.member.unstation;
+    shownCards.value.memberDeclareBattle = rankCardData.member.declareBattle;
   } else {
     shownCards.value.memberBind = rankCardData.member.bind;
   }
