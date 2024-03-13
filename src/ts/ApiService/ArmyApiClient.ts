@@ -6,6 +6,7 @@ import { UnitType } from "@/ts/types/UnitType";
 
 export class ArmyApiClient extends ApiClient {
   public static async loadArmies(): Promise<Army[]> {
+    // TODO: connect to store
     return new Promise((resolve) => {
       axios.get(this.getBaseUrl() + "/army?size=1000").then((response) => {
         resolve(response.data.content);
@@ -14,6 +15,7 @@ export class ArmyApiClient extends ApiClient {
   }
 
   public static async getAllAvailableUnitTypes(): Promise<UnitType[]> {
+    // TODO: connect to store
     return new Promise((resolve) => {
       axios.get(this.getBaseUrl() + "/unittypes").then((response) => {
         resolve(response.data.content);

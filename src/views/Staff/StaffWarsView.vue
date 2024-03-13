@@ -1,7 +1,7 @@
 <template>
   <div v-if="isStaff">
     <BattleSubmit />
-    <div class="my-4 flex flex-row justify-center" v-if="wars.length > 0">
+    <div class="mb-4 mt-16 flex flex-row justify-center" v-if="wars.length > 0">
       <h2 class="text-3xl font-bold text-secondary">Ongoing Wars</h2>
     </div>
     <div class="flex flex-col justify-center">
