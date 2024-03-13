@@ -33,16 +33,13 @@ const shownCards: any = ref({});
 async function populateShownCards(rank: string): Promise<void> {
   // If rank is different from member add all rank-specific actions, and then we add the member actions
   if (rank !== "member") {
-    shownCards.value.rankMove =
-      rankCardData[rank as keyof typeof rankCardData].move;
-    shownCards.value.rankBind =
-      rankCardData[rank as keyof typeof rankCardData].bind;
-    shownCards.value.rankUnbind =
-      rankCardData[rank as keyof typeof rankCardData].unbind;
-    shownCards.value.rankStation =
-      rankCardData[rank as keyof typeof rankCardData].station;
-    shownCards.value.rankUnstation =
-      rankCardData[rank as keyof typeof rankCardData].unstation;
+    shownCards.value.rankMove = rankCardData.leader.move;
+    shownCards.value.rankBind = rankCardData.leader.bind;
+    shownCards.value.rankUnbind = rankCardData.leader.unbind;
+    shownCards.value.rankStation = rankCardData.leader.station;
+    shownCards.value.rankUnstation = rankCardData.leader.unstation;
+    shownCards.value.createArmy = rankCardData.leader.createArmy;
+    shownCards.value.disband = rankCardData.leader.disband;
   }
   // Add all member actions concerning the player himself. Do not add mutually exclusive actions
   // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
@@ -56,6 +53,7 @@ async function populateShownCards(rank: string): Promise<void> {
     // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
     shownCards.value.memberStation = rankCardData.member.station;
     shownCards.value.memberUnstation = rankCardData.member.unstation;
+    shownCards.value.memberDeclareBattle = rankCardData.member.declareBattle;
   } else {
     shownCards.value.memberBind = rankCardData.member.bind;
   }

@@ -53,11 +53,14 @@ export class ClaimbuildApiClient extends ApiClient {
     });
   }
 
+  // TODO: connect to store
   public static async loadAllClaimbuilds(): Promise<Claimbuild[]> {
     return new Promise((resolve) => {
-      axios.get(this.getBaseUrl() + "/claimbuild?size=100").then((response) => {
-        resolve(response.data.content);
-      });
+      axios
+        .get(this.getBaseUrl() + "/claimbuild?size=1000")
+        .then((response) => {
+          resolve(response.data.content);
+        });
     });
   }
 
@@ -120,6 +123,19 @@ export class ClaimbuildApiClient extends ApiClient {
         resolve(alreadyLoadedCbs);
         return;
       }
+    });
+  }
+
+  // TODO: connect to store
+  public static async loadClaimbuildsByFaction(
+    factionName: string,
+  ): Promise<Claimbuild[]> {
+    return new Promise((resolve) => {
+      axios
+        .get(this.getBaseUrl() + `/claimbuild/faction?faction=${factionName}`)
+        .then((response) => {
+          resolve(response.data);
+        });
     });
   }
 }

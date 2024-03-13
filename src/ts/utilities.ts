@@ -2,6 +2,8 @@ import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import { Army } from "@/ts/types/Army";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
+import { War } from "@/ts/types/War";
+import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 
 /**
  *  For a given faction name, returns true if the faction is evil.
@@ -75,4 +77,23 @@ export function formatDateString(dateString: string): string {
   const date = splitString[0];
   const time = splitString[1].split(".")[0];
   return date + " " + time;
+}
+
+export async function getEnemiesOfFaction(
+  factionName: string,
+): Promise<string[]> {
+  const wars = await WarApiClient.loadWars();
+
+  // Get all wars where the faction is involved and save the camp (defender or attacker)
+  let enemies: string[] = [];
+  wars.forEach((war: War) => {
+    if (war.agressors.includes(factionName)) {
+      enemies = [...war.defenders];
+    } else if (war.defenders.includes(factionName)) {
+      enemies = [...war.agressors];
+    }
+  });
+  return new Promise((resolve) => {
+    resolve(enemies);
+  });
 }

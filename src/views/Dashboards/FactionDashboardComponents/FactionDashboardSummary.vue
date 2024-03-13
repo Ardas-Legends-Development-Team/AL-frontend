@@ -13,9 +13,6 @@
 </template>
 
 <script setup lang="ts">
-/*TODO
-- make the cards actually do something
- */
 import FactionDashboardSummaryWars from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryWars.vue";
 import FactionDashboardSummaryInformation from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryInformation.vue";
 import FactionDashboardSummaryActions from "@/views/Dashboards/FactionDashboardComponents/SummaryAndWars/FactionDashboardSummaryActions.vue";

@@ -78,6 +78,9 @@ export class PlayerActionRequestHandler {
           requestParameters["armyName"],
         );
         break;
+      case "diband army":
+        await ArmyControlApiClient.disbandArmy(requestParameters["armyName"]);
+        break;
       case "move":
         // Check if we're bound to an army and if yes fetch it
         if (characterInfo.boundTo) {

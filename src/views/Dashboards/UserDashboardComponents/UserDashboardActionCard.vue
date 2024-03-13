@@ -3,11 +3,13 @@
   <div
     class="h-fit w-28 cursor-pointer rounded-lg"
     :class="
-      title.toLowerCase().includes('leader')
+      title.toLowerCase().includes('leader') ||
+      title.toLowerCase().includes('create army') ||
+      title.toLowerCase().includes('disband army')
         ? 'bg-accent-content'
         : 'bg-base-300'
     "
-    @click="sendInfoToModal(description, actionInputs)"
+    @click="sendInfoToModal(title, description, actionInputs)"
   >
     <LazyLoadedImage
       :evil-alt="altEvil"
@@ -28,14 +30,24 @@
     @close="isModalOpen = false"
     @submit="(playerInputs: PlayerActionInput[]) => submitAction(playerInputs)"
   />
+  <UserDashboardCreateArmyActionModal
+    :is-open="isCreateArmyModalOpen"
+    @close="isCreateArmyModalOpen = false"
+  />
+  <UserDashboardDeclareBattleActionModal
+    :is-open="isDeclareBattleModalOpen"
+    @close="isDeclareBattleModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
 import LazyLoadedImage from "@/components/images/LazyLoadedImage.vue";
-import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/UserDashboardActionModal.vue";
+import UserDashboardActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardSimpleActionModal.vue";
 import { ref } from "vue";
 import { PlayerActionRequestHandler } from "@/ts/PlayerActionRequestHandler";
 import { PlayerActionInput } from "@/ts/types/PlayerActionInput";
+import UserDashboardCreateArmyActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardCreateArmyActionModal.vue";
+import UserDashboardDeclareBattleActionModal from "@/views/Dashboards/UserDashboardComponents/ActionModals/UserDashboardDeclareBattleActionModal.vue";
 
 const props = defineProps({
   title: {
@@ -81,8 +93,25 @@ const selectedAction = ref({
 });
 
 const isModalOpen = ref(false);
+const isCreateArmyModalOpen = ref(false);
+const isDeclareBattleModalOpen = ref(false);
 
-function sendInfoToModal(description: string, actionInputs: any[]) {
+function sendInfoToModal(
+  title: string,
+  description: string,
+  actionInputs: any[],
+) {
+  // If the title contains "create army", open the create army modal
+  if (title.toLowerCase().includes("create army")) {
+    isCreateArmyModalOpen.value = true;
+    return;
+  }
+  // Else if the title contains "declare battle", open the declare battle modal
+  if (title.toLowerCase().includes("declare battle")) {
+    isDeclareBattleModalOpen.value = true;
+    return;
+  }
+  // Otherwise, open the simple action modal
   selectedAction.value.description = description;
   selectedAction.value.actionInputs = actionInputs;
   isModalOpen.value = true;

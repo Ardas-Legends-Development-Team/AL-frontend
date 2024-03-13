@@ -30,6 +30,7 @@ import DeclareWarModal from "@/views/Dashboards/FactionDashboardComponents/Summa
 import { usePlayerStore } from "@/stores/playerStores";
 import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 import { useFactionsStore } from "@/stores/generalInfoStores";
+import { AlertHandler } from "@/ts/AlertHandler";
 
 const props = defineProps({
   factionName: {
@@ -51,13 +52,14 @@ const cardData = ref([
   },
 ]);
 
-function executeAction(cardTitle: string, actionValue: any) {
+async function executeAction(cardTitle: string, actionValue: any) {
   switch (cardTitle) {
     case "Declare War":
-      WarApiClient.declareWarToFaction(
+      await WarApiClient.declareWarToFaction(
         props.factionName,
         actionValue as string,
       );
+      AlertHandler.showSuccessAlert("War declared successfully");
       break;
     default:
       break;
