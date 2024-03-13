@@ -79,7 +79,7 @@ export class WarApiClient extends ApiClient {
     defendingTargetName: string,
     isFieldBattle: boolean,
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // Send the request
       // If the battle is a field battle, we only send the army name, otherwise we send the claimbuild name
       axios
