@@ -1,5 +1,6 @@
 <template>
   <div v-if="isStaff">
+    <BattleSubmit />
     <div class="my-4 flex flex-row justify-center" v-if="wars.length > 0">
       <h2 class="text-3xl font-bold text-secondary">Ongoing Wars</h2>
     </div>
@@ -25,6 +26,7 @@ import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 import { War } from "@/ts/types/War";
 import WarBlock from "@/views/Staff/StaffWars/WarBlock.vue";
 import { usePlayerStore } from "@/stores/playerStores";
+import BattleSubmit from "@/views/Staff/StaffWars/BattleSubmit.vue";
 
 const isStaff = ref(false);
 const wars = ref<War[]>([]);

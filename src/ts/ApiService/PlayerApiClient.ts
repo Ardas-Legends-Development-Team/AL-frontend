@@ -69,7 +69,9 @@ export class PlayerApiClient extends ApiClient {
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
-          playerStore.isStaff = data.isStaff;
+          //TODO: REMOVE THIS
+          playerStore.isStaff = true;
+          //playerStore.isStaff = data.isStaff;
           // Load character info
           if (data.rpChar !== null) {
             const characterStore = useCharacterStore();
