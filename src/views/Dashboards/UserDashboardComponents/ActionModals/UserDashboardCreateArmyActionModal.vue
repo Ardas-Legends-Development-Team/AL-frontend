@@ -43,11 +43,15 @@
         <div class="flex w-full flex-row flex-wrap">
           <select
             class="flex-3 select select-bordered grow"
-            v-model="selectedUnit.type"
+            v-model="selectedUnit.unitType"
           >
             <option disabled selected>Unit Type</option>
-            <option v-for="(type, index) in availableUnitTypes" :key="index">
-              {{ type }}
+            <option
+              v-for="(type, index) in availableUnitTypes"
+              :key="index"
+              @select="selectUnitType(type.name)"
+            >
+              {{ type.name }}
             </option>
           </select>
           <div class="form-control min-w-[30%] grow-0">
@@ -67,7 +71,7 @@
           <div class="flex flex-row flex-wrap">
             <div v-for="(unit, index) in units" :key="index">
               <span class="badge badge-outline mx-1"
-                >{{ unit.count }} {{ unit.unitTypeName }}
+                >{{ unit.count }} {{ unit.unitType }}
               </span>
 
               <span
@@ -99,12 +103,14 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Unit } from "@/ts/types/Unit";
+import { UnitType } from "@/ts/types/UnitType";
 import { ClaimbuildApiClient } from "@/ts/ApiService/ClaimbuildApiClient";
 import { Claimbuild } from "@/ts/types/Claimbuild";
 import { usePlayerStore } from "@/stores/playerStores";
 import { ArmyControlApiClient } from "@/ts/ApiService/ArmyControlApiClient";
 import { AlertHandler } from "@/ts/AlertHandler";
+import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
+import { Unit } from "@/ts/types/Unit";
 
 defineProps({
   isOpen: {
@@ -119,31 +125,48 @@ const claimbuildName = ref("");
 const units = ref<Unit[]>([]);
 
 // The currently selected unit when creating the army composition
-const selectedUnit = ref({
-  type: "",
+const selectedUnit = ref<Unit>({
+  unitType: {
+    name: "",
+    tokenCost: 0,
+    isMounted: false,
+    usableBy: [],
+  },
   count: 0,
 });
 
 const availableArmyTypes = ref<string[]>(["Army", "Trade Company"]);
 const availableClaimbuilds = ref<string[]>([]);
-const availableUnitTypes = ref<string[]>(["Gondor Soldier", "Rohan Soldier"]);
+const availableUnitTypes = ref<UnitType[]>([]);
 
 const emit = defineEmits(["close"]);
 const isConfirming = ref(false);
 
 function addUnitToArmy() {
-  // TODO: correctly handle the isMounted part
   units.value.push({
-    unitTypeName: selectedUnit.value.type,
+    unitType: selectedUnit.value.unitType,
     count: selectedUnit.value.count,
-    isMounted: false,
   });
-  selectedUnit.value.type = "";
+  selectedUnit.value.unitType = {
+    name: "",
+    tokenCost: 0,
+    isMounted: false,
+    usableBy: [],
+  };
   selectedUnit.value.count = 0;
 }
 
 function removeUnitFromArmy(index: number) {
   units.value.splice(index, 1);
+}
+
+function selectUnitType(unitTypeName: string) {
+  const selectedUnitType = availableUnitTypes.value.find(
+    (unitType) => unitType.name === unitTypeName,
+  );
+  if (selectedUnitType) {
+    selectedUnit.value.unitType = selectedUnitType;
+  }
 }
 
 function closeModal() {
@@ -188,5 +211,9 @@ ClaimbuildApiClient.loadAllClaimbuilds().then((claimbuilds: Claimbuild[]) => {
   availableClaimbuilds.value.push(
     ...claimbuilds.map((claimbuild) => claimbuild.name),
   );
+});
+
+ArmyApiClient.getAllAvailableUnitTypes().then((unitTypes: UnitType[]) => {
+  availableUnitTypes.value = [...unitTypes];
 });
 </script>

@@ -1,5 +1,6 @@
+import { UnitType } from "@/ts/types/UnitType";
+
 export type Unit = {
-  unitTypeName: string;
+  unitType: UnitType;
   count: number;
-  isMounted: boolean;
 };
