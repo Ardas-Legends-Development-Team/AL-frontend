@@ -3,7 +3,7 @@
     <div>
       <img
         class="h-32 rounded-lg"
-        src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=400&height=200"
+        src="/images/ardaslegendsbanner.png?width=400&height=200"
         alt="ardas legends banner"
       />
     </div>
