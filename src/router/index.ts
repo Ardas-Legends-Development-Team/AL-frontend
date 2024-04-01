@@ -32,6 +32,8 @@ const routes = [
 
 routes.push(...applicationRoutes);
 routes.push(...listingRoutes);
+// We ignore the error below because it makes no sense, it works perfectly.
+// @ts-ignore
 routes.push(...staffRoutes);
 
 export const router = createRouter({

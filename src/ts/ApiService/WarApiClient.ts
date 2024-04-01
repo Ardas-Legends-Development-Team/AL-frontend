@@ -3,6 +3,7 @@ import { ApiClient } from "@/ts/ApiService/ApiClient";
 import { usePlayerStore } from "@/stores/playerStores";
 import { useFactionsStore, useWarsStore } from "@/stores/generalInfoStores";
 import { War } from "@/ts/types/War";
+import { Unit } from "@/ts/types/Unit";
 
 export class WarApiClient extends ApiClient {
   public static async declareWarToFaction(
@@ -90,6 +91,33 @@ export class WarApiClient extends ApiClient {
           defendingArmyName: isFieldBattle ? defendingTargetName : null,
           isFieldBattle: isFieldBattle,
           claimBuildName: isFieldBattle ? null : defendingTargetName,
+        })
+        .then(() => {
+          resolve();
+        });
+    });
+  }
+
+  public static async submitBattleResult(
+    battleId: string,
+    winnerFaction: string,
+    survivingUnits: { armyName: string; survivingUnits: Unit[] }[],
+    playersKilled: {
+      discordId: string;
+      slainByPlayer: string; // Discord ID of slayer
+      slainByWeapon: string;
+      optionalCause: string;
+    }[],
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      // Send the request
+      // If the battle is a field battle, we only send the army name, otherwise we send the claimbuild name
+      axios
+        .post(this.getBaseUrl() + "/battles/conclude", {
+          battleId: battleId,
+          winnerFaction: winnerFaction,
+          survivingUnits: survivingUnits,
+          playersKilled: playersKilled,
         })
         .then(() => {
           resolve();

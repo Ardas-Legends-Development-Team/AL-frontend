@@ -14,4 +14,9 @@ export const staffRoutes = [
     name: "StaffWars",
     path: "/staff_area/wars",
   },
+  {
+    component: () => import("@/views/Staff/SubmitBattleView.vue"),
+    name: "SubmitBattle",
+    path: "/staff_area/submit_battle",
+  },
 ];
