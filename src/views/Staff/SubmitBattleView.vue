@@ -168,7 +168,6 @@ import { UnitType } from "@/ts/types/UnitType";
 import { ErrorHandler } from "@/ts/ErrorHandler";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { WarApiClient } from "@/ts/ApiService/WarApiClient";
-// TODO: convert it into a view rather than a modal
 
 defineProps({
   isOpen: {
