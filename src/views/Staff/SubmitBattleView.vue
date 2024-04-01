@@ -167,6 +167,7 @@ import { ArmyApiClient } from "@/ts/ApiService/ArmyApiClient";
 import { UnitType } from "@/ts/types/UnitType";
 import { ErrorHandler } from "@/ts/ErrorHandler";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
+import { WarApiClient } from "@/ts/ApiService/WarApiClient";
 // TODO: convert it into a view rather than a modal
 
 defineProps({
@@ -274,10 +275,15 @@ async function askForConfirmation(): Promise<void> {
 }
 
 async function submitAction(): Promise<void> {
-  // API CALL HERE
-
-  AlertHandler.showSuccessAlert("Battle logged successfully");
-  closeModal();
+  WarApiClient.submitBattleResult(
+    battleId.value,
+    winningFaction.value,
+    survivingUnits.value,
+    playersKilled.value,
+  ).then(() => {
+    AlertHandler.showSuccessAlert("Battle logged successfully");
+    closeModal();
+  });
 }
 
 PlayerApiClient.loadPlayerInfo().then((player) => {
