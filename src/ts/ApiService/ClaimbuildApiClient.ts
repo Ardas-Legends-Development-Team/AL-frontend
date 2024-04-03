@@ -11,57 +11,112 @@ import { ApiClient } from "@/ts/ApiService/ApiClient";
 export class ClaimbuildApiClient extends ApiClient {
   public static async loadClaimbuildTypes(): Promise<string[]> {
     const claimbuildTypesStore = useClaimbuildTypeStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadClaimbuildTypes";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<string[]>((resolve) => {
       if (claimbuildTypesStore.claimbuildTypes.length > 0) {
         resolve(claimbuildTypesStore.claimbuildTypes);
         return;
       }
-      axios.get(this.getBaseUrl() + "/claimbuild/types").then((response) => {
-        claimbuildTypesStore.claimbuildTypes = response.data;
-        resolve(claimbuildTypesStore.claimbuildTypes);
-      });
+
+      axios
+        .get(this.getBaseUrl() + "/claimbuild/types")
+        .then((response) => {
+          claimbuildTypesStore.claimbuildTypes = response.data;
+          resolve(claimbuildTypesStore.claimbuildTypes);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
+        });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   public static async loadProductionSiteTypes(): Promise<ProductionSite[]> {
     const productionSiteTypeStore = useProductionSiteTypeStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadProductionSiteTypes";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<ProductionSite[]>((resolve) => {
       if (productionSiteTypeStore.productionSiteTypes.length > 0) {
         resolve(productionSiteTypeStore.productionSiteTypes);
         return;
       }
-      axios.get(this.getBaseUrl() + "/productionsite/all").then((response) => {
-        productionSiteTypeStore.productionSiteTypes = response.data;
-        resolve(productionSiteTypeStore.productionSiteTypes);
-      });
+
+      axios
+        .get(this.getBaseUrl() + "/productionsite/all")
+        .then((response) => {
+          productionSiteTypeStore.productionSiteTypes = response.data;
+          resolve(productionSiteTypeStore.productionSiteTypes);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
+        });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   public static async loadSpecialBuildingTypes(): Promise<string[]> {
     const specialBuildingStore = useSpecialBuildingStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadSpecialBuildingTypes";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<string[]>((resolve) => {
       if (specialBuildingStore.specialBuildings.length > 0) {
         resolve(specialBuildingStore.specialBuildings);
         return;
       }
+
       axios
         .get(this.getBaseUrl() + "/claimbuild/specialbuildings")
         .then((response) => {
           specialBuildingStore.specialBuildings = response.data;
           resolve(specialBuildingStore.specialBuildings);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   // TODO: connect to store
   public static async loadAllClaimbuilds(): Promise<Claimbuild[]> {
-    return new Promise((resolve) => {
+    const requestKey = "loadAllClaimbuilds";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<Claimbuild[]>((resolve) => {
       axios
         .get(this.getBaseUrl() + "/claimbuild?size=1000")
         .then((response) => {
           resolve(response.data.content);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   public static async loadClaimbuildsByNames(
@@ -69,8 +124,13 @@ export class ClaimbuildApiClient extends ApiClient {
   ): Promise<Claimbuild[]> {
     // Retrieve the claimbuild store
     const claimbuildStore = useClaimbuildStore();
+    const requestKey = "loadClaimbuildsByNames";
 
-    return new Promise((resolve) => {
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<Claimbuild[]>((resolve) => {
       // Prepare arrays to hold claimbuilds that are already loaded and those to be fetched
       const alreadyLoadedCbs: Claimbuild[] = [];
       const cbsToFetch: string[] = [];
@@ -117,6 +177,9 @@ export class ClaimbuildApiClient extends ApiClient {
             // Resolve the promise with the already loaded claimbuilds
             resolve(alreadyLoadedCbs);
             return;
+          })
+          .finally(() => {
+            this.pendingRequests.delete(requestKey);
           });
       } else {
         // If no claimbuilds need to be fetched, resolve the promise with already loaded claimbuilds
@@ -124,18 +187,33 @@ export class ClaimbuildApiClient extends ApiClient {
         return;
       }
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   // TODO: connect to store
   public static async loadClaimbuildsByFaction(
     factionName: string,
   ): Promise<Claimbuild[]> {
-    return new Promise((resolve) => {
+    const requestKey = "loadClaimbuildsByFaction";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<Claimbuild[]>((resolve) => {
       axios
         .get(this.getBaseUrl() + `/claimbuild/faction?faction=${factionName}`)
         .then((response) => {
           resolve(response.data);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 }
