@@ -120,21 +120,21 @@
         ]
       },
       "createArmy": {
-        "altGood": "Lothlorien palace in the middle of a mallorn forest",
-        "sourceGood": "https://ateettea.sirv.com/Actions/balrogslayer_lothlorien_epic_scale_tall_looming_trees_cinematic_c9fcdc22-7af7-4161-8349-2b902308a6d1.png",
+        "altGood": "Dale soldiers passing through river",
+        "sourceGood": "https://ateettea.sirv.com/Actions/Screenshot%202023-03-06%20112643.png",
         "title": "Create army",
-        "altEvil": "Angmarim fiery mountain fortress",
-        "sourceEvil": "https://ateettea.sirv.com/Actions/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg",
+        "altEvil": "Black army marching in the crack of dawn",
+        "sourceEvil": "https://ateettea.sirv.com/Actions/StephaneLefort_environment._DD_style__Helms_Deep_epic_Battle_sc_c73768f3-b367-4d87-abe5-2c66080696ef.png",
         "description": "Create Army Description",
         "actionInputs": [
         ]
       },
       "disband": {
-        "altGood": "Lothlorien palace in the middle of a mallorn forest",
-        "sourceGood": "https://ateettea.sirv.com/Actions/balrogslayer_lothlorien_epic_scale_tall_looming_trees_cinematic_c9fcdc22-7af7-4161-8349-2b902308a6d1.png",
+        "altGood": "Two hobbits in a mountain plain with flowers",
+        "sourceGood": "https://ateettea.sirv.com/Actions/3952fd46-57f6-4705-8db5-92a9d3bd7f34.jpg",
         "title": "Disband Army",
-        "altEvil": "Angmarim fiery mountain fortress",
-        "sourceEvil": "https://ateettea.sirv.com/Actions/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg",
+        "altEvil": "Morwaith champion and army behind him",
+        "sourceEvil": "https://ateettea.sirv.com/Actions/alastor666ds_a_strong_warrior_leading_an_army_of_mighty_405f3ecd-0fe8-4bd5-8089-c9606d870335.png",
         "description": "Disband Description",
         "actionInputs": [
           {

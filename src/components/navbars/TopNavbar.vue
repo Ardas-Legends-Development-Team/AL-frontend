@@ -12,7 +12,7 @@
         <router-link to="/home">
           <img
             class="btn-glass btn object-contain"
-            src="https://media.discordapp.net/attachments/1069933973448441928/1069933976912924712/ardaslegendsbanner.png?width=600&height=300"
+            src="/images/ardaslegendsbanner.png?width=600&height=300"
             alt="ardas legends banner"
           />
         </router-link>
