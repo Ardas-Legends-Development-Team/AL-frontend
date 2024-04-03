@@ -30,11 +30,19 @@ export class WarApiClient extends ApiClient {
 
   public static async loadWars(): Promise<War[]> {
     const warsStore = useWarsStore();
-    return new Promise((resolve) => {
+
+    const requestKey = "loadWars";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<War[]>((resolve) => {
       if (warsStore.wars.length > 0) {
         resolve(warsStore.wars);
         return;
       }
+
       axios
         .get(this.getBaseUrl() + "/wars", {
           params: {
@@ -46,8 +54,14 @@ export class WarApiClient extends ApiClient {
             warsStore.wars.push(war);
           });
           resolve(warsStore.wars);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   /**
