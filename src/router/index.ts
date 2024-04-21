@@ -37,6 +37,6 @@ routes.push(...listingRoutes);
 routes.push(...staffRoutes);
 
 export const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory("/AL-Frontend/"),
   routes,
 });

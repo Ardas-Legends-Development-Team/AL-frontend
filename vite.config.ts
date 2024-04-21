@@ -6,7 +6,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/AL-frontend/",
+  base: "/AL-Frontend/",
   plugins: [vue(), visualizer()],
   test: {
     include: ["test/**/*.test.ts"],
