@@ -6,45 +6,65 @@ import axios from "axios";
 export class RpCharApiClient extends ApiClient {
   public static loadAllRpChars(): Promise<RoleplayCharacter[]> {
     const rpCharStore = useRpCharStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadAllRpChars";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey)!;
+    }
+
+    const request = new Promise<RoleplayCharacter[]>((resolve) => {
       if (rpCharStore.allRpChars.length > 0) {
         resolve(rpCharStore.allRpChars);
         return;
       }
 
-      axios.get(this.getBaseUrl() + "/rpchars?size=1000").then((response) => {
-        response.data.content.forEach((rpChar: any) => {
-          const mappedChar: RoleplayCharacter = {
-            discordId: rpChar.ownerId,
-            faction: rpChar.ownerFaction,
-            ign: rpChar.ownerIgn,
-            rpChar: {
-              boundTo: rpChar.boundTo,
-              currentRegion: rpChar.currentRegion,
-              gear: rpChar.gear,
-              healEnds: rpChar.healEnds,
-              injured: rpChar.injured,
-              isHealing: rpChar.isHealing,
-              name: rpChar.name,
-              pvp: rpChar.pvp,
-              startedHeal: rpChar.startedHeal,
-              title: rpChar.title,
-              // TODO: Add correct rank when it's implemented in the API
-              rank: "Member",
-            },
-          };
-          rpCharStore.allRpChars.push(mappedChar);
+      axios
+        .get(this.getBaseUrl() + "/rpchars?size=1000")
+        .then((response) => {
+          response.data.content.forEach((rpChar: any) => {
+            const mappedChar: RoleplayCharacter = {
+              discordId: rpChar.ownerId,
+              faction: rpChar.ownerFaction,
+              ign: rpChar.ownerIgn,
+              rpChar: {
+                boundTo: rpChar.boundTo,
+                currentRegion: rpChar.currentRegion,
+                gear: rpChar.gear,
+                healEnds: rpChar.healEnds,
+                injured: rpChar.injured,
+                isHealing: rpChar.isHealing,
+                name: rpChar.name,
+                pvp: rpChar.pvp,
+                startedHeal: rpChar.startedHeal,
+                title: rpChar.title,
+                // TODO: Add correct rank when it's implemented in the API
+                rank: "Member",
+              },
+            };
+            rpCharStore.allRpChars.push(mappedChar);
+          });
+          resolve(rpCharStore.allRpChars);
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
-        resolve(rpCharStore.allRpChars);
-      });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 
   public static loadRpCharsByNames(
     names: string[],
   ): Promise<RoleplayCharacter[]> {
     const rpCharStore = useRpCharStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadRpCharsByNames";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey)!;
+    }
+
+    const request = new Promise<RoleplayCharacter[]>((resolve) => {
       // Prepare arrays to hold characters that are already loaded and those to be fetched
       const alreadyLoadedChars: RoleplayCharacter[] = [];
       const charactersToFetch: string[] = [];
@@ -106,6 +126,9 @@ export class RpCharApiClient extends ApiClient {
 
             resolve(alreadyLoadedChars);
             return;
+          })
+          .finally(() => {
+            this.pendingRequests.delete(requestKey);
           });
       } else {
         // If no characters need to be fetched, resolve the promise with already loaded characters
@@ -113,5 +136,8 @@ export class RpCharApiClient extends ApiClient {
         return;
       }
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 }

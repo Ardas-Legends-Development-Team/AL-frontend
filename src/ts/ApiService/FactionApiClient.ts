@@ -59,7 +59,13 @@ export class FactionApiClient extends ApiClient {
 
   private static async loadFactionsDataIntoStore(): Promise<void> {
     const factionsStore = useFactionsStore();
-    return new Promise((resolve) => {
+    const requestKey = "loadFactionsDataIntoStore";
+
+    if (this.pendingRequests.has(requestKey)) {
+      return this.pendingRequests.get(requestKey);
+    }
+
+    const request = new Promise<void>((resolve) => {
       axios
         .get(this.getBaseUrl() + "/faction", {
           params: {
@@ -81,7 +87,13 @@ export class FactionApiClient extends ApiClient {
             }
           });
           resolve();
+        })
+        .finally(() => {
+          this.pendingRequests.delete(requestKey);
         });
     });
+
+    this.pendingRequests.set(requestKey, request);
+    return request;
   }
 }

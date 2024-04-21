@@ -23,6 +23,8 @@ axios.interceptors.response.use(
 );
 
 export abstract class ApiClient {
+  protected static pendingRequests: Map<string, Promise<any>> = new Map();
+
   private static baseUrl: string = `${
     import.meta.env.MODE === "production"
       ? config["backendUrl"]["production"]
