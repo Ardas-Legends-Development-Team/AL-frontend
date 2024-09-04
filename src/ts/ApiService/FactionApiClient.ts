@@ -26,7 +26,7 @@ export class FactionApiClient extends ApiClient {
         return;
       }
       this.loadFactionsDataIntoStore().then(() => {
-        resolve(factionsStore.factionNames);
+        resolve(factionsStore.factionNames.sort());
       });
     });
   }
