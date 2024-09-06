@@ -38,7 +38,6 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.json",
-    "vite.config.ts",
     "cypress/**/*.ts",
     "test/**/*.ts",
   ],
