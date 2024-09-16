@@ -7,8 +7,8 @@
         v-if="loadedUser && $route.path === '/user_dashboard'"
       />
     </header>
-    <div class="relative min-h-screen flex flex-col">
-      <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
+    <div class="relative flex min-h-screen flex-col">
+      <main class="z-0 mx-60 min-h-full flex-grow bg-base-300">
         <router-view v-if="loadedUser" />
         <BackToTopButton />
       </main>
@@ -32,7 +32,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import AuthenticationClient from "@/ts/ApiService/AuthenticationClient";
-import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
@@ -45,7 +44,6 @@ import {
   useErrorStore,
 } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
-import { ApiClient } from "@/ts/ApiService/ApiClient";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
 import BackToTopButton from "@/components/BackToTopButton.vue";
 import AlertMessage from "@/components/AlertMessage.vue";
@@ -114,62 +112,63 @@ function getAccessTokenCookie() {
 
 function loginUser(code: string) {
   return new Promise((resolve) => {
-    if (getAccessTokenCookie()) {
-      userToken.value = getAccessTokenCookie().access_token;
-      resolve(getAccessTokenCookie());
-      return;
-    }
+    // if (getAccessTokenCookie()) {
+    //   userToken.value = getAccessTokenCookie().access_token;
+    //   resolve(getAccessTokenCookie());
+    //   return;
+    // }
     if (!code) redirectToAuthUrl();
-    authenticationClient.getToken(code).then((token) => {
-      setAccessTokenCookie(token);
-      userToken.value = token.access_token;
-      resolve(token);
+    authenticationClient.getToken(code).then((response) => {
+      // setAccessTokenCookie(token);
+      // userToken.value = token.access_token;
+      resolve(response.discordId);
     });
   });
 }
 
-function verifyIfUserInServer(token: any) {
-  authenticationClient.getUserGuilds(token).then((guilds) => {
-    if (guilds.find((guild: any) => guild.id === serverId)) {
-      return;
-    }
-    window.location.href = serverInviteUrl;
-  });
-}
-
-function verifyIfUserRegistered(token: any) {
-  return new Promise<string>((resolve, reject) => {
-    authenticationClient.getUser(token).then((user) => {
-      discordId.value = user.id;
-      axios
-        .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
-        .then(() => {
-          isLoggedIn.value = true;
-          shouldShowRegistrationForm.value = false;
-          resolve(user.id);
-        })
-        .catch(() => {
-          reject("User not registered");
-        });
-    });
-  });
-}
+// function verifyIfUserInServer(token: any) {
+//   authenticationClient.getUserGuilds(token).then((guilds) => {
+//     if (guilds.find((guild: any) => guild.id === serverId)) {
+//       return;
+//     }
+//     window.location.href = serverInviteUrl;
+//   });
+// }
+//
+// function verifyIfUserRegistered(token: any) {
+//   return new Promise<string>((resolve, reject) => {
+//     authenticationClient.getUser(token).then((user) => {
+//       discordId.value = user.id;
+//       axios
+//         .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
+//         .then(() => {
+//           isLoggedIn.value = true;
+//           shouldShowRegistrationForm.value = false;
+//           resolve(user.id);
+//         })
+//         .catch(() => {
+//           reject("User not registered");
+//         });
+//     });
+//   });
+// }
 
 // If the user is in production mode, then we need to check if the user is logged in
 // and if he is registered in the server
-if (useConfigStore().deployMode === "production") {
-  loginUser(getCodeFromUrl()).then((token) => {
-    verifyIfUserInServer(token);
-    verifyIfUserRegistered(token)
-      .then((discordId) => {
-        PlayerApiClient.loadPlayerInfo(discordId).then(() => {
-          loadedUser.value = true;
-        });
-      })
-      .catch(() => {
-        shouldShowRegistrationForm.value = true;
+if (useConfigStore().deployMode !== "production") {
+  loginUser(getCodeFromUrl())
+    .then((discordId) => {
+      //verifyIfUserInServer(token);
+      //verifyIfUserRegistered(token)
+      //.then((discordId) => {
+      PlayerApiClient.loadPlayerInfo(discordId).then(() => {
+        loadedUser.value = true;
       });
-  });
+    })
+    .catch(() => {
+      shouldShowRegistrationForm.value = true;
+    });
+  //});
 } else {
   isLoggedIn.value = true;
   shouldShowRegistrationForm.value = false;
