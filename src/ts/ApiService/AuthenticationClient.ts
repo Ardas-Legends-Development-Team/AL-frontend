@@ -30,9 +30,7 @@ export default class AuthenticationClient extends ApiClient {
     // Call the backend authentication endpoint to get the token from the code, we'll also get the discord ID
     await axios
       .post("http://localhost:8080" + "/auth", {
-        body: {
-          accessCode: code,
-        },
+        accessCode: code,
       })
       .then((response) => {
         console.log(response.data);
