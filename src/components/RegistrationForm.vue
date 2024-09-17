@@ -77,6 +77,11 @@ function register() {
   PlayerApiClient.registerPlayer(props.discordId, ign.value, faction.value)
     .then(() => window.location.reload())
     .catch((err) => {
+      // If status is 403, then the user just registered and the backend didn't have time to create it's auth details
+      // So we reload the page to login, else we show the error message
+      if (err.response.status === 403) {
+        window.location.reload();
+      }
       error.value = true;
       errMsg.value = err.response.data.message;
     });
