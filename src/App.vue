@@ -101,13 +101,24 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
-function setJwtCookie(token: any) {
+function setJwtCookie(token: string) {
   cookies.setCookie("access_token", token);
+}
+
+function setDiscordIdCookie(discordId: string) {
+  cookies.setCookie("discord_id", discordId);
 }
 
 function getJwtCookie() {
   if (cookies.isCookieAvailable("access_token")) {
     return cookies.getCookie("access_token");
+  }
+  return undefined;
+}
+
+function getDiscordIdCookie() {
+  if (cookies.isCookieAvailable("discord_id")) {
+    return cookies.getCookie("discord_id");
   }
   return undefined;
 }
@@ -157,18 +168,24 @@ function loginUser(code: string): Promise<AuthenticationResponse> {
 //   });
 // }
 
-// If the user is in production mode, then we need to check if the user is logged in
-// and if he is registered in the server
-if (useConfigStore().deployMode !== "production") {
+if (getJwtCookie()) {
+  useAuthStore().jwt = getJwtCookie();
+  isLoggedIn.value = true;
+  PlayerApiClient.loadPlayerInfo(getDiscordIdCookie()).then(() => {
+    loadedUser.value = true;
+  });
+} else {
   loginUser(getCodeFromUrl())
     .then((authenticationResponse: AuthenticationResponse) => {
       //verifyIfUserInServer(token);
       //verifyIfUserRegistered(token)
       //.then((discordId) => {
       setJwtCookie(authenticationResponse.jwt);
+      setDiscordIdCookie(authenticationResponse.discordId);
       useAuthStore().jwt = authenticationResponse.jwt;
       PlayerApiClient.loadPlayerInfo(authenticationResponse.discordId).then(
         () => {
+          isLoggedIn.value = true;
           loadedUser.value = true;
         },
       );
@@ -176,12 +193,5 @@ if (useConfigStore().deployMode !== "production") {
     .catch(() => {
       shouldShowRegistrationForm.value = true;
     });
-  //});
-} else {
-  isLoggedIn.value = true;
-  shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
-    loadedUser.value = true;
-  });
 }
 </script>
