@@ -101,24 +101,15 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
-function setJwtCookie(token: string) {
-  cookies.setCookie("access_token", token);
+function setCookie(cookieId: string, value: string, expirationTime: number) {
+  cookies.setCookie(cookieId, value, {
+    expire: expirationTime + "s",
+  });
 }
 
-function setDiscordIdCookie(discordId: string) {
-  cookies.setCookie("discord_id", discordId);
-}
-
-function getJwtCookie() {
-  if (cookies.isCookieAvailable("access_token")) {
-    return cookies.getCookie("access_token");
-  }
-  return undefined;
-}
-
-function getDiscordIdCookie() {
-  if (cookies.isCookieAvailable("discord_id")) {
-    return cookies.getCookie("discord_id");
+function getCookie(cookieId: string) {
+  if (cookies.isCookieAvailable(cookieId)) {
+    return cookies.getCookie(cookieId);
   }
   return undefined;
 }
@@ -151,11 +142,11 @@ function loginUser(code: string): Promise<AuthenticationResponse> {
 // }
 //
 
-if (getJwtCookie()) {
-  useAuthStore().jwt = getJwtCookie();
+if (getCookie("jwt")) {
+  useAuthStore().jwt = getCookie("jwt");
   isLoggedIn.value = true;
   shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo(getDiscordIdCookie()).then(() => {
+  PlayerApiClient.loadPlayerInfo(getCookie("discord_id")).then(() => {
     loadedUser.value = true;
   });
 } else {
@@ -163,8 +154,16 @@ if (getJwtCookie()) {
     .then((authenticationResponse: AuthenticationResponse) => {
       //verifyIfUserInServer(token);
       //verifyIfUserRegistered(token)
-      setJwtCookie(authenticationResponse.jwt);
-      setDiscordIdCookie(authenticationResponse.discordId);
+      setCookie(
+        "jwt",
+        authenticationResponse.jwt,
+        authenticationResponse.expirationTime,
+      );
+      setCookie(
+        "discord_id",
+        authenticationResponse.discordId,
+        authenticationResponse.expirationTime,
+      );
       useAuthStore().jwt = authenticationResponse.jwt;
       discordId.value = authenticationResponse.discordId;
       PlayerApiClient.loadPlayerInfo(authenticationResponse.discordId).then(

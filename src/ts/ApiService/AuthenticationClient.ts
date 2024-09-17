@@ -35,6 +35,7 @@ export default class AuthenticationClient extends ApiClient {
       return {
         jwt: response.data.jwt,
         discordId: response.data.discordId,
+        expirationTime: response.data.expirationTime,
       };
     } catch (error) {
       throw new Error("Failed to get token");

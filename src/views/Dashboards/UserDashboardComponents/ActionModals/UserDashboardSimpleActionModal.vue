@@ -175,7 +175,6 @@ async function askForConfirmation(): Promise<void> {
       movementTimeOfArrival.value = new Date(movement.endTime).toLocaleString();
       movementHoursUntilComplete.value = movement.hoursUntilComplete;
       // We need to convert the path to an array of strings
-      console.log(movement.path);
       movementPath.value += movement.path
         .map((path) => path.region)
         .join(" -> ");

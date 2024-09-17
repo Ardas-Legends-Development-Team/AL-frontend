@@ -19,9 +19,12 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("Error response", error.response);
     if (error.response) {
-      if (error.response.message)
+      if (error.response.status === 401) {
+        ErrorHandler.throwError(
+          "Your session has expired. Please reload the page to log in again.",
+        );
+      } else if (error.response.message)
         ErrorHandler.throwError(error.response.message);
       else if (error.response.data.message)
         ErrorHandler.throwError(error.response.data.message);
