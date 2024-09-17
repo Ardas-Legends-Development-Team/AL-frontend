@@ -71,7 +71,7 @@ watch(
 
 const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
-const shouldShowRegistrationForm = ref(false);
+const shouldShowRegistrationForm = ref(true);
 const userToken = ref("");
 const discordId = ref("");
 const authenticationClient = new AuthenticationClient(
@@ -150,27 +150,11 @@ function loginUser(code: string): Promise<AuthenticationResponse> {
 //   });
 // }
 //
-// function verifyIfUserRegistered(token: any) {
-//   return new Promise<string>((resolve, reject) => {
-//     authenticationClient.getUser(token).then((user) => {
-//       discordId.value = user.id;
-//       axios
-//         .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
-//         .then(() => {
-//           isLoggedIn.value = true;
-//           shouldShowRegistrationForm.value = false;
-//           resolve(user.id);
-//         })
-//         .catch(() => {
-//           reject("User not registered");
-//         });
-//     });
-//   });
-// }
 
 if (getJwtCookie()) {
   useAuthStore().jwt = getJwtCookie();
   isLoggedIn.value = true;
+  shouldShowRegistrationForm.value = false;
   PlayerApiClient.loadPlayerInfo(getDiscordIdCookie()).then(() => {
     loadedUser.value = true;
   });
@@ -179,12 +163,13 @@ if (getJwtCookie()) {
     .then((authenticationResponse: AuthenticationResponse) => {
       //verifyIfUserInServer(token);
       //verifyIfUserRegistered(token)
-      //.then((discordId) => {
       setJwtCookie(authenticationResponse.jwt);
       setDiscordIdCookie(authenticationResponse.discordId);
       useAuthStore().jwt = authenticationResponse.jwt;
+      discordId.value = authenticationResponse.discordId;
       PlayerApiClient.loadPlayerInfo(authenticationResponse.discordId).then(
         () => {
+          shouldShowRegistrationForm.value = false;
           isLoggedIn.value = true;
           loadedUser.value = true;
         },
