@@ -1,5 +1,6 @@
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import axios from "axios";
+import { AuthenticationResponse } from "@/ts/types/ApiResponseTypes/AuthenticationResponse";
 
 export default class AuthenticationClient extends ApiClient {
   // private readonly clientId: string;
@@ -26,16 +27,18 @@ export default class AuthenticationClient extends ApiClient {
     this.scopes = scopes;
   };
 
-  public getToken = async (code: string) => {
-    // Call the backend authentication endpoint to get the token from the code, we'll also get the discord ID
-    await axios
-      .post("http://localhost:8080" + "/auth", {
+  public getToken = async (code: string): Promise<AuthenticationResponse> => {
+    try {
+      const response = await axios.post("http://localhost:8080/auth", {
         accessCode: code,
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
       });
+      return {
+        jwt: response.data.jwt,
+        discordId: response.data.discordId,
+      };
+    } catch (error) {
+      throw new Error("Failed to get token");
+    }
   };
 
   // public getToken = async (code: string) => {

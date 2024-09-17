@@ -46,3 +46,11 @@ export const useConfigStore = defineStore("ConfigStore", () => {
     redirectUrl,
   };
 });
+
+export const useAuthStore = defineStore("AuthStore", () => {
+  const jwt = ref<string>("");
+
+  return {
+    jwt,
+  };
+});

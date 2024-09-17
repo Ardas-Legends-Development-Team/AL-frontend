@@ -1,6 +1,17 @@
 import config from "@/config.json";
 import axios from "axios";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { useAuthStore } from "@/stores/systemStores";
+
+// Add an axios request interceptor to add the JWT token to the request header.
+// The token can be found in the AuthStore
+axios.interceptors.request.use((config) => {
+  const jwt = useAuthStore().jwt;
+  if (jwt) {
+    config.headers["Authorization"] = `Bearer ${jwt}`;
+  }
+  return config;
+});
 
 // Add an axios responsive interceptor to show an error message on an API error
 axios.interceptors.response.use(

@@ -40,6 +40,7 @@ import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import {
   useAlertStore,
+  useAuthStore,
   useConfigStore,
   useErrorStore,
 } from "@/stores/systemStores";
@@ -47,6 +48,7 @@ import ErrorAlert from "@/components/ErrorAlert.vue";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
 import BackToTopButton from "@/components/BackToTopButton.vue";
 import AlertMessage from "@/components/AlertMessage.vue";
+import { AuthenticationResponse } from "@/ts/types/ApiResponseTypes/AuthenticationResponse";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
@@ -99,18 +101,18 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
-function setAccessTokenCookie(token: any) {
+function setJwtCookie(token: any) {
   cookies.setCookie("access_token", token);
 }
 
-function getAccessTokenCookie() {
+function getJwtCookie() {
   if (cookies.isCookieAvailable("access_token")) {
     return cookies.getCookie("access_token");
   }
   return undefined;
 }
 
-function loginUser(code: string) {
+function loginUser(code: string): Promise<AuthenticationResponse> {
   return new Promise((resolve) => {
     // if (getAccessTokenCookie()) {
     //   userToken.value = getAccessTokenCookie().access_token;
@@ -118,11 +120,13 @@ function loginUser(code: string) {
     //   return;
     // }
     if (!code) redirectToAuthUrl();
-    authenticationClient.getToken(code).then((response) => {
-      // setAccessTokenCookie(token);
-      // userToken.value = token.access_token;
-      resolve(response.discordId);
-    });
+    authenticationClient
+      .getToken(code)
+      .then((response: AuthenticationResponse) => {
+        // setAccessTokenCookie(token);
+        // userToken.value = token.access_token;
+        resolve(response);
+      });
   });
 }
 
@@ -157,13 +161,17 @@ function loginUser(code: string) {
 // and if he is registered in the server
 if (useConfigStore().deployMode !== "production") {
   loginUser(getCodeFromUrl())
-    .then((discordId) => {
+    .then((authenticationResponse: AuthenticationResponse) => {
       //verifyIfUserInServer(token);
       //verifyIfUserRegistered(token)
       //.then((discordId) => {
-      PlayerApiClient.loadPlayerInfo(discordId).then(() => {
-        loadedUser.value = true;
-      });
+      setJwtCookie(authenticationResponse.jwt);
+      useAuthStore().jwt = authenticationResponse.jwt;
+      PlayerApiClient.loadPlayerInfo(authenticationResponse.discordId).then(
+        () => {
+          loadedUser.value = true;
+        },
+      );
     })
     .catch(() => {
       shouldShowRegistrationForm.value = true;
