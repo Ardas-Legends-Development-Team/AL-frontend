@@ -24,6 +24,10 @@ axios.interceptors.response.use(
         ErrorHandler.throwError(
           "Your session has expired. Please reload the page to log in again.",
         );
+      } else if (error.response.status === 403) {
+        ErrorHandler.throwError(
+          "You do not have permission to access this resource.",
+        );
       } else if (error.response.message)
         ErrorHandler.throwError(error.response.message);
       else if (error.response.data.message)
