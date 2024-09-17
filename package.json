@@ -17,6 +17,7 @@
     "docker:run": "docker run -p 8081:3333 vernonroche/al-website-docker"
   },
   "dependencies": {
+    "@vue/language-server": "^2.1.6",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",
     "cssnano": "^6.0.1",
