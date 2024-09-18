@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
 export const usePlayerStore = defineStore("PlayerStore", () => {
   const discordId = ref("");
@@ -7,12 +7,14 @@ export const usePlayerStore = defineStore("PlayerStore", () => {
   const faction = ref("");
   const ign = ref("");
   const isStaff = ref(false);
+  const roles: Ref<string[]> = ref([]);
 
   return {
     discordId,
     faction,
     ign,
     isStaff,
+    roles,
   };
 });
 
