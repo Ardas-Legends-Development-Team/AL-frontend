@@ -7,6 +7,7 @@
     <figure>
       <LazyLoadedImage
         :inside-classes="'max-w-sm rounded-lg shadow-2xl'"
+        :padding-limiter-class="'pt-96'"
         :evil-alt="altEvil"
         :good-alt="altGood"
         :evil-src="sourceEvil"
