@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   widthClass: {
     type: String,
     required: true,
