@@ -109,7 +109,10 @@ interface ImageProps {
   evilAlt: string;
   insideClasses?: String;
 }
-export function getCorrectImageData(isPlayerEvil: boolean, imageProps: ImageProps): ImageData {
+export function getCorrectImageData(
+  isPlayerEvil: boolean,
+  imageProps: ImageProps,
+): ImageData {
   const src: string = isPlayerEvil ? imageProps.evilSrc : imageProps.goodSrc;
   const alt: string = isPlayerEvil ? imageProps.evilAlt : imageProps.goodAlt;
 
@@ -117,4 +120,4 @@ export function getCorrectImageData(isPlayerEvil: boolean, imageProps: ImageProp
     src: src,
     alt: alt,
   };
-};
+}
