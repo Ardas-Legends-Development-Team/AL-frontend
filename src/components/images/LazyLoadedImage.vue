@@ -4,7 +4,10 @@
     :class="`lazy-img-container ${!!paddingLimiterClass ? paddingLimiterClass : 'fullPadding'} ${insideClasses} ${loaded ? 'loaded' : ''}`"
     :style="'background-image:url(' + imageData.src + '?profile=Lowres-Image)'"
   >
-    <ImageSkeleton :width-class="insideClasses" :component-is-ready="componentReady || loaded" />
+    <ImageSkeleton
+      :width-class="insideClasses"
+      :component-is-ready="componentReady || loaded"
+    />
     <img
       :class="insideClasses"
       :src="imageData.src + '?profile=Normal-Image'"
@@ -47,10 +50,13 @@ const props = defineProps({
     type: String,
     required: false,
     default: "",
-  }
+  },
 });
 
-const imageData = getCorrectImageData(isFactionEvil(usePlayerStore().faction), props)
+const imageData = getCorrectImageData(
+  isFactionEvil(usePlayerStore().faction),
+  props,
+);
 
 const loaded = ref(false);
 const componentReady = ref(false);

@@ -1,7 +1,9 @@
 <template>
-  <div v-if="!componentIsReady" :class="`${!componentIsReady ? 'skeleton' : 'skeletonHidden'} ${widthClass}`"/>
+  <div
+    v-if="!componentIsReady"
+    :class="`${!componentIsReady ? 'skeleton' : 'skeletonHide'} ${widthClass}`"
+  />
 </template>
-
 <script setup lang="ts">
 defineProps({
   widthClass: {
@@ -29,16 +31,15 @@ defineProps({
   animation: none;
   opacity: 0;
 }
-
 @keyframes wave {
   0% {
     background-color: #2b2b2b;
-  };
+  }
   50% {
     background-color: #1a1a1a;
-  };
+  }
   100% {
     background-color: #2b2b2b;
-  };
+  }
 }
 </style>
