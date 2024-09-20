@@ -1,28 +1,17 @@
 <template>
   <div
-    v-if="!isFactionEvil(usePlayerStore().faction)"
-    class="blurred-img h-full"
-    :class="loaded ? 'loaded' : ''"
-    :style="'background-image:url(' + props.goodSrc + '?profile=Lowres-Image)'"
+    class="blurred-img"
+    :class="`lazy-img-container ${!!paddingLimiterClass ? paddingLimiterClass : 'fullPadding'} ${insideClasses} ${loaded ? 'loaded' : ''}`"
+    :style="'background-image:url(' + imageData.src + '?profile=Lowres-Image)'"
   >
-    <img
-      :class="insideClasses"
-      :src="props.goodSrc + '?profile=Normal-Image'"
-      :alt="props.goodAlt"
-      loading="lazy"
-      @load="loaded = true"
+    <ImageSkeleton
+      :width-class="insideClasses"
+      :component-is-ready="componentReady || loaded"
     />
-  </div>
-  <div
-    v-else
-    class="blurred-img h-full"
-    :class="loaded ? 'loaded' : ''"
-    :style="'background-image:url(' + props.evilSrc + '?profile=Lowres-Image)'"
-  >
     <img
       :class="insideClasses"
-      :src="props.evilSrc + '?profile=Normal-Image'"
-      :alt="props.evilAlt"
+      :src="imageData.src + '?profile=Normal-Image'"
+      :alt="imageData.alt"
       loading="lazy"
       @load="loaded = true"
     />
@@ -31,8 +20,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { isFactionEvil } from "@/ts/utilities";
+import { getCorrectImageData, isFactionEvil } from "@/ts/utilities";
 import { usePlayerStore } from "@/stores/playerStores";
+import ImageSkeleton from "./ImageSkeleton.vue";
 
 const props = defineProps({
   goodSrc: {
@@ -56,12 +46,35 @@ const props = defineProps({
     required: false,
     default: "",
   },
+  paddingLimiterClass: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
+const imageData = getCorrectImageData(
+  isFactionEvil(usePlayerStore().faction),
+  props,
+);
+
 const loaded = ref(false);
+const componentReady = ref(false);
+const img = new Image();
+img.addEventListener("load", () => {
+  componentReady.value = true;
+});
+img.src = imageData.src;
 </script>
 
 <style scoped>
+.lazy-img-container {
+  position: relative;
+  width: 100%;
+}
+.fullPadding {
+  padding-top: 100%;
+}
 .blurred-img {
   background-repeat: no-repeat;
   background-size: cover;
@@ -93,11 +106,15 @@ const loaded = ref(false);
 }
 
 .blurred-img img {
+  position: absolute;
+  top: 0;
   opacity: 0;
   transition: opacity 250ms ease-in-out;
 }
 
 .blurred-img.loaded img {
   opacity: 1;
+  position: absolute;
+  top: 0;
 }
 </style>
