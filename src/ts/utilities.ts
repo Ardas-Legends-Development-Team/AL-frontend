@@ -97,3 +97,27 @@ export async function getEnemiesOfFaction(
     resolve(enemies);
   });
 }
+
+interface ImageData {
+  src: string;
+  alt: string;
+}
+interface ImageProps {
+  goodSrc: string;
+  evilSrc: string;
+  goodAlt: string;
+  evilAlt: string;
+  insideClasses?: String;
+}
+export function getCorrectImageData(
+  isPlayerEvil: boolean,
+  imageProps: ImageProps,
+): ImageData {
+  const src: string = isPlayerEvil ? imageProps.evilSrc : imageProps.goodSrc;
+  const alt: string = isPlayerEvil ? imageProps.evilAlt : imageProps.goodAlt;
+
+  return {
+    src: src,
+    alt: alt,
+  };
+}
