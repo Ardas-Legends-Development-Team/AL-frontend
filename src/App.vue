@@ -69,25 +69,14 @@ watch(
   },
 );
 
-const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
 const shouldShowRegistrationForm = ref(true);
-const userToken = ref("");
 const discordId = ref("");
-const authenticationClient = new AuthenticationClient(
-  "1066660773520212000",
-  "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_",
-);
+const authenticationClient = new AuthenticationClient();
 
 const cookies = useCookie();
 
-const redirectUrl = useConfigStore().redirectUrl;
 const authUrl = useConfigStore().authUrl;
-
-authenticationClient.setScopes(["identify", "guilds"]);
-authenticationClient.setRedirect(redirectUrl);
-
-const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);
 
@@ -116,31 +105,14 @@ function getCookie(cookieId: string) {
 
 function loginUser(code: string): Promise<AuthenticationResponse> {
   return new Promise((resolve) => {
-    // if (getAccessTokenCookie()) {
-    //   userToken.value = getAccessTokenCookie().access_token;
-    //   resolve(getAccessTokenCookie());
-    //   return;
-    // }
     if (!code) redirectToAuthUrl();
     authenticationClient
       .getToken(code)
       .then((response: AuthenticationResponse) => {
-        // setAccessTokenCookie(token);
-        // userToken.value = token.access_token;
         resolve(response);
       });
   });
 }
-
-// function verifyIfUserInServer(token: any) {
-//   authenticationClient.getUserGuilds(token).then((guilds) => {
-//     if (guilds.find((guild: any) => guild.id === serverId)) {
-//       return;
-//     }
-//     window.location.href = serverInviteUrl;
-//   });
-// }
-//
 
 if (getCookie("jwt")) {
   useAuthStore().jwt = getCookie("jwt");
@@ -152,8 +124,6 @@ if (getCookie("jwt")) {
 } else {
   loginUser(getCodeFromUrl())
     .then((authenticationResponse: AuthenticationResponse) => {
-      //verifyIfUserInServer(token);
-      //verifyIfUserRegistered(token)
       setCookie(
         "jwt",
         authenticationResponse.jwt,
