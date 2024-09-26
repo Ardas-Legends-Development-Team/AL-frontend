@@ -7,8 +7,8 @@
         v-if="loadedUser && $route.path === '/user_dashboard'"
       />
     </header>
-    <div class="relative min-h-screen flex flex-col">
-      <main class="min-h-full z-0 mx-60 bg-base-300 flex-grow">
+    <div class="relative flex min-h-screen flex-col">
+      <main class="z-0 mx-60 min-h-full flex-grow bg-base-300">
         <router-view v-if="loadedUser" />
         <BackToTopButton />
       </main>
@@ -32,7 +32,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import AuthenticationClient from "@/ts/ApiService/AuthenticationClient";
-import axios from "axios";
 import { useCookie } from "vue-cookie-next";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import TopNavbar from "@/components/navbars/TopNavbar.vue";
@@ -41,14 +40,15 @@ import FooterBar from "@/components/navbars/FooterBar.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import {
   useAlertStore,
+  useAuthStore,
   useConfigStore,
   useErrorStore,
 } from "@/stores/systemStores";
 import ErrorAlert from "@/components/ErrorAlert.vue";
-import { ApiClient } from "@/ts/ApiService/ApiClient";
 import UserDashboardFactionOverview from "@/views/Dashboards/UserDashboardComponents/UserDashboardFactionOverview.vue";
 import BackToTopButton from "@/components/BackToTopButton.vue";
 import AlertMessage from "@/components/AlertMessage.vue";
+import { AuthenticationResponse } from "@/ts/types/ApiResponseTypes/AuthenticationResponse";
 
 // Set a watcher on the store's error boolean. If it's true then show up the error message
 const hasError = ref(useErrorStore().hasError);
@@ -69,25 +69,14 @@ watch(
   },
 );
 
-const serverId = "668590304487800832";
 const isLoggedIn = ref(false);
-const shouldShowRegistrationForm = ref(false);
-const userToken = ref("");
+const shouldShowRegistrationForm = ref(true);
 const discordId = ref("");
-const authenticationClient = new AuthenticationClient(
-  "1066660773520212000",
-  "_d7qVfGsQrBtU8racyHvZf88QcXCGu9_",
-);
+const authenticationClient = new AuthenticationClient();
 
 const cookies = useCookie();
 
-const redirectUrl = useConfigStore().redirectUrl;
 const authUrl = useConfigStore().authUrl;
-
-authenticationClient.setScopes(["identify", "guilds"]);
-authenticationClient.setRedirect(redirectUrl);
-
-const serverInviteUrl = "https://discord.gg/nFzkCj6Su7";
 
 const loadedUser = ref(false);
 
@@ -101,80 +90,62 @@ function getCodeFromUrl(): string {
   return query[1].split("=")[1];
 }
 
-function setAccessTokenCookie(token: any) {
-  cookies.setCookie("access_token", token);
+function setCookie(cookieId: string, value: string, expirationTime: number) {
+  cookies.setCookie(cookieId, value, {
+    expire: expirationTime + "s",
+  });
 }
 
-function getAccessTokenCookie() {
-  if (cookies.isCookieAvailable("access_token")) {
-    return cookies.getCookie("access_token");
+function getCookie(cookieId: string) {
+  if (cookies.isCookieAvailable(cookieId)) {
+    return cookies.getCookie(cookieId);
   }
   return undefined;
 }
 
-function loginUser(code: string) {
+function loginUser(code: string): Promise<AuthenticationResponse> {
   return new Promise((resolve) => {
-    if (getAccessTokenCookie()) {
-      userToken.value = getAccessTokenCookie().access_token;
-      resolve(getAccessTokenCookie());
-      return;
-    }
     if (!code) redirectToAuthUrl();
-    authenticationClient.getToken(code).then((token) => {
-      setAccessTokenCookie(token);
-      userToken.value = token.access_token;
-      resolve(token);
-    });
-  });
-}
-
-function verifyIfUserInServer(token: any) {
-  authenticationClient.getUserGuilds(token).then((guilds) => {
-    if (guilds.find((guild: any) => guild.id === serverId)) {
-      return;
-    }
-    window.location.href = serverInviteUrl;
-  });
-}
-
-function verifyIfUserRegistered(token: any) {
-  return new Promise<string>((resolve, reject) => {
-    authenticationClient.getUser(token).then((user) => {
-      discordId.value = user.id;
-      axios
-        .get(`${ApiClient.getBaseUrl()}/player/discordid/${user.id}`)
-        .then(() => {
-          isLoggedIn.value = true;
-          shouldShowRegistrationForm.value = false;
-          resolve(user.id);
-        })
-        .catch(() => {
-          reject("User not registered");
-        });
-    });
-  });
-}
-
-// If the user is in production mode, then we need to check if the user is logged in
-// and if he is registered in the server
-if (useConfigStore().deployMode === "production") {
-  loginUser(getCodeFromUrl()).then((token) => {
-    verifyIfUserInServer(token);
-    verifyIfUserRegistered(token)
-      .then((discordId) => {
-        PlayerApiClient.loadPlayerInfo(discordId).then(() => {
-          loadedUser.value = true;
-        });
-      })
-      .catch(() => {
-        shouldShowRegistrationForm.value = true;
+    authenticationClient
+      .getToken(code)
+      .then((response: AuthenticationResponse) => {
+        resolve(response);
       });
   });
-} else {
+}
+
+if (getCookie("jwt")) {
+  useAuthStore().jwt = getCookie("jwt");
   isLoggedIn.value = true;
   shouldShowRegistrationForm.value = false;
-  PlayerApiClient.loadPlayerInfo("253505646190657537").then(() => {
+  PlayerApiClient.loadPlayerInfo(getCookie("discord_id")).then(() => {
     loadedUser.value = true;
   });
+} else {
+  loginUser(getCodeFromUrl())
+    .then((authenticationResponse: AuthenticationResponse) => {
+      setCookie(
+        "jwt",
+        authenticationResponse.jwt,
+        authenticationResponse.expirationTime,
+      );
+      setCookie(
+        "discord_id",
+        authenticationResponse.discordId,
+        authenticationResponse.expirationTime,
+      );
+      useAuthStore().jwt = authenticationResponse.jwt;
+      discordId.value = authenticationResponse.discordId;
+      PlayerApiClient.loadPlayerInfo(authenticationResponse.discordId).then(
+        () => {
+          shouldShowRegistrationForm.value = false;
+          isLoggedIn.value = true;
+          loadedUser.value = true;
+        },
+      );
+    })
+    .catch(() => {
+      shouldShowRegistrationForm.value = true;
+    });
 }
 </script>

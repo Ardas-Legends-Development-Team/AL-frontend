@@ -3,6 +3,7 @@ import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { PlayerInfo } from "@/ts/types/PlayerInfo";
 import { CharacterInfo } from "@/ts/types/RoleplayCharacter";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
+import { PlayerRpCharResponse } from "@/ts/types/ApiResponseTypes/PlayerRpCharResponse";
 
 export class PlayerApiClient extends ApiClient {
   public static registerPlayer(
@@ -65,11 +66,12 @@ export class PlayerApiClient extends ApiClient {
       axios
         .get(this.getBaseUrl() + "/player/discordid/" + discordId)
         .then((response) => {
-          const data = response.data;
+          const data: PlayerRpCharResponse = response.data;
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
           playerStore.discordId = data.discordId;
-          playerStore.isStaff = data.isStaff;
+          playerStore.roles = data.roles;
+          playerStore.isStaff = data.roles.includes("ROLE_STAFF");
           // Load character info
           if (data.rpChar !== null) {
             const characterStore = useCharacterStore();

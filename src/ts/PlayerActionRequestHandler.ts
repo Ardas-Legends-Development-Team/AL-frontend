@@ -45,7 +45,6 @@ export class PlayerActionRequestHandler {
     const characterInfo: CharacterInfo =
       await PlayerApiClient.loadCharacterInfo(usePlayerStore().discordId);
     let movement: MovementResponse = {} as MovementResponse;
-    console.log("Sent request parameters: ", requestParameters);
     // Call the appropriate API service
     switch (actionTitle) {
       case "leader move":
@@ -94,6 +93,7 @@ export class PlayerActionRequestHandler {
             requestParameters["toRegion"],
           );
         }
+        console.log(movement);
         break;
       case "bind":
         await ArmyControlApiClient.bindArmy(
@@ -132,7 +132,6 @@ export class PlayerActionRequestHandler {
     AlertHandler.showSuccessAlert("Action submitted successfully.");
     // If we did a movement action, show the taken path and time needed
     // TODO: when time and hoursUntilNextRegion are fixed, show a modal with the path and time needed
-    console.log("Movement: ", movement);
   }
 
   private static async getTargetDiscordId(

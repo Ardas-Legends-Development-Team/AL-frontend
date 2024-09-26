@@ -1,6 +1,17 @@
 import config from "@/config.json";
 import axios from "axios";
 import { ErrorHandler } from "@/ts/ErrorHandler";
+import { useAuthStore } from "@/stores/systemStores";
+
+// Add an axios request interceptor to add the JWT token to the request header.
+// The token can be found in the AuthStore
+axios.interceptors.request.use((config) => {
+  const jwt = useAuthStore().jwt;
+  if (jwt) {
+    config.headers["Authorization"] = `Bearer ${jwt}`;
+  }
+  return config;
+});
 
 // Add an axios responsive interceptor to show an error message on an API error
 axios.interceptors.response.use(
@@ -8,9 +19,16 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("Error response", error.response);
     if (error.response) {
-      if (error.response.message)
+      if (error.response.status === 401) {
+        ErrorHandler.throwError(
+          "Your session has expired. Please reload the page to log in again.",
+        );
+      } else if (error.response.status === 403) {
+        ErrorHandler.throwError(
+          "You do not have permission to access this resource.",
+        );
+      } else if (error.response.message)
         ErrorHandler.throwError(error.response.message);
       else if (error.response.data.message)
         ErrorHandler.throwError(error.response.data.message);
