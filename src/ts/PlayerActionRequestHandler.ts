@@ -93,6 +93,7 @@ export class PlayerActionRequestHandler {
             requestParameters["toRegion"],
           );
         }
+        console.log(movement);
         break;
       case "bind":
         await ArmyControlApiClient.bindArmy(
