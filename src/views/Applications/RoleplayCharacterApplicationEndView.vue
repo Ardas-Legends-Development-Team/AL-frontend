@@ -7,6 +7,7 @@
         :good-alt="'dwarves having a drink inside a tavern near candles'"
         :evil-src="'https://ateettea.sirv.com/Applications/Roleplay/Screenshot%202023-03-06%20112547.png'"
         :good-src="'https://ateettea.sirv.com/Applications/Roleplay/Dark-Eyes-Open_portrait_of_Aragon_Legolas_and_Gimli_enjoying_yu_30dd9010-e5c4-4d7d-a938-d22a83cb70b6.png'"
+        :padding-limiter-class="'h-64'"
       />
       <div>
         <h1 class="text-5xl font-bold">Character Submitted!</h1>

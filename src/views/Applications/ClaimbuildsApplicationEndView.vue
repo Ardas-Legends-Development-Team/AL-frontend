@@ -7,6 +7,7 @@
         :good-alt="'arnor castle on top of a steep hill'"
         :evil-src="'https://ateettea.sirv.com/Applications/Claimbuild/ed85e66e-3c8d-4868-a4fc-d5b42fe59a4a.jpg'"
         :good-src="'https://ateettea.sirv.com/Applications/Claimbuild/cdfd83ee-4dfa-4499-be2b-7cefce156353.jpg'"
+        :padding-limiter-class="'h-64'"
       />
       <div>
         <h1 class="text-5xl font-bold">Claimbuild Submitted!</h1>
