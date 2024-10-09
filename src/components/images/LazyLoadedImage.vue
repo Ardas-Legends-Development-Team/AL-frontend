@@ -9,6 +9,7 @@
       :component-is-ready="componentReady || loaded"
     />
     <img
+      class="h-auto"
       :class="insideClasses"
       :src="imageData.src + '?profile=Normal-Image'"
       :alt="imageData.alt"
