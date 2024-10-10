@@ -92,7 +92,7 @@ const cardsData = ref({
 });
 
 PlayerApiClient.loadCharacterInfo().then((data) => {
-  if (data.boundTo) {
+  if (data.boundTo !== "Not bound to entity") {
     cardsData.value.boundTo.description = data.boundTo;
   }
   cardsData.value.currentRegion.description = data.currentRegion;
@@ -104,20 +104,22 @@ PlayerApiClient.loadCharacterInfo().then((data) => {
     cardsData.value.pvpStatus.description = "Enabled";
   }
   // Get the current movement if we have one
-  MovementApiClient.getCharacterMovement(data.name).then(
-    (movement: { currentMovement: MovementResponse }) => {
-      if (movement.currentMovement) {
-        const destination =
-          movement.currentMovement.path[
-            movement.currentMovement.path.length - 1
-          ].region;
-        cardsData.value.movement.description =
-          "Arriving at region\n" +
-          destination +
-          " at " +
-          formatDateString(movement.currentMovement.endTime);
-      }
-    },
-  );
+  if (data.name !== "No character name") {
+    MovementApiClient.getCharacterMovement(data.name).then(
+      (movement: { currentMovement: MovementResponse }) => {
+        if (movement.currentMovement) {
+          const destination =
+            movement.currentMovement.path[
+              movement.currentMovement.path.length - 1
+            ].region;
+          cardsData.value.movement.description =
+            "Arriving at region\n" +
+            destination +
+            " at " +
+            formatDateString(movement.currentMovement.endTime);
+        }
+      },
+    );
+  }
 });
 </script>

@@ -25,37 +25,67 @@ import { rankCardData } from "@/assets/userDashboardActionCardData.json";
 import { ref } from "vue";
 import { FactionApiClient } from "@/ts/ApiService/FactionApiClient";
 import { getArmyBoundToPlayer } from "@/ts/utilities";
-import { usePlayerStore } from "@/stores/playerStores";
+import { useCharacterStore, usePlayerStore } from "@/stores/playerStores";
 import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const shownCards: any = ref({});
 
-async function populateShownCards(rank: string): Promise<void> {
-  // If rank is different from member add all rank-specific actions, and then we add the member actions
-  if (rank !== "member") {
-    shownCards.value.rankMove = rankCardData.leader.move;
-    shownCards.value.rankBind = rankCardData.leader.bind;
-    shownCards.value.rankUnbind = rankCardData.leader.unbind;
-    shownCards.value.rankStation = rankCardData.leader.station;
-    shownCards.value.rankUnstation = rankCardData.leader.unstation;
-    shownCards.value.createArmy = rankCardData.leader.createArmy;
-    shownCards.value.disband = rankCardData.leader.disband;
-  }
-  // Add all member actions concerning the player himself. Do not add mutually exclusive actions
-  // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
-  shownCards.value.memberMove = rankCardData.member.move;
-  // If the player is not bound to an army, we only show the bind action and not unbind/station/unstation
-  const armyBoundToPlayer = await getArmyBoundToPlayer(
-    usePlayerStore().discordId,
-  );
-  if (armyBoundToPlayer) {
-    shownCards.value.memberUnbind = rankCardData.member.unbind;
-    // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
-    shownCards.value.memberStation = rankCardData.member.station;
-    shownCards.value.memberUnstation = rankCardData.member.unstation;
-    shownCards.value.memberDeclareBattle = rankCardData.member.declareBattle;
-  } else {
+const playerHasRpChar = useCharacterStore.name === "No character name";
+
+const leaderActions = () => {
+  shownCards.value.rankMove = rankCardData.leader.move;
+  shownCards.value.rankBind = rankCardData.leader.bind;
+  shownCards.value.rankUnbind = rankCardData.leader.unbind;
+  shownCards.value.rankStation = rankCardData.leader.station;
+  shownCards.value.rankUnstation = rankCardData.leader.unstation;
+  shownCards.value.createArmy = rankCardData.leader.createArmy;
+  shownCards.value.disband = rankCardData.leader.disband;
+};
+
+const armyActions = () => {
+  shownCards.value.memberUnbind = rankCardData.member.unbind;
+  // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
+  shownCards.value.memberStation = rankCardData.member.station;
+  shownCards.value.memberUnstation = rankCardData.member.unstation;
+  shownCards.value.memberDeclareBattle = rankCardData.member.declareBattle;
+};
+
+const rpCharActions = {
+  characterBind: () => {
     shownCards.value.memberBind = rankCardData.member.bind;
+  },
+  characterMove: () => {
+    shownCards.value.memberMove = rankCardData.member.move;
+  },
+};
+
+async function populateShownCards(rank: string): Promise<void> {
+  switch (playerHasRpChar) {
+    case true:
+      // If rank is different from member add all rank-specific actions, and then we add the member actions
+      if (rank !== "member") {
+        leaderActions();
+      }
+      // Add all member actions concerning the player himself. Do not add mutually exclusive actions
+      // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
+      if (playerHasRpChar) {
+        rpCharActions.characterMove();
+      }
+      // If the player is not bound to an army, we only show the bind action and not unbind/station/unstation
+      const isPlayerBound =
+        (await getArmyBoundToPlayer(usePlayerStore().discordId)) !==
+        "Not bound to entity";
+
+      if (isPlayerBound) {
+        armyActions();
+      } else {
+        rpCharActions.characterBind();
+      }
+      break;
+    default:
+      if (rank !== "member") {
+        leaderActions();
+      }
   }
 }
 
