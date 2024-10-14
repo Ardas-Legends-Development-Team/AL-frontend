@@ -2,6 +2,7 @@ import axios from "axios";
 import { Army } from "@/ts/types/Army";
 import { ApiClient } from "@/ts/ApiService/ApiClient";
 import { UnitType } from "@/ts/types/UnitType";
+import { usePlayerStore } from "@/stores/playerStores";
 
 // TODO: Connect them to the store
 export class ArmyApiClient extends ApiClient {
@@ -36,9 +37,13 @@ export class ArmyApiClient extends ApiClient {
 
     const request = new Promise<UnitType[]>((resolve) => {
       axios
-        .get(this.getBaseUrl() + "/unittypes")
+        .get(this.getBaseUrl() + "/unittypes", {
+          params: {
+            faction: [usePlayerStore().faction],
+          },
+        })
         .then((response) => {
-          resolve(response.data.content);
+          resolve(response.data);
         })
         .finally(() => {
           this.pendingRequests.delete(requestKey);
