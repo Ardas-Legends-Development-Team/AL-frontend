@@ -66,6 +66,7 @@ export class PlayerApiClient extends ApiClient {
       axios
         .get(this.getBaseUrl() + "/player/discordid/" + discordId)
         .then((response) => {
+          console.log(response.data);
           const data: PlayerRpCharResponse = response.data;
           playerStore.ign = data.ign;
           playerStore.faction = data.faction;
