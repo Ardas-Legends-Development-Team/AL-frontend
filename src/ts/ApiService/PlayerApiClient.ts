@@ -80,7 +80,10 @@ export class PlayerApiClient extends ApiClient {
             characterStore.gear = data.rpChar.gear;
             characterStore.pvp = data.rpChar.pvp;
             characterStore.currentRegion = data.rpChar.currentRegion;
-            characterStore.boundTo = data.rpChar.boundTo;
+            characterStore.boundTo =
+              data.rpChar.boundTo === null
+                ? "Not bound to entity"
+                : data.rpChar.boundTo;
             characterStore.injured = data.rpChar.injured;
             characterStore.isHealing = data.rpChar.isHealing;
             characterStore.startedHeal = data.rpChar.startedHeal;
