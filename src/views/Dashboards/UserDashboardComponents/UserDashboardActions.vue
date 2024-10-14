@@ -30,7 +30,7 @@ import { useFactionsStore } from "@/stores/generalInfoStores";
 
 const shownCards: any = ref({});
 
-const playerHasRpChar = useCharacterStore.name === "No character name";
+const playerHasRpChar = useCharacterStore().name !== "No character name";
 
 const leaderActions = () => {
   shownCards.value.rankMove = rankCardData.leader.move;
@@ -44,9 +44,6 @@ const leaderActions = () => {
 
 const armyActions = () => {
   shownCards.value.memberUnbind = rankCardData.member.unbind;
-  // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
-  shownCards.value.memberStation = rankCardData.member.station;
-  shownCards.value.memberUnstation = rankCardData.member.unstation;
   shownCards.value.memberDeclareBattle = rankCardData.member.declareBattle;
 };
 
@@ -56,6 +53,13 @@ const rpCharActions = {
   },
   characterMove: () => {
     shownCards.value.memberMove = rankCardData.member.move;
+  },
+  // TODO: exclude the station/unstation actions if the player is already stationed when we get info from API
+  characterStation: () => {
+    shownCards.value.memberStation = rankCardData.member.station;
+  },
+  characterUnstation: () => {
+    shownCards.value.memberUnstation = rankCardData.member.unstation;
   },
 };
 
@@ -68,9 +72,9 @@ async function populateShownCards(rank: string): Promise<void> {
       }
       // Add all member actions concerning the player himself. Do not add mutually exclusive actions
       // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
-      if (playerHasRpChar) {
-        rpCharActions.characterMove();
-      }
+      rpCharActions.characterMove();
+      rpCharActions.characterStation();
+      rpCharActions.characterUnstation();
       // If the player is not bound to an army, we only show the bind action and not unbind/station/unstation
       const isPlayerBound =
         (await getArmyBoundToPlayer(usePlayerStore().discordId)) !==
