@@ -108,6 +108,7 @@ export class PlayerActionRequestHandler {
 
         break;
       case "station":
+        console.log(characterInfo.boundTo);
         if (characterInfo.boundTo !== "Not bound to entity") {
           requestParameters["armyName"] = characterInfo.boundTo;
           await ArmyControlApiClient.stationArmy(

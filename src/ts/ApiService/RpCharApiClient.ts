@@ -29,6 +29,7 @@ export class RpCharApiClient extends ApiClient {
               ign: rpChar.ownerIgn,
               rpChar: {
                 boundTo: rpChar.boundTo,
+                stationedAt: rpChar.stationedAt,
                 currentRegion: rpChar.currentRegion,
                 gear: rpChar.gear,
                 healEnds: rpChar.healEnds,
@@ -108,6 +109,7 @@ export class RpCharApiClient extends ApiClient {
                 ign: rpChar.ownerIgn,
                 rpChar: {
                   boundTo: rpChar.boundTo,
+                  stationedAt: rpChar.stationedAt,
                   currentRegion: rpChar.currentRegion,
                   gear: rpChar.gear,
                   healEnds: rpChar.healEnds,

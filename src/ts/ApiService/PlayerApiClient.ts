@@ -85,6 +85,10 @@ export class PlayerApiClient extends ApiClient {
               data.rpChar.boundTo === null
                 ? "Not bound to entity"
                 : data.rpChar.boundTo;
+            characterStore.stationedAt =
+              data.rpChar.stationedAt === null
+                ? "Not stationed at entity"
+                : data.rpChar.stationedAt;
             characterStore.injured = data.rpChar.injured;
             characterStore.isHealing = data.rpChar.isHealing;
             characterStore.startedHeal = data.rpChar.startedHeal;

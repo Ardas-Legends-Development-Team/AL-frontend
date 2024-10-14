@@ -20,6 +20,7 @@ export const usePlayerStore = defineStore("PlayerStore", () => {
 
 export const useCharacterStore = defineStore("CharacterStore", () => {
   const boundTo = ref("Not bound to entity");
+  const stationedAt = ref("Not stationed at entity");
   const currentRegion = ref("0");
   const gear = ref("No gear");
   const healEnds = ref("Some another date");
@@ -33,6 +34,7 @@ export const useCharacterStore = defineStore("CharacterStore", () => {
 
   return {
     boundTo,
+    stationedAt,
     currentRegion,
     gear,
     healEnds,

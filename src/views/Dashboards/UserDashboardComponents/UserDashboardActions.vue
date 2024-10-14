@@ -73,8 +73,15 @@ async function populateShownCards(rank: string): Promise<void> {
       // Add all member actions concerning the player himself. Do not add mutually exclusive actions
       // Such as bind/unbind and station/unstation (they are mutually exclusive in the UI)
       rpCharActions.characterMove();
-      rpCharActions.characterStation();
-      rpCharActions.characterUnstation();
+
+      const isCharacterStationed =
+        useCharacterStore().stationedAt !== "Not stationed at entity";
+
+      if (isCharacterStationed) {
+        rpCharActions.characterUnstation();
+      } else {
+        rpCharActions.characterStation();
+      }
       // If the player is not bound to an army, we only show the bind action and not unbind/station/unstation
       const isPlayerBound =
         (await getArmyBoundToPlayer(usePlayerStore().discordId)) !==

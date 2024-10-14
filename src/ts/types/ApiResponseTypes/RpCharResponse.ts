@@ -5,7 +5,7 @@ export type RpCharResponse = {
   pvp: boolean;
   currentRegion: string;
   boundTo: string;
-  stationedIn: string;
+  stationedAt: string;
   injured: boolean;
   isHealing: boolean;
   startedHeal: string;
