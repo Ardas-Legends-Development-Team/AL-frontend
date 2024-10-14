@@ -2,6 +2,7 @@ import { useRpCharStore } from "@/stores/rpcharStores";
 import { RoleplayCharacter } from "../types/RoleplayCharacter";
 import { ApiClient } from "./ApiClient";
 import axios from "axios";
+import { usePlayerStore } from "@/stores/playerStores";
 
 export class RpCharApiClient extends ApiClient {
   public static loadAllRpChars(): Promise<RoleplayCharacter[]> {
@@ -139,5 +140,51 @@ export class RpCharApiClient extends ApiClient {
 
     this.pendingRequests.set(requestKey, request);
     return request;
+  }
+
+  public static async stationCharacter(
+    claimbuildName: string,
+    characterName: string,
+  ): Promise<string> {
+    return new Promise((resolve) => {
+      axios
+        .patch(
+          this.getBaseUrl() + "/rpchars/station",
+          {
+            executorDiscordId: usePlayerStore().discordId,
+            claimbuildName: claimbuildName,
+            characterName: characterName,
+          },
+          {
+            headers: {},
+          },
+        )
+        .then((response) => {
+          resolve(response.data.name);
+        });
+    });
+  }
+
+  public static async unstationCharacter(
+    claimbuildName: string,
+    characterName: string,
+  ): Promise<string> {
+    return new Promise((resolve) => {
+      axios
+        .patch(
+          this.getBaseUrl() + "/rpchars/unstation",
+          {
+            executorDiscordId: usePlayerStore().discordId,
+            claimbuildName: claimbuildName,
+            characterName: characterName,
+          },
+          {
+            headers: {},
+          },
+        )
+        .then((response) => {
+          resolve(response.data.name);
+        });
+    });
   }
 }
