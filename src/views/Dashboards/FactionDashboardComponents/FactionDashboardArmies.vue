@@ -199,6 +199,7 @@ const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
         pvp: false,
         currentRegion: "",
         boundTo: "",
+        stationedAt: "",
         injured: false,
         isHealing: false,
         startedHeal: "",

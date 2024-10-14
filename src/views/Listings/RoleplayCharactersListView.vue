@@ -1,6 +1,6 @@
 <template>
   <table
-    class="table table-pin-rows table-zebra relative min-w-full divide-y divide-gray-200"
+    class="table table-zebra table-pin-rows relative min-w-full divide-y divide-gray-200"
   >
     <!-- head -->
     <thead>
@@ -96,6 +96,7 @@ const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
         pvp: false,
         currentRegion: "",
         boundTo: "",
+        stationedAt: "",
         injured: false,
         isHealing: false,
         startedHeal: "",
