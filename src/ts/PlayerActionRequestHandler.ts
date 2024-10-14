@@ -11,6 +11,7 @@ import { ArmyControlApiClient } from "@/ts/ApiService/ArmyControlApiClient";
 import { PlayerApiClient } from "@/ts/ApiService/PlayerApiClient";
 import { CharacterInfo } from "@/ts/types/CharacterInfo";
 import { MovementResponse } from "@/ts/types/ApiResponseTypes/MovementResponse";
+import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
 
 /**
  * This handler is responsible for handling the player action requests.
@@ -72,10 +73,7 @@ export class PlayerActionRequestHandler {
         );
         break;
       case "leader unstation":
-        await ArmyControlApiClient.unstationArmy(
-          requestParameters["claimbuildName"],
-          requestParameters["armyName"],
-        );
+        await ArmyControlApiClient.unstationArmy(requestParameters["armyName"]);
         break;
       case "diband army":
         await ArmyControlApiClient.disbandArmy(requestParameters["armyName"]);
@@ -110,19 +108,33 @@ export class PlayerActionRequestHandler {
 
         break;
       case "station":
-        requestParameters["armyName"] = characterInfo.boundTo;
-        await ArmyControlApiClient.stationArmy(
-          requestParameters["claimbuildName"],
-          requestParameters["armyName"],
-        );
+        if (characterInfo.boundTo !== "Not bound to entity") {
+          requestParameters["armyName"] = characterInfo.boundTo;
+          await ArmyControlApiClient.stationArmy(
+            requestParameters["claimbuildName"],
+            requestParameters["armyName"],
+          );
+        } else {
+          requestParameters["characterName"] = characterInfo.name;
+          await RpCharApiClient.stationCharacter(
+            requestParameters["claimbuildName"],
+            requestParameters["characterName"],
+          );
+        }
         break;
 
       case "unstation":
-        requestParameters["armyName"] = characterInfo.boundTo;
-        await ArmyControlApiClient.unstationArmy(
-          requestParameters["claimbuildName"],
-          requestParameters["armyName"],
-        );
+        if (characterInfo.boundTo !== "Not bound to entity") {
+          requestParameters["armyName"] = characterInfo.boundTo;
+          await ArmyControlApiClient.unstationArmy(
+            requestParameters["armyName"],
+          );
+        } else {
+          requestParameters["characterName"] = characterInfo.name;
+          await RpCharApiClient.unstationCharacter(
+            requestParameters["characterName"],
+          );
+        }
         break;
       default:
         ErrorHandler.throwError("Action was not found.");

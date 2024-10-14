@@ -166,7 +166,6 @@ export class RpCharApiClient extends ApiClient {
   }
 
   public static async unstationCharacter(
-    claimbuildName: string,
     characterName: string,
   ): Promise<string> {
     return new Promise((resolve) => {
@@ -175,7 +174,6 @@ export class RpCharApiClient extends ApiClient {
           this.getBaseUrl() + "/rpchars/unstation",
           {
             executorDiscordId: usePlayerStore().discordId,
-            claimbuildName: claimbuildName,
             characterName: characterName,
           },
           {

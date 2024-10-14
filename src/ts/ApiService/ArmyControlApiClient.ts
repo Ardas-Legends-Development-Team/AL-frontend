@@ -115,17 +115,13 @@ export class ArmyControlApiClient extends ApiClient {
     });
   }
 
-  public static async unstationArmy(
-    claimbuildName: string,
-    armyName: string,
-  ): Promise<string> {
+  public static async unstationArmy(armyName: string): Promise<string> {
     return new Promise((resolve) => {
       axios
         .patch(
           this.getBaseUrl() + "/army/unstation",
           {
             executorDiscordId: usePlayerStore().discordId,
-            claimbuildName: claimbuildName,
             armyName: armyName,
           },
           {
