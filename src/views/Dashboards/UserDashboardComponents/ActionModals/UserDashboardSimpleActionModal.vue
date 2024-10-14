@@ -39,7 +39,7 @@
           </div>
         </div>
         <!-- If we need a confirmation and it's a movement action, then show the path used -->
-        <div v-if="isConfirming">
+        <div v-if="isConfirming && movementPath">
           <h3 class="mt-4 text-xl font-bold text-error">
             Movement confirmation
           </h3>
