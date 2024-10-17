@@ -29,7 +29,7 @@
           class="divider"
         ></div>
         <div
-          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300"
+          class="card rounded-box grid h-20 flex-grow place-items-center bg-base-300 px-1.5"
         >
           <p class="font-medium">
             Gear: {{ props.selectedCharacter.rpChar.gear }}
