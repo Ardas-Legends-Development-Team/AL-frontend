@@ -3,7 +3,9 @@
     <div class="modal-box h-screen max-w-screen-2xl">
       <!-- Ways to close the modal while clicking on cross and outside of it -->
       <form method="dialog">
-        <button class="btn btn-circle btn-secondary absolute right-0 top-0">
+        <button
+          class="btn btn-circle btn-secondary absolute right-0 top-0 z-10"
+        >
           ✕
         </button>
       </form>
