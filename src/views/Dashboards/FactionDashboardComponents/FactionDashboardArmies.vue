@@ -68,7 +68,7 @@
           (roleplayCharacter) => roleplayCharacter.character,
         )
       "
-      @search="updateFilteredCharactersOnSearch"
+      @search="rpCharModal.updateFilteredCharactersOnSearch"
     />
   </div>
   <div
@@ -122,13 +122,12 @@
             </p>
           </th>
           <th>
-            <button
+            <label
+              for="rpCharDetailsModal"
               class="btn"
-              onclick="rpCharDetailsModal.showModal()"
-              @click="sendInfoToModal(roleplayCharacter.character)"
+              @click="rpCharModal.sendInfoToModal(roleplayCharacter.character)"
+              >Details</label
             >
-              Details
-            </button>
           </th>
         </tr>
       </tbody>
@@ -149,6 +148,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import RoleplayCharacterDetailsModal from "@/components/modals/RoleplayCharacterDetailsModal.vue";
 import { RpCharApiClient } from "@/ts/ApiService/RpCharApiClient";
+import { useCharacterModal } from "@/components/modals/modalUtils";
 
 const allArmies = ref<Army[]>([]);
 const filtredArmies = ref<Army[]>([]);
@@ -179,61 +179,17 @@ const props = defineProps({
   },
 });
 
-const allRoleplayCharacters = ref<
-  { avatar: string; character: RoleplayCharacter }[]
->([]);
-const filteredCharacters = ref<
-  { avatar: string; character: RoleplayCharacter }[]
->([]);
-const selectedCharacter = ref<{ avatar: string; character: RoleplayCharacter }>(
-  {
-    avatar: "",
-    character: {
-      discordId: "",
-      ign: "",
-      faction: "",
-      rpChar: {
-        name: "",
-        title: "",
-        gear: "",
-        pvp: false,
-        currentRegion: "",
-        boundTo: "",
-        stationedAt: "",
-        injured: false,
-        isHealing: false,
-        startedHeal: "",
-        healEnds: "",
-        rank: "",
-      },
-    },
-  },
-);
+const rpCharModal = useCharacterModal();
 
-function sendInfoToModal(roleplayCharacter: RoleplayCharacter) {
-  selectedCharacter.value.character = roleplayCharacter;
-}
-
-function updateFilteredCharactersOnSearch(searchResults: RoleplayCharacter[]) {
-  if (searchResults.length === 0) {
-    filteredCharacters.value = allRoleplayCharacters.value;
-    return;
-  }
-  filteredCharacters.value = allRoleplayCharacters.value.filter((rpchar) =>
-    searchResults.includes(rpchar.character),
-  );
-}
+const allRoleplayCharacters = rpCharModal.allRoleplayCharacters;
+const filteredCharacters = rpCharModal.filteredCharacters;
+const selectedCharacter = rpCharModal.selectedCharacter;
 
 RpCharApiClient.loadAllRpChars().then((data: RoleplayCharacter[]) => {
   // Get only characters in the faction
   const rpChars = data.filter((rpchar) => rpchar.faction === props.faction);
 
-  for (let i = 0; i < rpChars.length; i++) {
-    allRoleplayCharacters.value.push({
-      avatar: `https://mc-heads.net/avatar/${rpChars[i].ign}/36`,
-      character: rpChars[i],
-    });
-  }
+  rpCharModal.getCharacterHeads(rpChars);
   filteredCharacters.value = allRoleplayCharacters.value;
 });
 </script>
