@@ -20,13 +20,6 @@
       title="Created Armies"
       :items="createdArmies"
     />
-    <GenericDropdown title="test" :items="testItems" />
-    <GenericDropdown title="test2" :items="testItemsTwo" />
-    <GenericDropdown title="test3" :items="testItemsTwo" />
-    <GenericDropdown title="test4" :items="testItems" />
-    <GenericDropdown title="test5" :items="testItemsTwo" />
-    <GenericDropdown title="test6" :items="testItems" />
-    <GenericDropdown title="test7" :items="testItemsTwo" />
   </div>
 </template>
 
