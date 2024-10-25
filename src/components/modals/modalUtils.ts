@@ -1,5 +1,6 @@
 import { RoleplayCharacter } from "@/ts/types/RoleplayCharacter";
 import { ref } from "vue";
+import { ArmyTransfer, ProductionSiteTransfer } from "@/ts/types/Claimbuild";
 
 export function useCharacterModal() {
   const allRoleplayCharacters = ref<
@@ -66,4 +67,23 @@ export function useCharacterModal() {
     updateFilteredCharactersOnSearch,
     getCharacterHeads,
   };
+}
+
+export function generateProductionSiteString(sites: ProductionSiteTransfer[]) {
+  return (
+    sites.map((site) => {
+      return `${site.amount} ${site.productionSite.resource} ${site.productionSite.type}`;
+    }) || []
+  );
+}
+
+export function generateArmyStrings(
+  armies: ArmyTransfer[],
+  isStationed?: boolean,
+) {
+  return (
+    armies.map((army) => {
+      `${isStationed ? army.faction : ""} ${army.armyType}: ${army.name}, ${army.boundTo}`;
+    }) || []
+  );
 }
