@@ -24,12 +24,8 @@ defineProps({
     required: true,
   },
   items: {
-    type: Array(String),
+    type: Array,
     required: true,
-  },
-  keys: {
-    type: Array(String),
-    required: false,
   },
 });
 

@@ -38,13 +38,13 @@ const props = defineProps({
   },
 });
 
-const sites = generateProductionSiteString(
+const sites: string[] = generateProductionSiteString(
   props.selectedClaimbuild?.productionSites || [],
 );
-const stationedArmies = generateArmyStrings(
+const stationedArmies: string[] = generateArmyStrings(
   props.selectedClaimbuild?.stationedArmies || [],
 );
-const createdArmies = generateArmyStrings(
+const createdArmies: string[] = generateArmyStrings(
   props.selectedClaimbuild?.createdArmies || [],
 );
 </script>

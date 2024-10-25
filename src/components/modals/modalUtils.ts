@@ -69,21 +69,19 @@ export function useCharacterModal() {
   };
 }
 
-export function generateProductionSiteString(sites: ProductionSiteTransfer[]) {
-  return (
-    sites.map((site) => {
-      return `${site.amount} ${site.productionSite.resource} ${site.productionSite.type}`;
-    }) || []
-  );
+export function generateProductionSiteString(
+  sites: ProductionSiteTransfer[],
+): string[] {
+  return sites.map((site) => {
+    return `${site.amount} ${site.productionSite.resource} ${site.productionSite.type}`;
+  });
 }
 
 export function generateArmyStrings(
   armies: ArmyTransfer[],
   isStationed?: boolean,
-) {
-  return (
-    armies.map((army) => {
-      `${isStationed ? army.faction : ""} ${army.armyType}: ${army.name}, ${army.boundTo}`;
-    }) || []
-  );
+): string[] {
+  return armies.map((army) => {
+    return `${isStationed ? army.faction : ""} ${army.armyType}: ${army.name}, ${army.boundTo}`;
+  });
 }
