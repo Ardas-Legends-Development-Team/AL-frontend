@@ -19,10 +19,7 @@ export type Claimbuild = {
     faction: string;
   }[];
   specialBuildings: string[];
-  productionSites: {
-    amount: number;
-    productionSite: ProductionSite;
-  }[];
+  productionSites: ProductionSiteTransfer[];
   stationedArmies: {
     id: number;
     name: string;
@@ -50,6 +47,20 @@ export type Claimbuild = {
 export type ProductionSite = {
   type: string;
   resource: string;
+};
+
+export type ProductionSiteTransfer = {
+  amount: number;
+  productionSite: ProductionSite;
+};
+
+export type ArmyTransfer = {
+  id: number;
+  name: string;
+  armyType: string;
+  faction: string;
+  currentRegion: number;
+  boundTo: string;
 };
 
 export type ProductionSiteWithCount = {
