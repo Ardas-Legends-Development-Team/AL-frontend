@@ -37,8 +37,6 @@ const props = defineProps({
     required: true,
   },
 });
-const testItems = ["Fingon", "Fingolfin", "Feanor", "Turgon"];
-const testItemsTwo = ["test1", "test2"];
 
 const sites = generateProductionSiteString(
   props.selectedClaimbuild?.productionSites || [],
