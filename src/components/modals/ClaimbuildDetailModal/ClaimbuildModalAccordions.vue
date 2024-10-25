@@ -1,14 +1,14 @@
 <template>
   <div class="m-6 grid grid-cols-2 gap-4">
     <GenericDropdown
-      v-if="sites.length > 0"
+      v-if="selectedClaimbuild.productionSites.length > 0"
       title="Production Sites"
-      :items="sites"
+      :items="generateProductionSiteString(selectedClaimbuild.productionSites)"
     />
     <GenericDropdown
-      v-if="stationedArmies.length > 0"
+      v-if="selectedClaimbuild.stationedArmies.length > 0"
       title="Stationed Armies"
-      :items="stationedArmies"
+      :items="generateArmyStrings(selectedClaimbuild.stationedArmies)"
     />
     <GenericDropdown
       v-if="selectedClaimbuild.specialBuildings.length > 0"
@@ -18,7 +18,7 @@
     <GenericDropdown
       v-if="selectedClaimbuild.createdArmies.length > 0"
       title="Created Armies"
-      :items="createdArmies"
+      :items="generateArmyStrings(selectedClaimbuild.createdArmies)"
     />
   </div>
 </template>
@@ -31,20 +31,10 @@ import {
   generateProductionSiteString,
 } from "@/components/modals/modalUtils";
 
-const props = defineProps({
+defineProps({
   selectedClaimbuild: {
     type: Object as () => Claimbuild,
     required: true,
   },
 });
-
-const sites: string[] = generateProductionSiteString(
-  props.selectedClaimbuild?.productionSites || [],
-);
-const stationedArmies: string[] = generateArmyStrings(
-  props.selectedClaimbuild?.stationedArmies || [],
-);
-const createdArmies: string[] = generateArmyStrings(
-  props.selectedClaimbuild?.createdArmies || [],
-);
 </script>
