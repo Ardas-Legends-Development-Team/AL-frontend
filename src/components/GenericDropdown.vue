@@ -5,7 +5,7 @@
       @click="handleClick"
     >
       {{ title }}
-      <span :class="{ arrowDown: !isOpen, arrowUp: isOpen }">▼</span>
+      <span :class="{ arrowDown: !isOpen, arrowUp: isOpen }">v</span>
     </label>
     <ul :class="{ dropdownList: isOpen, disabled: !isOpen }">
       <li v-for="(item, index) in items" :key="index" class="dropdownItem">
