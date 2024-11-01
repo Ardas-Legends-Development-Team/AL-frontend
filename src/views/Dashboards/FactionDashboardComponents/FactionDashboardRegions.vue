@@ -106,6 +106,7 @@
   <ClaimbuildDetailModal
     v-if="selectedClaimbuild"
     :selected-claimbuild="selectedClaimbuild"
+    :key="selectedClaimbuild.name"
   />
 </template>
 

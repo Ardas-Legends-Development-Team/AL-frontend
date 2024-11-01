@@ -21,6 +21,7 @@
         <div class="col-span-1">
           <LazyLoadedImage
             :inside-classes="'h-full w-max object-cover'"
+            padding-limiter-class="max-h-96"
             :evil-alt="
               getClaimbuildTypeImageAlt(
                 selectedClaimbuild.claimBuildType,
