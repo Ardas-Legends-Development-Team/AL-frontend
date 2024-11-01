@@ -5,7 +5,18 @@
       @click="handleClick"
     >
       {{ title }}
-      <span :class="{ arrowDown: !isOpen, arrowUp: isOpen }">v</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="color h-7 w-5"
+        fill="white"
+        :class="{ arrowDown: !isOpen, arrowUp: isOpen }"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+          clip-rule="evenodd"
+        />
+      </svg>
     </label>
     <ul :class="{ dropdownList: isOpen, disabled: !isOpen }">
       <li v-for="(item, index) in items" :key="index" class="dropdownItem">
@@ -70,6 +81,7 @@ function handleClick() {
 .arrowUp,
 .arrowDown {
   margin-left: auto;
+  color: white;
   transition: transform 0.2s;
 }
 
